@@ -18,13 +18,15 @@
 		
 	</head>
 	<body class="is-preload">
-
+ 
 		<!-- Wrapper -->
 			<div id="wrapper">
 
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
+
+							<c:import url="user/common/header.jsp"/>
 
 							<!-- Banner -->
 								<section id="banner">

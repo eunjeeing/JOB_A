@@ -10,7 +10,7 @@
 <!-- Sidebar -->
 <div id="sidebar">
 	<div class="inner">
-
+  
 		<!-- Menu -->
 		<nav id="menu">
 			<header class="major">
