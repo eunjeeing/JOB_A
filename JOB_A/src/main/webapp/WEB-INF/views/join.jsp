@@ -44,6 +44,7 @@
 								<input type="text" class="form-control" name="nickname" id="nickname_" required/>
 							</td>
 						</tr>
+						<tr></tr>
 					</table>
 				</form>
 			</div>
