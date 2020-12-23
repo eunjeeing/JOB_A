@@ -23,9 +23,9 @@
 						<li><a href="#">채용 공고</a></li>
 						<li><a href="#">대외 활동</a></li>
 					</ul></li>
-				<li><span class="opener">커뮤니티</span>
+				<li><span class="opener">취준진담</span>
 					<ul>
-						<li><a href="#">논 토픽</a></li>
+						<li><a href="#">블라블라</a></li>
 						<li><a href="#">블라인드</a></li>
 						<li><a href="#">언틸 투모로우</a></li>
 					</ul></li>
@@ -39,8 +39,9 @@
 			</ul>
 		</nav>
 
-		<!-- Section -->
-		<section>
+		<br />
+		<br /><br /><br /><br />
+		<!-- Footer -->
 			<header class="major">
 				<h2>더 궁금하신 점이 있으신가요?</h2>
 			</header>
@@ -53,11 +54,9 @@
 				<li class="icon solid fa-phone">(000) 000-0000</li>
 				<li class="icon solid fa-home">1234 Somewhere Road #8254<br />
 					Nashville, TN 00000-0000
-				<li class="icon solid fa-link"><a href="#">서비스 소개</a> &nbsp;&nbsp;&nbsp; <a href="#">이용약관</a></li>
+				<li class="icon solid fa-link"><a href="${pageContext.request.contextPath}/resources/uplaodFiles/서비스소개.pdf" download="서비스소개.pdf">서비스 소개</a> &nbsp;&nbsp;&nbsp; <a href="${pageContext.request.contextPath}/resources/uplaodFiles/이용약관.pdf" download="이용약관.pdf">이용약관</a></li>
 			</ul>
-		</section>
 
-		<!-- Footer -->
 		<footer id="footer">
 			<p class="copyright">
 				&copy; Untitled. All rights reserved. Demo Images: <a
