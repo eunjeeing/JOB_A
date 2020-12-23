@@ -6,8 +6,9 @@
 <!DOCTYPE HTML>
 <style>
 
-	.banner{
+	#banner{
 		float : flex;
+		height: 600px;
 	}
 	.left{
 		width: 65%;
@@ -24,8 +25,6 @@
 	  width: $contSize;
 	  height: $contSize;
 	  perspective: 1000px;
-
-		 
 	  }
 	  
 </style>
