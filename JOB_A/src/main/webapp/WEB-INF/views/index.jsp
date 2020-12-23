@@ -153,13 +153,8 @@
 								</section>
 						</div>
 					</div>
-<<<<<<< HEAD
-					
-				
 
-=======
 				<c:import url="user/common/sideBar.jsp"/>
->>>>>>> refs/remotes/origin/feature_princess
 			</div>
 
 		<!-- Scripts -->
