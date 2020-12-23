@@ -14,5 +14,6 @@ public class MenuController {
 	
 	@RequestMapping("/generic.ma")
 	public String menu03() { return "user/samplePage/generic"; }
+	
 
 }
