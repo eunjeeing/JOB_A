@@ -7,5 +7,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class BoardController {
 
 	@RequestMapping("/notice.bo")
-	public String noticeList() { return "user/board/notice"; }
+	public String noticeList() { return "user/board/notice/notice"; }
 }
