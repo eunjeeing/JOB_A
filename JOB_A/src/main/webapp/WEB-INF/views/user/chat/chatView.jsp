@@ -121,7 +121,7 @@ div { padding:5%; }
 </head>
 <body>
 <div class='form-group'>
-    <label id='sessionuserid'><h3>${member.userName}님, 어서오세요!</h3></label><br/>
+    <label id='sessionuserid'><h3>${member.memNick}님, 어서오세요!</h3></label><br/>
     <!-- 대화내용이 출력되는 부분 -->
     <div class='panel panel-default'>
         <div id='chatdata' class='panel-body'></div>
