@@ -14,7 +14,7 @@ public class Board2 {
 	private int typeNo;
 	private int memNo;
 	private int categoryNo;
-	private String boardType;
+	private String boardTitle;
 	private String boardContent;
 	private Date boardDate;
 	private String boardStatus;
