@@ -10,15 +10,17 @@ import lombok.*;
 @NoArgsConstructor
 public class Board2 {
 	
-	private int boardNo;
-	private int typeNo;
-	private int memNo;
-	private int categoryNo;
-	private String boardTitle;
-	private String boardContent;
-	private Date boardDate;
-	private String boardStatus;
-	private int boardView;
-	private String boardUrl;
+	private int board_No;
+	private int type_No;
+	private int mem_No;
+	private int category_No;
+	private String board_Title;
+	private String board_Content;
+	private Date board_Date;
+	private String board_Status;
+	private int board_View;
+	private String board_Url;
+	
+	private String mem_Nick;
 
 }

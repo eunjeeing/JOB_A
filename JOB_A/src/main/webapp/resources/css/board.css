@@ -3197,7 +3197,7 @@
         }
 
         .wrap-info .pv:before {
-            background: url(../images/view.png) no-repeat;
+            background: url(/resources/images/view.png) no-repeat;
             background-size: 600px 900px;
             background-position: -10px -600px
         }
