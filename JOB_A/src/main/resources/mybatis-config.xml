@@ -9,6 +9,7 @@
 
 	<typeAliases>
 		<typeAlias type="com.kh.joba.user.board2.model.vo.Board2" alias="Board2" /> 
+		<typeAlias type="com.kh.joba.user.member.model.vo.Member" alias="Member" />
 
 		
 	</typeAliases>

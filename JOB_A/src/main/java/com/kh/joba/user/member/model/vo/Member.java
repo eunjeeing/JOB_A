@@ -21,10 +21,10 @@ public class Member implements Serializable{
 	private int memNo;
 	private int gradeNo;
 	private String memId;
-	private String mempw;
+	private String memPw;
 	private String memNick;
-	private String mememail;
-	private Date membirth;
-	private String memarea;
+	private String memEmail;
+	private Date memBirth;
+	private String memArea;
 	private int memState;
 }
