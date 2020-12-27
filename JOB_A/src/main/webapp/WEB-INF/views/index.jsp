@@ -78,16 +78,17 @@
 	    background: rgba(222, 225, 226, 0.75);
 	}
 	/* 캐러셀 스타일 */
+	p{
+		display: contents;
+	}
 	.carou_title{
 		height: 30px;
 		width: 95%;
-		border : 1px black solid; /* 나중에 지울것 */
-		margin: 80px auto 0 13px;
+		margin: 85px auto 0 13px;
 	}
 	.carousel-container{
 		width: 95%;
 		margin: auto auto 30px 13px;
-		padding-top : 10px;
 		border: 0px solid #000;
 		overflow: hidden;
 		position: relative;
@@ -99,7 +100,7 @@
 	}
 	#prevBtn{
 		position:absolute;
-		top: 52%;
+		top: 50%;
 		transform: translate(0%, -50%);
 		height: 260px;
 		text-indent: -9999px;
@@ -108,7 +109,7 @@
 	}
 	#nextBtn{
 		position:absolute;
-		top: 52%;
+		top: 50%;
 		right: 0;
 		padding-top:2px;
 		transform: translate(0%, -50%);
@@ -118,21 +119,28 @@
 	}
 	/* 사이트 홍보 배너 */
 	.site_title{
-		border : 1px black solid; /* 나중에 지울것 */
 		height: 125px;
 		width: 95%;
 		margin-left: 13px;
-		padding: 5px auto auto 5px;
-		background-color: grey;
+		margin-top : 35px;
+		padding: 20px;
+		background-color: black;
 	}
+	.site_title> p{
+		font-size: 22px;
+		font-weight: bold;
+		color: white;
+	}
+	
 	.right{
 		width : 27%;
 		height: 537px;
 		border : 1px black solid; /* 나중에 지울것 */
 		display: block;
+		margin-bottom: 20px;
 	}
 	.right>div{
-		border : 1px black solid; /* 나중에 지울것 */
+		background-color: rgba(222, 225, 226, 0.75);
 	}
 	.ranking{
 		height: 325px;
@@ -144,10 +152,40 @@
 		width: 100%;
 	}
 	
+	section> div> .sub_menu{
+		border-left : 10px solid #f56a6a;
+		border-right : 10px solid #f56a6a;
+		border-radius: 5px;
+		width: 30%; 
+		height: 100px;  
+		margin-right: 20px;
+		padding: 17px 15px 10px 32px;
+	}
+	section> div> .sub_menu3{
+		border-left : 10px solid #f56a6a;
+		border-right : 10px solid #f56a6a;
+		border-radius: 5px;
+		width: 30%; 
+		height: 100px;  
+		margin-right: 20px;
+		padding: 17px 15px 10px 22px;
+	}
+	.textline {
+		font-size: 18px;
+		font-weight: bold;
+		display: inline-block;
+		margin-left: 10px; 
+	}
+	#menu:hover{
+		cursor: pointer;
+		background-color: lightgrey;
+	}
+	
+	
 </style>
 <html>
 	<head>
-		<title>Editorial by HTML5 UP</title>
+		<title>JOB_A</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
@@ -177,21 +215,24 @@
 											</div>
 										<!-- 캐러셀 -->
 										<div class="carou_title">
-											<span class="icon"><i class="fa fa-search"></i></span>
+											<i class="fas fa-fire" style="font-size: 22px; color: #f56a6a; margin-left: 5px;"></i>
+											<p style="font-size: 17px;">&nbsp;토픽 베스트</p>
 										</div>
 										<div class="carousel-container">
-											<div class="carousel-slide" style="border: 1px solid black;">
-												<img src="#" id="lastClone">
-												<img src="#">
-												<img src="#">
-												<img src="#" id="firstClone">
+											<div class="carousel-slide">
+												
+												<!-- 게시판 리스트모양 따오기 -->
+												
 											</div>
 											<button id="prevBtn"><img alt="prev" src=""></button>
 											<button id="nextBtn"><img alt="next" src=""></button>
 										</div>
 										<!-- 홍보 배너 -->
 										<div class="site_title">
-										
+												<p>
+													취준생의,&nbsp;취준생에 의한,&nbsp;취준생을 위한<br>
+													JOB_A로 다 잡아!
+												</p>
 										</div>
 									</div>
 									<!-- 오른쪽 구역 -->
@@ -204,19 +245,21 @@
 								</section>
 
 							<!-- Section -->
+								
 								<section>
-									<div class="features">
-										<article>
-											<span class="icon fa-gem"></span>
-											<div class="content">
-											</div>
-											<span class="icon solid fa-rocket"></span>
-											<div class="content">
-											</div>
-											<span class="icon solid fa-rocket"></span>
-											<div class="content">
-											</div>
-										</article>
+									<div style="margin-left: 35px; margin-bottom: 30px; display: flex;">
+										<div class="sub_menu" id="menu" href="#">
+											<i class="icon far fa-calendar-alt" style="font-size: 50px; color: #f56a6a;"></i>
+											<p class="textline">한 눈에 보자!<br>채용달력</p>
+										</div>
+										<div class="sub_menu" id="menu" href="#">
+											<i class="icon far fa-comments" style="font-size: 50px; color: #f56a6a;"></i>
+											<p class="textline">다들 뭐해?<br>실시간 채팅</p>
+										</div>
+										<div class="sub_menu3" id="menu" href="#">
+											<i class="icon far fa-question-circle" style="font-size: 50px; color: #f56a6a;"></i>
+											<p class="textline">알려주세요~<br>사이트 이용방법</p>
+										</div>
 								</section>
 
 						</div>
