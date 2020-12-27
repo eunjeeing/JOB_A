@@ -6,9 +6,17 @@
 	<!-- 오라클 sql-prperties역할이고, ? 대신 #{} 에 넣는다. ? 는 순서대로 확인해야하지만 순서 상관 없고, 데이터 
 		타입을 알아서 변환해줌 -->
 		
-	<resultMap id="resultMember" type="Member">
-
-	</resultMap>
+   <resultMap id="resultMember" type="Member">
+      <id property="memNo" column="MEM_NO"/>
+      <result property="gradeNo" column="GRADE_NO"/>
+      <result property="memId" column="MEM_ID"/>
+      <result property="memPw" column="MEM_PW"/>
+      <result property="memNick" column="MEM_NICK"/>
+      <result property="memEmail" column="MEM_EMAIL"/>
+      <result property="memBirth" column="MEM_BIRTH"/>
+      <result property="memArea" column="MEM_AREA"/>
+      <result property="memState" column="MEM_STATE"/>
+   </resultMap>
 
 	<insert id="insertMember" parameterType="Member" >
 	 	INSERT INTO MEMBER

@@ -9,11 +9,11 @@
 
 	<typeAliases>
 		<typeAlias type="com.kh.joba.user.board.model.vo.Board1" alias="Board1" /> 	
-		<typeAlias type="com.kh.joba.user.board2.model.vo.Board2" alias="Board2" /> 
+		<typeAlias type="com.kh.joba.user.board2.model.vo.Board2" alias="Board" /> 
 		<typeAlias type="com.kh.joba.user.member.model.vo.Member" alias="Member" />
 	</typeAliases>
 	
-	<typeHandlers> 
+	<typeHandlers>
 		<package name="com.kh.joba.user.common.typeHandler"/>
 	</typeHandlers>
 </configuration>

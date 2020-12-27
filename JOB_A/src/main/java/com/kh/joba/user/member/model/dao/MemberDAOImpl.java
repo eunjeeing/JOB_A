@@ -15,15 +15,15 @@ public class MemberDAOImpl implements MemberDAO {
 	// 회원가입
 	@Override
 	public int insertMember(Member member) {
-
 		return sqlSession.insert("memberMapper.insertMember", member);
 	}
 
 	// 로그인
 	@Override
 	public Member selectOneMember(String memId) {
-
-		return sqlSession.selectOne("memberMapper.loginMember", memId);
+		Member m = sqlSession.selectOne("memberMapper.loginMember", memId);
+		System.out.println("DAO Member m : " + m);
+		return m;
 	}
 
 	// 회원정보 수정

@@ -6,11 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.joba.user.common.exception.MemberException;
 import com.kh.joba.user.member.model.service.MemberService;
 import com.kh.joba.user.member.model.vo.Member;
 
+@SessionAttributes( value= {"member"} )
 @Controller
 public class MemberController {
 
@@ -31,22 +34,26 @@ public class MemberController {
 	
 	// 로그인 
 	@RequestMapping("/member/memberLogin.do")
-	public String memberLogin(@RequestParam String memId,
-							  @RequestParam String memPw,
-							  Model model) {
+	public ModelAndView memberLogin(@RequestParam String memId,
+							  @RequestParam String memPw
+							  ) {
 		System.out.println("member/memberLogin.do 접속 ok");
+		
+		ModelAndView mv = new ModelAndView();
 		
 			String loc = "/";
 			String msg = "";
 			
+			System.out.println("member Id : " + memId);
 			Member m = memberService.selectOneMember(memId);
 			
+			System.out.println("member : " + m);
 			if(m == null) {
 				msg = "존재하지 않는 아이디입니다.";
 			} else {
 				if(bcryptPasswordEncoder.matches(memPw, m.getMemPw())){
 					msg = "로그인에 성공하였습니다!";
-					model.addAttribute("member", m);
+					mv.addObject("member", m);
 					
 				} else {
 					msg = "비밀번호가 일치하지 않습니다!";
@@ -54,10 +61,12 @@ public class MemberController {
 				}
 			}
 			
-			model.addAttribute("msg", msg);
-			model.addAttribute("loc", loc);
+			mv.addObject("msg", msg);
+			mv.addObject("loc", loc);
+			
+			mv.setViewName("user/common/msg");
 		
-		return "index";
+		return mv;
 	}
 	
 	// 회원가입 페이지 접속

@@ -22,7 +22,7 @@
 	</div>
 	<div class="icons" >
 		<c:if test="${empty member}">
-			<a href="#" class="fas fa-sign-in-alt"> <span class="label">로그인</span></a>
+			<a href="${pageContext.request.contextPath}/login.do"><span>로그인</span></a>
 		</c:if>
 		<c:if test="${!empty member}">	
 			<span><a href="${pageContext.request.contextPath}/member/#####.do?memId=${member.memId}" title="${member.memNick}"></a> 님, 취뽀 화이팅</span>
