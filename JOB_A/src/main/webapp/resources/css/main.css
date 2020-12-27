@@ -1698,7 +1698,7 @@ button,
             height: 6em;
             margin: -3em 0 0 -3em;
             width: 6em; } }
-  @media screen and (max-width: 480px) {
+/*   @media screen and (max-width: 480px) {
     .features article {
       -moz-flex-direction: column;
       -webkit-flex-direction: column;
@@ -1721,7 +1721,7 @@ button,
           width: 4em; } }
   @media screen and (max-width: 480px) {
     .features article .icon:before {
-      font-size: 1.25rem; } }
+      font-size: 1.25rem; } } */
 
 /* Posts */
 .posts {
