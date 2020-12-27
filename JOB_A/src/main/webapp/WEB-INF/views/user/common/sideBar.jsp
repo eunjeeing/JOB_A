@@ -23,12 +23,14 @@
 						<li><a href="#">채용 공고</a></li>
 						<li><a href="#">대외 활동</a></li>
 					</ul></li>
+				<li><a href="#">채용 달력</a></li>
 				<li><span class="opener">취준진담</span>
 					<ul>
 						<li><a href="${pageContext.request.contextPath}/board2/blahList.bo">블라블라</a></li>
 						<li><a href="#">블라인드</a></li>
 						<li><a href="#">언틸 투모로우</a></li>
 					</ul></li>
+				<li><a href="${pageContext.request.contextPath}/chat/chatList.do">실시간 채팅</a></li>
 				<li><a href="#">멘토 멘티</a></li>
 				<li><a href="#">Q & A</a></li>
 				<li><span class="opener">꿀팁 후기</span>

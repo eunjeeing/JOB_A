@@ -29,7 +29,7 @@ public class ChatHandler extends TextWebSocketHandler {
 		// 채팅방 입장 시 상대방에게 입장 메시지 보내기
 		for(WebSocketSession user : sessionList) {
 			if(user != session) {
-				user.sendMessage(new TextMessage(loginMember.getUserId() + "님이 입장하셨습니다."));
+				user.sendMessage(new TextMessage(loginMember.getMemNick() + "님이 입장하셨습니다."));
 			}
 		}
 		
@@ -45,7 +45,7 @@ public class ChatHandler extends TextWebSocketHandler {
 		for(WebSocketSession user: sessionList) {
 			// 수신자.sendMessage( 송신자 | 안녕하세요 | 192.0.0.0 | user01 );
 			user.sendMessage(new TextMessage(session.getId() + "|" + message.getPayload() + "|" + session.getRemoteAddress() + "|" 
-											+ loginMember.getUserId() + "|" + sdf.format(new Date())) );
+											+ loginMember.getMemNick() + "|" + sdf.format(new Date())) );
 			
 		}
 		
@@ -63,7 +63,7 @@ public class ChatHandler extends TextWebSocketHandler {
 		
 		// 채팅방에 해당 사용자가 나갔음을 알리는 메시지 전송
 		for(WebSocketSession user : sessionList) {
-			user.sendMessage(new TextMessage(loginMember.getUserId() +"님이 퇴장하셨습니다."));
+			user.sendMessage(new TextMessage(loginMember.getMemNick() +"님이 퇴장하셨습니다."));
 		}
 	}
 	
