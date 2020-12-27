@@ -96,7 +96,7 @@
 	.carousel-slide{
 		display: flex;
 		width: 100%;
-		height: 260px;
+		height: 280px;
 	}
 	#prevBtn{
 		position:absolute;
@@ -134,7 +134,7 @@
 	
 	.right{
 		width : 27%;
-		height: 537px;
+		height: 550px;
 		border : 1px black solid; /* 나중에 지울것 */
 		display: block;
 		margin-bottom: 20px;
@@ -145,11 +145,6 @@
 	.ranking{
 		height: 325px;
 		width:100%;
-	}
-	.ad_box{
-		margin-top : 20px;
-		height: 190px;
-		width: 100%;
 	}
 	
 	section> div> .sub_menu{
@@ -174,9 +169,9 @@
 		font-size: 18px;
 		font-weight: bold;
 		display: inline-block;
-		margin-left: 10px; 
+		margin-left: 20px; 
 	}
-	#menu:hover{
+	#sub_menu:hover{
 		cursor: pointer;
 		background-color: lightgrey;
 	}
@@ -220,9 +215,7 @@
 										</div>
 										<div class="carousel-container">
 											<div class="carousel-slide">
-												
-												<!-- 게시판 리스트모양 따오기 -->
-												
+												<!-- 나중에 리스트 불러오기 -->
 											</div>
 											<button id="prevBtn"><img alt="prev" src=""></button>
 											<button id="nextBtn"><img alt="next" src=""></button>
@@ -239,8 +232,8 @@
 									<div class="right">
 										<div class="ranking">
 										</div>
-										<div class="ad_box">
-										</div>
+										<img class="image object" id="ad_img" src="resources/images/ad.png" alt="ad_page"
+											style="margin: 0; margin-top: 20px; width:230px; object-fit: contain;"/>
 									</div>
 								</section>
 
@@ -248,15 +241,15 @@
 								
 								<section>
 									<div style="margin-left: 35px; margin-bottom: 30px; display: flex;">
-										<div class="sub_menu" id="menu" href="#">
+										<div class="sub_menu" id="sub_menu" href="#">
 											<i class="icon far fa-calendar-alt" style="font-size: 50px; color: #f56a6a;"></i>
 											<p class="textline">한 눈에 보자!<br>채용달력</p>
 										</div>
-										<div class="sub_menu" id="menu" href="#">
+										<div class="sub_menu" id="sub_menu" OnClick="location.href ='${pageContext.request.contextPath}/chat/chatList.do'">
 											<i class="icon far fa-comments" style="font-size: 50px; color: #f56a6a;"></i>
 											<p class="textline">다들 뭐해?<br>실시간 채팅</p>
 										</div>
-										<div class="sub_menu3" id="menu" href="#">
+										<div class="sub_menu3" id="sub_menu" href="#">
 											<i class="icon far fa-question-circle" style="font-size: 50px; color: #f56a6a;"></i>
 											<p class="textline">알려주세요~<br>사이트 이용방법</p>
 										</div>

@@ -22,5 +22,7 @@ public class Board2 {
 	private String board_Url;
 	
 	private String mem_Nick;
+	private int file_Count;
+
 
 }

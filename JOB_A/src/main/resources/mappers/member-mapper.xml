@@ -7,7 +7,15 @@
 		타입을 알아서 변환해줌 -->
 		
 	<resultMap id="resultMember" type="Member">
-
+		<id property="memNo" column="MEM_NO"/>
+		<result property="gradeNo" column="GRADE_NO"/>
+		<result property="memId" column="MEM_ID"/>
+		<result property="memPw" column="MEM_PW"/>
+		<result property="memNick" column="MEM_NICK"/>
+		<result property="memEmail" column="MEM_EMAIL"/>
+		<result property="memBirth" column="MEM_BIRTH"/>
+		<result property="memArea" column="MEM_AREA"/>
+		<result property="memState" column="MEM_STATE"/>
 	</resultMap>
 
 	<insert id="insertMember" parameterType="Member" >

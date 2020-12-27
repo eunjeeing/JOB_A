@@ -15,14 +15,12 @@ public class MemberServiceImpl implements MemberService {
 	// 회원가입 
 	@Override
 	public int insertMember(Member member) {
-
 		return memberDAO.insertMember(member);
 	}
 
 	// 회원 로그인 
 	@Override
 	public Member selectOneMember(String memId) {
-	
 		return memberDAO.selectOneMember(memId);
 	}
 

@@ -14,12 +14,12 @@
 	<table align="center" style="background : lightgreen; height : 200px; width : 200px;">
 		<tr>
 			<td>
-				<input type="text" placeholder="아이디"/>			
+				<input type="text" name="memId" placeholder="아이디"/>			
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<input type="text" placeholder="비번"/>
+				<input type="text" name="memPw" placeholder="비번"/>
 			</td>
 		</tr>
 		<tr>

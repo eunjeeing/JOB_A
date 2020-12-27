@@ -234,6 +234,7 @@
 					<tr>
 						<th class="table_th">관심직종 <span class="star">*</span></th>
 						<td>
+						
 							<input type="checkbox" name="jobCheck" id="job1" class="jobCheck" value="IT"  /> 
 							<label class="form-check-label" for="job1">IT·인터넷</label> 
 

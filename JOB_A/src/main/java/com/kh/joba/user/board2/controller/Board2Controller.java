@@ -32,7 +32,7 @@ public class Board2Controller {
 		
 		System.out.println("list : " + list);
 		
-		model.addAttribute("list", list);
+		model.addAttribute("blahList", list);
 		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("numPerPage", numPerPage);
 		model.addAttribute("pageBar", pageBar);
