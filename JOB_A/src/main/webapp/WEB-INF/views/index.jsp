@@ -155,6 +155,7 @@
 	section> div> .sub_menu{
 		border-left : 10px solid #f56a6a;
 		border-right : 10px solid #f56a6a;
+		border-radius: 5px;
 		width: 30%; 
 		height: 100px;  
 		margin-right: 20px;
@@ -163,6 +164,7 @@
 	section> div> .sub_menu3{
 		border-left : 10px solid #f56a6a;
 		border-right : 10px solid #f56a6a;
+		border-radius: 5px;
 		width: 30%; 
 		height: 100px;  
 		margin-right: 20px;
@@ -183,7 +185,7 @@
 </style>
 <html>
 	<head>
-		<title>Editorial by HTML5 UP</title>
+		<title>JOB_A</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
