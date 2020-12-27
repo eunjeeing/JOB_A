@@ -1,16 +1,20 @@
 package com.kh.joba.user.member.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.joba.user.common.exception.MemberException;
 import com.kh.joba.user.member.model.service.MemberService;
 import com.kh.joba.user.member.model.vo.Member;
 
+@SessionAttributes(value= {"member"})
 @Controller
 public class MemberController {
 
