@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board1Mapper">
+	<select id="selectBoardList" resultType="Board1">
+		SELECT *
+		FROM BOARD
+		WHERE TYPE_NO = 1
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	
+	<select id="selectBoardTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 1
+	</select>
+	
+</mapper>
