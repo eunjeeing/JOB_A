@@ -96,26 +96,40 @@
 	.carousel-slide{
 		display: flex;
 		width: 100%;
-		height: 280px;
+		height: 300px;
 	}
 	#prevBtn{
 		position:absolute;
 		top: 50%;
 		transform: translate(0%, -50%);
-		height: 260px;
-		text-indent: -9999px;
+		height: 280px;
+		width : 13px;
+		box-shadow:none;
+		border: 3px solid #f56a6a;
 		border-right: none;
-		background-color: #f56a6a;
+	}
+	#prevBtn> img{
+		width: 15px;
+		position: absolute;
+		left : 10px;
+		bottom : 132px;
+	}
+	#nextBtn> img{
+		width: 15px;
+		position: absolute;
+		right : 10px;
+		bottom : 132px;
 	}
 	#nextBtn{
 		position:absolute;
 		top: 50%;
 		right: 0;
-		padding-top:2px;
 		transform: translate(0%, -50%);
-		height: 260px;
-		text-indent: -9999px;
-		background-color: #f56a6a;
+		height: 280px;
+		width : 13px;
+		box-shadow:none;
+		border: 3px solid #f56a6a;
+		border-left: none;
 	}
 	/* 사이트 홍보 배너 */
 	.site_title{
@@ -142,9 +156,66 @@
 	.right>div{
 		background-color: rgba(222, 225, 226, 0.75);
 	}
+	/* 랭킹 스타일 */
 	.ranking{
 		height: 325px;
 		width:100%;
+	}
+	#rank-list a {
+		border-bottom: none;
+		text-decoration: none; 
+	    color: grey;
+	}
+	
+	#rank-list a:hover {
+	   	cursor: pointer;
+	}
+	
+	#rank-list {
+	    overflow: hidden;
+	    width: 90%;
+	    height: 300px;
+	    margin: 0;
+	}
+	
+	#rank-list dt {
+		font-size: 18px;
+		font-weight: bold;
+		color:black;
+		margin-top: 15px;
+		margin-left: 25px;
+		margin-bottom: 5px;
+	}
+	
+	#rank-list dd {
+	    position: relative;
+	}
+	
+	#rank-list ol {
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    margin: 0;
+	    padding: 0;
+	    list-style-type: none;
+	}
+	
+	#rank-list li {
+	    margin-top: 5px;
+	    line-height: 20px;
+	    transform: scale(1);
+		-webkit-transform: scale(1);
+		-moz-transform: scale(1);
+		-ms-transform: scale(1);
+		-o-transform: scale(1);
+	    transition: all 0.3s ease-in-out;
+	}
+	#rank-list li:hover{
+		transform: scale(1.2);
+		-webkit-transform: scale(1.2);
+		-moz-transform: scale(1.2);
+		-ms-transform: scale(1.2);
+		-o-transform: scale(1.2);
 	}
 	
 	section> div> .sub_menu{
@@ -166,10 +237,11 @@
 		padding: 17px 15px 10px 22px;
 	}
 	.textline {
-		font-size: 18px;
+		font-size: 17px;
 		font-weight: bold;
 		display: inline-block;
-		margin-left: 20px; 
+		margin-left: 18px; 
+		margin-bottom: 0;
 	}
 	#sub_menu:hover{
 		cursor: pointer;
@@ -217,23 +289,42 @@
 											<div class="carousel-slide">
 												<!-- 나중에 리스트 불러오기 -->
 											</div>
-											<button id="prevBtn"><img alt="prev" src=""></button>
-											<button id="nextBtn"><img alt="next" src=""></button>
+											<button id="prevBtn"><img alt="prev" src="resources/images/left-arrow.png"></button>
+											<button id="nextBtn"><img alt="next" src="resources/images/right-arrow.png"></button>
 										</div>
 										<!-- 홍보 배너 -->
 										<div class="site_title">
-												<p>
-													취준생의,&nbsp;취준생에 의한,&nbsp;취준생을 위한<br>
-													JOB_A로 다 잡아!
-												</p>
+											<p>
+												취준생의,&nbsp;취준생에 의한,&nbsp;취준생을 위한<br>
+												JOB_A로 다 잡아!
+											</p>
 										</div>
 									</div>
 									<!-- 오른쪽 구역 -->
 									<div class="right">
 										<div class="ranking">
+											<dl id="rank-list">
+												<dt>관심 직종 순위</dt>
+												    <dd>
+												        <ol>
+												            <li><a href="#">&nbsp;1. test</a></li>
+												            <li><a href="#">&nbsp;2. test<a></li>
+												            <li><a href="#">&nbsp;3.<a></li>
+												            <li><a href="#">&nbsp;4.<a></li>
+												            <li><a href="#">&nbsp;5.<a></li>
+												            <li><a href="#">&nbsp;6.<a></li>
+												            <li><a href="#">&nbsp;7.<a></li>
+												            <li><a href="#">&nbsp;8.<a></li>
+												            <li><a href="#">&nbsp;9.<a></li>
+												            <li><a href="#">10.</a></li>
+												        </ol>
+												    </dd>
+												</dl>
 										</div>
+										<a href="http://localhost:8088/Zipper/">
 										<img class="image object" id="ad_img" src="resources/images/ad.png" alt="ad_page"
-											style="margin: 0; margin-top: 20px; width:230px; object-fit: contain;"/>
+											style="margin: 0; margin-top: 20px; width:100%; height:240px; object-fit: contain;"/>
+										</a>
 									</div>
 								</section>
 
@@ -241,11 +332,11 @@
 								
 								<section>
 									<div style="margin-left: 35px; margin-bottom: 30px; display: flex;">
-										<div class="sub_menu" id="sub_menu" href="#">
+										<div class="sub_menu" id="sub_menu" href="calendar.do">
 											<i class="icon far fa-calendar-alt" style="font-size: 50px; color: #f56a6a;"></i>
 											<p class="textline">한 눈에 보자!<br>채용달력</p>
 										</div>
-										<div class="sub_menu" id="sub_menu" OnClick="location.href ='${pageContext.request.contextPath}/chat/chatList.do'">
+										<div class="sub_menu" id="sub_menu" OnClick="goChat()">
 											<i class="icon far fa-comments" style="font-size: 50px; color: #f56a6a;"></i>
 											<p class="textline">다들 뭐해?<br>실시간 채팅</p>
 										</div>
@@ -268,6 +359,18 @@
 			<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+			
+			<script type="text/javascript">
+					function goChat(){
+						var id = '${sessionID}'; 
+				        if (id == null) {
+				            alert("로그인 후 이용해주세요!");
+				            return false;
+				        } else {
+				            location.href = '${pageContext.request.contextPath}/chat/chatList.do';
+				        }
+					}
+				</script>
 
 	</body>
 </html>
