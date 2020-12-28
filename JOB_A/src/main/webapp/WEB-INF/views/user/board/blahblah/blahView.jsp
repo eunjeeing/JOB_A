@@ -20,96 +20,70 @@
 	height: 400px;
 	display: flex;
 }
-
-.sub_news,.sub_news th,.sub_news td{
-  border:0;
+#wrapped {
+	border: 1px solid pink;
 }
-
-.sub_news a{
-  color:#383838;
-  text-decoration:none;
+.article-view-head {
+    position: relative;
+    z-index: 10;
+    padding: 25px 20px 19px;
 }
-
-.sub_news{
-  width:100%;
-  border-bottom:1px solid #999;
-  color:#666;
-  font-size:15px;
-  table-layout:fixed;
+.name {
+    margin-top: 16px;
+    font-size: 16px;
+    line-height: 16px;
 }
-
-.sub_news caption{
-  display:none;
+.article-view-head .wrap-info {
+    margin-top: 16px;
 }
-
-.sub_news th{
-  padding:5px 0 6px;
-  border-top:solid 1px #999;
-  border-bottom:solid 1px #b2b2b2;
-  background-color:#f1f1f4;
-  color:#333;
-  font-weight:bold;
-  line-height:20px;
-  vertical-align:top;
-  text-align: center;
+.wrap-info {
+    position: relative;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 14px;
 }
-
-.sub_news td{
-  padding:8px 0 9px;
-  border-bottom:solid 1px #d2d2d2;
-  border-top: solid 1px #d2d2d2;
-  text-align:center;
-  line-height:18px;
+.wrap-info a, .wrap-info span {
+    margin-right: 14px;
+    color: #94969b;
+    vertical-align: top;
 }
-
-.sub_news .date,.sub_news .hit{
-  padding:0;
-  font-family:Tahoma;
-  font-size:11px;
-  line-height:normal;
+.article-view-head .wrap-info .info_fnc {
+    top: -2px;
 }
-
-.sub_news .title{
-  text-align:left; 
-  padding-left:15px; 
-  font-size:13px;
+.wrap-info .info_fnc {
+    position: absolute;
+    top: 0;
+    right: 0;
 }
-
-.sub_news .title .pic,.sub_news .title .new{
-  margin:0 0 2px;
-  vertical-align:middle;
+.article-view-contents {
+    margin: 10px 20px;
+    border-top: 1px solid #eee;
 }
-
-.sub_news .title a.comment{
-  padding:0;
-  background:none;
-  color:#f00;
-  font-size:12px;
-  font-weight:bold;
+.article-view-contents .contents-txt {
+    margin-top: 24px;
+    line-height: 1.6em;
+    font-size: 17px;
 }
-
-.sub_news tr.reply .title a{
-  padding-left:16px;
-  background:url(../images/ic_reply.png) 0 1px no-repeat;
+.article-comments {
+    margin: 10px 20px;
+    padding: 23px 0 24px;
+    border-top: 1px solid #eee;
 }
-
-.container {
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
+#head {
+	margin: 14px 14px 14px 14px;
 }
-
-.btn-default {
-    color: #333;
-    background-color: #fff;
-    border-color: #ccc;
+#report {
+	margin-right: 0;
+	font-size: 20px;	
 }
-
-textarea {
-    color: #333;
-    background-color: #fff;
-    border-color: #ccc;
+#book {
+	margin-left: 14px;
+	font-size: 20px;
+	margin-right: 0;
+	
+}
+.wrap-info .rebo {
+	color: black !important;
 }
 </style>
 </head>
@@ -129,42 +103,60 @@ textarea {
 
 				<!-- View -->
 				<section class="container">
-					<div class="tableArea">
-						<table class="sub_news" cellspacing="0">
-							<tbody style="border: 1px solid #d2d2d2;">
-
-								<tr>
-									<td style="width: 10%; background-color: #f1f1f4;">제목</td>
-									<td colspan="5"><span>${board2.board_Title }</span></td>
-								</tr>
-								<tr>
-									<td style="background-color: #f1f1f4;">작성자</td>
-									<td colspan="5"><span>${board2.mem_Nick }</span></td>
-								</tr>
-								<tr>
-									<td style="background-color: #f1f1f4;">작성일</td>
-									<td colspan="3"><span>${board2.board_Date }</span></td>
-									<td style="background-color: #f1f1f4;">조회수</td>
-									<td colspan="1"><span>${board2.board_View }</span></td>
-								</tr>
-								<tr style="height: 300px; overflow-y: auto; text-align: left;">
-									<td style="background-color: #f1f1f4;">내용</td>
-									<td colspan="5"><div class="imgArea">
-<%-- 											<%
-												if (bf != null && bf.getFileChangeName() != null && bf.getFileChangeName().length() > 0) {
-											%>
-											<img
-												src="<%=request.getContextPath()%>/resources/boardUploadFiles/<%=bf.getFileChangeName()%>" />
-											<%
-												}
-											%> --%>
+					<div class="wrapped" id="wrapped">
+						<div role="main" class="contents">
+							<div class="acticle-view-head" id="head">
+								<h2>${board2.board_Title }</h2>
+								<p class="name">
+									${board2.mem_Nick }
+								</p>
+								<div class="wrap-info">
+									<span class="date">
+										<i class="far fa-clock"> ${board2.board_Date }</i>
+									</span>
+									<span class="pv">
+										<i class="far fa-eye"> ${board2.board_View }</i>
+									</span>
+									<span class="cmt">
+										<i class="far fa-comment"> ${board2.comm_Count }</i>
+									</span>
+									<div class="info_fnc">
+									<span class="rebo">
+										<i class="fas fa-exclamation-triangle" id="report"></i> 신고
+									</span>
+									<span class="rebo">
+										<i class="far fa-bookmark" id="book"> </i> 스크랩
+									</span>
+									</div>
+								</div>
+							</div>
+							<div class="article-view-contents">
+								<p id="contentArea" class="contents-txt">
+									${board2.board_Content }
+								</p>
+<%-- 								<div class="article_info">
+									<div class="info">
+										<i class="far fa-comment">${board2.comm_Count }</i>
+									</div>
+									<div class="info_fnc">
+									</div>
+								</div> --%>
+							</div>
+							
+							<!-- 댓글 -->
+							<div class="article-comments">
+								<h3>댓글 ${board2.comm_Count }</h3>
+								<div class="write_area">
+									<div id="btn_add_comment">
+										<div class="reply_area">
+											<textarea placeholder="댓글을 남겨주세요."></textarea>
+											<button>등록</button>
 										</div>
-										<div class="textArea">
-											${board2.board_Content }
-										</div></td>
-								</tr>
-							</tbody>
-						</table>
+									</div>
+								</div>
+							</div>
+							
+						</div>
 					</div>
 				</section>
 			</div>
