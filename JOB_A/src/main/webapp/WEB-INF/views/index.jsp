@@ -289,8 +289,8 @@
 											<div class="carousel-slide">
 												<!-- 나중에 리스트 불러오기 -->
 											</div>
-											<button id="prevBtn"><img alt="prev" src="resources/images/left-arrow.png"></button>
-											<button id="nextBtn"><img alt="next" src="resources/images/right-arrow.png"></button>
+											<button id="prevBtn"><img alt="prev" src="${pageContext.request.contextPath}/resources/images/left-arrow.png"></button>
+											<button id="nextBtn"><img alt="next" src="${pageContext.request.contextPath}/resources/images/right-arrow.png"></button>
 										</div>
 										<!-- 홍보 배너 -->
 										<div class="site_title">
@@ -322,7 +322,7 @@
 												</dl>
 										</div>
 										<a href="http://localhost:8088/Zipper/">
-										<img class="image object" id="ad_img" src="resources/images/ad.png" alt="ad_page"
+										<img class="image object" id="ad_img" src="${pageContext.request.contextPath}/resources/images/ad.png" alt="ad_page"
 											style="margin: 0; margin-top: 20px; width:100%; height:240px; object-fit: contain;"/>
 										</a>
 									</div>
