@@ -21,6 +21,7 @@ public class Board2 {
 	private int board_View;
 	private String board_Url;
 	
+	private int comm_Count;
 	private String mem_Nick;
 	private int file_Count;
 

@@ -11,6 +11,7 @@
 		<typeAlias type="com.kh.joba.user.board.model.vo.Board1" alias="Board1" /> 	
 		<typeAlias type="com.kh.joba.user.board2.model.vo.Board2" alias="Board" /> 
 		<typeAlias type="com.kh.joba.user.member.model.vo.Member" alias="Member" />
+		<typeAlias type="com.kh.joba.user.board2.model.vo.Attachment2" alias="Attachment2"/>
 	</typeAliases>
 	
 	<typeHandlers>

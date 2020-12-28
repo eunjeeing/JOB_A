@@ -7,7 +7,7 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Attatchment2 {
+public class Attachment2 {
 	
 	private int file_No;
 	private int board_No;
