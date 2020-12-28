@@ -4,13 +4,29 @@
 <mapper namespace="board2Mapper">
 
 	<select id="selectBlahBlahList" resultType="Board">
-		SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, MEM_NICK, BOARD_DATE, BOARD_VIEW FROM BOARD, MEMBER 
-		WHERE TYPE_NO = 4 AND MEMBER.MEM_NO = BOARD.MEM_NO
+		SELECT B.*, M.MEM_NICK,(SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO) COMM_COUNT
+		FROM BOARD B, MEMBER M
+		WHERE TYPE_NO = 4 AND BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 	</select>
 	
 	<select id="selectBlahBlahTotalContents" resultType="_int">
 		SELECT COUNT(*) FROM BOARD
 	</select>
+	
+	<select id="selectOneBlah" parameterType="_int" resultType="Board">
+		SELECT * FROM BOARD, MEMBER 
+		WHERE BOARD_NO = #{board_No} AND MEMBER.MEM_NO = BOARD.MEM_NO
+	</select>
+	
+	<select id="selectAttachmentList" parameterType="_int" resultType="Attachment2">
+		SELECT * FROM ATTACHMENT WHERE BOARD_NO = #{board_No}
+	</select>
+	
+	<update id="updateBlahReadCount" parameterType="_int">
+		UPDATE BOARD
+		SET BOARD_VIEW = BOARD_VIEW + 1
+		WHERE BOARD_NO = #{board_No}
+	</update>
 		
 </mapper>
