@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.kh.joba.user.common.exception.MemberException;
 import com.kh.joba.user.member.model.service.MemberService;
@@ -109,6 +109,20 @@ public class MemberController {
 		}
 		
 		return "user/common/msg";
+	}
+	
+	// 로그아웃 (header.jsp에 있음)
+	@RequestMapping("/member/memberLogout.do")
+	public String memberLogout(SessionStatus sessionStatus) {
+		
+		if(! sessionStatus.isComplete()) {
+			sessionStatus.setComplete();
+			
+		System.out.println("로그아웃 ok");
+		}
+		
+		return "redirect:/";
+		
 	}
 	
 	
