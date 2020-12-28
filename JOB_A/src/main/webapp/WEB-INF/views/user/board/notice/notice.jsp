@@ -56,10 +56,10 @@
 	}
 	
 	#listArea {
-		border: 1px solid blue;
+		/*border: 1px solid blue;*/
 		width : 100%;
-		height : 800px;
-		margin: 20px auto auto auto;
+		height : 600px;
+		margin: 40px auto auto auto;
 	}
 	
 	.pagination {
@@ -68,7 +68,25 @@
 		margin-bottom : 100px;
 	}
 	
-	  
+	#noticeList{
+		text-align : center;
+		margin: auto;
+	}
+	
+	tbody>tr:hover {
+		cursor: pointer;
+		
+	}
+	
+	tr>td{
+		background : white;
+	}
+	
+	tbody>tr:hover{
+		background : black;
+		opacity: 0.3;
+	}
+	
 </style>
 <script>
 
@@ -81,12 +99,20 @@
 				location.href="${pageContext.request.contextPath}/searchNotice.bo?keyword="+$('#search').val();
 			}
 		}
+	
+	$(function(){
+		$("tr[id]").on("click",function(){
+			var board_no = $(this).attr("id");
+			console.log("board_no="+ board_no);
+			location.href = "${pageContext.request.contextPath}/boardView.bo?no="+ board_no;
+		});
+	});
+
+	function fn_goBoardForm(){
+		location.href = "${pageContext.request.contextPath}/user/board/write/boardForm.do";
+	}
+	
 </script>
-<!--
-	Editorial by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 
 <html>
 	<head>
@@ -119,59 +145,41 @@
 							</div>
 							<button type="button" id="searchBtn" onclick="search()">검색
 							</button>
-							<button id="writeBtn">글쓰기
+							<button id="writeBtn" onclick="fn_goBoardForm();">글쓰기
 							</button>
 						</div>
 						
 						<!-- list Area -->
 						<div id="listArea">
 							<table id="noticeList">
-								<tr>
-									<th>No.</th>
-									<th>제목</th>
-									<th>작성자</th>
-									<th>등록일</th>
-									<th>조회수</th>
-								</tr>
-								<c:forEach items="${ noticeList }" var="notice">
-								<tr>
-									<td>${notice.board_no}</td>
-									<td>${notice.board_title}</td>
-									<td>${notice.board_writer}</td>
-									<td>${notice.board_date}</td>
-									<td>${notice.board_view}</td>
-								</tr>
-								</c:forEach>
+								<thead>
+									<th><center>No.</center></th>
+									<th><center>제목</center></th>
+									<th><center>작성자</center></th>
+									<th><center>등록일</center></th>
+									<th><center>조회수</center></th>
+								</thead>
+								<tbody>
+									<c:forEach items="${ noticeList }" var="notice">
+									<tr id="${notice.board_no}">
+										<td>${notice.board_no}</td>		<!-- 숫자 카운팅으로 변경 -->
+										<td>${notice.board_title}</td>
+										<td>${notice.mem_nick}</td>
+										<td>${notice.board_date}</td>
+										<td>${notice.board_view}</td>
+									</tr>
+									</c:forEach>
+								</tbody>
 							</table>
 						</div>
-						
-						<!-- page button area -->
-						<!-- 임시 페이징 처리 Utils.java 코드를 이용할 계획 -->
-						<!-- 
-						<ul class="pagination">
-							<li><span class="button disabled">Prev</span></li>
-							<li><a href="#" class="page active">1</a></li>
-							<li><a href="#" class="page">2</a></li>
-							<li><a href="#" class="page">3</a></li>
-							<li><span>&hellip;</span></li>
-							<li><a href="#" class="page">8</a></li>
-							<li><a href="#" class="page">9</a></li>
-							<li><a href="#" class="page">10</a></li>
-							<li><a href="#" class="button">Next</a></li>
-						</ul>
-						
-						-->
 						<c:out value="${pageBar}" escapeXml="false"/>
 						
-					</div>
-					
-					
-					
-				</div>
+					</div>		<!-- #inner -->
+				</div>			<!-- #main -->
 				
 				<!-- Menu Console -->
 				<c:import url="../../../user/common/sideBar.jsp"/>
-			</div>
+			</div>				<!-- wrapper -->
 
 		<!-- Scripts -->
 			<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
@@ -187,23 +195,16 @@
 			
 			      // Openers.
 			         $menu_openers.each(function() {
-			
 			            var $this = $(this);
-			
 			            $this.on('click', function(event) {
-			
 			               // Prevent default.
 			                  event.preventDefault();
-			
 			               // Toggle.
 			                  $menu_openers.not($this).removeClass('active');
 			                  $this.toggleClass('active');
-			
 			               // Trigger resize (sidebar lock).
 			                  $window.triggerHandler('resize.sidebar-lock');
-			
 			            });
-			
 			         });
 					
          	</script>

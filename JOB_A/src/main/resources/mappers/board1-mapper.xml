@@ -4,9 +4,8 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board1Mapper">
 	<select id="selectBoardList" resultType="Board1">
-		SELECT *
-		FROM BOARD
-		WHERE TYPE_NO = 1
+		SELECT * FROM BOARD, MEMBER 
+		WHERE TYPE_NO = 1 AND MEMBER.MEM_NO = BOARD.MEM_NO
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 	</select>
 	

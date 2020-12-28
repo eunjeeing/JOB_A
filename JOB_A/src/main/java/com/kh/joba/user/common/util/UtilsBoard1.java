@@ -21,29 +21,29 @@ public class UtilsBoard1 { // 게시판 페이징처리
 		System.out.println("totalPage : "+totalPage);
 		System.out.println("pageStart["+pageNo+"] ~ pageEnd["+pageEnd+"]");
 		
-		pageBar += "<ul class='pagination justify-content-center pagination-sm'>";
+		pageBar += "<ul class='pagination'>";
 		//[이전]section
 		if(pageNo == 1 ){
-			pageBar += "<li class='page-item disabled'>";
-			pageBar += "<a class='page-link' href='#' tabindex='-1'>이전</a>";
+			pageBar += "<li>";
+			pageBar += "<a class='button' href='#' tabindex='-1'>Prev</a>";
 			pageBar += "</li>";
 		}
 		else {
-			pageBar += "<li class='page-item'>";
-			pageBar += "<a class='page-link' href='javascript:fn_paging("+(pageNo-1)+")'>이전</a>";
+			pageBar += "<li class='page'>";
+			pageBar += "<a class='button' href='javascript:fn_paging("+(pageNo-1)+")'>Prev</a>";
 			pageBar += "</li>";
 		}
 		
 		// pageNo section
 		while(!(pageNo>pageEnd || pageNo > totalPage)){ // 페이지가 끝에 도달하지 않았다면 반복
 			if(cPage == pageNo ){
-				pageBar += "<li class='page-item active'>";
-				pageBar += "<a class='page-link'>"+pageNo+"</a>";
+				pageBar += "<li class='page'>";
+				pageBar += "<a class='page'>"+pageNo+"</a>";
 				pageBar += "</li>";
 			} 
 			else {
-				pageBar += "<li class='page-item'>";
-				pageBar += "<a class='page-link' href='javascript:fn_paging("+pageNo+")'>"+pageNo+"</a>";
+				pageBar += "<li class='page'>";
+				pageBar += "<a class='page' href='javascript:fn_paging("+pageNo+")'>"+pageNo+"</a>";
 				pageBar += "</li>";
 			}
 			pageNo++;
@@ -51,13 +51,13 @@ public class UtilsBoard1 { // 게시판 페이징처리
 		
 		//[다음] section
 		if(pageNo > totalPage){
-			pageBar += "<li class='page-item disabled'>";
-			pageBar += "<a class='page-link' href='#'>다음</a>";
+			pageBar += "<li class='page'>";
+			pageBar += "<a class='button' href='#'>Next</a>";
 			pageBar += "</li>";
 			
 		} else {
-			pageBar += "<li class='page-item'>";
-			pageBar += "<a class='page-link' href='javascript:fn_paging("+pageNo+")'>다음</a> ";
+			pageBar += "<li class='page'>";
+			pageBar += "<a class='button' href='javascript:fn_paging("+pageNo+")'>Next</a> ";
 			pageBar += "</li>";
 		}
 		

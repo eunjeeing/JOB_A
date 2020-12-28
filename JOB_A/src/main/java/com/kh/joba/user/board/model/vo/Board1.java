@@ -20,7 +20,7 @@ public class Board1 {
 	private int category_no;
 	private String board_title;
 	private String board_content;
-	private String board_writer;
+	private String mem_nick;
 	private Date board_date;
 	private String board_status;
 	private int board_view;

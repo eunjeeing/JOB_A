@@ -18,7 +18,7 @@ public class Board1Controller {
 	@Autowired
 	Board1Service bs;
 	
-	@RequestMapping("/notice.bo")
+	@RequestMapping("/board/notice.bo")
 	public String noticeList(
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, Model model) { 
 		
