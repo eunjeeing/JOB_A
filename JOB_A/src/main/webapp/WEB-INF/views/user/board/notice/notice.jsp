@@ -88,32 +88,6 @@
 	}
 	
 </style>
-<script>
-
-	function search() {
-			location.href="${pageContext.request.contextPath}/searchNotice.bo?keyword="+$('#search').val();
-		}
-	
-	function enterKey() {
-			if (event.keyCode==13){
-				location.href="${pageContext.request.contextPath}/searchNotice.bo?keyword="+$('#search').val();
-			}
-		}
-	
-	$(function(){
-		$("tr[id]").on("click",function(){
-			var board_no = $(this).attr("id");
-			console.log("board_no="+ board_no);
-			location.href = "${pageContext.request.contextPath}/boardView.bo?no="+ board_no;
-		});
-	});
-
-	function fn_goBoardForm(){
-		location.href = "${pageContext.request.contextPath}/user/board/write/boardForm.do";
-	}
-	
-</script>
-
 <html>
 	<head>
 		<title>공지사항</title>
@@ -122,6 +96,11 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
 	</head>
 	<body class="is-preload">
+		<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
  
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -161,6 +140,7 @@
 								</thead>
 								<tbody>
 									<c:forEach items="${ noticeList }" var="notice">
+									<!--  onclick="selectOne();" -->
 									<tr id="${notice.board_no}">
 										<td>${notice.board_no}</td>		<!-- 숫자 카운팅으로 변경 -->
 										<td>${notice.board_title}</td>
@@ -182,11 +162,6 @@
 			</div>				<!-- wrapper -->
 
 		<!-- Scripts -->
-			<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-			<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
-			<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
-			<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
-			<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
  			<script>
  				// Menu Controller 
 			      // Menu.
@@ -206,6 +181,35 @@
 			                  $window.triggerHandler('resize.sidebar-lock');
 			            });
 			         });
+
+			     	$(function(){
+			    		$("tr[id]").on("click", function(){
+			    			var board_no = $(this).attr("id");
+			    			console.log("board_no="+ board_no);
+			    			location.href = "${pageContext.request.contextPath}/selectOneNotice.bo?no="+ board_no;
+			    		});
+			    	});
+			    	
+			    	function search() {
+			    			location.href="${pageContext.request.contextPath}/searchNotice.bo?keyword="+$('#search').val();
+			    		}
+			    	
+			    	function enterKey() {
+			    			if (event.keyCode==13){
+			    				location.href="${pageContext.request.contextPath}/searchNotice.bo?keyword="+$('#search').val();
+			    			}
+			    		}
+
+			    	function fn_goBoardForm(){
+			    		location.href = "${pageContext.request.contextPath}/user/board/write/boardForm.do";
+			    	}
+			    	
+			    	/*
+			    	function selectOne() {
+			    		var board_no = $(this).attr("id")
+			    		location.href = "${pageContext.request.contextPath}/selectOneNotice.bo?no="+ board_no;
+			    		}
+			    	*/
 					
          	</script>
 	</body>

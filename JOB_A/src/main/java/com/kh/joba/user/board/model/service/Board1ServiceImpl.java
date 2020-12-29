@@ -15,13 +15,25 @@ public class Board1ServiceImpl implements Board1Service {
 	Board1DAO board1DAO;
 
 	@Override
-	public List<Map<String, String>> selectBoardList(int cPage, int numPerPage) {
-		return board1DAO.selectBoardList(cPage, numPerPage);
+	public List<Map<String, String>> selectNoticeList(int cPage, int numPerPage) {
+		return board1DAO.selectNoticeList(cPage, numPerPage);
 	}
 
 	@Override
-	public int selectBoardTotalContents() {
-		return board1DAO.selectBoardTotalContents();
+	public int selectNoticeTotalContents() {
+		return board1DAO.selectNoticeTotalContents();
 	}
+
+	@Override
+	public List<Map<String, String>> searchNoticeList(int cPage, int numPerPage, String keyword) {
+		return board1DAO.searchNoticeList(cPage, numPerPage, keyword);
+	}
+
+	@Override
+	public int searchNoticeTotalContents(String keyword) {
+		return board1DAO.searchNoticeTotalContents(keyword);
+	}
+	
+	
 
 }

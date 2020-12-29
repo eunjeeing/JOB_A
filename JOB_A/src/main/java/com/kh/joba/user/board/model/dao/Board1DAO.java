@@ -5,7 +5,11 @@ import java.util.Map;
 
 public interface Board1DAO {
 
-	List<Map<String, String>> selectBoardList(int cPage, int numPerPage);
+	List<Map<String, String>> selectNoticeList(int cPage, int numPerPage);
 
-	int selectBoardTotalContents();
+	int selectNoticeTotalContents();
+
+	List<Map<String, String>> searchNoticeList(int cPage, int numPerPage, String keyword);
+
+	int searchNoticeTotalContents(String keyword);
 }
