@@ -12,11 +12,14 @@ import lombok.*;
 public class Comments2 {
 	
 	private int comm_No;
+	private int mem_No;
 	private int board_No;
 	private String comm_Content;
 	private int comm_Level;
 	private int comm_Ref;
 	private String comm_Status;
 	private Date comm_Date;
+	
+	private String mem_Nick;
 
 }

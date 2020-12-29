@@ -85,6 +85,28 @@
 .wrap-info .rebo {
 	color: black !important;
 }
+.article-comments .wrap-comment {
+    padding: 8px 20px 15px;
+    border-top: 1px solid #eee;
+}
+
+.article-comments .wrap-comment .name {
+    margin-top: 9px;
+    color: #94969b;
+    font-size: 13px;
+    line-height: 1.33em;
+}
+.article-comments .wrap-comment .cmt-txt {
+    margin-top: 4px;
+    font-size: 14px;
+    line-height: 1.43em;
+}
+.article-comments .wrap-comment .wrap-info {
+    margin-top: 10px;
+}
+.cmt-txt {
+	margin: 0;
+}
 </style>
 </head>
 <body class="is-preload">
@@ -147,13 +169,34 @@
 							<div class="article-comments">
 								<h3>댓글 ${board2.comm_Count }</h3>
 								<div class="write_area">
-									<div id="btn_add_comment">
-										<div class="reply_area">
-											<textarea placeholder="댓글을 남겨주세요."></textarea>
-											<button>등록</button>
+									<div id="btn_add_comment" style="display: flex;" >
+										<div class="reply_area" style="width: 100%;">
+										<from id="commentForm" method="post">
+											<input type="hidden" id="board_No" name="board_No" value="${board.board_No}" />
+											<input type="hidden" id="mem_No" name="mem_No" value="${sessionScope.sessionID }" />
+											<textarea id="comm_Content" name="comm_Content" placeholder="댓글을 남겨주세요."></textarea>
+										</div>
+											<button class="insertCommentBtn" style="height: 85px;">등록</button>
+										</form>
+									</div>
+								</div>
+								<c:forEach items="${selectComment }" var="co">
+								<div id="${co.comm_No }" class="wrap-comment comment-area">
+									<p class="name">${co.mem_Nick }</p>
+									<p class="cmt-txt">${co.comm_Content }</p>
+									<div class="wrap-info">
+										<span class="date">
+											<i class="far fa-clock"> 
+ 											<fmt:formatDate value="${co.comm_Date }" pattern="yyyy-MM-dd a hh:mm:ss"/></i></span>
+										<a class="cmt">
+											<i class="far fa-comment"> 대댓글</i>
+										</a>
+										<div class="info_fnc">
+											<span><i class="fas fa-exclamation-triangle"></i></span>
 										</div>
 									</div>
 								</div>
+								</c:forEach>
 							</div>
 							
 						</div>
@@ -163,5 +206,66 @@
 		</div>
 		<c:import url="../../common/sideBar.jsp" />
 	</div>
+<script>
+/* 	var httpRequest = null;
+
+	// httpRequest 객체 생성
+	function getXMLHttpRequest(){
+		var httpRequest = null;
+
+		if(window.ActiveXObject){
+			try{
+				httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch(e) {
+				try{
+					httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
+				} catch(e2) { httpRequest = null; }
+			}
+		}
+		else if(window.XMLHttpRequest){
+			httpRequest = new window.XMLHttpRequest();
+		}
+		return httpRequest;
+	}
+
+	// 댓글 등록
+	function insertCmt() {
+		var form = document.getElementById("commentForm");
+
+		var board = form.board_No.value;
+		var id = form.mem_No.value;
+		var content = form.comm_Content.value;
+
+		if(!content){
+			alert("내용을 입력하세요.");
+			return false;
+		} else {
+			
+			var param="board_No="+board+"&mem_No="+id+"&comm_Content"+content;
+
+			httpRequest = getXMLHttpRequest();
+			httpRequest.onreadystatechange = checkFunc;
+			httpRequest.open("POST", "/comments2/insertComment.bo", true);
+			httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=EUC-KR');
+			httpRequest.send(param);
+		}
+	}
+
+	function checkFunc(){
+		if(httpRequest.readyState == 4){
+			// 결과값
+			var resultText = httpRequest.responseText;
+			if(resultText == 1){
+				document.location.reload();
+			}
+		}
+	}
+ */
+	$(".insertCommentBtn").on("click", function(){
+		  var formObj = $("form[name='commentForm']");
+		  formObj.attr("action", "/comments2/insertComment.bo");
+		  formObj.submit();
+		});
+</script>
 </body>
 </html>

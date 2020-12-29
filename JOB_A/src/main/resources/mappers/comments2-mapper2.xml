@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="comments2Mapper">
+
+<!-- 댓글조회 -->
+	<select id="selectComment" resultType="Comments2">
+		SELECT *
+		FROM COMMENTS C, MEMBER M
+		WHERE BOARD_NO = #{board_No} AND M.MEM_NO = C.MEM_NO AND COMM_STATUS = 'Y'
+	</select>
+	
+	<insert id="insertComment" parameterType="Comments2">
+		INSERT INTO COMMENTS(COMM_NO, MEM_NO, BOARD_NO, COMM_CONTENT, COMM_STATUS, COMM_DATE)
+		VALUES(COMMENTS_SEQ.NEXTVAL, #{mem_No}, #{board_No}, #{comm_Content}, DEFAULT, DEFAULT)
+	</insert>
+
+		
+</mapper>

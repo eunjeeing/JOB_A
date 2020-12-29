@@ -12,6 +12,7 @@
 		<typeAlias type="com.kh.joba.user.board2.model.vo.Board2" alias="Board" /> 
 		<typeAlias type="com.kh.joba.user.member.model.vo.Member" alias="Member" />
 		<typeAlias type="com.kh.joba.user.board2.model.vo.Attachment2" alias="Attachment2"/>
+		<typeAlias type="com.kh.joba.user.comments2.model.vo.Comments2" alias="Comments2"/>
 	</typeAliases>
 	
 	<typeHandlers>

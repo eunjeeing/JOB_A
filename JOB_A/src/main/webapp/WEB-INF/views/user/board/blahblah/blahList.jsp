@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>JOB_A | 블라블라</title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/board.css" />
+	href="${pageContext.request.contextPath}/resources/css/board.css" />	
 <style>
 #topbanner {
 	background:
