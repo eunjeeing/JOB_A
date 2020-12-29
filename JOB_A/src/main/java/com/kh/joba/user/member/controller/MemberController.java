@@ -35,7 +35,8 @@ public class MemberController {
 	
    // 로그인 
    @RequestMapping("/member/memberLogin.do")
-   public String memberLogin(@RequestParam String memId,
+   public String memberLogin(
+		   			   @RequestParam String memId,
                        @RequestParam String memPw,
                        Model model) {
       System.out.println("member/memberLogin.do 접속 ok");
@@ -125,7 +126,20 @@ public class MemberController {
 		
 	}
 	
-	
+	// 마이페이지 접속
+	@RequestMapping("/member/myPage.do")
+	public String mypage(
+			@RequestParam String memId,
+            Model model) {
+		System.out.println("마이페이지 접속 ok");
+		
+		Member m = memberService.selectOneMember(memId);
+		model.addAttribute("member", m);
+		
+		
+		
+		return "/member/myPage";
+	}
 
 	
 	

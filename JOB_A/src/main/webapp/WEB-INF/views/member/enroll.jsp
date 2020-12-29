@@ -7,126 +7,54 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<!-- cnd방식으로 sockjs불러오기 -->
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<!-- 부트스트랩적용 -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 	<title>회원가입</title>
 	<style>
-		form{
-			width: auto;
-			margin-top: 6rem;
-		}
 
-		table{
-			border-spacing: 5px 10px;
-			float: center;
-		}
 
-		table td{
-			height: auto;
-			size: 30px;
-		}
-
-		table td input {
-			height: 25px;
-			border: 1px solid lightgray;
-			border-radius: 5px;
-		}
-
-		.table_th{
-			text-align: left;
-			width: 120px;
-		}
-
-		table select{
-			height: 30px;
-			border: 1px solid lightgray;
-			border-radius: 5px;
-		}
-
-		button{
-			height: 25px;
-			border-radius: 5px;
-			border: 1px solid lightgray;
-			background-color: rgba(232, 112, 112, 0.85);
-			color: white;
-		}
-
-		.star{
-			color: rgba(232, 112, 112, 0.85);
-		}
-
-		input[type=checkbox]{
-			display: none;
-		}
-		
-		input[type=checkbox] + label{
-			cursor: pointer;
-			padding-left: 5px;
-
-		}
-
-		input[type=checkbox] + label:before{
-			content: "";
-			width: 20px;
-			height: 20px;
-			margin-right: 10px;
-			background: rgba(232, 112, 112, 0.85);
-			border-radius: 2px;
-			box-shadow: inset 0px 1px 1px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);
-		}
-
-		input[type=checkbox]:checked + label:before{
-			content: "\2714";
-			text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
-			font-size: 15px;
-			font-weight: 600;
-			color: #fff;
-			background: rgba(232, 112, 112, 0.85);
-			text-align: center;
-		}
-
-		.location_{
-			width: 115px;
-		}
-
-		input[type=submit]{
-			height: 25px;
-			border-radius: 5px;
-			border: 1px solid lightgray;
-			background-color: rgba(232, 112, 112, 0.85);
-			color: white;
-		}
-
-		input[type=button]{
-			height: 25px;
-			width: 70px;
-			border-radius: 5px;
-			border: 1px lightgray;
-			background-color: gray;
-			color: white;
-		}
-		.info {
-			margin: 0;
-		}
-		form{
-			padding: 2rem 0rem 2rem 15rem; 
-			margin-left: 10rem;
-			width: 700px;
-			border: 1px solid white;
-			background-color: white;
-			
-		}
-		body{
-			background-color: rgba(232, 112, 112, 0.85) ;
-		}
+	#list_2{
+	
+	display : flex;
+	height : 1200px;
+	
+	}
+	
+	form{
+		border : 1px solid red;
+		margin-top : 100px;
+		margin-left : 500px;
+ 
+	}
+	
+	.star{
+		color: rgba(232, 112, 112, 0.85);
+	}
+	
 		
 
 	</style>
 </head>
 <body>
-<section>
+
+						
 	<div id="container">
 			<div id="join-container">
 		  <c:import url="../user/common/header.jsp"/>  
-				<form id="memberEnrollForm" name="memberEnrollForm" action="memberEnroll.do" method="post" onsubmit="return fn_enroll_validate();" >
+			<div id="list_2">
+				<c:import url="../user/common/sideBar.jsp"/> 
+			
+			 	<form id="memberEnrollForm" name="memberEnrollForm" action="memberEnroll.do" method="post" onsubmit="return fn_enroll_validate();" >
 					<!-- 기본정보 테이블 -->
 					<table >
 						<tr>
@@ -356,6 +284,7 @@
 					<input type="submit" id="enroll" class="button" value="회원가입"> &nbsp;&nbsp;
 					<input type="button" id="cancel" class="button" value="취소">
 				</form>
+			</div>
 				<script type="text/javascript">
 					function show(id){
 						obj = document.getElementById(id);
@@ -366,9 +295,7 @@
 						}
 					}
 				</script>
-			<c:import url="../user/common/sideBar.jsp"/> 
 			</div>
 	</div>
-</section>
 </body>
 </html>
