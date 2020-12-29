@@ -7,70 +7,52 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- cnd방식으로 sockjs불러오기 -->
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<!-- 부트스트랩적용 -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <title> 로그인 페이지 </title>
 <style>
+	#loginForm{
+		
+		margin-top : 100px;
+		margin-left : 300px;
+ 		width : 450px;
+		height : 300px;
+	}
 
-		body{
-			background-color: rgba(232, 112, 112, 0.85);
-
-		}
-		form{
-			width:450px;
-			height:200px;
-			margin-left: auto;
-			margin-right: auto;
-			margin-bottom: auto;
-			margin-top: 10rem;
-			background-color: white;
-			
-		}
-
-		table{
-			border-spacing: 5px 10px;
-			float: center;
-			padding-top: 1rem;
-		}
-
-		table td{
-			height: auto;
-			size: 30px;
-		}
-
-		table td input {
-			height: 25px;
-			border: 1px solid lightgray;
-			border-radius: 5px;
-		}
-
-		.table_th{
-			text-align: left;
-			width: 120px;
-		}
-
-		table select{
-			height: 30px;
-			border: 1px solid lightgray;
-			border-radius: 5px;
-		}
-
-		input{
-			width: 235px;
-		}
-
-		input[type=submit]{
-			height: 25px;
-			border-radius: 5px;
-			border: 1px solid lightgray;
-			background-color: rgba(232, 112, 112, 0.85);
-			color: white;
-		}
-
+	#list_2{
+	
+	display : flex;
+	height : 1200px;
+	
+	}
+	
+	
+	.btn-outline-success{
+	
+		width : 100%;
+		
+	} 
+	
 		
 </style>
 </head>
 <body>
-	<c:import url="../user/common/header.jsp"/>  
-	<form action="${pageContext.request.contextPath}/member/memberLogin.do" method="post">
+	<div id="list_1">
+		<c:import url="../user/common/header.jsp"/>  
+		<div id="list_2">
+			<c:import url="../user/common/sideBar.jsp"/> 
+						
+	
+	<form action="${pageContext.request.contextPath}/member/memberLogin.do" method="post" id="loginForm">
 	<table align="center">
 		<tr>
 			<td>
@@ -84,18 +66,19 @@
 		</tr>
 		<tr>
 			<td>
-				<input type="submit" class="btn btn-outline-success" value="Login"></input>	
+				<input type="submit" class="btn-outline-success" value="Login"></input>	
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<input type="button" class="btn btn-outline-success" onclick="goJoin()" value="Join"></input>
+				<input type="button" class="btn-outline-success" onclick="goJoin()" value="Join"></input>
 			</td>
 		</tr>
 	</table>
 </form>
-			<c:import url="../user/common/sideBar.jsp"/> 
+		</div>
 	
+	</div>
 	<script>
 		function goJoin() {
 			location.href ="${pageContext.request.contextPath}/join.do";
