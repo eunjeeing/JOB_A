@@ -17,16 +17,27 @@ public class Board1DAOImpl implements Board1DAO {
 	SqlSessionTemplate sqlSession;
 	
 	@Override
-	public List<Map<String, String>> selectBoardList(int cPage, int numPerPage) {
+	public List<Map<String, String>> selectNoticeList(int cPage, int numPerPage) {
 		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
-		List<Map<String, String>> result = sqlSession.selectList("board1Mapper.selectBoardList", null, rows);
-		System.out.println("DAO : " + result);
-		return result;
+		return sqlSession.selectList("board1Mapper.selectNoticeList", null, rows);
 	}
 
 	@Override
-	public int selectBoardTotalContents() {
-		return sqlSession.selectOne("board1Mapper.selectBoardTotalContents");
+	public int selectNoticeTotalContents() {
+		return sqlSession.selectOne("board1Mapper.selectNoticeTotalContents");
 	}
+
+	@Override
+	public List<Map<String, String>> searchNoticeList(int cPage, int numPerPage, String keyword) {
+		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
+		return sqlSession.selectList("board1Mapper.searchNoticeList", keyword, rows);
+	}
+
+	@Override
+	public int searchNoticeTotalContents(String keyword) {
+		return sqlSession.selectOne("board1Mapper.searchNoticeTotalContents", keyword);
+	}
+	
+	
 
 }

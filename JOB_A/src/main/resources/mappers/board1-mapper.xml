@@ -3,14 +3,25 @@
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board1Mapper">
-	<select id="selectBoardList" resultType="Board1">
+	<select id="selectNoticeList" resultType="Board1">
 		SELECT * FROM BOARD, MEMBER 
 		WHERE TYPE_NO = 1 AND MEMBER.MEM_NO = BOARD.MEM_NO
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 	</select>
 	
-	<select id="selectBoardTotalContents" resultType="_int">
+	<select id="selectNoticeTotalContents" resultType="_int">
 		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 1
 	</select>
+	
+	<select id="searchNoticeList" resultType="Board1">
+		SELECT * FROM BOARD, MEMBER 
+		WHERE TYPE_NO = 1 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	
+	<select id="searchNoticeTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 1 AND BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+	</select>
+	
 	
 </mapper>

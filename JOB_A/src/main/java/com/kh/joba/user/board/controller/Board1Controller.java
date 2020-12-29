@@ -20,12 +20,13 @@ public class Board1Controller {
 	
 	@RequestMapping("/board/notice.bo")
 	public String noticeList(
-			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, Model model) { 
+			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
+			Model model) { 
 		
 		int numPerPage = 10;
-		List<Map<String,String>> list = bs.selectBoardList(cPage, numPerPage);
-		int totalContents = bs.selectBoardTotalContents();
-		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "notice.bo");
+		List<Map<String,String>> list = bs.selectNoticeList(cPage, numPerPage);
+		int totalContents = bs.selectNoticeTotalContents();
+		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "notice.bo", null);
 		
 		// 조회확인용
 		System.out.println("list : " + list);
@@ -39,7 +40,37 @@ public class Board1Controller {
 	}
 
 	@RequestMapping("/searchNotice.bo")
-	public String searchNotice() { return "user/board/notice/notice"; }
+	public String searchNotice(
+			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
+			@RequestParam String keyword,
+			Model model) { 
+		
+		int numPerPage = 10;
+		List<Map<String,String>> list = bs.searchNoticeList(cPage, numPerPage, keyword);
+		int totalContents = bs.searchNoticeTotalContents(keyword);
+		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "searchNotice.bo", keyword);
+		
+		// 조회확인용
+		//System.out.println("keyword : " + keyword);
+		//System.out.println("totalContents : " + totalContents);
+		//System.out.println("list : " + list);
+		
+		model.addAttribute("noticeList", list);
+		model.addAttribute("totalContents", totalContents);
+		model.addAttribute("numPerPage", numPerPage);
+		model.addAttribute("pageBar", pageBar);
+		//model.addAttribute("keyword", keyword);
+		
+		return "user/board/notice/notice"; 
+	
+	}
+	
+	@RequestMapping("/selectOneNotice.bo")
+	public String selectOneNotice(@RequestParam int no, Model model) { 
+		System.out.println("board_no : " + no);
+		
+		return "user/board/notice/noticeView"; 
+	}
 	
 	
 }
