@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>JOB_A | 블라블라</title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/board.css" />	
+	href="${pageContext.request.contextPath}/resources/css/board.css" />
 <style>
 #topbanner {
 	background:
@@ -23,6 +23,39 @@
 
 .tit:hover {
 	cursor:pointer;
+}
+
+p {
+    padding-right: 20px !important;
+}
+.article-list .article-list-pre .pre-txt {
+    display: -webkit-box;
+    overflow: hidden;
+    line-height: 1.33em;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    max-height: 40px;
+    font-size: 17px;
+    line-height: 1.43em;
+    word-break: break-word;
+}
+
+.article-list .article-list-pre.attach-img-pre h3 {
+    padding-right: 130px !important;
+}
+
+.article-list .article-list-pre.attach-img-pre .pre-txt {
+    padding-right: 130px !important;
+}
+
+.attach-img {
+	position: relative;
+	display: inline-block;
+	margin-top: 54px;
+	margin-right: 24px;
 }
 </style>
 </head>
@@ -63,12 +96,6 @@
 											<h3 class="hh">${blah.board_Title}</h3>
 											<p class="pre-txt">${blah.board_Content}</p>
 										</div>
-										<%-- 										<c:if test="${b.fileCount>0}">
- --%>
-										<span class="attach-img"><img
-											src="https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/31/2eaf643f5efbc3ecf8c27a7dbe48091b_crop.jpeg"></span>
-										<%-- 										</c:if>
- --%>
 										<div class="sub">
 											<p class="name">${blah.mem_Nick}</p>
 											<div class="wrap-info">
@@ -80,6 +107,28 @@
 											</div>
 										</div>
 									</div>
+									<c:if test="{b.fileCount>0}">
+									<div class="article-list-pre attach-img-pre">
+										<div class="tit" id="${blah.board_No}">
+											<p style="display:none;">${blah.board_No }</p>
+											<h3 class="hh">${blah.board_Title}</h3>
+											<p class="pre-txt">${blah.board_Content}</p>
+											<span class="attach-img">
+												<img src="#">
+											</span>										
+										</div>
+										<div class="sub">
+											<p class="name">${blah.mem_Nick}</p>
+											<div class="wrap-info">
+												<i class="far fa-eye"> ${blah.board_View }</i> <i
+													class="far fa-comment"> ${blah.comm_Count }</i>
+												<div class="info_fnc">
+													${blah.board_Date} <i class="far fa-bookmark" id="bookmark"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+									</c:if>									
 								</c:forEach>
 							</div>
 						</div>
@@ -99,7 +148,7 @@ $(function(){
 	$("div[class=tit]").on("click",function(){
 		var board_No = $(this).attr("id");
 		console.log("board_No="+board_No);
-		location.href = "${pageContext.request.contextPath}/board2/blahView.bo?no="+board_No;
+		location.href = "${pageContext.request.contextPath}/board2/blahView.bo?board_No="+board_No;
 	});
 });
 </script>

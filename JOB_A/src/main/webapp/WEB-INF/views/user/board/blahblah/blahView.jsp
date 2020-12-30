@@ -172,11 +172,10 @@
 									<div id="btn_add_comment" style="display: flex;" >
 										<div class="reply_area" style="width: 100%;">
 										<from id="commentForm" method="post">
-											<input type="hidden" id="board_No" name="board_No" value="${board.board_No}" />
-											<input type="hidden" id="mem_No" name="mem_No" value="${sessionScope.sessionID }" />
-											<textarea id="comm_Content" name="comm_Content" placeholder="댓글을 남겨주세요."></textarea>
+											<input type="hidden" id="mem_No" name="mem_No" value="${sessionScope.mem_No }" />
+											<textarea id="comm_Content" name="comm_Content" placeholder="댓글을 남겨주세요." style="resize: none;"></textarea>
 										</div>
-											<button class="insertCommentBtn" style="height: 85px;">등록</button>
+											<button id="insertCommentBtn" style="height: 85px; font-size:20px;">등록</button>
 										</form>
 									</div>
 								</div>
@@ -206,8 +205,8 @@
 		</div>
 		<c:import url="../../common/sideBar.jsp" />
 	</div>
-<script>
-/* 	var httpRequest = null;
+<!--  <script>
+ 	var httpRequest = null;
 
 	// httpRequest 객체 생성
 	function getXMLHttpRequest(){
@@ -260,12 +259,19 @@
 			}
 		}
 	}
- */
-	$(".insertCommentBtn").on("click", function(){
+  	$(".insertCommentBtn").on("click", function(){
 		  var formObj = $("form[name='commentForm']");
 		  formObj.attr("action", "/comments2/insertComment.bo");
 		  formObj.submit();
-		});
+		}); -->
+<script type="text/javascript">
+		 document.getElementById("insertCommentBtn").addEventListener("click", function() {
+		    	if(comm_Content.value==""||comm_Content.value.length==0){
+					alert("댓글을 입력해 주세요");
+					return false;
+				}else{
+					location.href='${pageContext.request.contextPath}/comments2/insertComment.bo?board_No=${board2.board_No}&mem_No=${member.memNo}&comm_Content='+comm_Content.value;
+				}}, false);
 </script>
 </body>
 </html>
