@@ -11,6 +11,6 @@ public class CalendarController {
 	public String calendar() {
 		
 		System.out.println("calendar페이지 연결완료");
-		return "user/calendar/calendar";
+		return "user/calendar/fullcalendar";
 	}
 }
