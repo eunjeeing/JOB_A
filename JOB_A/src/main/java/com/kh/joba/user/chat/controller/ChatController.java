@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.joba.user.chat.model.service.ChatService;
+import com.kh.joba.user.chat.model.vo.Chat;
+import com.kh.joba.user.common.exception.ChatException;
 import com.kh.joba.user.common.util.Utils;
 
 @Controller
@@ -20,11 +22,14 @@ public class ChatController {
 	@Autowired
 	ChatService chatService;
 	
-	@RequestMapping("/chat/chatting.do")
-	public String chatting(Model model, HttpServletRequest req) {
+	@RequestMapping("/chat/chatView/{chatNo}")
+	public String chatView(int chatNo, Model model, HttpServletRequest req) {
+		List<Chat> chatList = chatService.selectChat(chatNo);
+		
+		model.addAttribute("chatList", chatList);
 		
 		model.addAttribute("host", req.getRemoteHost());
-		return "user/chat/chatView";
+		return "chat/chatting";
 	}
 	
 	
@@ -52,5 +57,46 @@ public class ChatController {
 		
 		return "user/chat/chatList";
 	}
+	
+	@RequestMapping("chat/insertChat")
+	public String insertChat(String chatTitle, Model model, HttpServletRequest req) {
 
+		int chatNo = 0;
+		try {
+			chatNo = chatService.insertChat(chatTitle);
+		} catch (ChatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "redirect:/chat/chatView/" + chatNo;
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
+
+
+
+
+

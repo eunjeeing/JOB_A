@@ -1,5 +1,8 @@
 package com.kh.joba.user.chat.model.service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.joba.user.chat.model.dao.ChatDAO;
+import com.kh.joba.user.chat.model.vo.Chat;
+import com.kh.joba.user.common.exception.ChatException;
 
 @Service
 public class ChatServiceImpl implements ChatService {
@@ -26,6 +31,34 @@ public class ChatServiceImpl implements ChatService {
 		return chatDAO.selectChatTotalContents();
 	}
 
+	@Override
+	public int insertChat(String chatTitle) throws ChatException {
+		// TODO Auto-generated method stub
+		int result = 0;
+		int chatNo = chatDAO.selectChatSeq();
+		Chat chat = new Chat();
+		DateFormat dateFormat =  new SimpleDateFormat("yyyy/MM/dd");
+		Date date = new Date();        
+		String dateToStr = dateFormat.format(date);
+		
+		chat.setChatNo(chatNo);
+		chat.setChatTitle(chatTitle);
+		chat.setChatDate(dateToStr);
+		
+		result = chatDAO.insertChat(chat);
+		System.out.println(result);
+		if (result == 0) {
+			throw new ChatException();
+		}
+		
+		return chatNo;
+	}
+
+	@Override
+	public List<Chat> selectChat(int chatNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 	

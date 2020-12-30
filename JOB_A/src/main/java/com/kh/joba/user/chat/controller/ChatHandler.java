@@ -14,7 +14,7 @@ import com.kh.joba.user.member.model.vo.Member;
 
 public class ChatHandler extends TextWebSocketHandler {
 	
-	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
+	private List<WebSocketSession> sessionList = new ArrayList<>();
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
