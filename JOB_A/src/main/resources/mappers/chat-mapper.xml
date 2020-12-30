@@ -12,6 +12,15 @@
 	<select id="selectChatTotalContents" resultType="_int">
 		SELECT COUNT(*) FROM CHAT
 	</select>
-	 
+	
+	<insert id="insertChat" parameterType="Chat">
+		INSERT INTO CHAT
+		VALUES (#{chatNo}, #{chatTitle}, #{chatDate})
+	</insert>
+	
+	<select id="selectChatSeq" resultType="_int">
+		SELECT
+		CHAT_SEQ.NEXTVAL FROM DUAL
+	</select>
 
 </mapper>
