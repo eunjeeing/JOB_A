@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.joba.user.chat.model.vo.Chat;
-import com.kh.joba.user.chat.model.vo.ChatRoom;
 import com.kh.joba.user.common.exception.ChatException;
 
 public interface ChatService {
@@ -15,6 +14,6 @@ public interface ChatService {
 
 	int insertChat(String chatTitle) throws ChatException;
 
-	List<Chat> selectChat(int chatNo);
+	Map<String, String> selectChat(int chatNo);
 
 }
