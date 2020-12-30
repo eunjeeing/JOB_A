@@ -48,15 +48,15 @@ public class Board2Controller {
 	}
 	
 	@RequestMapping("/board2/blahView.bo")
-	public String boardView(@RequestParam int no, Model model) {
+	public String boardView(@RequestParam int board_No, Model model) {
 		
-		Board2 board = boardService.selectOneBlah(no);
-		List<Attachment2> attachmentList = boardService.selectAttachmentList(no);
+		Board2 board = boardService.selectOneBlah(board_No);
+		List<Attachment2> attachmentList = boardService.selectAttachmentList(board_No);
 		
 		model.addAttribute("board2", board);
 		model.addAttribute("attachmentList", attachmentList);
 		
-		List<Comments2> selectComment = commentsService.selectComment(no);
+		List<Comments2> selectComment = commentsService.selectComment(board_No);
 		model.addAttribute("selectComment", selectComment);
 		System.out.println(selectComment);
 		
