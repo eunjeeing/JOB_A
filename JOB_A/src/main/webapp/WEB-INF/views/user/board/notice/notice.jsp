@@ -191,8 +191,13 @@
 			    	});
 			    	
 			    	function search() {
+				    	//var cPage = ${pageNo};
+						if (cPage==1) {
 			    			location.href="${pageContext.request.contextPath}/searchNotice.bo?keyword="+$('#search').val();
+						} else {
+			    			location.href="${pageContext.request.contextPath}/searchNotice.bo?keyword=${keyword}";
 			    		}
+			    	}
 			    	
 			    	function enterKey() {
 			    			if (event.keyCode==13){

@@ -46,43 +46,51 @@
 </style>
 </head>
 <body>
-	<div id="list_1">
-		<c:import url="../user/common/header.jsp"/>  
-		<div id="list_2">
-			<c:import url="../user/common/sideBar.jsp"/> 
-						
-	
-	<form action="${pageContext.request.contextPath}/member/memberLogin.do" method="post" id="loginForm">
-	<table align="center">
-		<tr>
-			<td>
-				<input type="text" class="form-control" placeholder="ID" name="memId" required/>			
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<input type="password" class="form-control" name="memPw" placeholder="password" required/>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<input type="submit" class="btn-outline-success" value="Login"></input>	
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<input type="button" class="btn-outline-success" onclick="goJoin()" value="Join"></input>
-			</td>
-		</tr>
-	</table>
-</form>
+	<div id="wrapper">
+
+		<!-- Main -->
+		<div id="main">
+			<div class="inner">
+				<div id="list_1">
+					<c:import url="../user/common/header.jsp"/>  
+					<div id="list_2">
+						<c:import url="../user/common/sideBar.jsp"/> 
+									
+				
+				<form action="${pageContext.request.contextPath}/member/memberLogin.do" method="post" id="loginForm">
+				<table align="center">
+					<tr>
+						<td>
+							<input type="text" class="form-control" placeholder="ID" name="memId" required/>			
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="password" class="form-control" name="memPw" placeholder="password" required/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="submit" class="btn-outline-success" value="Login"></input>	
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="button" class="btn-outline-success" onclick="goJoin()" value="Join"></input>
+						</td>
+					</tr>
+				</table>
+			</form>
+					</div>
+				
+				</div>
+			</div>
 		</div>
-	
-	</div>
+	</div>			
 	<script>
 		function goJoin() {
 			location.href ="${pageContext.request.contextPath}/join.do";
 		}
-		</script>
+	</script>
 </body>
 </html>

@@ -26,7 +26,7 @@ public class Board1Controller {
 		int numPerPage = 10;
 		List<Map<String,String>> list = bs.selectNoticeList(cPage, numPerPage);
 		int totalContents = bs.selectNoticeTotalContents();
-		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "notice.bo", null);
+		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "notice.bo");
 		
 		// 조회확인용
 		System.out.println("list : " + list);
@@ -48,10 +48,10 @@ public class Board1Controller {
 		int numPerPage = 10;
 		List<Map<String,String>> list = bs.searchNoticeList(cPage, numPerPage, keyword);
 		int totalContents = bs.searchNoticeTotalContents(keyword);
-		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "searchNotice.bo", keyword);
+		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "searchNotice.bo?keyword="+keyword);
 		
 		// 조회확인용
-		//System.out.println("keyword : " + keyword);
+		System.out.println("keyword : " + keyword);
 		//System.out.println("totalContents : " + totalContents);
 		//System.out.println("list : " + list);
 		

@@ -13,7 +13,7 @@
 		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 1
 	</select>
 	
-	<select id="searchNoticeList" resultType="Board1">
+	<select id="searchNoticeList" resultType="Board1" parameterType="string">
 		SELECT * FROM BOARD, MEMBER 
 		WHERE TYPE_NO = 1 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%'
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC

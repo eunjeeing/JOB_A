@@ -5,7 +5,8 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class UtilsBoard1 { // 게시판 페이징처리
 	
-	public static String getPageBar(int totalContents, int cPage, int numPerPage, String url, String keyword){
+	public static String getPageBar(int totalContents, int cPage, int numPerPage, String url){
+		//, String keyword
 		String pageBar = "";
 		int pageBarSize = 10;
 		cPage = cPage==0?1:cPage;
@@ -67,9 +68,15 @@ public class UtilsBoard1 { // 게시판 페이징처리
 		//fn_paging함수
 		pageBar += "<script>";
 		pageBar += "function fn_paging(cPage,numPerPage){";
-		pageBar += "location.href='"+url+"?cPage='+cPage'&keyword='+keyword;";
+		if (url.contains("keyword")) {
+			pageBar += "location.href='"+url+"&cPage='+cPage";			
+		} else {
+			pageBar += "location.href='"+url+"?cPage='+cPage";			
+		}
 		pageBar += "}";
 		pageBar += "</script>";
+		
+		//'&keyword='+keyword;
 		
 		return pageBar; 
 	}
