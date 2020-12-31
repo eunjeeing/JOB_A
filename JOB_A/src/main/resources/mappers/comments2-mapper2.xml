@@ -16,6 +16,14 @@
 		INSERT INTO COMMENTS(COMM_NO, MEM_NO, BOARD_NO, COMM_CONTENT, COMM_STATUS, COMM_DATE)
 		VALUES(COMMENTS_SEQ.NEXTVAL, #{mem_No}, #{board_No}, #{comm_Content}, DEFAULT, DEFAULT)
 	</insert>
+	
+	<update id="deleteComment" parameterType="Comments2">
+		UPDATE COMMENTS SET COMM_STATUS = 'N' WHERE COMM_NO = #{comm_No}
+	</update>
+	
+	<update id="updateComment" parameterType="Comments2">
+		UPDATE COMMENTS SET COMM_CONTENT = #{comm_Content} WHERE COMM_NO = #{comm_No}
+	</update>
 
 		
 </mapper>

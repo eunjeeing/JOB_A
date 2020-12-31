@@ -1,5 +1,7 @@
 package com.kh.joba.user.comments2.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,28 +16,56 @@ import com.kh.joba.user.comments2.model.vo.Comments2;
 public class Comments2Controller {
 	
 	@Autowired
-	Comments2Service commentsService;
+	Comments2Service cs;
 	
-	@RequestMapping("/comments2/insertComment.bo")
+	@RequestMapping("/comments2/insertComment.do")
 	public String insertComment(@RequestParam int board_No,
 								@RequestParam int mem_No,
 								@RequestParam String comm_Content,
 								Comments2 comment, Model model) {
 		
-		int result = commentsService.insertComment(comment);
+		int result = cs.insertComment(comment);
 		
-		String loc = "/board2/blahView.bo?board_No="+board_No;
+		String loc = "/board2/blahView.do?board_No="+board_No;
 		String msg = "";
-		if( result > 0 ) {
-			msg = "댓글이 등록되었습니다.";
-		} else {
-			msg = "댓글이 등록되지 않았습니다.";
-		}
 		
 		model.addAttribute("loc", loc);
-		model.addAttribute("msg", msg);
 		
-		return "user/common/msg";
+		return "user/common/pageMove";
+	}
+	
+	@RequestMapping("/comments2/deleteComment.do")
+	public String deleteComment(@RequestParam int board_No,
+								@RequestParam int comm_No,
+								HttpSession session,
+								Comments2 comment, Model model) {
+		
+		int result = cs.deleteComment(comment);
+		
+		String loc = "/board2/blahView.do?board_No="+board_No;
+		String msg = "";
+		
+		
+		model.addAttribute("loc", loc);
+		
+		return "user/common/pageMove";
+	}
+	
+	@RequestMapping("/comments2/updateComment.do")
+	public String updateComment(@RequestParam int board_No,
+								@RequestParam int comm_No,
+								@RequestParam String comm_Content,
+								Comments2 comment, Model model) {
+		
+		int result = cs.updateComment(comment);
+		
+		String loc = "/board2/blahView.do?board_No="+board_No;
+		String msg = "";
+		
+		
+		model.addAttribute("loc", loc);
+		
+		return "user/common/pageMove";
 	}
 	
 }

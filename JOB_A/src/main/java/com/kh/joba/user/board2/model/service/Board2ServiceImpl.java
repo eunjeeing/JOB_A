@@ -40,4 +40,9 @@ public class Board2ServiceImpl implements Board2Service {
 	public List<Attachment2> selectAttachmentList(int board_No) {
 
 		return boardDAO.selectAttachmentList(board_No);	}
+
+	@Override
+	public int blahDelete(int board_No) {
+		return boardDAO.blahDelete(board_No);
+	}
 }

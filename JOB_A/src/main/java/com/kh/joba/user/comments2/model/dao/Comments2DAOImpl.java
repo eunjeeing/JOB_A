@@ -24,4 +24,14 @@ public class Comments2DAOImpl implements Comments2DAO {
 		return sqlSession.insert("comments2Mapper.insertComment", comment);
 	}
 
+	@Override
+	public int deleteComment(Comments2 comment) {
+		return sqlSession.update("comments2Mapper.deleteComment", comment);
+	}
+
+	@Override
+	public int updateComment(Comments2 comment) {
+		return sqlSession.update("comments2Mapper.updateComment", comment);
+	}
+
 }
