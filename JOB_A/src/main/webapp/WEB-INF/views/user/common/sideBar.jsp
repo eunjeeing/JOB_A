@@ -28,8 +28,7 @@
 				<li><a href="#">채용 달력</a></li>
 				<li><span class="opener">취준진담</span>
 					<ul>
-						<li><a href="${pageContext.request.contextPath}/board2/blahList.bo">블라블라</a></li>
-						<li><a href="#">블라인드</a></li>
+						<li><a href="${pageContext.request.contextPath}/board2/blahList.do">블라블라</a></li>						<li><a href="#">블라인드</a></li>
 						<li><a href="#">언틸 투모로우</a></li>
 					</ul></li>
 				<li><a href="${pageContext.request.contextPath}/chat/chatList/0">실시간 채팅</a></li>
