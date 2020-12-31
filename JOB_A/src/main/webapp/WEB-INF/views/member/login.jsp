@@ -34,21 +34,22 @@
 
 <title>로그인 페이지</title>
 <style>
-#loginForm {
-	margin-top: 100px;
-	margin-left: 300px;
-	width: 450px;
-	height: 300px;
-}
 
-#list_2 {
-	display: flex;
-	height: 1200px;
-}
-
-.btn-outline-success {
-	width: 100%;
-}
+	#loginForm {
+		margin-top: 100px;
+		margin-left: 300px;
+		width: 450px;
+		height: 300px;
+	}
+	
+	#list_2 {
+		display: flex;
+		height: 1200px;
+	}
+	
+	.btn-outline-success {
+		width: 100%;
+	}
 </style>
 </head>
 <body>
@@ -64,25 +65,27 @@
 				<div id="list_1">
 					<div id="list_2">
 
-						<form
-							action="${pageContext.request.contextPath}/member/memberLogin.do"
-							method="post" id="loginForm">
+						<form action="${pageContext.request.contextPath}/member/memberLogin.do" method="post" id="loginForm">
 							<table align="center">
 								<tr>
-									<td><input type="text" class="form-control"
-										placeholder="ID" name="memId" required /></td>
+									<td>
+										<input type="text" class="form-control" placeholder="ID" name="memId" required />
+									</td>
 								</tr>
 								<tr>
-									<td><input type="password" class="form-control"
-										name="memPw" placeholder="password" required /></td>
+									<td>
+										<input type="password" class="form-control" name="memPw" placeholder="password" required />
+									</td>
 								</tr>
 								<tr>
-									<td><input type="submit" class="btn-outline-success"
-										value="Login"></input></td>
+									<td>
+										<input type="submit" class="btn-outline-success" value="Login"></input>
+									</td>
 								</tr>
 								<tr>
-									<td><input type="button" class="btn-outline-success"
-										onclick="goJoin()" value="Join"></input></td>
+									<td>
+										<input type="button" class="btn-outline-success" onclick="goJoin()" value="Join"></input>
+									</td>
 								</tr>
 							</table>
 						</form>

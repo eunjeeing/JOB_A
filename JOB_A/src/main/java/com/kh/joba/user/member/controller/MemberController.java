@@ -1,11 +1,15 @@
 package com.kh.joba.user.member.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -136,11 +140,24 @@ public class MemberController {
 		Member m = memberService.selectOneMember(memId);
 		model.addAttribute("member", m);
 		
-		
-		
 		return "/member/myPage";
+		
 	}
 
-	
+	/*
+	 * // 아이디 중복 체크
+	 * 
+	 * @RequestMapping("member/idCheckDuplicate.do")
+	 * 
+	 * @ResponseBody public Map<String, Object> checkIdDuplicate(@RequestParam
+	 * String memId){
+	 * 
+	 * Map<String, Object> map = new HashMap<String, Object>(); boolean isUsable =
+	 * memberService.checkIdDuplicate(memId) == 0 ? true : false;
+	 * 
+	 * map.put("isUsable", isUsable);
+	 * 
+	 * return map; }
+	 */
 	
 }
