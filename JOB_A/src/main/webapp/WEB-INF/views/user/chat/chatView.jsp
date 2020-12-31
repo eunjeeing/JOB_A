@@ -20,7 +20,7 @@
 <title>실시간 채팅</title>
 <script>
     /* SockJS객체생성 보낼 url경로를 매개변수로 등록 */
-    var sock = new SockJS("<c:url value='/chat/chatting'/>");
+    var sock = new SockJS("<c:url value='/chatting'/>");
     /* /info : https://github.com/sockjs/sockjs-protocol/blob/master/sockjs-protocol.py#L250-L263 */
 
     sock.onmessage=onMessage;

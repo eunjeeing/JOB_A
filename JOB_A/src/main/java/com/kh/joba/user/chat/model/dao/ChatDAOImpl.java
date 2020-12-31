@@ -41,4 +41,10 @@ public class ChatDAOImpl implements ChatDAO {
 		return sqlSession.selectOne("chatMapper.selectChatSeq");
 	}
 
+	@Override
+	public Map<String, String> selectChat(int chatNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("chatMapper.selectChat", chatNo);
+	}
+
 }

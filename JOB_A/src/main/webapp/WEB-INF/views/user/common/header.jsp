@@ -18,6 +18,9 @@
 	i {
 	      font-family: 'Font Awesome 5 Free' !important;
 	}  
+	
+	.icons {
+	}
 </style>
 <meta charset="UTF-8">
 <link rel="stylesheet"
@@ -26,7 +29,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
 <header id="header">
 	<div class="icons" >
-		<a href="${pageContext.request.contextPath}" class="logo"><strong>JOB-A</strong></a>
+		<a href="${pageContext.request.contextPath}" class="logo"><strong style="font-size: 30px;">JOB-A</strong></a>
 	</div>
 	<div class="icons" >
 		<c:if test="${empty member}">

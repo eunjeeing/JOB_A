@@ -15,4 +15,6 @@ public interface ChatDAO {
 
 	int selectChatSeq();
 
+	Map<String, String> selectChat(int chatNo);
+
 }
