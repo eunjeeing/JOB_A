@@ -23,5 +23,9 @@
 		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 1 AND BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%'
 	</select>
 	
+	<select id="selectOneNotice" parameterType="_int" resultType="Board1">
+		SELECT * FROM BOARD, MEMBER WHERE TYPE_NO = 1 AND BOARD_NO = #{board_no} AND BOARD.MEM_NO = MEMBER.MEM_NO 
+	</select>
+	
 	
 </mapper>

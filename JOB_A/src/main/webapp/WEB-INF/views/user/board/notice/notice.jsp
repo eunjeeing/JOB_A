@@ -96,6 +96,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
 	</head>
 	<body class="is-preload">
+		<!-- 사용 스크립트 선언 -->
 		<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 		<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
 		<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
@@ -124,8 +125,10 @@
 							</div>
 							<button type="button" id="searchBtn" onclick="search()">검색
 							</button>
-							<button id="writeBtn" onclick="fn_goBoardForm();">글쓰기
-							</button>
+							<c:if test="${member.gradeNo==0 || member.gradeNo==1}">
+								<button id="writeBtn" onclick="fn_goBoardForm();">글쓰기
+								</button>
+							</c:if>
 						</div>
 						
 						<!-- list Area -->
@@ -186,12 +189,11 @@
 			    		$("tr[id]").on("click", function(){
 			    			var board_no = $(this).attr("id");
 			    			console.log("board_no="+ board_no);
-			    			location.href = "${pageContext.request.contextPath}/selectOneNotice.bo?no="+ board_no;
+			    			location.href = "${pageContext.request.contextPath}/selectOneNotice.bo?board_no="+ board_no;
 			    		});
 			    	});
 			    	
 			    	function search() {
-				    	//var cPage = ${pageNo};
 						if (cPage==1) {
 			    			location.href="${pageContext.request.contextPath}/searchNotice.bo?keyword="+$('#search').val();
 						} else {
@@ -206,16 +208,9 @@
 			    		}
 
 			    	function fn_goBoardForm(){
-			    		location.href = "${pageContext.request.contextPath}/user/board/write/boardForm.do";
+			    		location.href = "${pageContext.request.contextPath}/boardForm.do";
 			    	}
-			    	
-			    	/*
-			    	function selectOne() {
-			    		var board_no = $(this).attr("id")
-			    		location.href = "${pageContext.request.contextPath}/selectOneNotice.bo?no="+ board_no;
-			    		}
-			    	*/
-					
+			    						
          	</script>
 	</body>
 </html>

@@ -17,7 +17,7 @@
 				<h2>JOB-A</h2>
 			</header>
 			<ul>
-				<li><a href="notice.bo">공지사항</a></li>
+				<li><a href="${pageContext.request.contextPath}/notice.bo">공지사항</a></li>
 				<li><span class="opener">모집 공고</span>
 					<ul>
 						<li><a href="#">채용 공고</a></li>

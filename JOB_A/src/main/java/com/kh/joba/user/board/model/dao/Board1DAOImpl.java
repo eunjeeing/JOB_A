@@ -37,6 +37,13 @@ public class Board1DAOImpl implements Board1DAO {
 	public int searchNoticeTotalContents(String keyword) {
 		return sqlSession.selectOne("board1Mapper.searchNoticeTotalContents", keyword);
 	}
+
+	@Override
+	public Board1 selectOneNotice(int board_no) {
+		return sqlSession.selectOne("board1Mapper.selectOneNotice", board_no);
+	}
+	
+	
 	
 	
 

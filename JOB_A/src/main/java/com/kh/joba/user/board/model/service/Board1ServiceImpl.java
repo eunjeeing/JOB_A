@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.joba.user.board.model.dao.Board1DAO;
+import com.kh.joba.user.board.model.vo.Board1;
 
 @Service
 public class Board1ServiceImpl implements Board1Service {
@@ -33,6 +34,13 @@ public class Board1ServiceImpl implements Board1Service {
 	public int searchNoticeTotalContents(String keyword) {
 		return board1DAO.searchNoticeTotalContents(keyword);
 	}
+
+	@Override
+	public Board1 selectOneNotice(int board_no) {
+		return board1DAO.selectOneNotice(board_no);
+	}
+	
+	
 	
 	
 

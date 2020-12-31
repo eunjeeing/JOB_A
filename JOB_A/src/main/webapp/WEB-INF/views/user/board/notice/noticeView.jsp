@@ -25,12 +25,36 @@
 	
 	#backBtn {
 		margin-top: 20px;
+		float: right;
 	}
 	
 	#contentsTbl {
 		margin-top: 30px;
 	}
 	
+	#contentsArea {
+		width:50%;
+		height: 500px;
+		margin:auto;
+	}
+	
+	#btnArea {
+		display: flex;
+	}
+	
+	#functionBtn{
+		width : 40%;
+		margin: auto;
+		display: flex;
+	}
+
+	#editBtn,#deleteBtn{
+		width : 40%;
+		height: 40px;
+		margin: auto;
+		/*font-size: 10px;*/
+	}
+
 	
 </style>
 <html>
@@ -57,18 +81,36 @@
 						<div id="contentsTbl">
 							<table>
 								<thead>
-									<tr>공지사항 제목</tr>
+									<tr>
+										<td>제목</td>
+										<td>${notice.board_title}</td>
+									</tr>
+									
 								</thead>
 								<tbody>
 									<tr>
 										<td>작성자</td>
-										<td></td>
+										<td>${notice.mem_nick}</td>
 									</tr>
-								
+									<tr>
+										<td>작성일</td>
+										<td>${notice.board_date}</td>
+									</tr>
 								</tbody>
 							</table>
+							<div id="contentsArea">
+								<p>
+									${notice.board_content}
+								</p>
+							</div>
 						</div>
-						
+						<div id="btnArea">
+							<div id="functionBtn">
+								<!-- 수정 & 삭제 버튼 -->
+								<button id="editBtn" onclick="updateNotice();">수정</button>
+								<button id="deleteBtn" onclick="deleteNotice();">삭제</button>
+							</div>
+						</div>
 					</div>		<!-- #inner -->
 				</div>			<!-- #main -->
 				
@@ -103,9 +145,14 @@
 				});
 				
 				// 수정용 JS
+				function updateNotice(){
+			    		location.href = "${pageContext.request.contextPath}/updateNotice.bo?board_no="+${notice.board_no};
+			    	}
 				
 				// 삭제용 JS
-   	
+				function deleteNotice(){
+			    		location.href = "${pageContext.request.contextPath}/deleteNotice.bo?board_no="+${notice.board_no};
+			    	}
 
          	</script>
 	</body>
