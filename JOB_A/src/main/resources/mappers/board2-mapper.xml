@@ -5,19 +5,19 @@
 
 <!-- 자유게시판(블라블라) 조회 -->
 	<select id="selectBlahBlahList" resultType="Board">
-		SELECT B.*, M.MEM_NICK,(SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO) COMM_COUNT
+		SELECT B.*, M.MEM_NICK,(SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
 		FROM BOARD B, MEMBER M
 		WHERE TYPE_NO = 4 AND BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 	</select>
 	
 	<select id="selectBlahBlahTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD
+		SELECT COUNT(*) FROM BOARD WHERE BOARD_STATUS = 'Y'
 	</select>
 	
 
 	<select id="selectOneBlah" parameterType="_int" resultType="Board">
-		SELECT B.*, M.MEM_NICK,(SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO) COMM_COUNT
+		SELECT B.*, M.MEM_NICK,(SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
 		FROM BOARD B, MEMBER M
 		WHERE BOARD_NO = #{board_No} AND M.MEM_NO = B.MEM_NO
 	</select>
@@ -29,6 +29,12 @@
 	<update id="updateBlahReadCount" parameterType="_int">
 		UPDATE BOARD
 		SET BOARD_VIEW = BOARD_VIEW + 1
+		WHERE BOARD_NO = #{board_No}
+	</update>
+	
+	<update id="blahDelete" parameterType="_int">
+		UPDATE BOARD
+		SET BOARD_STATUS = 'N'
 		WHERE BOARD_NO = #{board_No}
 	</update>
 		

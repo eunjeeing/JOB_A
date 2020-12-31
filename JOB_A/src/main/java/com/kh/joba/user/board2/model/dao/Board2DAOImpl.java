@@ -46,4 +46,9 @@ public class Board2DAOImpl implements Board2DAO {
 
 	}
 
+	@Override
+	public int blahDelete(int board_No) {
+		return sqlSession.update("board2Mapper.blahDelete", board_No);
+	}
+
 }

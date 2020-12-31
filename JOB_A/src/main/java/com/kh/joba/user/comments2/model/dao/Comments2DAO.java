@@ -10,4 +10,8 @@ public interface Comments2DAO {
 
 	public int insertComment(Comments2 comment);
 
+	public int deleteComment(Comments2 comment);
+
+	public int updateComment(Comments2 comment);
+
 }

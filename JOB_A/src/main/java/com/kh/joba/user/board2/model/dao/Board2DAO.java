@@ -18,4 +18,6 @@ public interface Board2DAO {
 
 	List<Attachment2> selectAttachmentList(int board_No);
 
+	int blahDelete(int board_No);
+
 }
