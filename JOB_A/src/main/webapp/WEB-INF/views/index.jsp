@@ -278,7 +278,7 @@
 										<!-- 검색창 -->
 											<div class="container">
 											    <span class="icon"><i class="fa fa-search"></i></span>
-											    <input type="search" id="search" placeholder=" Search !" />
+											    <input type="search" id="search" placeholder=" Search !" onKeyDown="enterKey();"/>
 											</div>
 										<!-- 캐러셀 -->
 										<div class="carou_title">
@@ -332,7 +332,7 @@
 								
 								<section>
 									<div style="margin-left: 35px; margin-bottom: 30px; display: flex;">
-										<div class="sub_menu" id="sub_menu" href="calendar.do">
+										<div class="sub_menu" id="sub_menu" OnClick="goCal()">
 											<i class="icon far fa-calendar-alt" style="font-size: 50px; color: #f56a6a;"></i>
 											<p class="textline">한 눈에 보자!<br>채용달력</p>
 										</div>
@@ -340,7 +340,7 @@
 											<i class="icon far fa-comments" style="font-size: 50px; color: #f56a6a;"></i>
 											<p class="textline">다들 뭐해?<br>실시간 채팅</p>
 										</div>
-										<div class="sub_menu3" id="sub_menu" href="#">
+										<div class="sub_menu3" id="sub_menu" OnClick="goInfo()">
 											<i class="icon far fa-question-circle" style="font-size: 50px; color: #f56a6a;"></i>
 											<p class="textline">알려주세요~<br>사이트 이용방법</p>
 										</div>
@@ -361,16 +361,38 @@
 			<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 			
 			<script type="text/javascript">
-					function goChat(){
-						var id = '${sessionID}'; 
-				        if (id == null) {
-				            alert("로그인 후 이용해주세요!");
-				            return false;
-				        } else {
-				            location.href = '${pageContext.request.contextPath}/chat/chatList.do';
-				        }
-					}
-				</script>
+				/* 전체 검색 */
+				function enterKey() {
+	    			if (event.keyCode==13){
+	    				location.href="${pageContext.request.contextPath}/searchNotice.bo?keyword="+$('#search').val();
+	    			}
+	    		}
+			
+				/* 캘린더로 이동 */
+				function goCal(){
+					var id = '${sessionID}'; 
+			        if (id == null) {
+			            alert("로그인 후 이용해주세요!");
+			            return false;
+			        } else {
+			            location.href = '${pageContext.request.contextPath}/calendar.do';
+			        }
+				}
+				/* 채팅으로 이동 */
+				function goChat(){
+					var id = '${sessionID}'; 
+			        if (id == null) {
+			            alert("로그인 후 이용해주세요!");
+			            return false;
+			        } else {
+			            location.href = '${pageContext.request.contextPath}/chat/chatList/0';
+			        }
+				}
+				/* 이용안내로 이동 */
+				function goInfo(){
+					location.href = '${pageContext.request.contextPath}/#';
+				}	
+			</script>
 
 	</body>
 </html>
