@@ -370,13 +370,7 @@
 			
 				/* 캘린더로 이동 */
 				function goCal(){
-					var id = '${sessionID}'; 
-			        if (id == null) {
-			            alert("로그인 후 이용해주세요!");
-			            return false;
-			        } else {
 			            location.href = '${pageContext.request.contextPath}/calendar.do';
-			        }
 				}
 				/* 채팅으로 이동 */
 				function goChat(){
