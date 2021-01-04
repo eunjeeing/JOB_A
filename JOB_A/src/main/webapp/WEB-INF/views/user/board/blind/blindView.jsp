@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>JOB_A | 블라블라</title>
+<title>JOB_A | 블라인드</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board.css" />
 <style>
@@ -164,7 +164,7 @@ p {
 				<!-- Top Banner Area -->
 				<div id="topbanner">
 					<div id="topbanner-textarea">
-						<h3 id="topbanner-text">블라블라</h3>
+						<h3 id="topbanner-text">블라인드</h3>
 					</div>
 				</div>
 
@@ -176,9 +176,9 @@ p {
 								<div class="title-close" style="display: flex;">
 								<h2 id="title">${board2.board_Title }</h2>
 								<i class="far fa-window-close" id="close-icon" style="font-size: 30px; color: #f56a6a; margin-left:auto; margin-right: 0;"
-								   onclick="location.href='${pageContext.request.contextPath}/board2/blahList.do'"></i>
+								   onclick="location.href='${pageContext.request.contextPath}/board2/selectBlindList.do'"></i>
 								</div>
-								<p class="name">${board2.mem_Nick }</p>
+								<p class="name">익명</p>
 								<div class="wrap-info">
 									<span class="date"> <i class="far fa-clock">
 											${board2.board_Date }</i>
@@ -203,8 +203,8 @@ p {
 								<c:if test="${member.memNo eq board2.mem_No}">
 								<div align="right">
 									<button style="font-weight: 300; margin-right:10px;"
-									 onclick="location.href='${pageContext.request.contextPath}/board2/blahUpdateForm.do?board_No=${board2.board_No}'">수정</button>
-									<button style="font-weight: 300;" onclick="location.href='${pageContext.request.contextPath}/board2/blahDelete.do?board_No=${board2.board_No}'">삭제</button>
+									 onclick="location.href='${pageContext.request.contextPath}/board2/blindUpdateForm.do?board_No=${board2.board_No}'">수정</button>
+									<button style="font-weight: 300;" onclick="location.href='${pageContext.request.contextPath}/board2/deleteBlind.do?board_No=${board2.board_No}'">삭제</button>
 								</div>
 								</c:if>
 								</p>
@@ -229,7 +229,7 @@ p {
 								</div>
 								<c:forEach items="${selectComment }" var="co">
 									<div id="${co.comm_No }" class="wrap-comment comment-area">
-										<p class="name">${co.mem_Nick }</p>
+										<p class="name">익명</p>
 										<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content }</textarea></p>
 										<div class="wrap-info">
 											<span class="date"> <i class="far fa-clock"> <fmt:formatDate
@@ -241,7 +241,7 @@ p {
 												<c:if test="${member.memNo eq co.mem_No}">
 													<a href="#" onclick="updateComment(this);return false;">수정</a>
 													<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
-													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
+													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/blindDeleteComment.do?board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
 												</c:if>
 												<span><i class="fas fa-exclamation-triangle"></i></span>
 											</div>
@@ -269,7 +269,7 @@ p {
 								alert("댓글을 입력해 주세요");
 								return false;
 							} else {
-								location.href = '${pageContext.request.contextPath}/comments2/insertComment.do?board_No=${board2.board_No}&mem_No=${member.memNo}&comm_Content='
+								location.href = '${pageContext.request.contextPath}/comments2/blindInsertComment.do?board_No=${board2.board_No}&mem_No=${member.memNo}&comm_Content='
 										+ comm_Content.value;
 							}
 						}, false);
@@ -295,7 +295,7 @@ p {
 
 			console.log(content);
 			
-			location.href = "${pageContext.request.contextPath}/comments2/updateComment.do?board_No=${board2.board_No}&comm_No=" + comm_No + "&comm_Content="
+			location.href = "${pageContext.request.contextPath}/comments2/blindUpdateComment.do?board_No=${board2.board_No}&comm_No=" + comm_No + "&comm_Content="
 				+ content;
 		}
 

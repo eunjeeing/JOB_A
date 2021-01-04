@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>JOB_A | 블라블라</title>
+<title>JOB_A | 블라인드</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board.css" />
 <style>
@@ -78,7 +78,7 @@ p {
 				<!-- Top Banner Area -->
 				<div id="topbanner">
 					<div id="topbanner-textarea">
-						<h3 id="topbanner-text">블라블라</h3>
+						<h3 id="topbanner-text">블라인드</h3>
 					</div>
 				</div>
 
@@ -91,7 +91,7 @@ p {
 					<button type="button" id="searchBtn" onclick="search()">검색
 					</button>
 					<c:if test="${ !empty member }" >
-						<button id="writeBtn" onclick="goBlahForm();">글쓰기</button>
+						<button id="writeBtn" onclick="goblindForm();">글쓰기</button>
 					</c:if>
 				</div>
 
@@ -100,40 +100,40 @@ p {
 						<div role="main" class="contents">
 
 							<div class="article-list">
-								<c:forEach items="${blahList}" var="blah">
+								<c:forEach items="${selectBlindList}" var="blind">
 									<div class="article-list-pre">
-										<div class="tit" id="${blah.board_No}">
-											<p style="display: none;">${blah.board_No }</p>
-											<h3 class="hh">${blah.board_Title}</h3>
-											<div class="pre-txt">${blah.board_Content}</div>
+										<div class="tit" id="${blind.board_No}">
+											<p style="display: none;">${blind.board_No }</p>
+											<h3 class="hh">${blind.board_Title}</h3>
+											<div class="pre-txt">${blind.board_Content}</div>
 										</div>
 										<div class="sub">
-											<p class="name" style="padding-top: 2em;">${blah.mem_Nick}</p>
+											<p class="name" style="padding-top: 2em;">익명</p>
 											<div class="wrap-info">
-												<i class="far fa-eye"> ${blah.board_View }</i> <i
-													class="far fa-comment"> ${blah.comm_Count }</i>
+												<i class="far fa-eye"> ${blind.board_View }</i> <i
+													class="far fa-comment"> ${blind.comm_Count }</i>
 												<div class="info_fnc">
-													${blah.board_Date} <i class="far fa-bookmark" id="bookmark"></i>
+													${blind.board_Date} <i class="far fa-bookmark" id="bookmark"></i>
 												</div>
 											</div>
 										</div>
 									</div>
-<%-- 									<c:if test="${blah.board_Content eq img}">
+<%-- 									<c:if test="{b.fileCount>0}">
 										<div class="article-list-pre attach-img-pre">
-											<div class="tit" id="${blah.board_No}">
-												<p style="display: none;">${blah.board_No }</p>
-												<h3 class="hh">${blah.board_Title}</h3>
-												<div class="pre-txt">${blah.board_Content}</div>
-												<span class="attach-img"> <img src="http://localhost:8087/joba/resources/uplaodFiles/board/20210104_023203_730.png">
+											<div class="tit" id="${blind.board_No}">
+												<p style="display: none;">${blind.board_No }</p>
+												<h3 class="hh">${blind.board_Title}</h3>
+												<div class="pre-txt">${blind.board_Content}</div>
+												<span class="attach-img"> <img src="#">
 												</span>
 											</div>
 											<div class="sub">
-												<p class="name">${blah.mem_Nick}</p>
+												<p class="name">익명</p>
 												<div class="wrap-info">
-													<i class="far fa-eye"> ${blah.board_View }</i> <i
-														class="far fa-comment"> ${blah.comm_Count }</i>
+													<i class="far fa-eye"> ${blind.board_View }</i> <i
+														class="far fa-comment"> ${blind.comm_Count }</i>
 													<div class="info_fnc">
-														${blah.board_Date} <i class="far fa-bookmark"
+														${blind.board_Date} <i class="far fa-bookmark"
 															id="bookmark"></i>
 													</div>
 												</div>
@@ -154,45 +154,58 @@ p {
 		</div>
 		<c:import url="../../common/sideBar.jsp" />
 	</div>
- 	<c:if test="${ !empty member }" >
-	<script>
-		$(function() {
-			$("div[class=tit]")
-					.on(
-							"click",
-							function() {
-								var board_No = $(this).attr("id");
-								console.log("board_No=" + board_No);
-								location.href = "${pageContext.request.contextPath}/board2/blahView.do?board_No="
-										+ board_No;
-							});
-		});
-	</script>
-	</c:if>
-	<c:if test="${ empty member }">
-	<script>
+	<c:choose>
+		<c:when test="${ empty member }">
+		<script>
+				$(function() {
+				$("div[class=tit]")
+						.on(
+								"click",function() {
+									window.alert("로그인 후 이용해주세요");
+								});
+				});
+		</script>
+		</c:when>
+		<c:when test="${ !empty member && member.gradeNo eq 3 || member.gradeNo eq  5 }">
+		<script>
+				$(function() {
+				$("div[class=tit]")
+						.on(
+								"click",function() {
+									window.alert("우수회원 이상 이용 가능합니다.");
+								});
+				});
+		</script>
+		</c:when>
+		<c:otherwise>
+		<script>
 			$(function() {
-			$("div[class=tit]")
-					.on(
-							"click",function() {
-								window.alert("로그인 후 이용해주세요");
-							});
+				$("div[class=tit]")
+						.on(
+								"click",
+								function() {
+									var board_No = $(this).attr("id");
+									console.log("board_No=" + board_No);
+									location.href = "${pageContext.request.contextPath}/board2/blindSelectOne.do?board_No="
+											+ board_No;
+								});
 			});
-	</script>
-	</c:if>
+		</script>
+		</c:otherwise>
+	</c:choose>
 	<script>
-		function goBlahForm() {
-			location.href = "${pageContext.request.contextPath}/board2/blahForm.do";
+		function goblindForm() {
+			location.href = "${pageContext.request.contextPath}/board2/blindForm.do";
 		}
 
     	function search() {
-			location.href="${pageContext.request.contextPath}/board2/searchBlahList.do?keyword="+$('#search').val();
+			location.href="${pageContext.request.contextPath}/board2/searchBlindList.do?keyword="+$('#search').val();
 
     	}
     	
     	function enterKey() {
     			if (event.keyCode==13){
-    				location.href="${pageContext.request.contextPath}/board2/searchBlahList.do?keyword="+$('#search').val();
+    				location.href="${pageContext.request.contextPath}/board2/searchBlindList.do?keyword="+$('#search').val();
     			}
     		}
 	</script>			
