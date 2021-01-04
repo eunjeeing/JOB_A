@@ -1,5 +1,7 @@
 package com.kh.joba.user.member.model.dao;
 
+import java.util.HashMap;
+
 import com.kh.joba.user.member.model.vo.Member;
 
 public interface MemberDAO {
@@ -10,7 +12,9 @@ public interface MemberDAO {
 
 	int updateMember(Member member);
 
-	int checkIdDuplicate(String memId);
+	Member checkIdDuplicate(String memId);
 
 	int deleteMember(String memId);
+
+	Member checkNicknameDuplicate(String memNick);
 }

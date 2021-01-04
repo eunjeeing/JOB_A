@@ -1,5 +1,7 @@
 package com.kh.joba.user.member.model.service;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +35,9 @@ public class MemberServiceImpl implements MemberService {
 
 	// 아이디 중복 확인
 	@Override
-	public int checkIdDuplicate(String memId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public Member checkIdDuplicate(String memId) {
+	
+		return memberDAO.checkIdDuplicate(memId);
 	}
 
 	// 회원정보 삭제-탈퇴
@@ -43,6 +45,15 @@ public class MemberServiceImpl implements MemberService {
 	public int deleteMember(String memId) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	// 닉네임 중복 확인
+	@Override
+	public Member checkNicknameDuplicate(String memNick) {
+		//HashMap<String, Object> hmap = new HashMap<String, Object>();
+		//hmap.put("memNick", memNick);
+		//System.out.println("service = " + memNick);
+		return memberDAO.checkNicknameDuplicate(memNick);
 	}
 
 }

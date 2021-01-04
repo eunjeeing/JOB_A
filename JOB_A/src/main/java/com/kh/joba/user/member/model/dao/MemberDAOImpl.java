@@ -1,5 +1,7 @@
 package com.kh.joba.user.member.model.dao;
 
+import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -35,9 +37,13 @@ public class MemberDAOImpl implements MemberDAO {
 
 	// 아이디 중복 체크
 	@Override
-	public int checkIdDuplicate(String memId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public Member checkIdDuplicate(String memId) {
+		
+		System.out.println("dao : " + memId);
+		Member m = sqlSession.selectOne("memberMapper.checkIdDuplicate", memId);
+		
+		System.out.println("리턴 값 : " + m);
+		return m;
 	}
 
 	// 회원 정보 삭제 - 탈퇴
@@ -45,6 +51,17 @@ public class MemberDAOImpl implements MemberDAO {
 	public int deleteMember(String memId) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	// 닉네임 중복 체크
+	@Override
+	public Member checkNicknameDuplicate(String memNick) {
+		
+		System.out.println("dao : " + memNick);
+		Member m= sqlSession.selectOne("memberMapper.checkNicknameDuplicate", memNick);
+		
+		System.out.println("리턴값 :" + m);
+		return m;
 	}
 
 }

@@ -10,7 +10,9 @@ public interface MemberService {
 
 	int updateMember(Member member);
 
-	int checkIdDuplicate(String memId);
+	Member checkIdDuplicate(String memId);
 
 	int deleteMember(String memId);
+
+	Member checkNicknameDuplicate(String memNick);
 }
