@@ -28,7 +28,8 @@
 				<li><a href="#">채용 달력</a></li>
 				<li><span class="opener">취준진담</span>
 					<ul>
-						<li><a href="${pageContext.request.contextPath}/board2/blahList.do">블라블라</a></li>						<li><a href="#">블라인드</a></li>
+						<li><a href="${pageContext.request.contextPath}/board2/blahList.do">블라블라</a></li>						
+						<li><a href="#">블라인드</a></li>
 						<li><a href="#">언틸 투모로우</a></li>
 					</ul></li>
 				<li><a href="${pageContext.request.contextPath}/chat/chatList/0">실시간 채팅</a></li>
@@ -36,8 +37,8 @@
 				<li><a href="#">Q & A</a></li>
 				<li><span class="opener">꿀팁 후기</span>
 					<ul>
-						<li><a href="#">면접 후기</a></li>
-						<li><a href="#">합격 후기</a></li>
+						<li><a href="${pageContext.request.contextPath}/interviewList.bo">면접 후기</a></li>
+						<li><a href="${pageContext.request.contextPath}/acceptList.bo">합격 후기</a></li>
 					</ul></li>
 			</ul>
 			<hr style="border-bottom: solid 2px rgba(210, 215, 217, 0.75)"/>

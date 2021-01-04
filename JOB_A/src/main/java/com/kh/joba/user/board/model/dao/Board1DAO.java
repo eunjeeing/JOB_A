@@ -16,4 +16,15 @@ public interface Board1DAO {
 	int searchNoticeTotalContents(String keyword);
 
 	Board1 selectOneNotice(int board_no);
+
+	int updateViewCount(int board_no);
+
+	int updateNotice(Board1 notice);
+
+	Board1 updateViewNotice(int board_no);
+
+	int deleteNotice(int board_no);
+
+	int insertNotice(Board1 notice);
+
 }

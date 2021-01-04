@@ -28,8 +28,31 @@
 		float: right;
 	}
 	
+	#topBtnArea {
+		width : 100%;
+		display : block;
+		height : 100px;
+	}
+	
 	#contentsTbl {
+		width : 100%;
 		margin-top: 30px;
+		display : block;
+	}
+	
+	#contentsTbl>#inputTbl{
+		width : 50%;
+		align: center;
+		margin: auto;
+	}
+	
+	tr:first-child {
+		width : 20%;
+	}
+	
+	tr:last-child {
+		width : 80%;
+		text-align : left;
 	}
 	
 	#contentsArea {
@@ -38,7 +61,7 @@
 		margin:auto;
 	}
 	
-	#btnArea {
+	#bottomBtnArea {
 		display: flex;
 	}
 	
@@ -75,11 +98,13 @@
 							
 						<c:import url="../../../user/common/header.jsp"/>
 						
-						<button id="backBtn" onclick="history.go(-1);">뒤로가기</button>
+						<div id="topBtnArea">
+							<button id="backBtn" onclick="history.go(-1);">뒤로가기</button>						
+						</div>
 						
 						<!-- 내부 내용 작성란 -->
 						<div id="contentsTbl">
-							<table>
+							<table id="inputTbl">
 								<thead>
 									<tr>
 										<td>제목</td>
@@ -98,19 +123,22 @@
 									</tr>
 								</tbody>
 							</table>
+							<br />
 							<div id="contentsArea">
 								<p>
 									${notice.board_content}
 								</p>
 							</div>
 						</div>
-						<div id="btnArea">
+						<c:if test="${member.gradeNo == 0 || member.gradeNo == 1 }">
+						<div id="bottomBtnArea">
 							<div id="functionBtn">
 								<!-- 수정 & 삭제 버튼 -->
 								<button id="editBtn" onclick="updateNotice();">수정</button>
-								<button id="deleteBtn" onclick="deleteNotice();">삭제</button>
+								<!-- <button id="deleteBtn" onclick="deleteNotice();">삭제</button> -->
 							</div>
 						</div>
+						</c:if>
 					</div>		<!-- #inner -->
 				</div>			<!-- #main -->
 				
@@ -146,14 +174,9 @@
 				
 				// 수정용 JS
 				function updateNotice(){
-			    		location.href = "${pageContext.request.contextPath}/updateNotice.bo?board_no="+${notice.board_no};
+			    		location.href = "${pageContext.request.contextPath}/updateViewNotice.bo?board_no="+${notice.board_no};
 			    	}
 				
-				// 삭제용 JS
-				function deleteNotice(){
-			    		location.href = "${pageContext.request.contextPath}/deleteNotice.bo?board_no="+${notice.board_no};
-			    	}
-
          	</script>
 	</body>
 </html>

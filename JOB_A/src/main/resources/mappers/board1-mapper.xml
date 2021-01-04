@@ -5,7 +5,7 @@
 <mapper namespace="board1Mapper">
 	<select id="selectNoticeList" resultType="Board1">
 		SELECT * FROM BOARD, MEMBER 
-		WHERE TYPE_NO = 1 AND MEMBER.MEM_NO = BOARD.MEM_NO
+		WHERE TYPE_NO = 1 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD.BOARD_STATUS = 'Y'
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 	</select>
 	
@@ -26,6 +26,28 @@
 	<select id="selectOneNotice" parameterType="_int" resultType="Board1">
 		SELECT * FROM BOARD, MEMBER WHERE TYPE_NO = 1 AND BOARD_NO = #{board_no} AND BOARD.MEM_NO = MEMBER.MEM_NO 
 	</select>
+
+	<update id="updateViewCount" parameterType="_int">
+		UPDATE BOARD 
+		SET BOARD_VIEW = BOARD_VIEW + 1
+		WHERE BOARD_NO = #{board_no}
+	</update>
 	
+	<update id="updateNotice" parameterType="Board1">
+		UPDATE BOARD
+		SET BOARD_TITLE = #{board_title}, BOARD_CONTENT = #{board_content}
+		WHERE BOARD_NO = #{board_no}
+	</update>
+	
+	<update id="deleteNotice" parameterType="_int">
+		UPDATE BOARD
+		SET BOARD_STATUS = 'N'
+		WHERE BOARD_NO = #{board_no}
+	</update>
+	
+	<insert id="insertNotice" parameterType="Board1">
+		INSERT INTO BOARD(BOARD_NO, TYPE_NO, MEM_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_DATE)
+		VALUES (111, 1, #{mem_no}, #{board_title}, #{board_content}, default)
+	</insert>
 	
 </mapper>

@@ -37,8 +37,34 @@ public class Board1ServiceImpl implements Board1Service {
 
 	@Override
 	public Board1 selectOneNotice(int board_no) {
-		return board1DAO.selectOneNotice(board_no);
+		Board1 notice = board1DAO.selectOneNotice(board_no);
+		if (notice != null ) board1DAO.updateViewCount(board_no);
+		return notice;
 	}
+
+	@Override
+	public int updateNotice(Board1 notice) {
+		return board1DAO.updateNotice(notice);
+	}
+
+	@Override
+	public Board1 updateViewNotice(int board_no) {
+		return board1DAO.updateViewNotice(board_no);
+	}
+
+	@Override
+	public int deleteNotice(int board_no) {
+		return board1DAO.deleteNotice(board_no);
+	}
+
+	@Override
+	public int insertNotice(Board1 notice) {
+		return board1DAO.insertNotice(notice);
+	}
+	
+	
+	
+	
 	
 	
 	

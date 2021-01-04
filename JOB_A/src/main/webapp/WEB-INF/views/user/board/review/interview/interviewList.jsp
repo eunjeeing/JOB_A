@@ -123,11 +123,11 @@
 				<div id="main">
 					<div class="inner">
 							
-						<c:import url="../../../user/common/header.jsp"/>
+						<c:import url="../../../../user/common/header.jsp"/>
 						<!-- Top Banner Area -->
 						<div id="topbanner">
 							<div id="topbanner-textarea">
-								<h3 id="topbanner-text">공지사항</h3>							
+								<h3 id="topbanner-text">면접후기</h3>							
 							</div>
 						</div>
 						
@@ -183,7 +183,7 @@
 				</div>			<!-- #main -->
 				
 				<!-- Menu Console -->
-				<c:import url="../../../user/common/sideBar.jsp"/>
+				<c:import url="../../../../user/common/sideBar.jsp"/>
 			</div>				<!-- wrapper -->
 
 		<!-- Scripts -->

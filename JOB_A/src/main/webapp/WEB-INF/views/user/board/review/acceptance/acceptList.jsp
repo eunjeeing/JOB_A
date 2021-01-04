@@ -123,11 +123,11 @@
 				<div id="main">
 					<div class="inner">
 							
-						<c:import url="../../../user/common/header.jsp"/>
+						<c:import url="../../../../user/common/header.jsp"/>
 						<!-- Top Banner Area -->
 						<div id="topbanner">
 							<div id="topbanner-textarea">
-								<h3 id="topbanner-text">공지사항</h3>							
+								<h3 id="topbanner-text">합격후기</h3>							
 							</div>
 						</div>
 						
@@ -146,7 +146,7 @@
 						</div>
 						
 						<!-- list Area -->
-						<c:if test="${!empty noticeList}">
+						<c:if test="${!empty acceptList}">
 						<div id="listArea">
 							<table id="noticeList">
 								<thead>
@@ -155,16 +155,18 @@
 									<th><center>작성자</center></th>
 									<th><center>등록일</center></th>
 									<th><center>조회수</center></th>
+									<th><center>스크랩</center></th>
 								</thead>
 								<tbody>
-									<c:forEach items="${ noticeList }" var="notice">
+									<c:forEach items="${ acceptList }" var="accept">
 									<!--  onclick="selectOne();" -->
-									<tr id="${notice.board_no}">
-										<td>${notice.board_no}</td>		<!-- 숫자 카운팅으로 변경 -->
-										<td>${notice.board_title}</td>
-										<td>${notice.mem_nick}</td>
-										<td>${notice.board_date}</td>
-										<td>${notice.board_view}</td>
+									<tr id="${accept.board_no}">
+										<td>${accept.board_no}</td>		<!-- 숫자 카운팅으로 변경 -->
+										<td>${accept.board_title}</td>
+										<td>${accept.mem_nick}</td>
+										<td>${accept.board_date}</td>
+										<td>${accept.board_view}</td>
+										<td><button><img src="${pageContext.request.contextPath}/resources/images/" alt="" /></button></td>
 									</tr>
 									</c:forEach>
 								</tbody>
@@ -173,7 +175,7 @@
 						<c:out value="${pageBar}" escapeXml="false"/>
 						</c:if>
 						
-						<c:if test="${empty noticeList}">
+						<c:if test="${empty acceptList}">
 						<div id="nonListArea">
 							<p>아직 등록된 게시글이 없어요.. ㅠㅜ</p>
 						</div>
@@ -183,7 +185,7 @@
 				</div>			<!-- #main -->
 				
 				<!-- Menu Console -->
-				<c:import url="../../../user/common/sideBar.jsp"/>
+				<c:import url="../../../../user/common/sideBar.jsp"/>
 			</div>				<!-- wrapper -->
 
 		<!-- Scripts -->

@@ -1,6 +1,8 @@
 package com.kh.joba.user.board.model.vo;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,4 +27,5 @@ public class Board1 {
 	private String board_status;
 	private int board_view;
 	private String board_url;
+	private Attachment1 attachment;
 }

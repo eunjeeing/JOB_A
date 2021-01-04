@@ -43,6 +43,35 @@ public class Board1DAOImpl implements Board1DAO {
 		return sqlSession.selectOne("board1Mapper.selectOneNotice", board_no);
 	}
 	
+	@Override
+	public int updateViewCount(int board_no) {	
+		return sqlSession.update("board1Mapper.updateViewCount", board_no);
+	}
+
+	@Override
+	public Board1 updateViewNotice(int board_no) {
+		return sqlSession.selectOne("board1Mapper.selectOneNotice", board_no);
+	}
+
+	@Override
+	public int updateNotice(Board1 notice) {
+		return sqlSession.update("board1Mapper.updateNotice", notice);
+	}
+
+	@Override
+	public int deleteNotice(int board_no) {
+		return sqlSession.update("board1Mapper.deleteNotice", board_no);
+	}
+
+	@Override
+	public int insertNotice(Board1 notice) {
+		return sqlSession.insert("board1Mapper.insertNotice", notice);
+	}
+	
+	
+	
+	
+	
 	
 	
 	

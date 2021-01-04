@@ -22,7 +22,6 @@
 		float: right;
 	}
 	
-	
 	#topBtnArea {
 		width : 100%;
 		display : block;
@@ -109,32 +108,28 @@
 							<button id="backBtn" onclick="history.go(-1);">뒤로가기</button>
 						</div>
 						
-						<form name="noticeFrm" action="${pageContext.request.contextPath}/updateNotice.bo" method="post">
-						<!-- 내부 내용 작성란 -->
+						<form name="noticeFrm" action="${pageContext.request.contextPath}/insertNotice.bo" method="post">
 						<div id="contentsTbl">
+							<!-- <input type="hidden" name="board_no" value=""/> -->
 							<table id="inputTbl">
-							<input type="hidden" name="board_no" value="${notice.board_no}"/>
+							<input type="hidden" name="mem_no" value="${member.memNo}"/>
 								<thead>
 									<tr>
 										<td>제목</td>
-										<td><input type="text" name="board_title" value="${notice.board_title}"/></td>
+										<td><input type="text" name="board_title"/></td>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
 										<td>작성자</td>
-										<td>${notice.mem_nick}</td>
-									</tr>
-									<tr>
-										<td>작성일</td>
-										<td>${notice.board_date}</td>
+										<td>${member.memNick}</td>
 									</tr>
 								</tbody>
 							</table>
 							<br />
 							<div id="contentsArea">
 								<p>
-									<textarea type="textarea" id="contentsArea-text" name="board_content">${notice.board_content}</textarea>
+									<textarea type="textarea" id="contentsArea-text" name="board_content"></textarea>
 								</p>
 							</div>
 						</div>
@@ -142,9 +137,8 @@
 						<div id="bottomBtnArea">
 							<div id="functionBtn">
 								<!-- 수정 & 삭제 버튼 -->
-								<input type="submit" id="editBtn" value="수정롹인"/>
+								<input type="submit" id="editBtn" value="등록"/>
 								<button type="button" id="cancelBtn" onclick="history.go(-1)">취소</button>
-								<button type="button" id="deleteBtn" onclick="deleteNotice();">삭제</button>
 							</div>
 						</div>
 						</form>
@@ -180,26 +174,7 @@
 			            $window.triggerHandler('resize.sidebar-lock');
 			      	});
 				});
-				
-				// 수정확인용 JS
-				/*
-				function updateNotice() {
-					var result = window.confirm("수정 하시겠습니까?");
-					if (result == true) {
-			    		location.href = "${pageContext.request.contextPath}/updateNotice.bo?board_no="+${notice.board_no};
-					}
-				}
-				*/
-				
-				// 삭제용 JS
-				function deleteNotice(){
-					var result = window.confirm("삭제 하시겠습니까?");
-					if (result == true) {
-				    	location.href = "${pageContext.request.contextPath}/deleteNotice.bo?board_no="+${notice.board_no};
-					}
-			    }
-			    
-				
+	
          	</script>
 	</body>
 </html>
