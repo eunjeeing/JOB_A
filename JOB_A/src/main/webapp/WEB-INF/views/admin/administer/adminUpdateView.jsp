@@ -14,7 +14,7 @@
 <section>
 	<div>
 		<div>
-			<form action="">
+			<form action="${pageContext.request.contextPath }admin/adminUpdate" onsubmit="return validate();">
 				<table>
 					<thead>
 						<tr>
@@ -25,7 +25,7 @@
 						<tr>
 							<th>사번 (아이디)</th>
 							<td>
-								${a.admin}
+								<input type="text" name="adminId" value="${admin.adminId}" readonly="readonly">
 							</td>
 						</tr>
 						<tr>
@@ -43,7 +43,7 @@
 						<tr>
 							<th>이름</th>
 							<td>
-								<input type="text" name="adminName">
+								<input type="text" name="adminName" value="${admin.adminName}" readonly="readonly">
 							</td>
 						</tr>
 						<c:if test="${admin.gradeNo eq 0}">
@@ -62,16 +62,16 @@
 						<tr>
 							<th>연락처</th>
 				            <td>
-				            	<input type="text" name="phone1"> -
-				               	<input type="text" name="phone2"> -
-				               	<input type="text" name="phone3">
+				            	<input type="text" name="adminPhone" id="adminphone" size="3" value="010" readonly="readonly"/> -
+				               	<input type="text" name="adminPhone2" id="adminphone2" maxlength="4" size="4"/> -
+				            	<input type="text" name="adminPhone3" id="adminphone3" maxlength="4" size="4"/>
 				            </td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr>
 							<td>
-								<button onclick="">수정</button> &nbsp; <button onclick="">취소</button>
+								<button type="submit" class="button">수정</button> &nbsp; <button onclick="">취소</button>
 							</td>
 						</tr>
 					</tfoot>
@@ -81,5 +81,33 @@
 	</div>
 
 </section>
+<script type="text/javascript">
+	function validate() {
+		var phone1 = document.getElementById('adminphone');
+	    var phone2 = document.getElementById('adminphone2');
+	    var phone3 = document.getElementById('adminphone3');
+
+	    if (phone2.value != '') {
+            if (!chk(/^[0-9]{4}$/, phone2, "번호 4자리 입력"))
+            	return false;
+            if (!chk(/^[0-9]{4}$/, phone3, "4자리 번호 입력"))
+            	return false;
+            }
+
+     	function chk(re, e, msg) {
+            if (re.test(e.value)) {
+            	return true;
+            }
+
+            alert(msg);
+            e.value = "";
+            e.focus();
+            return false;
+     	} 
+
+     	var result = [phone1, phone2, phone3].join("-");
+     	document.getElementById("adminPhone").innerHTML = result
+	}
+</script>
 </body>
 </html>

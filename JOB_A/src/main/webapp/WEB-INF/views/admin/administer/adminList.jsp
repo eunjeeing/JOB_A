@@ -88,6 +88,7 @@
 						<tr>
 							<th>등록번호</th>
 							<th>사번</th>
+							<th>직급</th>
 							<th>이름</th>
 							<th>닉네임</th>
 							<th>이메일</th>
@@ -101,6 +102,7 @@
 								<td><span>${a.adminNo}</span></td>
 								<td><span>${a.adminId}</span></td>
 								<td><span>${a.adminName}</span></td>
+								<td><span>${a.gradeNo}</span></td>
 								<td><span>${a.adminNick}</span></td>
 								<td><a href="#"><span>${a.adminEmail}</span></a></td>
 								<td><span>${a.adminPhone}</span></td>

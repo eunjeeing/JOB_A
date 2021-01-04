@@ -9,4 +9,10 @@ public interface AdminDAO {
 
 	int selectTotalAdmin();
 
+	int insertAdmin();
+
+	int deleteAdmin();
+
+	int updateAdmin();
+
 }

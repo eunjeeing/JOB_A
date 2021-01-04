@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.joba.admin.administer.model.dao.AdminDAO;
+import com.kh.joba.admin.administer.model.vo.Admin;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -24,6 +25,27 @@ public class AdminServiceImpl implements AdminService {
 	public int selectTotalAdmin() {
 		// TODO Auto-generated method stub
 		return adminDAO.selectTotalAdmin();
+	}
+
+	@Override
+	public int insertAdmin(Admin admin) {
+		// TODO Auto-generated method stub
+		return adminDAO.insertAdmin();
+	}
+
+	@Override
+	public int deleteAdmin(String adminId) {
+		// TODO Auto-generated method stub
+		return adminDAO.deleteAdmin();
+	}
+
+	
+	/******************************************************************/
+
+	@Override
+	public int updateAdmin(Admin admin) {
+		// TODO Auto-generated method stub
+		return adminDAO.updateAdmin();
 	}
 
 }
