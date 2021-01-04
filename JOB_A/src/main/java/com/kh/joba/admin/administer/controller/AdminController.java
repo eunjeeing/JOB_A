@@ -84,6 +84,17 @@ public class AdminController {
 		return "redirect:admin/adminList";		
 	}
 	
+	
+/******************************************************************/
+	
+	@RequestMapping("admin/adminUpdate")
+	public String adminUpdate(Admin admin, Model model) {
+		
+		int result = adminService.updateAdmin(admin);
+		
+		return null;
+	}
+	
 
 
 }
