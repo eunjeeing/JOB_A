@@ -686,7 +686,7 @@ html, body {
 		<c:import url="../common/sideBar.jsp" />
 
 		<!-- Script -->
-
+ 
 		<script>
 			document.addEventListener('DOMContentLoaded', function() {
 				var calendarEl = document.getElementById('calendar');
