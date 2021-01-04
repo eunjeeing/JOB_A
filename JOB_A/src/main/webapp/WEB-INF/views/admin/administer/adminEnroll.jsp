@@ -14,7 +14,7 @@
 <section>
 	<div>
 		<div>
-			<form action="">
+			<form action="${pageContext.request.contextPath }/admin/adminEnroll" method="post">
 				<table>
 					<thead>
 						<tr>
@@ -34,7 +34,12 @@
 								<input type="password" id="adminPw" readonly="readonly"><br />
 								초기 비밀번호는 사번으로 설정됩니다
 							</td>
-							
+						</tr>
+						<tr>
+							<th>이메일</th>
+							<td>
+								<input type="text" id="adminEmail" readonly="readonly"> @job-jo8a.com
+							</td>
 						</tr>
 						<tr>
 							<th>이름</th>
@@ -53,19 +58,12 @@
 					           	</select>
 							</td>
 						</tr>
-						<tr>
-							<th>연락처</th>
-				            <td>
-				            	<input type="text" name="phone1"> -
-				               	<input type="text" name="phone2"> -
-				               	<input type="text" name="phone3">
-				            </td>
-						</tr>
+					
 					</tbody>
 					<tfoot>
 						<tr>
 							<td>
-								<button onclick="">등록</button> &nbsp; <button onclick="">취소</button>
+								<button type="submit" class="button">등록</button> &nbsp; <button onclick="" class="button">취소</button>
 							</td>
 						</tr>
 					</tfoot>
@@ -75,11 +73,11 @@
 	</div>
 
 </section>
-	<script>
+<script>
 	function enroll(val){
 	    document.getElementById('adminPw').value = val;
-	    
+	    document.getElementById('adminEmail').value = val;
 	}
-	</script>
+</script>
 </body>
 </html>

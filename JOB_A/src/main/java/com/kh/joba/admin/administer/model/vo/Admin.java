@@ -15,14 +15,15 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Admin {
 
-	private int adminNo;
-	private int gradeNo;
-	private String adminId;
-	private String adminPw;
-	private String adminNick;
-	private String adminEmail;
-	private String adminPhone;
-	private Date enrollDate;
+	private int adminNo; // 회원번호
+	private int gradeNo; // 등급번호
+	private String adminId; // 아이디
+	private String adminPw; // 비밀번호
+	private String adminName; // 이름
+	private String adminPhone; // 연락처
+	private String adminEmail; // 이메일
+	private String adminNick; // 닉네임
+	private Date enrollDate; // 등록일
 }
 
 

@@ -14,6 +14,9 @@
 		<typeAlias type="com.kh.joba.user.board2.model.vo.Attachment2" alias="Attachment2"/>
 		<typeAlias type="com.kh.joba.user.comments2.model.vo.Comments2" alias="Comments2"/>
 		<typeAlias type="com.kh.joba.user.chat.model.vo.Chat" alias="Chat"/>
+		
+		<typeAlias type="com.kh.joba.admin.administer.model.vo.Admin" alias="Admin" />
+		
 	</typeAliases>
 	
 	<typeHandlers>

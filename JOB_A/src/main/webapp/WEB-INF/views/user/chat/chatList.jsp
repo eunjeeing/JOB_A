@@ -17,6 +17,7 @@
 	
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	
+	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 	<style>
 		#banner {
 		float : flex;
@@ -154,13 +155,13 @@
        								<span aria-hidden="true">&times;</span>
      							</button>
    							</div>
-   							<form action="${pageContext.request.contextPath }/chat/insertChat" method="post">
+   							<form id="newChatForm" action="${pageContext.request.contextPath }/chat/insertChat" method="post">
     							<div class="modal-body">
     								<h3 for="exampleInputTitle">채팅방 이름</h3>
-    								<input type="text" class="form-control" name="chatTitle" id="exampleInputPassword1" placeholder="30자 내외 입력">
+    								<input type="text" class="form-control" name="chatTitle" id="exampleInputPassword1" placeholder="30자 내외 입력" required>
     							</div>
     							<div class="modal-footer">
-					        		<button type="submit" class="button">채팅 시작</button>
+					        		<button type="submit" class="button" onclick="addChat();">채팅 시작</button>
    								</div>
 							</form>
 						</div>
@@ -175,13 +176,98 @@
 	<script>
 	    
 		// addConfirm
-		function chatAdd(form) {
+		function addChat(form) {
 			form.chatTitle.value = form.chatTitle.value.trim();
 			if(form.chatTitle.value.length == 0) {
 				alert('채팅방 제목을 입력하세요')}
 			}
-        
-	 	// exitConfirm
+
+       
+
+		var sock = new SockJS("<c:url value='/chatting'/>");
+
+		// 메세지 전송
+		sock.onmessage = function(evt) {
+			var data=evt.data;//new text객체로 보내준 값을 받아옴.
+	        var host=null;//메세지를 보낸 사용자 ip저장
+	        var strArray=data.split("|");//데이터 파싱처리하기
+	        var userName=null;//대화명 저장
+	        
+	        //전송된 데이터 출력해보기
+	        for(var i=0;i<strArray.length;i++) {
+	            console.log('str['+i+'] :' + strArray[i]);	 		
+	        }
+	        
+	        if(strArray.length>1) {
+	            sessionId=strArray[0];
+	            message=strArray[1];
+	            host=strArray[2].substr(1,strArray[2].indexOf(":")-1);
+	            userName=strArray[3];
+	            today=new Date();
+	            printDate=today.getFullYear()+"/"+today.getMonth()+"/"+today.getDate()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+	            
+	            console.log(today);
+	            var ck_host='${host}';
+	     
+	            console.log(sessionId);
+	            console.log(message);
+	            console.log('host : '+host);
+	            console.log('ck_host : '+ck_host);
+	            /* 서버에서 데이터를 전송할경우 분기 처리 */
+	            if(host==ck_host||(host==0&&ck_host.includes('0:0:'))) {
+	                var printHTML="<div class='well' style='margin-left: 30%;'>";
+	                printHTML+="<div class='alert alert-info'>";
+	                printHTML+="<sub>"+printDate+"</sub><br/>";
+	                printHTML+="<strong>["+userName+"] : "+message+"</strong>";
+	                printHTML+="</div>";
+	                printHTML+="</div>";
+	                $('#chatdata').append(printHTML);
+	            } else {
+	                var printHTML="<div class='well'  style='margin-left: -5%;margin-right:30%;'>";
+	                printHTML+="<div class='alert alert-warning'>";
+	                printHTML+="<sub>"+printDate+"</sub><br/>";
+	                printHTML+="<strong>["+userName+"] : "+message+"</strong>";
+	                printHTML+="</div>";
+	                printHTML+="</div>";
+	                $('#chatdata').append(printHTML);
+	                
+	            }
+	            //console.log('chatting data : '+data);
+	        } else {
+	            //나가기 구현
+	            today=new Date();
+	            printDate=today.getFullYear()+"/"+today.getMonth()+"/"+today.getDate()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+	            message=strArray[0];
+	            var printHTML="<div class='well'  style='margin-left30%:'>";
+	            printHTML+="<div class='alert alert-danger'>";
+	            printHTML+="<sub>"+printDate+"</sub><br/>";
+	            printHTML+="<strong>[서버관리자] : "+message+"</strong>";
+	            printHTML+="</div>";
+	            printHTML+="</div>";
+	            $('#chatdata').append(printHTML);	
+	        }
+	    };
+
+	    
+    	$('#sendChat').on('click', message);
+		$('#message').keypress(function(e) {
+			if (e.which == 13 && !e.shiftKey) {
+				sendMessage();
+				event.preventDefault();
+			}
+		});
+
+     	function sendMessage() {
+     		if ($('#message').val() != "") {
+         		sock.send($("#message").val());
+     		} else {
+				alert("메세지를 입력하세요!");
+			}
+        }
+
+
+
+     // exitConfirm
 		$("#exitChat").click(function () {
 			Swal.fire({
                 title: '🚰·̫🚰',
@@ -194,54 +280,32 @@
 			}).then((result) => {
                 if (result.value) {
                     location.href="${pageContext.request.contextPath}/chat/exitChat";
+                    sock.onclose = function (){
+                        self.close();
+                    };
                 }
             })
         });
-
-		
-
-
-		
+ 	  
         // Menu.
-          var $menu = $('#menu'),
-             $menu_openers = $menu.children('ul').find('.opener');
+        var $menu = $('#menu'),
+        	$menu_openers = $menu.children('ul').find('.opener');
     
-          // Openers.
-             $menu_openers.each(function() {
-    
-                var $this = $(this);
-    
-                $this.on('click', function(event) {
-    
-                   // Prevent default.
-                      event.preventDefault();
-    
-                   // Toggle.
-                      $menu_openers.not($this).removeClass('active');
-                      $this.toggleClass('active');
-    
-                   // Trigger resize (sidebar lock).
-                      $window.triggerHandler('resize.sidebar-lock');
-    
-                });
-    
-             });
-             
-             var sock = new SockJS("<c:url value='/chatting'/>");
-     	 	sock.onmessage=onMessage; /* 메세지 전송 */
-     		sock.onclose=onClose; /* 메세지 닫기 */
-
-     	    var today=null;
-	
-	     	// send
-    		$("#sendChat").click(function(){
-                console.log("send message.....");
-                /* 채팅창에 작성한 메세지 전송 */
-                sendMessage();
-                /* 전송 후 작성창 초기화 */
-                $("#message").val('');
+        // Openers.
+        $menu_openers.each(function() {
+			var $this = $(this);
+            $this.on('click', function(event) {
+	            // Prevent default.
+	            event.preventDefault();
+	    
+	            // Toggle.
+	            $menu_openers.not($this).removeClass('active');
+	           	$this.toggleClass('active');
+	    
+	           	// Trigger resize (sidebar lock).
+	            $window.triggerHandler('resize.sidebar-lock');
             });
-			 	
+		}); 	
 	</script>
 
 

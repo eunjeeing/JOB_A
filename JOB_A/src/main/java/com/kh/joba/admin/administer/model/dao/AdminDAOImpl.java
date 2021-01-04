@@ -28,4 +28,25 @@ public class AdminDAOImpl implements AdminDAO{
 		return sqlSession.selectOne("adminMapper.selectTotalAdmin");
 	}
 
+	@Override
+	public int insertAdmin() {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("adminMapper.insertAdmin");
+	}
+
+	@Override
+	public int deleteAdmin() {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("adminMapper.deleteAdmin");
+	}
+
+	
+	/******************************************************************/
+
+	@Override
+	public int updateAdmin() {
+		// TODO Auto-generated method stub
+		return sqlSession.update("adminMapper.updateAdmin");
+	}
+
 }

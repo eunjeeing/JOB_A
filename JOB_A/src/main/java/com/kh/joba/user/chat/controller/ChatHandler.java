@@ -16,7 +16,7 @@ public class ChatHandler extends TextWebSocketHandler {
 	
 	private List<WebSocketSession> sessionList = new ArrayList<>();
 	
-	@Override
+	@Override // 세션 연결시 동작
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		
 		sessionList.add(session);
@@ -41,12 +41,13 @@ public class ChatHandler extends TextWebSocketHandler {
 		// 메시지 송신자
 		Member loginMember = (Member)session.getAttributes().get("member");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		
 		// 송신자가 보낸 메시지를 접속한 사용자들에게 전송하기
 		for(WebSocketSession user: sessionList) {
 			// 수신자.sendMessage( 송신자 | 안녕하세요 | 192.0.0.0 | user01 );
 			user.sendMessage(new TextMessage(session.getId() + "|" + message.getPayload() + "|" + session.getRemoteAddress() + "|" 
 											+ loginMember.getMemNick() + "|" + sdf.format(new Date())) );
-			
+			// TextMessage 객체만들어서 세션id, 메시지내용,  보내기 
 		}
 		
 		

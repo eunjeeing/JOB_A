@@ -25,7 +25,7 @@
 			<ul class="sideUl">
 				<li><a href="${pageContext.request.contextPath}/notice.bo">공지사항</a></li>
 				<li><a href="#">채용 공고</a></li>
-				<li><a href="#">채용 달력</a></li>
+				<li><a href="${pageContext.request.contextPath}/calendar.do">채용 달력</a></li>
 				<li><span class="opener">취준진담</span>
 					<ul>
 						<li><a href="${pageContext.request.contextPath}/board2/blahList.do">블라블라</a></li>						<li><a href="#">블라인드</a></li>
