@@ -71,4 +71,14 @@ public class JobServiceImpl implements JobService {
 		return jd.searchJobTotalContents(keyword);
 	}
 
+	@Override
+	public List<Map<String, String>> categorySearchJobList(int cPage, int numPerPage, int category_No) {
+		return jd.categorySearchJobList(cPage, numPerPage, category_No);
+	}
+
+	@Override
+	public int categorySearchJobTotalContents(int category_No) {
+		return jd.categorySearchJobTotalContents(category_No);
+	}
+
 }

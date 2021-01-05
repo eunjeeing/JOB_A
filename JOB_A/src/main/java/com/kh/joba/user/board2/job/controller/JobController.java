@@ -166,7 +166,6 @@ public class JobController {
 		int totalContents = js.searchJobTotalContents(keyword);
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "searchJobList.do?keyword="+keyword);
 		
-		// 조회확인용
 		System.out.println("keyword : " + keyword);
 
 	
@@ -178,6 +177,26 @@ public class JobController {
 		return "user/board/job/jobList"; 
 	
 	}
+	
+	@RequestMapping("/board2/categorySearch.do")
+	public String categorySearch(
+			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
+			@RequestParam int category_No, Model model) {
+		
+		int numPerPage = 10;
+		List<Map<String,String>> list = js.categorySearchJobList(cPage, numPerPage, category_No);
+		int totalContents = js.categorySearchJobTotalContents(category_No);
+		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "categorySearch.do?category_No="+category_No);
+			
+		System.out.println("카테고리 번호 : " + category_No);
+		
+		model.addAttribute("selectJobList", list);
+		model.addAttribute("totalContents", totalContents);
+		model.addAttribute("numPerPage", numPerPage);
+		model.addAttribute("pageBar", pageBar);
+		
+		return "user/board/job/jobList";
 
+}
 
 }

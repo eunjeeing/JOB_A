@@ -23,6 +23,9 @@ public class Board2 {
 	private String board_Status;
 	private int board_View;
 	private String board_Url;
+	private Date board_Start;
+	private Date board_End;
+	private Date board_Announce;
 	
 	private String category_Name;
 	private int comm_Count;

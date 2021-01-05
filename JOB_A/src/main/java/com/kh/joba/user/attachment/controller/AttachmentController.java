@@ -27,7 +27,7 @@ public class AttachmentController {
 	public String fileUpload(@RequestParam(value = "file", required = false)MultipartFile[] upFiles, HttpServletRequest request) {
 	      
 		String savePath = 
-	            request.getServletContext().getRealPath("/resources/uplaodFiles/board/");
+	            request.getServletContext().getRealPath("/resources/uploadFiles/board/");
 	      
 	      String renamedFileName = null;
 	      
@@ -66,7 +66,7 @@ public class AttachmentController {
           e.printStackTrace();
        }
        System.out.println(request.getServerPort());
-       String serverPath = "http://localhost:"+request.getServerPort()+"/joba/resources/uplaodFiles/board/"; 
+       String serverPath = "http://localhost:"+request.getServerPort()+"/joba/resources/uploadFiles/board/"; 
 	   		System.out.println(serverPath);
 	     
 	      uploadPath = serverPath + renamedFileName;
@@ -79,7 +79,7 @@ public class AttachmentController {
 	   public String updateFileUpload(@RequestParam(value = "file", required = false)MultipartFile[] upFiles, HttpServletRequest request) {
 	      
 		String savePath = 
-	            request.getServletContext().getRealPath("/resources/uplaodFiles/board/");
+	            request.getServletContext().getRealPath("/resources/uploadFiles/board/");
 	      
 	      String renamedFileName = null;
 	      
@@ -120,7 +120,7 @@ public class AttachmentController {
     }
     
     
-    String serverPath = "http://localhost:"+request.getServerPort()+"/joba/resources/uplaodFiles/board/"; 
+    String serverPath = "http://localhost:"+request.getServerPort()+"/joba/resources/uploadFiles/board/"; 
 	     
 	      uploadPath = serverPath + renamedFileName;
 	    		  
