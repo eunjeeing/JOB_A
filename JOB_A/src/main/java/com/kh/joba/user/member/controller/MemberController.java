@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.kh.joba.user.category.model.vo.WishCategory;
 import com.kh.joba.user.common.exception.MemberException;
 import com.kh.joba.user.member.model.service.MemberService;
 import com.kh.joba.user.member.model.vo.Member;
@@ -44,7 +45,7 @@ public class MemberController {
 	public String loginForm() {
 		System.out.println("로그인페이지 접속ok");
 		
-		return "/member/login";
+		return "user/member/login";
 	}
 	
    // 로그인 
@@ -84,14 +85,14 @@ public class MemberController {
 	public String joinForm() {
 		System.out.println("회원가입 페이지 접속 ok");
 		
-		return "/member/enroll";
+		return "user/member/enroll";
 	}
 	
 	// 회원가입
 	@RequestMapping("memberEnroll.do")
-	public String memberEnorll(Member member, Model model) throws MemberException {
+	public String memberEnorll(Member member, WishCategory WishCategory, Model model) throws MemberException {
 		System.out.println("memberEnroll : " + member);
-		
+		System.out.println("wishCategory : " + WishCategory);
 	
 		String plainPassword = member.getMemPw();
 		
@@ -105,8 +106,9 @@ public class MemberController {
 		try {
 			
 			int result = memberService.insertMember(member);
-			
-			String loc="/";
+			// Member m = memberService.selectOneMember(member.getMemId());
+
+			String loc="/"; // /login.do
 			String msg="";
 			
 			if(result > 0) msg = "취뽀 성공해요!";
@@ -114,8 +116,9 @@ public class MemberController {
 			
 			model.addAttribute("loc", loc);
 			model.addAttribute("msg", msg); 
-		
-			System.out.println("loc : " + loc);
+			// model.addAttribute("member", m);
+
+			System.out.println("loc : " + loc); 
 			
 		} catch(Exception e) {
 			System.out.println("회원가입 에러 발생!!");
@@ -150,7 +153,7 @@ public class MemberController {
 		Member m = memberService.selectOneMember(memId);
 		model.addAttribute("member", m);
 		
-		return "/member/myPage";
+		return "user/member/myPage";
 		
 	}
 
