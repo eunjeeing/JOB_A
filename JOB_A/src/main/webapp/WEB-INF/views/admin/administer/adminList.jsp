@@ -73,20 +73,28 @@
 	    background: rgba(222, 225, 226, 0.75);
 	}
 </style>
+
 </head>
 <body>
 	<section>
 		<div>
 			<div>
 				<h2>관리자 리스트</h2>
-				<div class="container">
-				    <span class="icon"><i class="fa fa-search"></i></span>
-					<input type="search" id="search" placeholder=" Search !" />
+				<div class="row" style="float: right">
+					<select class="form-control custom-select" style="width: 25%" id="searchCondition" name="searchCondition">
+						<option value="">-----</option>
+						<option value="adminName">이름</option>
+						<option value="adminNick">닉네임</option>
+					</select>
+					<div class="input-group" style="width: 60%; margin-left: 20px;">
+						<input type="search" id="keyword" class="form-control" style="width: 70%">
+						<button type="button" onclick="return search();">검색</button>
+					</div>
 				</div>
+				
 				<table>
 					<thead>
 						<tr>
-							<th>등록번호</th>
 							<th>사번</th>
 							<th>직급</th>
 							<th>이름</th>
@@ -99,7 +107,6 @@
 					<tbody>
 						<c:forEach items="${adminList}" var="a">
 							<tr>
-								<td><span>${a.adminNo}</span></td>
 								<td><span>${a.adminId}</span></td>
 								<td><span>${a.adminName}</span></td>
 								<td><span>${a.gradeNo}</span></td>
@@ -107,6 +114,9 @@
 								<td><a href="#"><span>${a.adminEmail}</span></a></td>
 								<td><span>${a.adminPhone}</span></td>
 								<td><span>${a.enrollDate}</span></td>
+								<c:if test="${admin.greadeNo eq 0}">
+									<td><button type="button" onclick="location.href='${pageContext.request.contextPath}/admin/adminDelete/${a.adminNo}'">삭제</button></td>
+								</c:if>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -115,5 +125,32 @@
 			</div>
 		</div>
 	</section>
+	
+	<script type="text/javascript">
+
+		function search(){
+			var searchKey = $("#keyword").val();
+			var searchCdt = $("#searchCondition").val();
+			
+			if(searchKey == ""){
+				Swal.fire({
+	                title: "⌓̈⃝..이러면 아모고토 검색할수가 없지",
+	                timer: 1300,
+	                showConfirmButton: false
+	            });
+				return false;
+			} else if(searchCdt == ""){
+				Swal.fire({
+	                title: "⍨⃝..근데 뭘로 검색해?",
+	                timer: 1300,
+	                showConfirmButton: false
+	            });
+				return false;
+			} else {
+				location.href="${pageContext.request.contextPath}/admin/Search?con="+$('#searchCondition').val()+"&keyword="+$('#keyword').val();	
+			}
+			
+		}
+	</script>
 </body>
 </html>
