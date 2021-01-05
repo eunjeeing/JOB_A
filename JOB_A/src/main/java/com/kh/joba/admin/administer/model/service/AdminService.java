@@ -13,9 +13,9 @@ public interface AdminService {
 
 	int insertAdmin(Admin admin);
 
-	int deleteAdmin(int adminNo);
+	int deleteAdmin(int memNo);
 
-	Admin selectAdmin(String memId);
+	Admin selectAdmin(int memNo);
 	
 	int updateAdmin(Admin admin);
 

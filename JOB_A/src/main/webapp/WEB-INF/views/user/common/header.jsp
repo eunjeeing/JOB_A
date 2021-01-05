@@ -36,7 +36,7 @@
 			<a href="${pageContext.request.contextPath}/login.do"><i class="fas fa-sign-in-alt"></i> <span class="label">로그인</span></a>
 		</c:if>
 		<c:if test="${member.gradeNo le 1}">
-			<span>관리자 <a href="${pageContext.request.contextPath}/admin/adminUpdateView?memId=${member.memId}">${member.memNick}</a>님, 오늘도 즐거운 노동~!</span>&nbsp;
+			<span>관리자 <a href="${pageContext.request.contextPath}/admin/adminUpdateView?memNo=${member.memNo}">${member.memNick}</a>님, 오늘도 즐거운 노동~!</span>&nbsp;
 			<a href="${pageContext.request.contextPath}/member/memberLogout.do"><i class="fas fa-sign-out-alt"></i><span class="label">로그아웃</span></a>
 		</c:if>
 		<c:if test="${member.gradeNo gt 1}">
