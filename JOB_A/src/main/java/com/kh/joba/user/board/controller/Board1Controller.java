@@ -25,12 +25,13 @@ public class Board1Controller {
 	// 							Write Form Controller Area
 	// *******************************************************************************************
 	@RequestMapping("/noticeWrite.bo")
-	public String noticeForm(Board1 board, Model model) {
-		// 원래는 return값만 존재 최하단의 return 코드를 제외하고 모두 삭제
-		// System.out.println(board);
-		//기존 return 값 commonWriter 확인을 위해 대체 함
-		//return "user/board/write/commonWrite";
+	public String noticeForm() {
 		return "user/board/write/noticeWrite";
+	}
+	
+	@RequestMapping("/commonWrite.bo")
+	public String commonForm() {
+		return "user/board/write/commonWrite";
 	}
 	
 	
@@ -58,7 +59,6 @@ public class Board1Controller {
 
 		return "user/board/notice/notice"; 
 	}
-
 	@RequestMapping("/searchNotice.bo")
 	public String searchNotice(
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
@@ -82,8 +82,7 @@ public class Board1Controller {
 		//model.addAttribute("keyword", keyword);
 		
 		return "user/board/notice/notice"; 
-	}
-	
+	}	
 	@RequestMapping("/selectOneNotice.bo")
 	public String selectOneNotice(@RequestParam int board_no, Model model) { 
 		System.out.println("[selectOneNotice] board_no : " + board_no);
@@ -93,7 +92,6 @@ public class Board1Controller {
 
 		return "user/board/notice/noticeView"; 
 	}
-	
 	@RequestMapping("/updateViewNotice.bo")
 	public String updateViewNotice(@RequestParam int board_no, Model model) {
 		System.out.println("[updateNotice] board_no : " + board_no);
@@ -102,7 +100,6 @@ public class Board1Controller {
 		
 		return "user/board/notice/noticeUpdate";
 	}
-	
 	@RequestMapping("/updateNotice.bo")
 	public String updateNotice(Board1 notice, HttpServletRequest req, Model model) {
 		
@@ -129,7 +126,6 @@ public class Board1Controller {
 		
 		return "user/common/msg";
 	}
-	
 	@RequestMapping("/deleteNotice.bo")
 	public String deleteNotice(@RequestParam int board_no, Model model) {
 		System.out.println("[deleteNotice] board_no : " + board_no);
@@ -150,7 +146,6 @@ public class Board1Controller {
 		
 		return "user/common/msg";
 	}
-	
 	@RequestMapping("/insertNotice.bo")
 	public String insertNotice(Board1 notice, Model model) {
 		System.out.println("[insertNotice] board_title : " + notice.getBoard_title());
@@ -159,8 +154,6 @@ public class Board1Controller {
 		//return "user/common/msg";
 	}
 
-	
-	
 	// *******************************************************************************************
 	// 							Mentoring Controller Area
 	// *******************************************************************************************
@@ -183,17 +176,17 @@ public class Board1Controller {
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
 			Model model) {
 		int numPerPage = 10;
-		//List<Map<String,String>> list = bs.selectAcceptList(cPage, numPerPage);
-		//int totalContents = bs.selectAcceptTotalContents();
-		//String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "acceptList.bo");
+		List<Map<String,String>> list = bs.selectInterviewList(cPage, numPerPage);
+		int totalContents = bs.selectInterviewTotalContents();
+		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "interviewList.bo");
 		
 		// 조회확인용
 		//System.out.println("list : " + list);
 		
-		//model.addAttribute("acceptList", list);
-		//model.addAttribute("totalContents", totalContents);
+		model.addAttribute("interviewList", list);
+		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("numPerPage", numPerPage);
-		//model.addAttribute("pageBar", pageBar);
+		model.addAttribute("pageBar", pageBar);
 
 		return "user/board/review/interview/interviewList"; 
 	}
@@ -208,17 +201,17 @@ public class Board1Controller {
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
 			Model model) {
 		int numPerPage = 10;
-		//List<Map<String,String>> list = bs.selectAcceptList(cPage, numPerPage);
-		//int totalContents = bs.selectAcceptTotalContents();
-		//String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "acceptList.bo");
+		List<Map<String,String>> list = bs.selectAcceptList(cPage, numPerPage);
+		int totalContents = bs.selectAcceptTotalContents();
+		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "acceptList.bo");
 		
 		// 조회확인용
 		//System.out.println("list : " + list);
 		
-		//model.addAttribute("acceptList", list);
-		//model.addAttribute("totalContents", totalContents);
+		model.addAttribute("acceptList", list);
+		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("numPerPage", numPerPage);
-		//model.addAttribute("pageBar", pageBar);
+		model.addAttribute("pageBar", pageBar);
 
 		return "user/board/review/acceptance/acceptList"; 
 	}

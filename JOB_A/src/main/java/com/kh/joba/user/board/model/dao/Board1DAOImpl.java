@@ -16,60 +16,93 @@ public class Board1DAOImpl implements Board1DAO {
 	@Autowired
 	SqlSessionTemplate sqlSession;
 	
+	// *******************************************************************************************
+	// 							Notice Controller Area
+	// *******************************************************************************************
 	@Override
 	public List<Map<String, String>> selectNoticeList(int cPage, int numPerPage) {
 		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
 		return sqlSession.selectList("board1Mapper.selectNoticeList", null, rows);
 	}
-
 	@Override
 	public int selectNoticeTotalContents() {
 		return sqlSession.selectOne("board1Mapper.selectNoticeTotalContents");
 	}
-
 	@Override
 	public List<Map<String, String>> searchNoticeList(int cPage, int numPerPage, String keyword) {
 		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
 		return sqlSession.selectList("board1Mapper.searchNoticeList", keyword, rows);
 	}
-
 	@Override
 	public int searchNoticeTotalContents(String keyword) {
 		return sqlSession.selectOne("board1Mapper.searchNoticeTotalContents", keyword);
 	}
-
 	@Override
 	public Board1 selectOneNotice(int board_no) {
 		return sqlSession.selectOne("board1Mapper.selectOneNotice", board_no);
 	}
-	
 	@Override
 	public int updateViewCount(int board_no) {	
 		return sqlSession.update("board1Mapper.updateViewCount", board_no);
 	}
-
 	@Override
 	public Board1 updateViewNotice(int board_no) {
 		return sqlSession.selectOne("board1Mapper.selectOneNotice", board_no);
 	}
-
 	@Override
 	public int updateNotice(Board1 notice) {
 		return sqlSession.update("board1Mapper.updateNotice", notice);
 	}
-
 	@Override
 	public int deleteNotice(int board_no) {
 		return sqlSession.update("board1Mapper.deleteNotice", board_no);
 	}
-
 	@Override
 	public int insertNotice(Board1 notice) {
 		return sqlSession.insert("board1Mapper.insertNotice", notice);
 	}
 	
 	
+	// *******************************************************************************************
+	// 							Mentoring Controller Area
+	// *******************************************************************************************
 	
+	
+	
+	
+	// *******************************************************************************************
+	// 							UntilTomorrow Controller Area
+	// *******************************************************************************************
+	
+	
+	
+	
+	// *******************************************************************************************
+	// 							InterviewReview Controller Area
+	// *******************************************************************************************
+	@Override
+	public List<Map<String, String>> selectInterviewList(int cPage, int numPerPage) {
+		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
+		return sqlSession.selectList("board1Mapper.selectInterviewList",null, rows);
+	}
+	@Override
+	public int selectInterviewTotalContents() {
+		return sqlSession.selectOne("board1Mapper.selectInterviewTotalContents");
+	}
+	
+	
+	// *******************************************************************************************
+	// 							AcceptanceReview Controller Area
+	// *******************************************************************************************
+	@Override
+	public List<Map<String, String>> selectAcceptList(int cPage, int numPerPage) {
+		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
+		return sqlSession.selectList("board1Mapper.selectAcceptList", null, rows);
+	}
+	@Override
+	public int selectAcceptTotalContents() {
+		return sqlSession.selectOne("board1Mapper.selectAcceptTotalContents");
+	}
 	
 	
 	

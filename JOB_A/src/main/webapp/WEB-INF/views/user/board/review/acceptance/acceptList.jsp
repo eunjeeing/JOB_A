@@ -166,7 +166,7 @@
 										<td>${accept.mem_nick}</td>
 										<td>${accept.board_date}</td>
 										<td>${accept.board_view}</td>
-										<td><button><img src="${pageContext.request.contextPath}/resources/images/" alt="" /></button></td>
+										<td><img src="${pageContext.request.contextPath}/resources/images/bookmark.png" alt="스크랩버튼" /></td>
 									</tr>
 									</c:forEach>
 								</tbody>

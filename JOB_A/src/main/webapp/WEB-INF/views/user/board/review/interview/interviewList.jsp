@@ -146,7 +146,7 @@
 						</div>
 						
 						<!-- list Area -->
-						<c:if test="${!empty noticeList}">
+						<c:if test="${!empty interviewList}">
 						<div id="listArea">
 							<table id="noticeList">
 								<thead>
@@ -155,16 +155,18 @@
 									<th><center>작성자</center></th>
 									<th><center>등록일</center></th>
 									<th><center>조회수</center></th>
+									<th><center>스크랩</center></th>
 								</thead>
 								<tbody>
-									<c:forEach items="${ noticeList }" var="notice">
+									<c:forEach items="${ interviewList }" var="interview">
 									<!--  onclick="selectOne();" -->
-									<tr id="${notice.board_no}">
-										<td>${notice.board_no}</td>		<!-- 숫자 카운팅으로 변경 -->
-										<td>${notice.board_title}</td>
-										<td>${notice.mem_nick}</td>
-										<td>${notice.board_date}</td>
-										<td>${notice.board_view}</td>
+									<tr id="${interview.board_no}">
+										<td>${interview.board_no}</td>		<!-- 숫자 카운팅으로 변경 -->
+										<td>${interview.board_title}</td>
+										<td>${interview.mem_nick}</td>
+										<td>${interview.board_date}</td>
+										<td>${interview.board_view}</td>
+										<td><img src="${pageContext.request.contextPath}/resources/images/bookmark.png" alt="스크랩"></button></td>
 									</tr>
 									</c:forEach>
 								</tbody>
@@ -173,7 +175,7 @@
 						<c:out value="${pageBar}" escapeXml="false"/>
 						</c:if>
 						
-						<c:if test="${empty noticeList}">
+						<c:if test="${empty interviewList}">
 						<div id="nonListArea">
 							<p>아직 등록된 게시글이 없어요.. ㅠㅜ</p>
 						</div>

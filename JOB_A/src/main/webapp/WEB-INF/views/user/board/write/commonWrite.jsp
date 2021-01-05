@@ -145,7 +145,7 @@
 									</tr>
 									<tr>
 										<td>첨부파일</td>
-										<td><input type="file" id="attachBtn" name="" value="사진첨부"/></td>
+										<td><input type="file" id="attachBtn" name="upFile" value="사진첨부"/></td>
 									</tr>
 								</tbody>
 							</table>
