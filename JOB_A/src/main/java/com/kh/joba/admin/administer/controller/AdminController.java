@@ -37,12 +37,12 @@ public class AdminController {
 		int totalAdmin = adminService.selectTotalAdmin();
 		
 		// 3. 페이지 계산된 HTML 구하기
-		String pageBar = Utils.getPageBar(totalAdmin, cPage, numPerPage, "adminList.do");
+		String pageBar = Utils.getPageBar(totalAdmin, cPage, numPerPage, "adminList");
 		
 		System.out.println("list : " + list);
 		
 		// 1,2,3 모델에 담기
-		model.addAttribute("chatList", list);
+		model.addAttribute("adminList", list);
 		model.addAttribute("totalAdmin", totalAdmin);
 		model.addAttribute("numPerPage", numPerPage);
 		model.addAttribute("pageBar", pageBar);

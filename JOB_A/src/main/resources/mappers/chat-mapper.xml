@@ -21,7 +21,7 @@
 	
 	<insert id="insertChat" parameterType="Chat">
 		INSERT INTO CHAT
-		VALUES (#{chatNo}, #{chatTitle}, #{chatDate})
+		VALUES (#{chatNo}, #{chatTitle}, DEFAULT)
 	</insert>
 	
 	<select id="selectChatSeq" resultType="_int">

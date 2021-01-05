@@ -8,6 +8,12 @@
 <head>
 <meta charset="UTF-8">
 <title> 관리자 목록 </title>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 <style type="text/css">
 .container{
 		width: 10%;
@@ -108,8 +114,8 @@
 						<c:forEach items="${adminList}" var="a">
 							<tr>
 								<td><span>${a.adminId}</span></td>
-								<td><span>${a.adminName}</span></td>
 								<td><span>${a.gradeNo}</span></td>
+								<td><span>${a.adminName}</span></td>
 								<td><span>${a.adminNick}</span></td>
 								<td><a href="#"><span>${a.adminEmail}</span></a></td>
 								<td><span>${a.adminPhone}</span></td>
@@ -134,14 +140,14 @@
 			
 			if(searchKey == ""){
 				Swal.fire({
-	                title: "⌓̈⃝..이러면 아모고토 검색할수가 없지",
+	                title: "ʕ⁰̈●̫⁰̈ʔ..이러면 아모고토 검색할수가 없지",
 	                timer: 1300,
 	                showConfirmButton: false
 	            });
 				return false;
 			} else if(searchCdt == ""){
 				Swal.fire({
-	                title: "⍨⃝..근데 뭘로 검색해?",
+	                title: "ʕʘ●̫ʘʔ..근데 뭘로 검색해?",
 	                timer: 1300,
 	                showConfirmButton: false
 	            });

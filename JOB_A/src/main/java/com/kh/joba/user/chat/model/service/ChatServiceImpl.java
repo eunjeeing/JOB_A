@@ -37,13 +37,8 @@ public class ChatServiceImpl implements ChatService {
 		int result = 0;
 		int chatNo = chatDAO.selectChatSeq();
 		Chat chat = new Chat();
-		DateFormat dateFormat =  new SimpleDateFormat("yyyy/MM/dd");
-		Date date = new Date();        
-		String dateToStr = dateFormat.format(date);
-		
 		chat.setChatNo(chatNo);
 		chat.setChatTitle(chatTitle);
-		chat.setChatDate(dateToStr);
 		
 		result = chatDAO.insertChat(chat);
 		System.out.println(result);

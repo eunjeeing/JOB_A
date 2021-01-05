@@ -4,7 +4,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="adminMapper">
 
-	<resultMap id="resultAdmin" type="Admin">
+	<resultMap id="Admin" type="Admin">
 		<id property="adminNo" column="MEM_NO"/>
 		<result property="gradeNo" column="GRADE_NO"/>
 		<result property="adminId" column="MEM_ID"/>
@@ -16,9 +16,9 @@
 		<result property="enrollDate" column="MEM_DATE"/>
 	</resultMap>
 	
-	<select id="selectAdminList" resultType="hashmap">
+	<select id="selectAdminList" resultMap="Admin">
 		SELECT * FROM MEMBER
-		ORDER BY MEM_NO DESC, GRADE_NO DESC
+		ORDER BY MEM_NO DESC
 	</select>
 	
 	<select id="selectTotalAdmin" resultType="_int">
