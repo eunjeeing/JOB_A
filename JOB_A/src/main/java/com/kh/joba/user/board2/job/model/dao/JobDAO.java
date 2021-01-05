@@ -28,4 +28,8 @@ public interface JobDAO {
 
 	int searchJobTotalContents(String keyword);
 
+	List<Map<String, String>> categorySearchJobList(int cPage, int numPerPage, int category_No);
+
+	int categorySearchJobTotalContents(int category_No);
+
 }

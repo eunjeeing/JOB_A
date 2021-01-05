@@ -126,6 +126,34 @@ a {
     box-shadow: inset 0 0 0 2px #fff !important;
 }
 
+input[type="date"] {
+	margin-right: 3em;
+	margin-left: 5px;
+}
+input {
+	margin-bottom: 5px;
+}
+input[type="date"] {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  background: #ffffff;
+  border-radius: 0.375em;
+  border: none;
+  border: solid 1px rgba(210, 215, 217, 0.75);
+  color: inherit;
+  display: block;
+  outline: 0;
+  padding: 0 1em;
+  text-decoration: none;
+  width: 100%; 
+}
+input[type="date"]:invalid {
+    box-shadow: none; }
+input[type="date"]:focus {
+    border-color: #f56a6a;
+    box-shadow: 0 0 0 1px #f56a6a; }
 </style>
 </head>
 <body class="is-preload">
@@ -158,7 +186,51 @@ a {
 									<input type="text" class="form-control" placeholder="제목"
 									name="board_Title" id="board_Title" required>
 									<input type="text" class="form-control" placeholder="URL ex) khacademy@aca.co.kr/.../..."
-									name="board_Url" required>
+									name="board_Url">
+									<div style="color: #7f888f; display: inline-flex;" >
+										<text style="line-height: 40px;">시작일  </text> 
+										<input type="date" class="form-control" style="width:20%; color:inherit;" name="board_Start" >
+										<text style="line-height: 40px;">종료일  </text>
+										<input type="date" class="form-control" style="width:20%; color:inherit;" name="board_End">
+										<text style="line-height: 40px;">합격발표  </text>
+										<input type="date" class="form-control" style="width:20%; color:inherit;" name="board_Announce">
+									</div>
+									 	<div id="category-border">
+											<div id="categoty" style="padding: 15px 50px 0 50px;">
+												<input type="radio" name="category_No" id="경영·사무" value="1" >
+												<label for="경영·사무" class="top-radio">경영·사무</label> &nbsp;&nbsp;&nbsp;
+												
+												<input type="radio" name="category_No" id="마케팅·광고·홍보" value="2" >
+												<label for="마케팅·광고·홍보" class="top-radio">마케팅·광고·홍보</label>&nbsp;&nbsp;&nbsp;
+												
+												<input type="radio" name="category_No" id="IT·미디어" value="3" >
+												<label for="IT·미디어" class="top-radio">IT·미디어</label>&nbsp;&nbsp;&nbsp;
+												
+												<input type="radio" name="category_No" id="영업" value="4" >
+												<label for="영업" class="top-radio">영업</label>&nbsp;&nbsp;&nbsp;
+												
+												<input type="radio" name="category_No" id="서비스" value="5" >
+												<label for="서비스" class="top-radio">서비스</label>&nbsp;&nbsp;&nbsp;
+												<br />
+												<input type="radio" name="category_No" id="연구개발" value="6" >
+												<label for="연구개발" class="bottom-radio">연구개발</label>&nbsp;&nbsp;&nbsp;
+												
+												<input type="radio" name="category_No" id="의료" value="7" >
+												<label for="의료" class="bottom-radio">의료</label>&nbsp;&nbsp;&nbsp;
+												
+												<input type="radio" name="category_No" id="건설" value="8" >
+												<label for="건설" class="bottom-radio">건설</label>&nbsp;&nbsp;&nbsp;
+												
+												<input type="radio" name="category_No" id="교육" value="9" >
+												<label for="교육" class="bottom-radio">교육</label>&nbsp;&nbsp;&nbsp;
+												
+												<input type="radio" name="category_No" id="생산·제조" value="10" >
+												<label for="생산·제조" class="bottom-radio">생산·제조</label>&nbsp;&nbsp;&nbsp;
+												
+												<input type="radio" name="category_No" id="무역·유통" value="11" >
+												<label for="무역·유통" class="bottom-radio">무역·유통</label>
+											</div>
+										</div>
 								 <input type="hidden" id="mem_No" name="mem_No" value="${member.memNo }" /> 
 								 <input type="hidden" id="type_No" name="type_No" value="2">
 								 

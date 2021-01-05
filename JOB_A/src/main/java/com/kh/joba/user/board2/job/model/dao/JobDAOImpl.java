@@ -30,7 +30,7 @@ public class JobDAOImpl implements JobDAO {
 
 	@Override
 	public Board2 jobSelectOne(int board_No) {
-		return sqlSession.selectOne("board2Mapper.selectOneBoard", board_No);
+		return sqlSession.selectOne("board2Mapper.selectOneJob", board_No);
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class JobDAOImpl implements JobDAO {
 
 	@Override
 	public int insertJob(Board2 board) {
-		return sqlSession.insert("board2Mapper.insertBoard", board);
+		return sqlSession.insert("board2Mapper.insertJob", board);
 	}
 
 	@Override
@@ -67,6 +67,17 @@ public class JobDAOImpl implements JobDAO {
 	@Override
 	public int searchJobTotalContents(String keyword) {
 		return sqlSession.selectOne("board2Mapper.searchJobTotalContents", keyword);
+	}
+
+	@Override
+	public List<Map<String, String>> categorySearchJobList(int cPage, int numPerPage, int category_No) {
+		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
+		return sqlSession.selectList("board2Mapper.categorySearchJobList", category_No, rows);
+	}
+
+	@Override
+	public int categorySearchJobTotalContents(int category_No) {
+		return sqlSession.selectOne("board2Mapper.categorySearchJobTotalContents", category_No);
 	}
 
 }

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>JOB_A | 블라인드</title>
+<title>JOB_A | 채용공고</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board.css" />
 <style>
@@ -164,7 +164,7 @@ p {
 				<!-- Top Banner Area -->
 				<div id="topbanner">
 					<div id="topbanner-textarea">
-						<h3 id="topbanner-text">블라인드</h3>
+						<h3 id="topbanner-text">채용공고</h3>
 					</div>
 				</div>
 
@@ -176,7 +176,7 @@ p {
 								<div class="title-close" style="display: flex;">
 								<h2 id="title">${board2.board_Title }</h2>
 								<i class="far fa-window-close" id="close-icon" style="font-size: 30px; color: #f56a6a; margin-left:auto; margin-right: 0;"
-								   onclick="location.href='${pageContext.request.contextPath}/board2/selectBlindList.do'"></i>
+								   onclick="location.href='${pageContext.request.contextPath}/board2/selectJobList.do'"></i>
 								</div>
 								<p class="name">익명</p>
 								<div class="wrap-info">
