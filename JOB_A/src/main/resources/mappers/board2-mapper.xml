@@ -99,6 +99,59 @@
 	<select id="searchBlindTotalContents" resultType="_int">
 		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 5 AND BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%'
 	</select>
+
+<!-- QnA 게시판 -->	
+	<!-- QnA 리스트 -->
+	<select id="selectQnAList" resultType="Board">
+		SELECT B.*, M.MEM_NICK,(SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
+		FROM BOARD B, MEMBER M
+		WHERE TYPE_NO = 7 AND BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+
+	<!-- QnA 게시글 수 -->
+	<select id="selectQnATotalContents" resultType="_int">
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 7 AND BOARD_STATUS = 'Y' 
+	</select>
 	
+	<!-- QnA 검색 -->
+	<select id="searchQnAList" resultType="Board" parameterType="string">
+		SELECT B.*, M.MEM_NICK,(SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
+		FROM BOARD B, MEMBER M
+		WHERE TYPE_NO = 7 AND BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO AND B.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	
+	<!-- QnA 검색된 게시글 수 -->
+	<select id="searchQnATotalContents" resultType="_int">
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 7 AND BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+	</select>
+	
+<!-- 채용공고 게시판 -->
+	<!-- 채용공고 리스트 -->
+	<select id="selectJobList" resultType="Board">
+		SELECT B.*, M.MEM_NICK, C.*, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
+		FROM BOARD B, MEMBER M, CATEGORY C
+		WHERE TYPE_NO = 2 AND BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO AND C.CATEGORY_NO = B.CATEGORY_NO
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+
+	<!-- QnA 게시글 수 -->
+	<select id="selectJobTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 2 AND BOARD_STATUS = 'Y' 
+	</select>
+	
+	<!-- QnA 검색 -->
+	<select id="searchJobList" resultType="Board" parameterType="string">
+		SELECT B.*, M.MEM_NICK,(SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
+		FROM BOARD B, MEMBER M
+		WHERE TYPE_NO = 2 AND BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO AND B.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	
+	<!-- QnA 검색된 게시글 수 -->
+	<select id="searchJobTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 2 AND BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+	</select>
 		
 </mapper>

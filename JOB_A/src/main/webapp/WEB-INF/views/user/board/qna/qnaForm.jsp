@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>JOB_A | 블라인드</title>
+<title>JOB_A | QnA</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -138,7 +138,7 @@ a {
 				<!-- Top Banner Area -->
 				<div id="topbanner">
 					<div id="topbanner-textarea">
-						<h3 id="topbanner-text">블라인드</h3>
+						<h3 id="topbanner-text">QnA</h3>
 					</div>
 				</div>
 				
@@ -146,7 +146,7 @@ a {
 				<section class="container">
 					<div class="wrapped" id="wrapped">
 						<div role="main" class="contents">
-					<form action="${pageContext.request.contextPath}/board2/insertBlind.do"
+					<form action="${pageContext.request.contextPath}/board2/insertQnA.do"
 						method="post" onsubmit="return validate();">
 							<div class="acticle-view-head" id="head">
 								<div class="title-close" style="display: flex;">
@@ -158,7 +158,7 @@ a {
 									<input type="text" class="form-control" placeholder="제목"
 									name="board_Title" id="board_Title" required>
 								 <input type="hidden" id="mem_No" name="mem_No" value="${member.memNo }" /> 
-								 <input type="hidden" id="type_No" name="type_No" value="5">
+								 <input type="hidden" id="type_No" name="type_No" value="7">
 								 
 							</div>
 							

@@ -9,7 +9,7 @@
 
 	<typeAliases>
 		<typeAlias type="com.kh.joba.user.board.model.vo.Board1" alias="Board1" /> 	
-		<typeAlias type="com.kh.joba.user.blahblah.model.vo.Board2" alias="Board" /> 
+		<typeAlias type="com.kh.joba.user.board2.blahblah.model.vo.Board2" alias="Board" /> 
 		<typeAlias type="com.kh.joba.user.member.model.vo.Member" alias="Member" />
 		<typeAlias type="com.kh.joba.user.board.model.vo.Attachment1" alias="Attachment1" /> 
 		<typeAlias type="com.kh.joba.user.attachment.model.vo.Attachment" alias="Attachment"/>

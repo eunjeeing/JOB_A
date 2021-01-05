@@ -15,9 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.joba.user.attachment.model.service.AttachmentService;
+import com.kh.joba.user.attachment.model.vo.Attachment;
+
 
 @RestController
 public class AttachmentController {
+	
 
 	@RequestMapping("/insertImage.do")
 	public String fileUpload(@RequestParam(value = "file", required = false)MultipartFile[] upFiles, HttpServletRequest request) {
@@ -72,7 +76,7 @@ public class AttachmentController {
 	   }
 	
 	@RequestMapping("/updateImage.do")
-	   public String fileUpload1(@RequestParam(value = "file", required = false)MultipartFile[] upFiles, HttpServletRequest request) {
+	   public String updateFileUpload(@RequestParam(value = "file", required = false)MultipartFile[] upFiles, HttpServletRequest request) {
 	      
 		String savePath = 
 	            request.getServletContext().getRealPath("/resources/uplaodFiles/board/");

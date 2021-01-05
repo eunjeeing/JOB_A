@@ -13,7 +13,7 @@
 <style>
 #topbanner {
 	background:
-		url(${pageContext.request.contextPath}/resources/images/blah.jpg)
+		url(${pageContext.request.contextPath}/resources/images/com.jpg)
 		no-repeat;
 	background-position: center center;
 	margin-top: 10px;
@@ -90,7 +90,7 @@ p {
 					</div>
 					<button type="button" id="searchBtn" onclick="search()">검색
 					</button>
-					<c:if test="${ !empty member }" >
+					<c:if test="${ member.gradeNo == 3 || member.gradeNo == 4 }" >
 						<button id="writeBtn" onclick="goblindForm();">글쓰기</button>
 					</c:if>
 				</div>
@@ -166,7 +166,7 @@ p {
 				});
 		</script>
 		</c:when>
-		<c:when test="${ !empty member && member.gradeNo eq 3 || member.gradeNo eq  5 }">
+		<c:when test="${ member.gradeNo == 2 || member.gradeNo == 5 }">
 		<script>
 				$(function() {
 				$("div[class=tit]")
