@@ -14,6 +14,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.kh.joba.admin.administer.model.service.AdminService;
 import com.kh.joba.admin.administer.model.vo.Admin;
 import com.kh.joba.user.common.util.Utils;
+import com.kh.joba.user.member.model.vo.Member;
 
 @Controller
 public class AdminController {
@@ -72,20 +73,35 @@ public class AdminController {
 		return "redirect:admin/adminList";
 	}
 	
-	@RequestMapping("admin/adminDelete")
+	@RequestMapping("admin/adminDelete/{adminNo}")
 	public String adminDelete (Model model, Admin admin) {
 		
-		int result = adminService.deleteAdmin(admin.getAdminId()); // id로 조회하고 삭제
+		int result = adminService.deleteAdmin(admin.getAdminNo()); // no로 조회하고 삭제
 		
-		if(result > 0) {
-			System.out.println("삭제 성공");
-		}
+		String loc = "/";
+		String msg = "";
+		
+		if( result > 0) msg = "삭제 성공";
+		else msg = "삭제 실패";
+		
+		 model.addAttribute("loc", loc);
+		 model.addAttribute("msg", msg);
 		
 		return "redirect:admin/adminList";		
 	}
 	
 	
 /******************************************************************/
+	
+	@RequestMapping("admin/adminUpdateView")
+	public String adminUpdateView(String memId, Model model) {
+		
+		Admin admin = adminService.selectAdmin(memId);
+		model.addAttribute("admin", admin);
+		return "admin/administer/adminUpdateView";
+	}
+	
+	
 	
 	@RequestMapping("admin/adminUpdate")
 	public String adminUpdate(Admin admin, Model model) {

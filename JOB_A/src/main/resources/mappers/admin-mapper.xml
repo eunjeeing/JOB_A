@@ -17,19 +17,19 @@
 	</resultMap>
 	
 	<select id="selectAdminList" resultType="hashmap">
-		SELECT * FROM ADMIN
-		ORDER BY ADMIN_NO DESC, GRADE_NO DESC
+		SELECT * FROM MEMBER
+		ORDER BY MEM_NO DESC, GRADE_NO DESC
 	</select>
 	
 	<select id="selectTotalAdmin" resultType="_int">
-		SELECT COUNT(*) FROM ADMIN
+		SELECT COUNT(*) FROM MEMBER
 	</select>
 	
 	<insert id="insertAdmin" parameterType="Admin">
 	 	INSERT INTO MEMBER
 	 	(MEM_NO, GRADE_NO, MEM_ID, MEM_PW, MEM_NAME, MEM_PHONE, MEM_EMAIL, MEM_NICK, MEM_DATE, MEM_STATE)
 		VALUES 
-		(MEMBER_SEQ.NEXTVAL, #{gradeNo}, #{adminId}, #{adminPw}, #{adminName}, #{adminPhone}, #{adminEmail}, DEFAULT, DEFAULT, 0) 
+		(MEMBER_SEQ.NEXTVAL, #{gradeNo}, #{adminId}, #{adminPw}, #{adminName}, #{adminPhone}, #{adminEmail}, #{adminName}, DEFAULT, 0) 
 	</insert> 
 	
 	<delete id="deleteAdmin" parameterType="string">
@@ -37,6 +37,10 @@
 		MEM_ID = #{adminId} 
 	</delete>
 
+	<select id="selectAdmin" resultType="Admin">
+		SELECT * FROM MEMBER
+		WHERE MEM_ID = #{adminId}
+	</select>
 
 	<update id="updateAdmin" parameterType="Admin">
 	 	UPDATE MEMBER SET

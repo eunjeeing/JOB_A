@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import com.kh.joba.admin.administer.model.vo.Admin;
+
 @Repository
 public class AdminDAOImpl implements AdminDAO{
 
@@ -29,13 +31,13 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
-	public int insertAdmin() {
+	public int insertAdmin(Admin admin) {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("adminMapper.insertAdmin");
 	}
 
 	@Override
-	public int deleteAdmin() {
+	public int deleteAdmin(int adminNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.delete("adminMapper.deleteAdmin");
 	}
@@ -44,9 +46,16 @@ public class AdminDAOImpl implements AdminDAO{
 	/******************************************************************/
 
 	@Override
-	public int updateAdmin() {
+	public Admin selectAdmin(String memId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("adminMapper.selectAdmin");
+	}
+	
+	@Override
+	public int updateAdmin(Admin admin) {
 		// TODO Auto-generated method stub
 		return sqlSession.update("adminMapper.updateAdmin");
 	}
+
 
 }

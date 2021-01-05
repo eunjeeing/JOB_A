@@ -13,8 +13,11 @@ public interface AdminService {
 
 	int insertAdmin(Admin admin);
 
-	int deleteAdmin(String adminId);
+	int deleteAdmin(int adminNo);
 
+	Admin selectAdmin(String memId);
+	
 	int updateAdmin(Admin admin);
+
 
 }

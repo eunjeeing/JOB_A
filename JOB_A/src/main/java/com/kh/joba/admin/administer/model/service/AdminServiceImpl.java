@@ -30,22 +30,29 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int insertAdmin(Admin admin) {
 		// TODO Auto-generated method stub
-		return adminDAO.insertAdmin();
+		return adminDAO.insertAdmin(admin);
 	}
 
 	@Override
-	public int deleteAdmin(String adminId) {
+	public int deleteAdmin(int adminNo) {
 		// TODO Auto-generated method stub
-		return adminDAO.deleteAdmin();
+		return adminDAO.deleteAdmin(adminNo);
 	}
 
 	
 	/******************************************************************/
 
 	@Override
+	public Admin selectAdmin(String memId) {
+		// TODO Auto-generated method stub
+		return adminDAO.selectAdmin(memId);
+	}
+	
+	@Override
 	public int updateAdmin(Admin admin) {
 		// TODO Auto-generated method stub
-		return adminDAO.updateAdmin();
+		return adminDAO.updateAdmin(admin);
 	}
+
 
 }
