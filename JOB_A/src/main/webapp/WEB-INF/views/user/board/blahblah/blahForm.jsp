@@ -13,13 +13,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
-  <!-- include summernote -->
-  <script src="${pageContext.request.contextPath}/resources/summernote/summernote-lite.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
+
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-lite.css">
 <style>
 #topbanner {
@@ -99,7 +93,6 @@ a {
     -webkit-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out !important;
     -ms-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out !important;
     transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out !important;
-    color: #f56a6a !important;
     text-decoration: none !important;
 }
 
@@ -184,8 +177,8 @@ a {
 					</div>
 			</div>
 		</div>
-<%-- 				<c:import url="../../common/sideBar.jsp" />
- --%>		
+  				 <c:import url="../../common/sideBar.jsp" /> 
+		
 	</div>
 <script>
 $(document).ready(function(){
@@ -246,7 +239,12 @@ function validate(){
 }
 
 </script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  <!-- include summernote -->
+  <script src="${pageContext.request.contextPath}/resources/summernote/summernote-lite.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
  
 </body>
 </html>

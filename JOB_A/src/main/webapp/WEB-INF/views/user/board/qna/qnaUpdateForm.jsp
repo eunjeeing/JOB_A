@@ -7,13 +7,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>JOB_A | 블라인드</title>
+<title>JOB_A | QnA</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-lite.css">
 <style>
 #topbanner {
@@ -138,7 +137,7 @@ a {
 				<!-- Top Banner Area -->
 				<div id="topbanner">
 					<div id="topbanner-textarea">
-						<h3 id="topbanner-text">블라인드</h3>
+						<h3 id="topbanner-text">QnA</h3>
 					</div>
 				</div>
 				
@@ -146,28 +145,24 @@ a {
 				<section class="container">
 					<div class="wrapped" id="wrapped">
 						<div role="main" class="contents">
-					<form action="${pageContext.request.contextPath}/board2/insertBlind.do"
-						method="post" onsubmit="return validate();">
+					<form action="${pageContext.request.contextPath}/board2/updateQnA.do"
+						method="post" name="" onsubmit="return validate();">
 							<div class="acticle-view-head" id="head">
 								<div class="title-close" style="display: flex;">
 									<!-- 제목 -->
+									<input type="hidden" name="board_No"  value="${board2.board_No}"/>
 									<i class="far fa-window-close" id="close-icon" style="font-size: 30px; color: #f56a6a; margin-left:auto; margin-right: 0;"
 								  	 onclick="window.history.back();"></i>
 								 	</div>
 								 	<br />
-									<input type="text" class="form-control" placeholder="제목"
-									name="board_Title" id="board_Title" required>
-								 <input type="hidden" id="mem_No" name="mem_No" value="${member.memNo }" /> 
-								 <input type="hidden" id="type_No" name="type_No" value="5">
-								 
+									<input type="text" class="form-control" 
+									name="board_Title" id="board_Title" value="${board2.board_Title }" required>
 							</div>
 							
 							<div class="article-view-contents">
-
-								<p>
 								<textarea class="summernote" name="board_Content"
-								placeholder="내용" style="resize:none; height:400px;" required></textarea>
-								</p>
+								placeholder="내용" required>${board2.board_Content}
+								</textarea>
 							<br />
 							<button type="submit">확인</button>
 
@@ -175,10 +170,11 @@ a {
 							</form>
 						</div>
 					</div>
+				</section>
 			</div>
 		</div>
- 				<c:import url="../../common/sideBar.jsp" />
-	
+		  				 <c:import url="../../common/sideBar.jsp" /> 
+		
 	</div>
 <script>
 $(document).ready(function(){
@@ -214,16 +210,19 @@ $(document).ready(function(){
   $.ajax({
        data: form_data,
        type: "post",
-       url: '/joba/insertImage.do',
+       url: '/joba/updateImage.do',
     cache : false,
     contentType : false,
-    enctype: 'multipart/form-data',
+       enctype: 'multipart/form-data',
     processData : false,
        success: function(url) {
+          console.log('----------------------------');
+          console.log(url);
+          console.log('----------------------------');
           url.replace("\/","/");
          $(el).summernote('editor.insertImage', url);
        }, error: function(){
-          console.log("error");
+          console.log("실패");
        }
   });
 }  
@@ -242,7 +241,6 @@ function validate(){
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   
-  <!-- include summernote -->
   <script src="${pageContext.request.contextPath}/resources/summernote/summernote-lite.js"></script>
   <script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
  
