@@ -5,166 +5,86 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <meta charset="UTF-8">
-
+<head>
+<!-- Simple bar CSS -->
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/admin/vendors/mdi/css/materialdesignicons.min.css">
+	href="${pageContext.request.contextPath}/resources/admin/css/simplebar.css">
+<!-- Fonts CSS -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+	rel="stylesheet">
+<!-- Icons CSS -->
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/admin/vendors/css/vendor.bundle.base.css">
+	href="${pageContext.request.contextPath}/resources/admin/css/feather.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/admin/css/style.css">
-<!-- End layout styles -->
-<link rel="shortcut icon"
-	href="${pageContext.request.contextPath}/resources/admin/images/favicon.ico" />
+	href="${pageContext.request.contextPath}/resources/admin/css/select2.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/admin/css/dropzone.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/admin/css/uppy.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/admin/css/jquery.steps.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/admin/css/jquery.timepicker.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/admin/css/quill.snow.css">
+<!-- Date Range Picker CSS -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/admin/css/daterangepicker.css">
+<!-- App CSS -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/admin/css/app-light.css"
+	id="lightTheme">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/admin/css/app-dark.css"
+	id="darkTheme" disabled>
 
 <style>
 	* {
    font-family: 'Do Hyeon', sans-serif !important;
 	}
 </style>	
+</head>
 
-<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-  <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-    <a class="navbar-brand brand-logo" href="#" style="text-decoration: none; font-weight: bold;">JOB_A</a>
-  </div>
-  <div class="navbar-menu-wrapper d-flex align-items-stretch">
-    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-      <span class="mdi mdi-menu"></span>
-    </button>
-    <div class="search-field d-none d-md-block">
-      <form class="d-flex align-items-center h-100" action="#">
-        <div class="input-group">
-          <div class="input-group-prepend bg-transparent">
-            <i class="input-group-text border-0 mdi mdi-magnify"></i>
+<nav class="topnav navbar navbar-light">
+        <button type="button" class="navbar-toggler text-muted mt-2 p-0 mr-3 collapseSidebar">
+          <i class="fe fe-menu navbar-toggler-icon"></i>
+        </button>
+        <!-- <form class="form-inline mr-auto searchform text-muted">
+          <input class="form-control mr-sm-2 bg-transparent border-0 pl-4 text-muted" type="search" placeholder="Type something..." aria-label="Search">
+        </form> -->
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link text-muted my-2" href="#" id="modeSwitcher" data-mode="dark">
+              <i class="fe fe-sun fe-16"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-muted my-2" href="./#" data-toggle="modal" data-target=".modal-shortcut">
+              <span class="fe fe-grid fe-16"></span>
+            </a>
+          </li>
+          <!-- <li class="nav-item nav-notif">
+            <a class="nav-link text-muted my-2" href="./#" data-toggle="modal" data-target=".modal-notif">
+              <span class="fe fe-bell fe-16"></span>
+              <span class="dot dot-md bg-success"></span>
+            </a>
+          </li> -->
+          <div style="padding-top: 15px; padding-left: 10px;">
+          	<a href="" style="text-decoration: none; ">
+          		${member.memNick}&nbsp;관리자님 오늘도 수고링~!
+          	</a>
           </div>
-          <input type="text" class="form-control bg-transparent border-0" placeholder="Search projects">
-        </div>
-      </form>
-    </div>
-    <ul class="navbar-nav navbar-nav-right">
-      <li class="nav-item nav-profile dropdown">
-        <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-          <div class="nav-profile-img">
-            <img src="${pageContext.request.contextPath}/resources/admin/images/faces/face1.jpg" alt="image">
-            <span class="availability-status online"></span>
-          </div>
-          <div class="nav-profile-text">
-            <p class="mb-1 text-black">David Greymaax</p>
-          </div>
-        </a>
-        <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-          <a class="dropdown-item" href="#">
-            <i class="mdi mdi-cached mr-2 text-success"></i> Activity Log </a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">
-            <i class="mdi mdi-logout mr-2 text-primary"></i> Signout </a>
-        </div>
-      </li>
-      <li class="nav-item d-none d-lg-block full-screen-link">
-        <a class="nav-link">
-          <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
-        </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-          <i class="mdi mdi-email-outline"></i>
-          <span class="count-symbol bg-warning"></span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
-          <h6 class="p-3 mb-0">Messages</h6>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item preview-item">
-            <div class="preview-thumbnail">
-              <img src="${pageContext.request.contextPath}/resources/admin/images/faces/face4.jpg" alt="image" class="profile-pic">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-muted pr-0" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="avatar avatar-sm mt-2">
+                <img src="${pageContext.request.contextPath}/resources/admin/images/admin.png" alt="..." class="avatar-img rounded-circle">
+              </span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="#">Profile</a>
+              <a class="dropdown-item" href="#">Settings</a>
             </div>
-            <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-              <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Mark send you a message</h6>
-              <p class="text-gray mb-0"> 1 Minutes ago </p>
-            </div>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item preview-item">
-            <div class="preview-thumbnail">
-              <img src="${pageContext.request.contextPath}/resources/admin/images/faces/face2.jpg" alt="image" class="profile-pic">
-            </div>
-            <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-              <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Cregh send you a message</h6>
-              <p class="text-gray mb-0"> 15 Minutes ago </p>
-            </div>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item preview-item">
-            <div class="preview-thumbnail">
-              <img src="${pageContext.request.contextPath}/resources/admin/images/faces/face3.jpg" alt="image" class="profile-pic">
-            </div>
-            <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-              <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Profile picture updated</h6>
-              <p class="text-gray mb-0"> 18 Minutes ago </p>
-            </div>
-          </a>
-          <div class="dropdown-divider"></div>
-          <h6 class="p-3 mb-0 text-center">4 new messages</h6>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-          <i class="mdi mdi-bell-outline"></i>
-          <span class="count-symbol bg-danger"></span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-          <h6 class="p-3 mb-0">Notifications</h6>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item preview-item">
-            <div class="preview-thumbnail">
-              <div class="preview-icon bg-success">
-                <i class="mdi mdi-calendar"></i>
-              </div>
-            </div>
-            <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-              <h6 class="preview-subject font-weight-normal mb-1">Event today</h6>
-              <p class="text-gray ellipsis mb-0"> Just a reminder that you have an event today </p>
-            </div>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item preview-item">
-            <div class="preview-thumbnail">
-              <div class="preview-icon bg-warning">
-                <i class="mdi mdi-settings"></i>
-              </div>
-            </div>
-            <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-              <h6 class="preview-subject font-weight-normal mb-1">Settings</h6>
-              <p class="text-gray ellipsis mb-0"> Update dashboard </p>
-            </div>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item preview-item">
-            <div class="preview-thumbnail">
-              <div class="preview-icon bg-info">
-                <i class="mdi mdi-link-variant"></i>
-              </div>
-            </div>
-            <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-              <h6 class="preview-subject font-weight-normal mb-1">Launch Admin</h6>
-              <p class="text-gray ellipsis mb-0"> New admin wow! </p>
-            </div>
-          </a>
-          <div class="dropdown-divider"></div>
-          <h6 class="p-3 mb-0 text-center">See all notifications</h6>
-        </div>
-      </li>
-      <li class="nav-item nav-logout d-none d-lg-block">
-        <a class="nav-link" href="#">
-          <i class="mdi mdi-power"></i>
-        </a>
-      </li>
-      <li class="nav-item nav-settings d-none d-lg-block">
-        <a class="nav-link" href="#">
-          <i class="mdi mdi-format-line-spacing"></i>
-        </a>
-      </li>
-    </ul>
-    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-      <span class="mdi mdi-menu"></span>
-    </button>
-  </div>
-</nav>
+          </li>
+        </ul>
+      </nav>

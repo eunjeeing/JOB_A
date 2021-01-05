@@ -5,113 +5,303 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <meta charset="UTF-8">
-
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/admin/vendors/mdi/css/materialdesignicons.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/admin/vendors/css/vendor.bundle.base.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/admin/css/style.css">
-<!-- End layout styles -->
-<link rel="shortcut icon"
-	href="${pageContext.request.contextPath}/resources/admin/images/favicon.ico" />
-
+<head>
 <style>
 * {
 	font-family: 'Do Hyeon', sans-serif !important;
 }
+.fa,.fab,.fad,.fal,.far,.fas{
+	font-weight: 900 !important;
+	font-family: fontAwesome !important;
+	}
 </style>
+</head>
 
-<nav class="sidebar sidebar-offcanvas" id="sidebar">
-	<ul class="nav">
-		<li class="nav-item nav-profile"><a href="#" class="nav-link">
-				<div class="nav-profile-image">
-					<img
-						src="${pageContext.request.contextPath}/resources/admin/images/faces/face1.jpg"
-						alt="profile"> <span class="login-status online"></span>
-					<!--change to offline or busy as needed-->
+<aside class="sidebar-left border-right bg-white shadow"
+			id="leftSidebar" data-simplebar>
+			<a href="#"
+				class="btn collapseSidebar toggle-btn d-lg-none text-muted ml-2 mt-3"
+				data-toggle="toggle"> <i class="fe fe-x"><span
+					class="sr-only"></span></i>
+			</a>
+			<nav class="vertnav navbar navbar-light">
+				<!-- nav bar -->
+				<div class="w-100 mb-4 d-flex">
+					<a class="navbar-brand mx-auto mt-2 flex-fill text-center"
+						href="${pageContext.request.contextPath}">JOB_A
+                <g>
+                  <polygon class="st0"
+								points="78,105 15,105 24,87 87,87 	" />
+                  <polygon class="st0"
+								points="96,69 33,69 42,51 105,51 	" />
+                  <polygon class="st0"
+								points="78,33 15,33 24,15 87,15 	" />
+                </g>
+              </svg>
+					</a>
 				</div>
-				<div class="nav-profile-text d-flex flex-column">
-					<span class="font-weight-bold mb-2">관리자 아이디</span> <span
-						class="text-secondary text-small">관리자 닉네임</span>
-				</div> <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
-		</a></li>
-		<li class="nav-item"><a class="nav-link" href="index.html"> <span
-				class="menu-title">Home</span> <i class="mdi mdi-home menu-icon"></i>
-		</a></li>
-		<li class="nav-item"><a class="nav-link" data-toggle="collapse"
-			href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-				<span class="menu-title">Member</span> <i class="menu-arrow"></i> <i
-				class="mdi mdi-crosshairs-gps menu-icon"></i>
-		</a>
-			<div class="collapse" id="ui-basic">
-				<ul class="nav flex-column sub-menu">
-					<li class="nav-item"><a class="nav-link"
-						href="${pageContext.request.contextPath}/admin/samplePage/ui-features/buttons.jsp">Buttons</a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="${pageContext.request.contextPath}/admin/samplePage/ui-features/typography.jsp">Typography</a></li>
-				</ul>
-			</div></li>
-		<li class="nav-item"><a class="nav-link"
-			href="${pageContext.request.contextPath}/admin/samplePage/icons/mdi.html">
-				<span class="menu-title">Icons</span> <i
-				class="mdi mdi-contacts menu-icon"></i>
-		</a></li>
-		<li class="nav-item"><a class="nav-link"
-			href="${pageContext.request.contextPath}/admin/samplePage/forms/basic_elements.html">
-				<span class="menu-title">Forms</span> <i
-				class="mdi mdi-format-list-bulleted menu-icon"></i>
-		</a></li>
-		<li class="nav-item"><a class="nav-link"
-			href="${pageContext.request.contextPath}/admin/samplePage/charts/chartjs.html">
-				<span class="menu-title">Charts</span> <i
-				class="mdi mdi-chart-bar menu-icon"></i>
-		</a></li>
-		<li class="nav-item"><a class="nav-link"
-			href="${pageContext.request.contextPath}/admin/samplePage/tables/basic-table.html">
-				<span class="menu-title">Tables</span> <i
-				class="mdi mdi-table-large menu-icon"></i>
-		</a></li>
-		<li class="nav-item"><a class="nav-link" data-toggle="collapse"
-			href="#general-pages" aria-expanded="false"
-			aria-controls="general-pages"> <span class="menu-title">Sample
-					Pages</span> <i class="menu-arrow"></i> <i
-				class="mdi mdi-medical-bag menu-icon"></i>
-		</a>
-			<div class="collapse" id="general-pages">
-				<ul class="nav flex-column sub-menu">
-					<li class="nav-item"><a class="nav-link"
-						href="${pageContext.request.contextPath}/admin/samplePage/samples/blank-page.jsp">
-							Blank Page </a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="${pageContext.request.contextPath}/admin/samplePage/samples/login.jsp">
-							Login </a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="${pageContext.request.contextPath}/admin/samplePage/samples/register.jsp">
-							Register </a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="${pageContext.request.contextPath}/admin/samplePage/samples/error-404.jsp">
-							404 </a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="${pageContext.request.contextPath}/admin/samplePage/samples/error-500.jsp">
-							500 </a></li>
-				</ul>
-			</div></li>
-		<li class="nav-item sidebar-actions"><span class="nav-link">
-				<div class="border-bottom">
-					<h6 class="font-weight-normal mb-3">Projects</h6>
-				</div>
-				<button class="btn btn-block btn-lg btn-gradient-primary mt-4">+
-					Add a project</button>
-				<div class="mt-4">
-					<div class="border-bottom">
-						<p class="text-secondary">Categories</p>
+				<div class="w-100 mb-4 d-flex" style="display: flex; align-items: center;flex-direction: column">
+					<div>
+				 		<img
+						src="${pageContext.request.contextPath}/resources/admin/images/admin.png"
+						alt="..." class="avatar-img rounded-circle"
+						style="width: 60px; height : 60px; overflow: hidden; margin-bottom: 7px;">
 					</div>
-					<ul class="gradient-bullet-list mt-4">
-						<li>Free</li>
-						<li>Pro</li>
-					</ul>
+					<div>
+						<a href="" style="text-decoration: none; font-size: 20px;">
+							${member.memId}
+						</a><!-- 개인정보 수정페이지로 이동 -->
+					</div>
 				</div>
-		</span></li>
-	</ul>
-</nav>
+				<br />
+				
+				<ul class="navbar-nav flex-fill w-100 mb-2">
+					<li class="nav-item dropdown"><a href="${pageContext.request.contextPath}/adminIndex.do"
+						data-toggle="collapse" aria-expanded="false"
+						class="dropdown-toggle nav-link"> <i class="fe fe-home fe-16"></i>
+							<span class="ml-3 item-text">HOME</span>
+					</a>
+				</ul>
+				<ul class="navbar-nav flex-fill w-100 mb-2">
+					<li class="nav-item dropdown"><a href="#ui-elements"
+						data-toggle="collapse" aria-expanded="false"
+						class="dropdown-toggle nav-link"> <i class="fe fe-box fe-16"></i>
+							<span class="ml-3 item-text">UI elements</span>
+					</a>
+						<ul class="collapse list-unstyled pl-4 w-100" id="ui-elements">
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./ui-color.html"><span class="ml-1 item-text">Colors</span>
+							</a></li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./ui-typograpy.html"><span class="ml-1 item-text">Typograpy</span></a>
+							</li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./ui-icons.html"><span class="ml-1 item-text">Icons</span></a>
+							</li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./ui-buttons.html"><span class="ml-1 item-text">Buttons</span></a>
+							</li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./ui-notification.html"><span class="ml-1 item-text">Notifications</span></a>
+							</li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./ui-modals.html"><span class="ml-1 item-text">Modals</span></a>
+							</li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./ui-tabs-accordion.html"><span class="ml-1 item-text">Tabs
+										& Accordion</span></a></li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./ui-progress.html"><span class="ml-1 item-text">Progress</span></a>
+							</li>
+						</ul></li>
+					<li class="nav-item w-100"><a class="nav-link"
+						href="widgets.html"> <i class="fe fe-layers fe-16"></i> <span
+							class="ml-3 item-text">Widgets</span> <span
+							class="badge badge-pill badge-primary">New</span>
+					</a></li>
+					<li class="nav-item dropdown"><a href="#forms"
+						data-toggle="collapse" aria-expanded="false"
+						class="dropdown-toggle nav-link"> <i
+							class="fe fe-credit-card fe-16"></i> <span class="ml-3 item-text">Forms</span>
+					</a>
+						<ul class="collapse list-unstyled pl-4 w-100" id="forms">
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./form_elements.html"><span class="ml-1 item-text">Basic
+										Elements</span></a></li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./form_advanced.html"><span class="ml-1 item-text">Advanced
+										Elements</span></a></li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./form_validation.html"><span class="ml-1 item-text">Validation</span></a>
+							</li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./form_wizard.html"><span class="ml-1 item-text">Wizard</span></a>
+							</li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./form_layouts.html"><span class="ml-1 item-text">Layouts</span></a>
+							</li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./form_upload.html"><span class="ml-1 item-text">File
+										upload</span></a></li>
+						</ul></li>
+					<li class="nav-item dropdown"><a href="#tables"
+						data-toggle="collapse" aria-expanded="false"
+						class="dropdown-toggle nav-link"> <i class="fe fe-grid fe-16"></i>
+							<span class="ml-3 item-text">Tables</span>
+					</a>
+						<ul class="collapse list-unstyled pl-4 w-100" id="tables">
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./table_basic.html"><span class="ml-1 item-text">Basic
+										Tables</span></a></li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./table_advanced.html"><span class="ml-1 item-text">Advanced
+										Tables</span></a></li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./table_datatables.html"><span class="ml-1 item-text">Data
+										Tables</span></a></li>
+						</ul></li>
+					<li class="nav-item dropdown"><a href="#charts"
+						data-toggle="collapse" aria-expanded="false"
+						class="dropdown-toggle nav-link"> <i
+							class="fe fe-pie-chart fe-16"></i> <span class="ml-3 item-text">Charts</span>
+					</a>
+						<ul class="collapse list-unstyled pl-4 w-100" id="charts">
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./chart-inline.html"><span class="ml-1 item-text">Inline
+										Chart</span></a></li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./chart-chartjs.html"><span class="ml-1 item-text">Chartjs</span></a>
+							</li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./chart-apexcharts.html"><span class="ml-1 item-text">ApexCharts</span></a>
+							</li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./datamaps.html"><span class="ml-1 item-text">Datamaps</span></a>
+							</li>
+						</ul></li>
+				</ul>
+				<p class="text-muted nav-heading mt-4 mb-1">
+					<span>Apps</span>
+				</p>
+				<ul class="navbar-nav flex-fill w-100 mb-2">
+					<li class="nav-item w-100"><a class="nav-link"
+						href="calendar.html"> <i class="fe fe-calendar fe-16"></i> <span
+							class="ml-3 item-text">Calendar</span>
+					</a></li>
+					<li class="nav-item dropdown"><a href="#contact"
+						data-toggle="collapse" aria-expanded="false"
+						class="dropdown-toggle nav-link"> <i class="fe fe-book fe-16"></i>
+							<span class="ml-3 item-text">Contacts</span>
+					</a>
+						<ul class="collapse list-unstyled pl-4 w-100" id="contact">
+							<a class="nav-link pl-3" href="./contacts-list.html"><span
+								class="ml-1">Contact List</span></a>
+							<a class="nav-link pl-3" href="./contacts-grid.html"><span
+								class="ml-1">Contact Grid</span></a>
+							<a class="nav-link pl-3" href="./contacts-new.html"><span
+								class="ml-1">New Contact</span></a>
+						</ul></li>
+					<li class="nav-item dropdown"><a href="#profile"
+						data-toggle="collapse" aria-expanded="false"
+						class="dropdown-toggle nav-link"> <i class="fe fe-user fe-16"></i>
+							<span class="ml-3 item-text">Profile</span>
+					</a>
+						<ul class="collapse list-unstyled pl-4 w-100" id="profile">
+							<a class="nav-link pl-3" href="./profile.html"><span
+								class="ml-1">Overview</span></a>
+							<a class="nav-link pl-3" href="./profile-settings.html"><span
+								class="ml-1">Settings</span></a>
+							<a class="nav-link pl-3" href="./profile-security.html"><span
+								class="ml-1">Security</span></a>
+							<a class="nav-link pl-3" href="./profile-notification.html"><span
+								class="ml-1">Notifications</span></a>
+						</ul></li>
+					<li class="nav-item dropdown"><a href="#fileman"
+						data-toggle="collapse" aria-expanded="false"
+						class="dropdown-toggle nav-link"> <i
+							class="fe fe-folder fe-16"></i> <span class="ml-3 item-text">File
+								Manager</span>
+					</a>
+						<ul class="collapse list-unstyled pl-4 w-100" id="fileman">
+							<a class="nav-link pl-3" href="./files-list.html"><span
+								class="ml-1">Files List</span></a>
+							<a class="nav-link pl-3" href="./files-grid.html"><span
+								class="ml-1">Files Grid</span></a>
+						</ul></li>
+					<li class="nav-item dropdown"><a href="#support"
+						data-toggle="collapse" aria-expanded="false"
+						class="dropdown-toggle nav-link"> <i
+							class="fe fe-compass fe-16"></i> <span class="ml-3 item-text">Help
+								Desk</span>
+					</a>
+						<ul class="collapse list-unstyled pl-4 w-100" id="support">
+							<a class="nav-link pl-3" href="./support-center.html"><span
+								class="ml-1">Home</span></a>
+							<a class="nav-link pl-3" href="./support-tickets.html"><span
+								class="ml-1">Tickets</span></a>
+							<a class="nav-link pl-3" href="./support-ticket-detail.html"><span
+								class="ml-1">Ticket Detail</span></a>
+							<a class="nav-link pl-3" href="./support-faqs.html"><span
+								class="ml-1">FAQs</span></a>
+						</ul></li>
+						<li class="nav-item dropdown"><a href="#pages"
+						data-toggle="collapse" aria-expanded="false"
+						class="dropdown-toggle nav-link"> <i class="fe fe-file fe-16"></i>
+							<span class="ml-3 item-text">Pages</span>
+					</a>
+						<ul class="collapse list-unstyled pl-4 w-100 w-100" id="pages">
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./page-orders.html"> <span class="ml-1 item-text">Orders</span>
+							</a></li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./page-timeline.html"> <span class="ml-1 item-text">Timeline</span>
+							</a></li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./page-invoice.html"> <span class="ml-1 item-text">Invoice</span>
+							</a></li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./page-404.html"> <span class="ml-1 item-text">Page
+										404</span>
+							</a></li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./page-500.html"> <span class="ml-1 item-text">Page
+										500</span>
+							</a></li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./page-blank.html"> <span class="ml-1 item-text">Blank</span>
+							</a></li>
+						</ul></li>
+					<li class="nav-item dropdown"><a href="#auth"
+						data-toggle="collapse" aria-expanded="false"
+						class="dropdown-toggle nav-link"> <i
+							class="fe fe-shield fe-16"></i> <span class="ml-3 item-text">Authentication</span>
+					</a>
+						<ul class="collapse list-unstyled pl-4 w-100" id="auth">
+							<a class="nav-link pl-3" href="./auth-login.html"><span
+								class="ml-1">Login 1</span></a>
+							<a class="nav-link pl-3" href="./auth-login-half.html"><span
+								class="ml-1">Login 2</span></a>
+							<a class="nav-link pl-3" href="./auth-register.html"><span
+								class="ml-1">Register</span></a>
+							<a class="nav-link pl-3" href="./auth-resetpw.html"><span
+								class="ml-1">Reset Password</span></a>
+							<a class="nav-link pl-3" href="./auth-confirm.html"><span
+								class="ml-1">Confirm Password</span></a>
+						</ul></li>
+					<li class="nav-item dropdown"><a href="#layouts"
+						data-toggle="collapse" aria-expanded="false"
+						class="dropdown-toggle nav-link"> <i
+							class="fe fe-layout fe-16"></i> <span class="ml-3 item-text">Layout</span>
+					</a>
+						<ul class="collapse list-unstyled pl-4 w-100" id="layouts">
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./index.html"><span class="ml-1 item-text">Default</span></a>
+							</li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./index-horizontal.html"><span class="ml-1 item-text">Top
+										Navigation</span></a></li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="./index-boxed.html"><span class="ml-1 item-text">Boxed</span></a>
+							</li>
+						</ul></li>
+				</ul>
+
+				<!-- <p class="text-muted nav-heading mt-4 mb-1">
+					<span>Documentation</span>
+				</p>
+				<ul class="navbar-nav flex-fill w-100 mb-2">
+					<li class="nav-item w-100"><a class="nav-link"
+						href="../docs/index.html"> <i class="fe fe-help-circle fe-16"></i>
+							<span class="ml-3 item-text">Getting Start</span>
+					</a></li>
+				</ul> -->
+				<!-- <div class="btn-box w-100 mt-4 mb-1">
+					<a
+						href="https://themeforest.net/item/tinydash-bootstrap-html-admin-dashboard-template/27511269"
+						target="_blank" class="btn mb-2 btn-primary btn-lg btn-block">
+						<i class="fe fe-shopping-cart fe-12 mx-2"></i><span class="small">Buy
+							now</span>
+					</a>
+				</div> -->
+			</nav>
+		</aside>
