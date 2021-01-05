@@ -76,7 +76,7 @@ public class AdminController {
 	@RequestMapping("admin/adminDelete/{adminNo}")
 	public String adminDelete (Model model, Admin admin) {
 		
-		int result = adminService.deleteAdmin(admin.getAdminNo()); // no로 조회하고 삭제
+		int result = adminService.deleteAdmin(admin.getMemNo()); // no로 조회하고 삭제
 		
 		String loc = "/";
 		String msg = "";
@@ -94,9 +94,9 @@ public class AdminController {
 /******************************************************************/
 	
 	@RequestMapping("admin/adminUpdateView")
-	public String adminUpdateView(String memId, Model model) {
+	public String adminUpdateView(int memNo, Model model) {
 		
-		Admin admin = adminService.selectAdmin(memId);
+		Admin admin = adminService.selectAdmin(memNo);
 		model.addAttribute("admin", admin);
 		return "admin/administer/adminUpdateView";
 	}

@@ -15,7 +15,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Admin {
 
-	private int adminNo; // 회원번호
+	private int memNo; // 회원번호
 	private int gradeNo; // 등급번호
 	private String adminId; // 아이디
 	private String adminPw; // 비밀번호

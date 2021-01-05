@@ -34,18 +34,18 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public int deleteAdmin(int adminNo) {
+	public int deleteAdmin(int memNo) {
 		// TODO Auto-generated method stub
-		return adminDAO.deleteAdmin(adminNo);
+		return adminDAO.deleteAdmin(memNo);
 	}
 
 	
 	/******************************************************************/
 
 	@Override
-	public Admin selectAdmin(String memId) {
+	public Admin selectAdmin(int memNo) {
 		// TODO Auto-generated method stub
-		return adminDAO.selectAdmin(memId);
+		return adminDAO.selectAdmin(memNo);
 	}
 	
 	@Override

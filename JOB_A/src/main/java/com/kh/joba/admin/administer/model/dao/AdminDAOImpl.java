@@ -37,7 +37,7 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
-	public int deleteAdmin(int adminNo) {
+	public int deleteAdmin(int memNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.delete("adminMapper.deleteAdmin");
 	}
@@ -46,7 +46,7 @@ public class AdminDAOImpl implements AdminDAO{
 	/******************************************************************/
 
 	@Override
-	public Admin selectAdmin(String memId) {
+	public Admin selectAdmin(int memNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("adminMapper.selectAdmin");
 	}
