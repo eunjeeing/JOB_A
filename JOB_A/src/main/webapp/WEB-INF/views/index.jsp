@@ -270,7 +270,7 @@
 						<div class="inner">
 
 							<c:import url="user/common/header.jsp"/>
-
+							<button id="Btn" onclick="goAdmin();">관리자 페이지</button>
 							<!-- Banner -->
 								<section id="banner">
 									<!-- 왼쪽 구역 -->
@@ -386,6 +386,10 @@
 				function goInfo(){
 					location.href = '${pageContext.request.contextPath}/#';
 				}	
+
+				function goAdmin(){
+					location.href = '${pageContext.request.contextPath}/adminIndex.do';
+					}
 			</script>
 
 	</body>
