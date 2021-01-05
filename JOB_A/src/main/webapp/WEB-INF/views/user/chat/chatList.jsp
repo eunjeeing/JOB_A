@@ -121,7 +121,11 @@
 							<div class="chat-right-aside">
 								<div class="chat-main-header">
 									<div class="p-3 border-bottom">
-										<h3 class="box-title">${chat.CHAT_TITLE} <a href="javascript:void(0)" id="exitChat"><i class="fas fa-door-open"></i></a></h3>
+										<h3 class="box-title">${chat.CHAT_TITLE}
+											
+												<a href="javascript:void(0)" id="exitChat"><i class="fas fa-door-open"></i></a>
+											
+										</h3>
 										<input type="hidden" id="chatNo" value="${chat.CHAT_NO}" />
 									</div>
 								</div>
