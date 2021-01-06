@@ -56,4 +56,11 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.checkNicknameDuplicate(memNick);
 	}
 
+	// 선호직종 입력
+	@Override
+	public void insertWishCategory(int mem_No, int[] category_No) {
+		System.out.println("memNo "+ mem_No + " category+No : " + category_No);
+		memberDAO.insertWishCategory(mem_No, category_No);
+	}
+
 }

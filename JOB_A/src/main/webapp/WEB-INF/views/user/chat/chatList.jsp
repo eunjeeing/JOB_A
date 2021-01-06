@@ -159,13 +159,13 @@
        								<span aria-hidden="true">&times;</span>
      							</button>
    							</div>
-   							<form id="newChatForm" action="${pageContext.request.contextPath }/chat/insertChat" method="post">
+   							<form id="newChatForm" method="post" onsubmit="addChat();">
     							<div class="modal-body">
     								<h3 for="exampleInputTitle">채팅방 이름</h3>
-    								<input type="text" class="form-control" name="chatTitle" id="exampleInputPassword1" placeholder="30자 내외 입력" required>
+    								<input type="text" class="form-control" name="chatTitle" id="exampleInputPassword1" placeholder="30자 내외 입력" >
     							</div>
     							<div class="modal-footer">
-					        		<button type="submit" class="button" onclick="addChat();">채팅 시작</button>
+					        		<input type="submit" class="button" value="채팅시작"/></button>
    								</div>
 							</form>
 						</div>
@@ -200,11 +200,17 @@
 
 	
 		// addConfirm
-		function addChat(form) {
-			form.chatTitle.value = form.chatTitle.value.trim();
-			if(form.chatTitle.value.length == 0) {
-				alert('채팅방 제목을 입력하세요')}
+		function addChat() {
+			//var title = chatTitle.value.trim();
+			//form.chatTitle.value = form.chatTitle.value.trim();
+			if(chatTitle.length = 0) {
+				alert('채팅방 제목을 입력하세요');
+			} else {
+				console.log('제목이 입력되었습니다.');
+				document.forms[0].action="${pageContext.request.contextPath}/chat/insertChat" 
 			}
+		}
+
 
        
 
@@ -272,14 +278,14 @@
 	        }
 	    };
 
-	    
+	    /*
     	$('#sendChat').on('click', message);
 		$('#message').keypress(function(e) {
 			if (e.which == 13 && !e.shiftKey) {
 				sendMessage();
 				event.preventDefault();
 			}
-		});
+		});*/
 
      	function sendMessage() {
      		if ($('#message').val() != "") {

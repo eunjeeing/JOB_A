@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.joba.user.category.model.vo.WishCategory;
 import com.kh.joba.user.member.model.vo.Member;
 
 @Repository
@@ -62,6 +63,16 @@ public class MemberDAOImpl implements MemberDAO {
 		
 		System.out.println("리턴값 :" + m);
 		return m;
+	}
+
+	// 선호 직종 삽입
+	@Override
+	public void insertWishCategory(int mem_No, int[] category_No) {
+		
+		WishCategory ws = new WishCategory(mem_No, category_No);
+		
+		sqlSession.insert("memberMapper.insertWishCategory", ws);
+		
 	}
 
 }

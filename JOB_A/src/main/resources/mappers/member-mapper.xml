@@ -3,9 +3,12 @@
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="memberMapper">
-	<!-- 오라클 sql-prperties역할이고, ? 대신 #{} 에 넣는다. ? 는 순서대로 확인해야하지만 순서 상관 없고, 데이터 
-		타입을 알아서 변환해줌 -->
 		
+   <resultMap id="result" type="WishCategory">
+		<result property="category_no" column="category_no"
+			typeHandler="intarrHandler" />
+		</resultMap>
+	
 	<resultMap id="resultMember" type="Member">
 		<id property="memNo" column="MEM_NO"/>
 		<result property="gradeNo" column="GRADE_NO"/>
@@ -16,15 +19,22 @@
 		<result property="memBirth" column="MEM_BIRTH"/>
 		<result property="memArea" column="MEM_AREA"/>
 		<result property="memState" column="MEM_STATE"/>
+		<result property="memDate" column="MEM_DATE"/>
 	</resultMap>
 
 	<insert id="insertMember" parameterType="Member" >
 	 	INSERT INTO MEMBER
-	 	(MEM_NO, GRADE_NO, MEM_ID, MEM_PW, MEM_NICK, MEM_EMAIL, MEM_BIRTH, MEM_AREA, MEM_STATE)
+	 	(MEM_NO, GRADE_NO, MEM_ID, MEM_PW, MEM_NICK, MEM_EMAIL, MEM_BIRTH, MEM_AREA, MEM_STATE, MEM_DATE)
 		VALUES 
-		(MEMBER_SEQ.NEXTVAL, 2, #{memId}, #{memPw}, #{memNick}, #{memEmail}, #{memBirth}, #{memArea}, 0) 
+		(MEMBER_SEQ.NEXTVAL, 2, #{memId}, #{memPw}, #{memNick}, #{memEmail}, #{memBirth}, #{memArea}, 0, DEFAULT) 
 	</insert> 
 
+	<insert id="insertWishCategory" parameterType="WishCategory">
+		INSERT INTO WISH_CATEGORY
+		VALUES
+		(#{mem_No}, #{category_No, typeHandler=intarrHandler})
+	</insert>
+	
 	<select id="loginMember" parameterType="string" resultMap="resultMember">
 		SELECT * FROM MEMBER
 		WHERE MEM_ID = #{memId}

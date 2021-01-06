@@ -14,7 +14,7 @@ import lombok.ToString;
 public class Category {
 
 	
-	private int category_No;
+	private int[] category_No;
 	private String category_Name;
 	
 }

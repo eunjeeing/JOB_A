@@ -59,6 +59,9 @@
 	/* 선호지역 드롭바*/
 	#sido1, #sido2, #sido3, #sigugun1, #sigugun2, #sigugun3{
 		width : 280.67px;
+		border : solid 1px rgba(210, 215, 217, 0.75);
+		border-radius : 4px;
+		margin-top: 10px;
 	}
 
 	/*중복닉네임체크관련*/
@@ -71,11 +74,22 @@
 	#mail_check_input_box_false{
 	    background-color:#ebebe4;
 	}
-	 
+
 	#mail_check_input_box_true{
 	    background-color:white;
 	}
 
+	.domain_select{
+		border : solid 1px rgba(210, 215, 217, 0.75);
+		border-radius : 4px;
+		width : 280.67px;
+	}
+	
+	#memBirth{
+		border : solid 1px rgba(210, 215, 217, 0.75);
+		border-radius : 4px;
+		width : 280.67px;
+	}
 </style>
 </head>
 <body>
@@ -143,10 +157,10 @@
 									<tr>
 										<th class="table_th">이메일 <span class="star">*</span> </th>
 										<td>
-											<input type="text" size="11" class="mail_input"  id="memEmail" required /> &nbsp;@&nbsp;
-											
+											<input type="text" class="mail_input" id="memEmail" required /> &nbsp;@&nbsp;
+											<br />
 											<select name="domain" size="1" id="domain" class="domain_select" >
-												<option value="none" >&nbsp;&nbsp;&nbsp;- 선택 -</option>
+												<option value="none" >&nbsp;&nbsp;&nbsp;--------------- 선택 ---------------</option>
 												<option value="self" >- 직접입력 -</option>
 												<option value="naver.com" >naver.com</option>
 												<option value="gmail.com" >gmail.com</option>
@@ -172,10 +186,10 @@
 									</tr>
 									<tr>
 										<th class="table_th">생년월일 <span class="star">*</span></th>
-										<td id="bir_yy" class="box">
+										<td>
 											<input type="date" size="30" id="memBirth" name="memBirth" /> 
 											<!-- BIRTH_YY --> 
-											<!--<input type="text" size="5" id="yy" class="int" min="1900" max="2020" maxlength="4" placeholder="년(4자)">&nbsp;년
+											<!-- <input type="text" size="5" id="yy" class="int" min="1900" max="2021" maxlength="4" placeholder="년(4자)">&nbsp;년
 								
 													<select size="1" name="birth_mm" id="mm" class="int"> 
 													    <option>&nbsp;--</option>
@@ -207,20 +221,39 @@
 									<tr>
 										<th class="table_th">관심직종 <span class="star">*</span></th>
 										<td>
-											<input type="checkbox" name="category_No" id="job1" class="jobCheck" value="3" /> 
-											<label class="form-check-label" for="job1">IT·인터넷</label> 
+											<input type="checkbox" name="category_No" id="job1" class="jobCheck" value="1" /> 
+											<label class="form-check-label" for="job1">경영·사무</label> 
 											
-											<input type="checkbox" name="category_No" id="job2" class="jobCheck" value="7" /> 
-											<label class="form-check-label" for="job2">의료</label>
+											<input type="checkbox" name="category_No" id="job2" class="jobCheck" value="2" /> 
+											<label class="form-check-label" for="job2">마케팅·광고·홍보</label>
 
-											<input type="checkbox" name="category_No" id="job3" class="jobCheck" value="1" /> 
-											<label class="form-check-label" for="job3">경영·사무</label><br> 
+											<input type="checkbox" name="category_No" id="job3" class="jobCheck" value="3" /> 
+											<label class="form-check-label" for="job3">IT·미디어</label><br> 
 											
-											<input type="checkbox" name="category_No" id="job4" class="jobCheck" value="5" /> 
-											<label class="form-check-label" for="job4">서비스</label>5
+											<input type="checkbox" name="category_No" id="job4" class="jobCheck" value="4" /> 
+											<label class="form-check-label" for="job4">영업</label>
 
-											<input type="checkbox" name="category_No" id="job5" class="jobCheck" value="9" /> 
-											<label class="form-check-label" for="job5">교육</label>
+											<input type="checkbox" name="category_No" id="job5" class="jobCheck" value="5" /> 
+											<label class="form-check-label" for="job5">서비스</label>
+											
+											<input type="checkbox" name="category_No" id="job6" class="jobCheck" value="6" /> 
+											<label class="form-check-label" for="job6">연구개발</label>
+											
+											<input type="checkbox" name="category_No" id="job7" class="jobCheck" value="7" /> 
+											<label class="form-check-label" for="job7">의료</label><br>
+											
+											<input type="checkbox" name="category_No" id="job8" class="jobCheck" value="8" /> 
+											<label class="form-check-label" for="job8">건설</label>
+											
+											<input type="checkbox" name="category_No" id="job9" class="jobCheck" value="9" /> 
+											<label class="form-check-label" for="job9">교육</label>
+											
+											<input type="checkbox" name="category_No" id="job10" class="jobCheck" value="10" /> 
+											<label class="form-check-label" for="job10">생산·제조</label>
+											
+											<input type="checkbox" name="category_No" id="job11" class="jobCheck" value="11" /> 
+											<label class="form-check-label" for="job11">무역·유통</label>
+											
 										</td>
 									</tr>
 									
@@ -228,10 +261,11 @@
 										<th class="table_th">선호지역</th>
 										<td>
 											<select name="memArea" size="1"  class="location_sido" id="sido1">
-												<option value="" >------- 시/도 -------</option>
+												<option value="" > &nbsp;&nbsp;--------------- 시/도 ---------------</option>
 											</select> 
+											<br />
 											<select name="memArea" size="1"  class="location_sigu" id="sigugun1">
-												<option value="" >------- 구 -------</option>
+												<option value="" >&nbsp;&nbsp;---------------- 구 ----------------</option>
 											</select>
 										</td>
 									</tr>
@@ -239,10 +273,11 @@
 										<th></th>
 										<td>
 											<select name="memArea" size="1" class="location_sido" id="sido2">
-												<option value="">------- 시/도 -------</option>
+												<option value="" > &nbsp;&nbsp;--------------- 시/도 ---------------</option>
 											</select> 
+											<br />
 											<select name="memArea" size="1" class="location_sigu" id="sigugun2">
-												<option value="" >------- 구 -------</option>
+												<option value="" >&nbsp;&nbsp;---------------- 구 ----------------</option>
 											</select>
 										</td>
 									</tr>
@@ -251,10 +286,11 @@
 										<th></th>
 										<td>
 											<select name="memArea" size="1" class="location_sido" id="sido3">
-												<option value="" >------- 시/도 -------</option>
+												<option value="" > &nbsp;&nbsp;--------------- 시/도 ---------------</option>
 											</select> 
+											<br />
 											<select name="memArea" size="1" class="location_sigu" id="sigugun3">
-												<option value="" >------- 구 -------</option>
+												<option value="" >&nbsp;&nbsp;---------------- 구 ----------------</option>
 										</select></td>
 									</tr>
 								</table>
@@ -265,10 +301,9 @@
 										<h2 class="info">약관동의</h2>
 									</tr>
 									<tr>
-										<th> <!-- <input type="checkbox" name="click1" id="click1">  -->
+										<th> 
 										</th>
 										<td>
-											<!--<a href="#" onclick="show('content')">  JOBA 서비스 이용약관 동의 (필수) &nbsp;&nbsp;></a> -->
 											<input type="checkbox" name="agree" id="agree1" class="agree_"> 
 											<label class="form-check-label" for="agree1" onclick="show('content')"> JOBA 서비스 이용약관 동의 (필수) </label>
 										</td>
@@ -296,10 +331,9 @@
 										</td>
 									</tr>
 									<tr>
-										<th><!--  <input type="checkbox" name="click2" id="click2">   -->
+										<th>
 										</th>
 										<td>
-											<!--<a href="#" onclick="show('content')"> JOBA 개인정보 수집 동의 (필수) &nbsp;&nbsp;> </a> -->
 											<input type="checkbox" name="agree" id="agree2" class="agree_"> 
 											<label class="form-check-label" for="agree2" onclick="show('content2')"> JOBA 서비스 이용약관 동의 (필수) </label>
 										</td>

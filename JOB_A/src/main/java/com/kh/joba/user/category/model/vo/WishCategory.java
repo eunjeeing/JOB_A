@@ -14,5 +14,5 @@ import lombok.ToString;
 public class WishCategory {
 
 	private int mem_No;
-	private int category_No;
+	private int[] category_No;
 }
