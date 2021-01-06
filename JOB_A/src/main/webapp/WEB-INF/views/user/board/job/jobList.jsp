@@ -8,8 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>JOB_A | 채용공고</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/board.css" />
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
 <style>
@@ -27,17 +25,16 @@
 		height: 50%;
 		margin: auto;
 		padding: auto;
-		border : 1px solid black;
 		display: flex;
-		background : black;
-		opacity : 0.4;
+		background : white;
+		opacity : 0.6;
 	}
 	
 	#topbanner-text {
 		font-size: 40px;
 		font-weight: 500;
 		margin: auto;
-		color: white;
+		color: black;
 	}
 	
 	#utilBox {
@@ -146,11 +143,13 @@
 					</button>
 					<button type="button" onclick="location.href='${pageContext.request.contextPath}/board2/selectJobList.do'"
 					style="width: 50px;"><i class="fas fa-redo" style="margin: -9px;"></i></button>
-<%-- 					<c:if test="${ $member.gradeNo == 5 }" >
+					
+<%--  					<c:if test="${ $member.gradeNo == 5 }" >
  --%>						<button id="writeBtn" onclick="goJobForm();">글쓰기</button>
-<%-- 					</c:if>
+<%--  					</c:if>
  --%>				</div>
 				<br />
+				
 				<!-- 카테고리 -->
 				<form action="${pageContext.request.contextPath}/board2/categorySearch.do?category_No"+category_No>
  				<div id="category-border">
@@ -197,7 +196,7 @@
 				</form>
 						<!-- 게시물 리스트 -->
 						<div id="listArea">
-							<table id="noticeList">
+							<table id="jobList">
 								<thead>
 									<th><center>No.</center></th>
 									<th><center>직무</center></th>
@@ -208,8 +207,7 @@
 								</thead>
 								<tbody>
 									<c:forEach items="${ selectJobList }" var="job">
-									<!--  onclick="selectOne();" -->
-									<tr id="${job.board_No}">
+									<tr id="${job.board_No}" align="center">
 										<td>${job.board_No}</td>
 										<td>${job.category_Name }</td>
 										<td>${job.board_Title}</td>
@@ -221,7 +219,8 @@
 								</tbody>
 							</table>
 						</div>
-							<!-- #listArea -->
+						
+							<!-- 페이징 -->
 						<center>
 						<c:out value="${pageBar}" escapeXml="false"/>
 						</center>
@@ -270,8 +269,14 @@
 		</c:otherwise>
 	</c:choose> --%>
 	<script>
-
 		
+ 	$(function(){
+			$("tr[id]").on("click", function(){
+				var board_No = $(this).attr("id");
+				location.href = "${pageContext.request.contextPath}/board2/jobSelectOne.do?board_No="+ board_No;
+			});
+		});
+	
 		function goJobForm() {
 			location.href = "${pageContext.request.contextPath}/board2/jobForm.do";
 		}

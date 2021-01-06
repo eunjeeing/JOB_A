@@ -128,7 +128,7 @@ public class Comments2Controller {
 	
 	// ------------------------------------------------------------------
 	
-	// --------------------------- QnA 댓글 ---------------------------
+	// --------------------------- QnA 댓글 ------------------------------
 	@RequestMapping("/comments2/qnaInsertComment.do")
 	public String qnaInsertComment(@RequestParam int board_No,
 								@RequestParam int mem_No,
@@ -181,4 +181,58 @@ public class Comments2Controller {
 		return "user/common/pageMove";
 	}
 	
+	// ------------------------------------------------------------------
+	
+	// --------------------------- 채용공고 댓글 ----------------------------
+	@RequestMapping("/comments2/jobInsertComment.do")
+	public String jobInsertComment(@RequestParam int board_No,
+								@RequestParam int mem_No,
+								@RequestParam String comm_Content,
+								Comments2 comment, Model model) {
+		
+		int result = cs.insertComment(comment);
+		
+		String loc = "/board2/jobSelectOne.do?board_No="+board_No;
+		String msg = "";
+		
+		model.addAttribute("loc", loc);
+		
+		return "user/common/pageMove";
+	}
+	
+	@RequestMapping("/comments2/jobDeleteComment.do")
+	public String jobDeleteComment(@RequestParam int board_No,
+								@RequestParam int comm_No,
+								HttpSession session,
+								Comments2 comment, Model model) {
+		
+		int result = cs.deleteComment(comment);
+		
+		String loc = "/board2/jobSelectOne.do?board_No="+board_No;
+		String msg = "";
+		
+		
+		model.addAttribute("loc", loc);
+		
+		return "user/common/pageMove";
+	}
+	
+	@RequestMapping("/comments2/jobUpdateComment.do")
+	public String jobUpdateComment(@RequestParam int board_No,
+								@RequestParam int comm_No,
+								@RequestParam String comm_Content,
+								Comments2 comment, Model model) {
+		
+		int result = cs.updateComment(comment);
+
+		System.out.println("댓글 업데이트: " + comm_Content);
+		
+		String loc = "/board2/jobSelectOne.do?board_No="+board_No;
+		String msg = "";
+		
+		
+		model.addAttribute("loc", loc);
+		
+		return "user/common/pageMove";
+	}
 }

@@ -25,6 +25,25 @@
 	height: 400px;
 	display: flex;
 }
+
+	#topbanner-textarea {
+		width: 40%;
+		height: 50%;
+		margin: auto;
+		padding: auto;
+		display: flex;
+		background : white;
+		opacity : 0.6;
+		border: none;
+	}
+	
+	#topbanner-text {
+		font-size: 40px;
+		font-weight: 500;
+		margin: auto;
+		color: black;
+	}
+	
 #close-icon:hover {
 	cursor:pointer;
 }
@@ -82,7 +101,6 @@
 	line-height: 1.6em;
 	font-size: 17px;
 }
-
 
 p {
 	margin: 0 !important;
@@ -185,14 +203,14 @@ input[type="date"]:focus {
 								 	<br />
 									<input type="text" class="form-control" placeholder="제목"
 									name="board_Title" id="board_Title" required>
-									<input type="text" class="form-control" placeholder="URL ex) khacademy@aca.co.kr/.../..."
+									<input type="text" class="form-control" placeholder="URL ex) http://www.naver.com"
 									name="board_Url">
 									<div style="color: #7f888f; display: inline-flex;" >
 										<text style="line-height: 40px;">시작일  </text> 
 										<input type="date" class="form-control" style="width:20%; color:inherit;" name="board_Start" >
 										<text style="line-height: 40px;">종료일  </text>
 										<input type="date" class="form-control" style="width:20%; color:inherit;" name="board_End">
-										<text style="line-height: 40px;">합격발표  </text>
+										<text style="line-height: 40px;">합격발표일  </text>
 										<input type="date" class="form-control" style="width:20%; color:inherit;" name="board_Announce">
 									</div>
 									 	<div id="category-border">
@@ -210,7 +228,7 @@ input[type="date"]:focus {
 												<label for="영업" class="top-radio">영업</label>&nbsp;&nbsp;&nbsp;
 												
 												<input type="radio" name="category_No" id="서비스" value="5" >
-												<label for="서비스" class="top-radio">서비스</label>&nbsp;&nbsp;&nbsp;
+												<label for="서비스" class="top-radio">서비스</label>
 												<br />
 												<input type="radio" name="category_No" id="연구개발" value="6" >
 												<label for="연구개발" class="bottom-radio">연구개발</label>&nbsp;&nbsp;&nbsp;
@@ -258,7 +276,8 @@ input[type="date"]:focus {
 $(document).ready(function(){
 	
 	$('.summernote').summernote({
-	    placeholder: '내용',
+	    placeholder: 
+		    '내용',
 	    tabsize: 2,
 	    lang : 'ko-KR',
 	    height: 500,

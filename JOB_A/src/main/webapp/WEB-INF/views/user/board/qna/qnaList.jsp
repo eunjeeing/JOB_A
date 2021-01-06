@@ -88,9 +88,13 @@ p {
 						<input type="search" id="search" placeholder="검색내용을 입력해주세요."
 							onKeyDown="enterKey();" />
 					</div>
-					<button type="button" id="searchBtn" onclick="search()">검색
+					<button type="button" id="searchBtn" onclick="search()"
+					style="width: 50px;"><i class="fas fa-search" style="margin: -9px;"></i>
 					</button>
-					<c:if test="${ member.gradeNo == 3 || member.gradeNo == 4 }" >
+					<button type="button" onclick="location.href='${pageContext.request.contextPath}/board2/selectQnAList.do'"
+					style="width: 50px;"><i class="fas fa-redo" style="margin: -9px;"></i></button>
+					
+					<c:if test="${ member.gradeNo == 0 || member.gradeNo == 1 || member.gradeNo == 3 || member.gradeNo == 4 }" >
 						<button id="writeBtn" onclick="goQnAForm();">글쓰기</button>
 					</c:if>
 				</div>

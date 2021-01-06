@@ -129,18 +129,21 @@ public class JobController {
 	@RequestMapping("/board2/updateJob.do")
 	public String updateQnA(@RequestParam int board_No, Board2 board, Model model) {
 		
-		System.out.println(board_No);
-		System.out.println(board);
-		
 		Board2 originBoard = js.jobSelectOne(board_No);
-		
-		System.out.println("수정할 값 확인 : "+board.getBoard_Title());
-		System.out.println("수정할 값 확인 : "+board.getBoard_Content());
 		
 		originBoard.setBoard_Title(board.getBoard_Title());
 		originBoard.setBoard_Content(board.getBoard_Content());
+		originBoard.setBoard_Url(board.getBoard_Url());
+		originBoard.setBoard_Start(board.getBoard_Start());
+		originBoard.setBoard_End(board.getBoard_End());
+		originBoard.setBoard_Announce(board.getBoard_Announce());
+		originBoard.setCategory_No(board.getCategory_No());
+		
 		
 		int result = js.updateJob(originBoard);
+		
+		System.out.println("수정할 값 확인 :" + originBoard);
+
 		String msg = "";
 		String loc = "/board2/jobSelectOne.do?board_No=" + board_No;
 

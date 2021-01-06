@@ -13,13 +13,31 @@
 <style>
 #topbanner {
 	background:
-		url(${pageContext.request.contextPath}/resources/images/blah.jpg)
+		url(${pageContext.request.contextPath}/resources/images/job.jpg)
 		no-repeat;
 	background-position: center center;
 	margin-top: 10px;
 	height: 400px;
 	display: flex;
 }
+
+	#topbanner-textarea {
+		width: 40%;
+		height: 50%;
+		margin: auto;
+		padding: auto;
+		display: flex;
+		background : white;
+		opacity : 0.6;
+		border: none;
+	}
+	
+	#topbanner-text {
+		font-size: 40px;
+		font-weight: 500;
+		margin: auto;
+		color: black;
+	}
 
 #title {
 	margin: 0 0 0 0 !important;
@@ -174,11 +192,11 @@ p {
 						<div role="main" class="contents">
 							<div class="acticle-view-head" id="head">
 								<div class="title-close" style="display: flex;">
-								<h2 id="title">${board2.board_Title }</h2>
+								<h2 id="title" style="color: gray; font-weight: 300;">[${board2.category_Name}]</h2>&nbsp;&nbsp;<h2 id="title">${board2.board_Title }</h2>
 								<i class="far fa-window-close" id="close-icon" style="font-size: 30px; color: #f56a6a; margin-left:auto; margin-right: 0;"
 								   onclick="location.href='${pageContext.request.contextPath}/board2/selectJobList.do'"></i>
 								</div>
-								<p class="name">익명</p>
+								<p class="name">${board2.mem_Nick }</p>
 								<div class="wrap-info">
 									<span class="date"> <i class="far fa-clock">
 											${board2.board_Date }</i>
@@ -193,18 +211,23 @@ p {
 										</span> <span class="rebo"> <i class="far fa-bookmark"
 											id="book"> </i> 스크랩
 										</span>
+										
 									</div>
 								</div>
 							</div>
 							<div class="article-view-contents">
+								 <input type="hidden" value="링크 : ${board2.board_Url }">
+								 <input type="hidden" value="접수기간 :  ${board2.board_Start } ~ ${board2.board_End }">
+								 <input type="hidden" value="합격자 발표 : ${board2.board_Announce }">
+
 								<div id="contentArea" class="contents-txt">
 									${board2.board_Content }</div>
 								<p>
 								<c:if test="${member.memNo eq board2.mem_No}">
 								<div align="right">
 									<button style="font-weight: 300; margin-right:10px;"
-									 onclick="location.href='${pageContext.request.contextPath}/board2/blindUpdateForm.do?board_No=${board2.board_No}'">수정</button>
-									<button style="font-weight: 300;" onclick="location.href='${pageContext.request.contextPath}/board2/deleteBlind.do?board_No=${board2.board_No}'">삭제</button>
+									 onclick="location.href='${pageContext.request.contextPath}/board2/jobUpdateForm.do?board_No=${board2.board_No}'">수정</button>
+									<button style="font-weight: 300;" onclick="location.href='${pageContext.request.contextPath}/board2/deleteJob.do?board_No=${board2.board_No}'">삭제</button>
 								</div>
 								</c:if>
 								</p>
@@ -212,7 +235,7 @@ p {
 
 							<!-- 댓글 -->
 							<div class="article-comments">
-								<h3>댓글 ${board2.comm_Count }</h3>
+								<h3 style="font-weight: 500">댓글 ${board2.comm_Count }</h3>
 								<div class="write_area">
 									<div id="btn_add_comment" style="display: flex;">
 										<div class="reply_area" style="width: 100%;">
@@ -229,11 +252,10 @@ p {
 								</div>
 								<c:forEach items="${selectComment }" var="co">
 									<div id="${co.comm_No }" class="wrap-comment comment-area">
-										<p class="name">익명</p>
+										<p class="name">${co.mem_Nick }</p>
 										<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content }</textarea></p>
 										<div class="wrap-info">
-											<span class="date"> <i class="far fa-clock"> <fmt:formatDate
-														value="${co.comm_Date }" pattern="yyyy-MM-dd hh:mm:ss" /></i></span>
+											<span class="date"> <i class="far fa-clock"> ${co.comm_Date }</i></span>
 											<a class="cmt"> <i class="far fa-comment"> 대댓글</i>
 											</a>
 											<div class="info_fnc">
@@ -241,7 +263,7 @@ p {
 												<c:if test="${member.memNo eq co.mem_No}">
 													<a href="#" onclick="updateComment(this);return false;">수정</a>
 													<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
-													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/blindDeleteComment.do?board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
+													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/jobDeleteComment.do?board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
 												</c:if>
 												<span><i class="fas fa-exclamation-triangle"></i></span>
 											</div>
@@ -269,7 +291,7 @@ p {
 								alert("댓글을 입력해 주세요");
 								return false;
 							} else {
-								location.href = '${pageContext.request.contextPath}/comments2/blindInsertComment.do?board_No=${board2.board_No}&mem_No=${member.memNo}&comm_Content='
+								location.href = '${pageContext.request.contextPath}/comments2/jobInsertComment.do?board_No=${board2.board_No}&mem_No=${member.memNo}&comm_Content='
 										+ comm_Content.value;
 							}
 						}, false);
@@ -295,7 +317,7 @@ p {
 
 			console.log(content);
 			
-			location.href = "${pageContext.request.contextPath}/comments2/blindUpdateComment.do?board_No=${board2.board_No}&comm_No=" + comm_No + "&comm_Content="
+			location.href = "${pageContext.request.contextPath}/comments2/jobUpdateComment.do?board_No=${board2.board_No}&comm_No=" + comm_No + "&comm_Content="
 				+ content;
 		}
 

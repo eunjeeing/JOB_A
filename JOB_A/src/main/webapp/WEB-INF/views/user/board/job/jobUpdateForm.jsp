@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>JOB_A | 블라인드</title>
+<title>JOB_A | 채용공고</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -17,13 +17,32 @@
 <style>
 #topbanner {
 	background:
-		url(${pageContext.request.contextPath}/resources/images/blah.jpg)
+		url(${pageContext.request.contextPath}/resources/images/job.jpg)
 		no-repeat;
 	background-position: center center;
 	margin-top: 10px;
 	height: 400px;
 	display: flex;
 }
+
+	#topbanner-textarea {
+		width: 40%;
+		height: 50%;
+		margin: auto;
+		padding: auto;
+		display: flex;
+		background : white;
+		opacity : 0.6;
+		border: none;
+	}
+	
+	#topbanner-text {
+		font-size: 40px;
+		font-weight: 500;
+		margin: auto;
+		color: black;
+	}
+	
 #close-icon:hover {
 	cursor:pointer;
 }
@@ -125,6 +144,34 @@ a {
     box-shadow: inset 0 0 0 2px #fff !important;
 }
 
+input[type="date"] {
+	margin-right: 3em;
+	margin-left: 5px;
+}
+input {
+	margin-bottom: 5px;
+}
+input[type="date"] {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  background: #ffffff;
+  border-radius: 0.375em;
+  border: none;
+  border: solid 1px rgba(210, 215, 217, 0.75);
+  color: inherit;
+  display: block;
+  outline: 0;
+  padding: 0 1em;
+  text-decoration: none;
+  width: 100%; 
+}
+input[type="date"]:invalid {
+    box-shadow: none; }
+input[type="date"]:focus {
+    border-color: #f56a6a;
+    box-shadow: 0 0 0 1px #f56a6a; }
 </style>
 </head>
 <body class="is-preload">
@@ -137,7 +184,7 @@ a {
 				<!-- Top Banner Area -->
 				<div id="topbanner">
 					<div id="topbanner-textarea">
-						<h3 id="topbanner-text">블라인드</h3>
+						<h3 id="topbanner-text">채용공고</h3>
 					</div>
 				</div>
 				
@@ -145,11 +192,11 @@ a {
 				<section class="container">
 					<div class="wrapped" id="wrapped">
 						<div role="main" class="contents">
-					<form action="${pageContext.request.contextPath}/board2/updateBlind.do"
-						method="post" name="" onsubmit="return validate();">
+					<form action="${pageContext.request.contextPath}/board2/updateJob.do"
+						method="post" onsubmit="return validate();">
 							<div class="acticle-view-head" id="head">
 								<div class="title-close" style="display: flex;">
-									<!-- 제목 -->
+
 									<input type="hidden" name="board_No"  value="${board2.board_No}"/>
 									<i class="far fa-window-close" id="close-icon" style="font-size: 30px; color: #f56a6a; margin-left:auto; margin-right: 0;"
 								  	 onclick="window.history.back();"></i>
@@ -157,6 +204,53 @@ a {
 								 	<br />
 									<input type="text" class="form-control" 
 									name="board_Title" id="board_Title" value="${board2.board_Title }" required>
+									<input type="text" class="form-control" name="board_Url" value="${board2.board_Url }" required>
+									<div style="color: #7f888f; display: inline-flex;" >
+										<text style="line-height: 40px;">시작일  </text> 
+										<input type="date" class="form-control" style="width:20%; color:inherit;" name="board_Start" value="${board2.board_Start }">
+										<text style="line-height: 40px;">종료일  </text>
+										<input type="date" class="form-control" style="width:20%; color:inherit;" name="board_End" value="${board2.board_End }">
+										<text style="line-height: 40px;">합격발표일  </text>
+										<input type="date" class="form-control" style="width:20%; color:inherit;" name="board_Announce" value="${board2.board_Announce }">
+									</div>
+									
+										<div id="category-border">
+											<div id="categoty" style="padding: 15px 50px 0 50px;">
+												<input type="radio" name="category_No" id="경영·사무" value="1" >
+												<label for="경영·사무" class="top-radio">경영·사무</label> &nbsp;&nbsp;&nbsp;
+												
+												<input type="radio" name="category_No" id="마케팅·광고·홍보" value="2" >
+												<label for="마케팅·광고·홍보" class="top-radio">마케팅·광고·홍보</label>&nbsp;&nbsp;&nbsp;
+												
+												<input type="radio" name="category_No" id="IT·미디어" value="3" >
+												<label for="IT·미디어" class="top-radio">IT·미디어</label>&nbsp;&nbsp;&nbsp;
+												
+												<input type="radio" name="category_No" id="영업" value="4" >
+												<label for="영업" class="top-radio">영업</label>&nbsp;&nbsp;&nbsp;
+												
+												<input type="radio" name="category_No" id="서비스" value="5" >
+												<label for="서비스" class="top-radio">서비스</label>&nbsp;&nbsp;&nbsp;
+												<br />
+												<input type="radio" name="category_No" id="연구개발" value="6" >
+												<label for="연구개발" class="bottom-radio">연구개발</label>&nbsp;&nbsp;&nbsp;
+												
+												<input type="radio" name="category_No" id="의료" value="7" >
+												<label for="의료" class="bottom-radio">의료</label>&nbsp;&nbsp;&nbsp;
+												
+												<input type="radio" name="category_No" id="건설" value="8" >
+												<label for="건설" class="bottom-radio">건설</label>&nbsp;&nbsp;&nbsp;
+												
+												<input type="radio" name="category_No" id="교육" value="9" >
+												<label for="교육" class="bottom-radio">교육</label>&nbsp;&nbsp;&nbsp;
+												
+												<input type="radio" name="category_No" id="생산·제조" value="10" >
+												<label for="생산·제조" class="bottom-radio">생산·제조</label>&nbsp;&nbsp;&nbsp;
+												
+												<input type="radio" name="category_No" id="무역·유통" value="11" >
+												<label for="무역·유통" class="bottom-radio">무역·유통</label>
+												<input type="hidden" id="cno" value="${board2.category_No }">
+											</div>
+										</div>
 							</div>
 							
 							<div class="article-view-contents">
@@ -178,6 +272,8 @@ a {
 	</div>
 <script>
 $(document).ready(function(){
+
+	$('input:radio[name=category_No]:input[value="${board2.category_No}"]').attr("checked", true);
 	
 	$('.summernote').summernote({
 	    placeholder: '내용',
@@ -236,6 +332,8 @@ function validate(){
 	}
 	return true;
 }
+
+
 
 </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
