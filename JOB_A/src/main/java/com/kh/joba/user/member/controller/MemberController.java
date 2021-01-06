@@ -114,6 +114,15 @@ public class MemberController {
 			if(result > 0) msg = "취뽀 성공해요!";
 			else msg = "어쩌죠~ 다시 시도해주세요!";
 			
+			
+			
+			/*
+			 * Member m = memberService.selectOneMember(member.getMemId());
+			 * memberService.insertWishCategory(m.getMemNo(),WishCategory.getCategory_No());
+			 */
+			 
+
+			
 			model.addAttribute("loc", loc);
 			model.addAttribute("msg", msg); 
 			// model.addAttribute("member", m);
@@ -237,4 +246,15 @@ public class MemberController {
         return num;
     }
 	
+    // 회원 정보 수정 페이지
+    @RequestMapping("/member/memberView.do")
+    public String memberUpdate(@RequestParam String memId, Model model) {
+    	System.out.println("memId : " + memId);	
+    	
+    	Member m = memberService.selectOneMember(memId);
+    	model.addAttribute("member", m);
+    	
+    	return "user/member/memberView";
+    	
+    }
 }

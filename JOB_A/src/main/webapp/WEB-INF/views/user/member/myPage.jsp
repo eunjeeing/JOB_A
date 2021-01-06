@@ -78,7 +78,7 @@
 		margin-top : 55px;
 		margin-left : 15px;	
 	}
-	.next p{
+	.next .number{
 		color: white;
 		font-size: 25px;
 		font-weight: bold;
@@ -92,9 +92,16 @@
 		color : white;
 		border: none;
 		letter-spacing: 2px;
+		
+	}
+	
+	.click1 a:hover{
+		text-decoration:none; 
+		color:#EDA900;
+		
 	}
 	.click1 .next {
-			margin-top : 49px;
+		margin-top : 49px;
 	
 	}
 
@@ -108,6 +115,7 @@
 		margin : 50px;
 		font-size : 60px;
 	}
+	
 </style>
 </head>
 <body>
@@ -130,9 +138,9 @@
 							<i class="xi-user"></i>
 						</div>
 						<div class="next" id="update">
-							<a href="${pageContext.request.contextPath}/member/memberView.do"  title="정보 수정">${member.memNick}&nbsp;님</a>
+							<a href="${pageContext.request.contextPath}/member/memberView.do?memId=${member.memId}" title="정보 수정" ><span>${member.memNick}&nbsp;님</span></a>
 							<br />
-							<span><a href="${pageContext.request.contextPath}/member/memberView.do" id="gradeNo" title="">${member.gradeNo}</a></span>
+							<span><a href="${pageContext.request.contextPath}/member/memberView.do" id="gradeNo" title=""><span></span></a></span>
 						</div>
 					</div>
 				
@@ -144,7 +152,7 @@
 							<a href="#" title="내가 스크랩한 게시글"> <i class="xi-bookmark"></i></a>
 						</div>
 						<div class="next" id="scrab">
-							<p>30</p><!-- 내가 스크랩한 게시글 갯수 삽입 코드 -->
+							<p class="number">30</p><!-- 내가 스크랩한 게시글 갯수 삽입 코드 -->
 						</div>
 					</div>
 					</div>
@@ -158,7 +166,7 @@
 							<a href="#" title="내가 작성한 게시글"> <i class="xi-pen"></i></a>
 						</div>
 						<div class="next" id="writeboard">
-							<p>15</p><!-- 내가 작성한 게시글 갯수 삽입 코드 -->
+							<p class="number">15</p><!-- 내가 작성한 게시글 갯수 삽입 코드 -->
 						</div>
 					</div>
 				
@@ -170,7 +178,7 @@
 							<a href="#" title="내가 작성한 댓글"> <i class="xi-forum"></i></a>
 						</div>
 						<div class="next" id="writecomment">
-							<p>20</p><!-- 내가 작성한 댓글 갯수 삽입 코드  -->
+							<p class="number">20</p><!-- 내가 작성한 댓글 갯수 삽입 코드  -->
 						</div>
 					</div>
 				</div>

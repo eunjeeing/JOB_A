@@ -27,4 +27,5 @@ public class Member implements Serializable{
 	private Date memBirth;
 	private String memArea;
 	private int memState;
+	private Date memDate;
 }

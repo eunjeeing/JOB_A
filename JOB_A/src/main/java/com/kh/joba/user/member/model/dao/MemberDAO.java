@@ -17,4 +17,6 @@ public interface MemberDAO {
 	int deleteMember(String memId);
 
 	Member checkNicknameDuplicate(String memNick);
+
+	void insertWishCategory(int mem_No, int[] category_No);
 }
