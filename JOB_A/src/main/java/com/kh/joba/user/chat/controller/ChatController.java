@@ -59,11 +59,12 @@ public class ChatController {
 	}
 	
 	@RequestMapping("chat/insertChat")
-	public String insertChat(String chatTitle, Model model, HttpServletRequest req) {
+	public String insertChat(Chat chat, Model model, HttpServletRequest req) {
 
 		int chatNo = 0;
+		
 		try {
-			chatNo = chatService.insertChat(chatTitle);
+			chatNo = chatService.insertChat(chat);
 		} catch (ChatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,6 +78,12 @@ public class ChatController {
 		return "redirect:/chat/chatList/0";
 	}
 	
+	@RequestMapping("/chat/deleteChat/{chatNo}")
+	public String deleteChat(@PathVariable int chatNo) {
+		chatService.deleteChat(chatNo);
+		
+		return "redirect:/chat/chatList/0";
+	}
 	
 	
 	

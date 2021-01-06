@@ -50,10 +50,16 @@ public class AdminController {
 		return "admin/administer/adminList";
 	}
 
+	@RequestMapping("admin/adminEnrollView")
+	public String adminEnrollView() {
+		return "admin/administer/adminEnroll";
+	}
+	
+	
 	@RequestMapping("admin/adminEnroll")
 	public String adminEnroll(Admin admin, Model model) {
 		
-		System.out.println(admin);
+		System.out.println("입력값 " + admin);
 		
 		String plainPassword = admin.getAdminPw();
 		
@@ -95,8 +101,9 @@ public class AdminController {
 	
 	@RequestMapping("admin/adminUpdateView")
 	public String adminUpdateView(int memNo, Model model) {
-		
+		System.out.println(memNo);
 		Admin admin = adminService.selectAdmin(memNo);
+		
 		model.addAttribute("admin", admin);
 		return "admin/administer/adminUpdateView";
 	}

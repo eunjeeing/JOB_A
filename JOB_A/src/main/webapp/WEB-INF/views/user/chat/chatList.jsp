@@ -122,11 +122,14 @@
 								<div class="chat-main-header">
 									<div class="p-3 border-bottom">
 										<h3 class="box-title">${chat.CHAT_TITLE}
-											
+											<c:if test="${chat.CHAT_CREATOR.equals(member.memId) == false}">
 												<a href="javascript:void(0)" id="exitChat"><i class="fas fa-door-open"></i></a>
-											
+											</c:if>
+											<c:if test="${chat.CHAT_CREATOR.equals(member.memId) == true}">
+												<a href="javascript:void(0)" id="deleteChat"><i class="fas fa-door-open"></i></a>
+											</c:if>
+											<input type="hidden" id="chatNo" value="${chat.CHAT_NO}" />
 										</h3>
-										<input type="hidden" id="chatNo" value="${chat.CHAT_NO}" />
 									</div>
 								</div>
 								<div class="chat-rbox">
@@ -162,7 +165,8 @@
    							<form id="newChatForm" method="post" onsubmit="addChat();">
     							<div class="modal-body">
     								<h3 for="exampleInputTitle">채팅방 이름</h3>
-    								<input type="text" class="form-control" name="chatTitle" id="exampleInputPassword1" placeholder="30자 내외 입력" >
+    								<input type="text" class="form-control" name="chatTitle" id="exampleInputPassword1" placeholder="30자 내외 입력" required>
+    								<input type="hidden" name="memId" value="${member.memId}">
     							</div>
     							<div class="modal-footer">
 					        		<input type="submit" class="button" value="채팅시작"/></button>
@@ -178,28 +182,29 @@
 	
 	
 	<script>
-	// Menu.
-    var $menu = $('#menu'),
-    	$menu_openers = $menu.children('ul').find('.opener');
-
-    // Openers.
-    $menu_openers.each(function() {
-		var $this = $(this);
-        $this.on('click', function(event) {
-            // Prevent default.
-            event.preventDefault();
-    
-            // Toggle.
-            $menu_openers.not($this).removeClass('active');
-           	$this.toggleClass('active');
-    
-           	// Trigger resize (sidebar lock).
-            $window.triggerHandler('resize.sidebar-lock');
-        });
-	}); 
+		// Menu.
+	    var $menu = $('#menu'),
+	    	$menu_openers = $menu.children('ul').find('.opener');
+	
+	    // Openers.
+	    $menu_openers.each(function() {
+			var $this = $(this);
+	        $this.on('click', function(event) {
+	            // Prevent default.
+	            event.preventDefault();
+	    
+	            // Toggle.
+	            $menu_openers.not($this).removeClass('active');
+	           	$this.toggleClass('active');
+	    
+	           	// Trigger resize (sidebar lock).
+	            $window.triggerHandler('resize.sidebar-lock');
+	        });
+		}); 
 
 	
 		// addConfirm
+<<<<<<< HEAD
 		function addChat() {
 			//var title = chatTitle.value.trim();
 			//form.chatTitle.value = form.chatTitle.value.trim();
@@ -208,6 +213,12 @@
 			} else {
 				console.log('제목이 입력되었습니다.');
 				document.forms[0].action="${pageContext.request.contextPath}/chat/insertChat" 
+=======
+		function addChat(form) {
+			form.chatTitle.value = form.chatTitle.value.trim();
+			if(form.chatTitle.value.length == 0) {
+				alert('채팅방 제목을 입력하세요')};
+>>>>>>> refs/remotes/origin/feature_princess
 			}
 		}
 
@@ -299,6 +310,7 @@
 
      // exitConfirm
 		$("#exitChat").click(function () {
+			
 			Swal.fire({
                 title: '🚰·̫🚰',
                 text: "채팅방을 나가시겠습니까?",
@@ -310,14 +322,31 @@
 			}).then((result) => {
                 if (result.value) {
                     location.href="${pageContext.request.contextPath}/chat/exitChat";
+                    
+                }
+            })
+        });
+
+		// exitConfirm
+		var chatNo = $()
+		$("#deleteChat").click(function () {
+			Swal.fire({
+                title: '⁽⁽(´༎ຶД༎ຶ`)⁾⁾',
+                text: "채팅방을 삭제하시겠습니까?",
+                showCancelButton: true,
+                confirmButtonColor: '#fff',
+                cancelButtonColor: '#fff',
+                confirmButtonText: '이 방은 폭파시키겠어! 콰과광쾀ㅇ콰콰가왐ㄹ광쾅쾅랄ㅇ쾅',
+                cancelButtonText: '쵸큼만 더 있어볼까..?'
+			}).then((result) => {
+                if (result.value) {
+                    location.href="${pageContext.request.contextPath}/chat/deleteChat/" + "${chat.CHAT_NO}";
                     sock.onclose = function (){
                         self.close();
                     };
                 }
             })
-        });
- 	  
-        	
+		});	
 	</script>
 
 

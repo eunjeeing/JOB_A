@@ -8,6 +8,8 @@
 		<id property="chatNo" column="CHAT_NO"/>
 		<result property="chatTitle" column="CHAT_TITLE"/>
 		<result property="chatDate" column="CHAT_DATE"/>
+		<result property="memId" column="CHAT_CREATOR"/>
+		
 	</resultMap>
 
 	<select id="selectChatList" resultMap="Chat">
@@ -21,7 +23,7 @@
 	
 	<insert id="insertChat" parameterType="Chat">
 		INSERT INTO CHAT
-		VALUES (#{chatNo}, #{chatTitle}, DEFAULT)
+		VALUES (#{chatNo}, #{chatTitle}, DEFAULT, #{memId})
 	</insert>
 	
 	<select id="selectChatSeq" resultType="_int">
@@ -33,6 +35,8 @@
 		SELECT * FROM CHAT WHERE CHAT_NO = #{chatNo}
 	</select>
 	
-	
+	<delete id="deleteChat" parameterType="_int">
+		DELETE FROM CHAT WHERE CHAT_NO = #{chatNo}
+	</delete>
 
 </mapper>

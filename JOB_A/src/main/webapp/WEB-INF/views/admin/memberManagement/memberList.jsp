@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title> 관리자 목록 </title>
+<title> 회원 목록 </title>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
@@ -85,7 +85,8 @@
 	<section>
 		<div>
 			<div>
-				<h2>관리자 리스트</h2>
+				<h2>회원 리스트</h2>
+				<!--  검색 -->
 				<div class="row" style="float: right">
 					<select class="form-control custom-select" style="width: 25%" id="searchCondition" name="searchCondition">
 						<option value="">-----</option>
@@ -101,28 +102,26 @@
 				<table>
 					<thead>
 						<tr>
-							<th>사번</th>
-							<th>직급</th>
-							<th>이름</th>
+							<th>상태</th>
+							<th>아이디</th>
 							<th>닉네임</th>
+							<th>등급</th>
+							<th>생년월일</th>
 							<th>이메일</th>
-							<th>연락처</th>
-							<th>등록날짜</th>
+							<th>가입일</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${adminList}" var="a">
+						<c:forEach items="${memberList}" var="m">
 							<tr>
-								<td><span>${a.adminId}</span></td>
-								<td><span>${a.gradeNo}</span></td>
-								<td><span>${a.adminName}</span></td>
-								<td><span>${a.adminNick}</span></td>
-								<td><a href="#"><span>${a.adminEmail}</span></a></td>
-								<td><span>${a.adminPhone}</span></td>
-								<td><span>${a.enrollDate}</span></td>
-								<c:if test="${member.gradeNo eq 0}">
-									<td><button type="button" onclick="location.href='${pageContext.request.contextPath}/admin/adminDelete/${a.memNo}'">삭제</button></td>
-								</c:if>
+								<td><span>${m.memState}</span></td>
+								<td><span>${m.memId}</span></td>
+								<td><span>${m.memNick}</span></td>
+								<td><span>${m.gradeNo}</span></td>
+								<td><span>${m.memBirth}</span></td>
+								<td><a href="#"><span>${m.memEmail}</span></a></td>
+								<td><span>${m.enrollDate}</span></td>
+								<td><button type="button" onclick="location.href='${pageContext.request.contextPath}/admin/adminDelete/${a.memNo}'">삭제</button></td>
 							</tr>
 						</c:forEach>
 					</tbody>
