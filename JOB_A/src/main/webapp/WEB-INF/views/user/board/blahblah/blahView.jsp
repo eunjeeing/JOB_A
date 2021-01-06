@@ -212,7 +212,7 @@ p {
 
 							<!-- 댓글 -->
 							<div class="article-comments">
-								<h3>댓글 ${board2.comm_Count }</h3>
+								<h3 style="font-weight: 500">댓글 ${board2.comm_Count }</h3>
 								<div class="write_area">
 									<div id="btn_add_comment" style="display: flex;">
 										<div class="reply_area" style="width: 100%;">
@@ -232,8 +232,7 @@ p {
 										<p class="name">${co.mem_Nick }</p>
 										<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content }</textarea></p>
 										<div class="wrap-info">
-											<span class="date"> <i class="far fa-clock"> <fmt:formatDate
-														value="${co.comm_Date }" pattern="yyyy-MM-dd hh:mm:ss" /></i></span>
+											<span class="date"> <i class="far fa-clock">${co.comm_Date }</i></span>
 											<a class="cmt"> <i class="far fa-comment"> 대댓글</i>
 											</a>
 											<div class="info_fnc">

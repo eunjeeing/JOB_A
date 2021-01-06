@@ -70,7 +70,7 @@
 	
 	<!-- 블라블라 검색된 게시글 수 -->
 	<select id="searchBlahTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 4 AND BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 4 AND BOARD_STATUS = 'Y' AND BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%'
 	</select>
 	
 <!-- 블라인드 게시판 -->
@@ -97,7 +97,7 @@
 	
 	<!-- 블라인드 검색된 게시글 수 -->
 	<select id="searchBlindTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 5 AND BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 5 AND BOARD_STATUS = 'Y' AND BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%'
 	</select>
 
 <!-- QnA 게시판 -->	
@@ -124,7 +124,7 @@
 	
 	<!-- QnA 검색된 게시글 수 -->
 	<select id="searchQnATotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 7 AND BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 7 AND BOARD_STATUS = 'Y' AND BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%'
 	</select>
 	
 <!-- 채용공고 게시판 -->
@@ -152,7 +152,7 @@
 	
 	<!-- 채용공고 검색된 게시글 수 -->
 	<select id="searchJobTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 2 AND BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 2 AND BOARD_STATUS = 'Y' AND BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%'
 	</select>
 	
 	<!-- 채용공고 카테고리 검색 -->
@@ -166,7 +166,7 @@
 	
 	<!-- 채용공고 카테고리 검색된 게시글 수 -->
 	<select id="categorySearchJobTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 2 AND BOARD.CATEGORY_NO = #{category_No}
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 2 AND BOARD_STATUS = 'Y' AND BOARD.CATEGORY_NO = #{category_No}
 	</select>
 	
 	<!-- 채용공고 글쓰기 -->
@@ -180,6 +180,17 @@
 	</insert>
 	
 	<!-- 채용공고 게시글 수정 -->
+	<update id="updateJob" parameterType="Board">
+		UPDATE BOARD
+		SET CATEGORY_NO = #{category_No},
+			BOARD_TITLE = #{board_Title},
+			BOARD_CONTENT = #{board_Content},
+			BOARD_URL = #{board_Url},
+			BOARD_START = #{board_Start},
+			BOARD_END = #{board_End},
+			BOARD_ANNOUNCE = #{board_Announce}
+		WHERE BOARD_NO = #{board_No}
+	</update>
 	
 	<!-- 채용공고 게시글 상세보기 -->
 	<select id="selectOneJob" parameterType="_int" resultType="Board">
@@ -187,5 +198,21 @@
 		FROM BOARD B, MEMBER M, CATEGORY C
 		WHERE BOARD_NO = #{board_No} AND M.MEM_NO = B.MEM_NO AND B.CATEGORY_NO = C.CATEGORY_NO
 	</select>
+
+<!-- 마이페이지 -->
+	<!-- 마이페이지 게시글 조회 -->
+	<select id="selectMyPost" parameterType="_int" resultType="Board">
+		SELECT *
+		FROM BOARD B, MEMBER M, BOARDTYPE T
+		WHERE B.MEM_NO = #{mem_No} AND BOARD_STATUS = 'Y' AND B.MEM_NO = M.MEM_NO AND B.TYPE_NO = T.TYPE_NO
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	
+	<!-- 블라블라 게시글 수 -->
+	<select id="selectMyPostTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM BOARD
+		WHERE MEM_NO = #{mem_No} AND BOARD_STATUS = 'Y'
+	</select>
+	
 
 </mapper>

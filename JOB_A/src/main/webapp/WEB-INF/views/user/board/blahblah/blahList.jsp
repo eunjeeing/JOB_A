@@ -88,8 +88,12 @@ p {
 						<input type="search" id="search" placeholder="검색내용을 입력해주세요."
 							onKeyDown="enterKey();" />
 					</div>
-					<button type="button" id="searchBtn" onclick="search()">검색
+					<button type="button" id="searchBtn" onclick="search()"
+					style="width: 50px;"><i class="fas fa-search" style="margin: -9px;"></i>
 					</button>
+					<button type="button" onclick="location.href='${pageContext.request.contextPath}/board2/blahList.do'"
+					style="width: 50px;"><i class="fas fa-redo" style="margin: -9px;"></i></button>
+					
 					<c:if test="${ !empty member }" >
 						<button id="writeBtn" onclick="goBlahForm();">글쓰기</button>
 					</c:if>
@@ -186,6 +190,9 @@ p {
 		}
 
     	function search() {
+
+    		var a = 'aa';
+        	
 			location.href="${pageContext.request.contextPath}/board2/searchBlahList.do?keyword="+$('#search').val();
 
     	}

@@ -212,7 +212,7 @@ p {
 
 							<!-- 댓글 -->
 							<div class="article-comments">
-								<h3>댓글 ${board2.comm_Count }</h3>
+								<h3 style="font-weight: 500">댓글 ${board2.comm_Count }</h3>
 								<div class="write_area">
 									<div id="btn_add_comment" style="display: flex;">
 										<div class="reply_area" style="width: 100%;">

@@ -55,7 +55,7 @@ public class JobDAOImpl implements JobDAO {
 
 	@Override
 	public int updateJob(Board2 board) {
-		return sqlSession.update("board2Mapper.updateBoard", board);
+		return sqlSession.update("board2Mapper.updateJob", board);
 	}
 
 	@Override

@@ -31,6 +31,7 @@ public class Board2 {
 	private int comm_Count;
 	private String mem_Nick;
 	private int file_Count;
+	private String type_Name;
 	
 
 
