@@ -7388,7 +7388,7 @@ button:focus {
 
 /* navbar */
 .navbar-nav .nav-link {
-  padding: 0.5rem; }
+  padding: 1rem; }
 
 .navbar-nav .dropdown .dropdown-toggle:hover:after {
   content: "\e930"; }
