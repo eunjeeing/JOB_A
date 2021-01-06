@@ -17,4 +17,6 @@ public interface ChatDAO {
 
 	Map<String, String> selectChat(int chatNo);
 
+	Object deleteChat(int chatNo);
+
 }

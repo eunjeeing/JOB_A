@@ -31,7 +31,7 @@
 						<tr>
 							<th>비밀번호</th>
 							<td>
-								<input type="password" id="adminPw" readonly="readonly"><br />
+								<input type="password" id="adminPw" name="adminPw"><br />
 								초기 비밀번호는 사번으로 설정됩니다
 							</td>
 						</tr>
@@ -52,7 +52,7 @@
 						<tr>
 							<th>이메일</th>
 							<td>
-								<input type="text" id="adminEmail" readonly="readonly"> @job-jo8a.com
+								<input type="text" id="adminEmail" name="adminEmail"> @job-jo8a.com
 							</td>
 						</tr>
 						<tr>
@@ -82,33 +82,6 @@
 
 </section>
 <script>
-
-	function validate() {
-		var phone1 = document.getElementById('Phone1');
-	    var phone2 = document.getElementById('Phone2');
-	    var phone3 = document.getElementById('Phone3');
-	
-	    if (phone2.value != '') {
-	        if (!chk(/^[0-9]{4}$/, phone2, "4자리 입력"))
-	        	return false;
-	        if (!chk(/^[0-9]{4}$/, phone3, "4자리 입력"))
-	        	return false;
-	        }
-	
-	 	function chk(re, e, msg) {
-	        if (re.test(e.value)) {
-	        	return true;
-	        }
-	
-	        alert(msg);
-	        e.value = "";
-	        e.focus();
-	        return false;
-	 	} 
-	
-	 	var result = [phone1, phone2, phone3].join("-");
-	 	document.getElementById("adminPhone").innerHTML = result
-	}	
 	
 	// 같은값 입력받기
 	function enroll(val){
