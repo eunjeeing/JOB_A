@@ -191,6 +191,14 @@ public class Board1Controller {
 		return "user/board/review/interview/interviewList"; 
 	}
 	
+	@RequestMapping("/selectOneInterview.bo")
+	public String selectOneInterview(@RequestParam int board_no, Model model) {
+		
+		System.out.println("Interview select One controller : " + board_no);
+		
+		return "redirect:interviewList.bo";
+		//return "user/board/review/interview/interviewList";
+	}
 	
 	// *******************************************************************************************
 	// 							AcceptanceReview Controller Area

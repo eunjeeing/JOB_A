@@ -100,6 +100,13 @@
 		font-size : 150%;
 	}
 	
+	/* bookmark icon size adjustment*/
+	.bookmarkIcon {
+		height : 20px;
+		width : 20px;
+
+	}
+	
 </style>
 <html>
 	<head>
@@ -139,7 +146,7 @@
 							<button type="button" id="searchBtn" onclick="search()">검색
 							</button>
 							<button type="button" id="cancelSearchBtn" onclick="toList();">목록으로</button>
-							<c:if test="${member.gradeNo==0 || member.gradeNo==1}">
+							<c:if test="${member.gradeNo <= 1 || member.gradeNo >= 3}">
 								<button id="writeBtn" onclick="fn_goBoardForm();">글쓰기
 								</button>
 							</c:if>
@@ -160,13 +167,22 @@
 								<tbody>
 									<c:forEach items="${ interviewList }" var="interview">
 									<!--  onclick="selectOne();" -->
-									<tr id="${interview.board_no}">
+									<tr id="${interview.board_no}" onClick="selectOne();">
 										<td>${interview.board_no}</td>		<!-- 숫자 카운팅으로 변경 -->
 										<td>${interview.board_title}</td>
 										<td>${interview.mem_nick}</td>
 										<td>${interview.board_date}</td>
 										<td>${interview.board_view}</td>
-										<td><img src="${pageContext.request.contextPath}/resources/images/bookmark.png" alt="스크랩"></button></td>
+										<c:if test="${empty bookmarkList}">
+											<td><img class="bookmarkIcon" src="${pageContext.request.contextPath}/resources/images/bookmark-disabled.png" alt="스크랩"></button></td>
+										</c:if>
+										<c:if test="${!empty bookmarkList}">
+											<c:forEach items="${bookmarkList}" var = "bookmarkList">
+												<c:if test="${bookmarkList.board_no == interview.board_no}">
+													<td><img class="bookmarkIcon" src="${pageContext.request.contextPath}/resources/images/bookmark-abled.png" alt="스크랩"></button></td>
+												</c:if>
+											</c:forEach>
+										</c:if>
 									</tr>
 									</c:forEach>
 								</tbody>
@@ -175,10 +191,11 @@
 						<c:out value="${pageBar}" escapeXml="false"/>
 						</c:if>
 						
+						<!-- list 가 존재 하지 않을 경우 출력 -->
 						<c:if test="${empty interviewList}">
-						<div id="nonListArea">
-							<p>아직 등록된 게시글이 없어요.. ㅠㅜ</p>
-						</div>
+							<div id="nonListArea">
+								<p>아직 등록된 게시글이 없어요.. ㅠㅜ</p>
+							</div>
 						</c:if>
 						
 					</div>		<!-- #inner -->
@@ -209,34 +226,66 @@
 			            });
 			         });
 
+
+
+					function selectOne() {
+						var gradeNo = '${sessionScope.member.gradeNo}';
+						console.log("gradeNo : " + gradeNo);
+						if (gradeNo != null) {
+					     	if (gradeNo != 2 || gradeNo != 5) {
+					     		/*$("tr[id]").on("click", function(){*/
+					    			var board_no = $("tr[id]").attr("id");
+					    			console.log("board_no="+ board_no);
+					    			location.href = "${pageContext.request.contextPath}/selectOneInterview.bo?board_no="+ board_no;
+					     		/*});*/
+					     	} else {
+					     		alert("우수, 최우수 회원만 접근할 수 있습니다.");
+							}
+						} else {
+							alert("로그인 후 이용가능합니다.");
+						}
+					}
+						
+					/*
 			     	$(function(){
-			    		$("tr[id]").on("click", function(){
-			    			var board_no = $(this).attr("id");
-			    			console.log("board_no="+ board_no);
-			    			location.href = "${pageContext.request.contextPath}/selectOneNotice.bo?board_no="+ board_no;
-			    		});
-			    	});
+			     		var gradeNo = '${sessionScope.member.gradeNo}';
+				     	console.log("gradeNo : " + gradeNo);
+				     	if (gradeNo != null) {
+					     	if (gradeNo != 2 || gradeNo != 5) {
+					    		$("tr[id]").on("click", function(){
+					    			var board_no = $(this).attr("id");
+					    			console.log("board_no="+ board_no);
+					    			location.href = "${pageContext.request.contextPath}/selectOneInterview.bo?board_no="+ board_no;
+						     	});
+					     	} else {
+								alert("우수, 최우수 회원만 접근할 수 있습니다.");
+							}
+					    } else {
+							alert("로그인 후 이용가능합니다.");
+						}
+			    	});*/
+
 			    	
 			    	function search() {
 						if (cPage==1) {
-			    			location.href="${pageContext.request.contextPath}/searchNotice.bo?keyword="+$('#search').val();
+			    			location.href="${pageContext.request.contextPath}/searchInterview.bo?keyword="+$('#search').val();
 						} else {
-			    			location.href="${pageContext.request.contextPath}/searchNotice.bo?keyword=${keyword}";
+			    			location.href="${pageContext.request.contextPath}/searchInterview.bo?keyword=${keyword}";
 			    		}
 			    	}
 			    	
 			    	function enterKey() {
 			    			if (event.keyCode==13){
-			    				location.href="${pageContext.request.contextPath}/searchNotice.bo?keyword="+$('#search').val();
+			    				location.href="${pageContext.request.contextPath}/searchInterview.bo?keyword="+$('#search').val();
 			    			}
 			    		}
 
 			    	function fn_goBoardForm(){
-			    		location.href = "${pageContext.request.contextPath}/noticeWrite.bo";
+			    		location.href = "${pageContext.request.contextPath}/reviewWrite.bo";
 			    	}
 
 			    	function toList() {
-						location.href = "${pageContext.request.contextPath}/notice.bo"
+						location.href = "${pageContext.request.contextPath}/interviewList.bo"
 				    }
 			    						
          	</script>
