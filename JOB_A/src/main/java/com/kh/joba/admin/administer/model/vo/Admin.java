@@ -23,7 +23,7 @@ public class Admin {
 	private String adminPhone; // 연락처
 	private String adminEmail; // 이메일
 	private String adminNick; // 닉네임
-	private Date enrollDate; // 등록일
+	private String enrollDate; // 등록일
 }
 
 

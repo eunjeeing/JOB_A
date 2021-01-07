@@ -120,7 +120,7 @@
 									<tr>
 										<th class="table_th">아이디 <span class="star">*</span> </th>
 										<td>
-											<input type="text" size="30" class="userInputId" name="memId" id="memId_" required></td>
+											<input type="text" size="30" class="userInputId" name="memId" id="memId_" onblur="validate2(this)" required ></td>
 										<td>
 											<!-- 아이디 중복검사 --> &nbsp;
 											<button type="button" class="duplicateCheck" name="idDuplicateCheck" id="idDuplicateCheck">중복확인</button>
@@ -130,7 +130,7 @@
 									<tr>
 										<th class="table_th">비밀번호 <span class="star">*</span> </th>
 										<td>
-											<input type="password" size="30" class="form-control" name="memPw" id="password1" required />
+											<input type="password" size="30" class="form-control" name="memPw" id="password1" onblur="validate2(this)" required />
 										</td>
 									</tr>
 									<tr>
@@ -157,15 +157,15 @@
 									<tr>
 										<th class="table_th">이메일 <span class="star">*</span> </th>
 										<td>
-											<input type="text" class="mail_input" id="memEmail" required /> &nbsp;@&nbsp;
+											<input type="text" class="mail_input" id="memEmail" onblur="validate2(this)" required /> &nbsp;@&nbsp;
 											<br />
-											<select name="domain" size="1" id="domain" class="domain_select" >
-												<option value="none" >&nbsp;&nbsp;&nbsp;--------------- 선택 ---------------</option>
-												<option value="self" >- 직접입력 -</option>
-												<option value="naver.com" >naver.com</option>
-												<option value="gmail.com" >gmail.com</option>
-												<option value="hanmail.net" >hanmail.net</option>
-												<option value="nate.com" >nate.com</option>
+											<select name="domain" size="1" id="domain" class="domain_select" onblur="validate2($('#email'))">
+												<option value="none" >&nbsp;&nbsp;&nbsp; ---------- 선택 ----------</option>
+												<!-- <option value="self" >---------- 직접입력 ----------</option> -->
+												<option value="naver.com" >&nbsp;&nbsp;naver.com</option>
+												<option value="gmail.com" >&nbsp;&nbsp;gmail.com</option>
+												<option value="hanmail.net" >&nbsp;&nbsp;hanmail.net</option>
+												<option value="nate.com" >&nbsp;&nbsp;nate.com</option>
 											</select> 
 											
 										</td>
@@ -187,7 +187,7 @@
 									<tr>
 										<th class="table_th">생년월일 <span class="star">*</span></th>
 										<td>
-											<input type="date" size="30" id="memBirth" name="memBirth" /> 
+											<input type="date" size="30" id="memBirth" name="memBirth" onchange="check()"/> 
 											<!-- BIRTH_YY --> 
 											<!-- <input type="text" size="5" id="yy" class="int" min="1900" max="2021" maxlength="4" placeholder="년(4자)">&nbsp;년
 								
@@ -261,11 +261,11 @@
 										<th class="table_th">선호지역</th>
 										<td>
 											<select name="memArea" size="1"  class="location_sido" id="sido1">
-												<option value="" > &nbsp;&nbsp;--------------- 시/도 ---------------</option>
+												<option value="" > &nbsp;&nbsp;---------- 시/도 ----------</option>
 											</select> 
 											<br />
 											<select name="memArea" size="1"  class="location_sigu" id="sigugun1">
-												<option value="" >&nbsp;&nbsp;---------------- 구 ----------------</option>
+												<option value="" >&nbsp;&nbsp;----------- 구 -----------</option>
 											</select>
 										</td>
 									</tr>
@@ -273,11 +273,11 @@
 										<th></th>
 										<td>
 											<select name="memArea" size="1" class="location_sido" id="sido2">
-												<option value="" > &nbsp;&nbsp;--------------- 시/도 ---------------</option>
+												<option value="" > &nbsp;&nbsp;---------- 시/도 ----------</option>
 											</select> 
 											<br />
 											<select name="memArea" size="1" class="location_sigu" id="sigugun2">
-												<option value="" >&nbsp;&nbsp;---------------- 구 ----------------</option>
+												<option value="" >&nbsp;&nbsp;----------- 구 -----------</option>
 											</select>
 										</td>
 									</tr>
@@ -286,11 +286,11 @@
 										<th></th>
 										<td>
 											<select name="memArea" size="1" class="location_sido" id="sido3">
-												<option value="" > &nbsp;&nbsp;--------------- 시/도 ---------------</option>
+												<option value="" > &nbsp;&nbsp;---------- 시/도 ----------</option>
 											</select> 
 											<br />
 											<select name="memArea" size="1" class="location_sigu" id="sigugun3">
-												<option value="" >&nbsp;&nbsp;---------------- 구 ----------------</option>
+												<option value="" >&nbsp;&nbsp;----------- 구 -----------</option>
 										</select></td>
 									</tr>
 								</table>
@@ -380,9 +380,57 @@
 
 						var code = ""; 	//이메일전송 인증번호 저장위한 코드
 
+						/*각 종 유효성 검사*/
+						function validate2(obj){
+						
+							var validate = ''; // 정규식
+							var valiMessage = ''; // 유효성 체크 메새지
+							
+							var inputValue = $(obj).val(); // 입력 값
+							
+							switch($(obj).attr('id')) {
+							case 'memId_':
+								validate = /^[a-z][a-z0-9_-]{3,17}$/; // (영문소문자+숫자 4~18자리, 영문소문자로 시작)
+								valiMessage = '소문자와 숫자를 조합하여 4~18자리 생성해 주세요 ~^^';
+								break;
+								
+							case 'password1':
+								validate = /^[A-Za-z0-9_-]{6,18}$/; // (영문대소문자+숫자 6~18자리)
+								valiMessage = '대,소문자와 숫자를 조합하여 6~18자리 생성해 주세요 ~^^';
+								break;
+								
+							/* 관리자 연락처 사용시 필요할까봐 주석처리
+							case 'tel':
+								validate = /^\d{2,3}-\d{3,4}-\d{4}$/; // 010-0000-0000
+								valiMessage = '전화번호 양식을 확인해주세요';
+								break;
+							*/
+							
+							case 'memEmail':
+								validate = /^[A-Za-z0-9_-]{1,18}$/;
+								valiMessage = '이메일 형식을 확인해주세요';
+							
+								break;
+								
+							}
+							
+							// 유효성 체크
+							if(validate.test(inputValue)){
+								valiText.text('');
+							} else {
+								alert(valiMessage);
+							}
+						}
+							
 							/* 아이디 중복 체크 */
 							$(".duplicateCheck").click(function(){
 								var memId = $(".userInputId").val();
+								
+									if(memId == null || memId == ""){
+										alert("아이디를 입력해주세요!!");	
+												
+										} else{ // else 시작하는 부분
+											
 								console.log("userInputId : " + memId);
 
 								$.ajax({
@@ -401,6 +449,7 @@
 									        }
 									}
 									});
+											} // else 닫는 부분
 								});
 
 							/* 비밀번호 확인 */
@@ -419,6 +468,12 @@
 							/* 인증번호 이메일 전송 */
 							$(".mail_check_button").click(function(){
 								var email = $(".mail_input").val()+"@"+$("#domain option:selected").val(); // 입력한 이메일
+								
+									if($(".mail_input").val() == null || $(".mail_input").val() == "" || $("#domain option:selected").val() == "none"){
+											alert("이메일을 다시 확인해주세요 ~^^");
+											
+										} else{ // else 시작하는 부분
+											alert("인증번호를 발송했습니다! ")
 								// console.log("email : " + email);
 								var checkBox = $(".mail_check_input");        // 인증번호 입력란
 							    var boxWrap = $(".mail_check_input_box");    // 인증번호 입력란 박스
@@ -435,6 +490,7 @@
    	   							code = data;
    	   						        }
 								});
+											} // else 끝나는 부분
 							});
 
 							/*인증확인 버튼 클릭 시*/
@@ -539,6 +595,20 @@
 							return true;
 							}
 
+							// 생년월일 날짜 제약조건
+							   function check(){
+						        var date = new Date(); // 오늘날짜 생성
+						 
+						        var date2 = new Date( $("#memBirth").val()); // 우리가 선택한 날짜 
+						        // alert("date2:"+date2);
+						        // alert("date:"+date);
+						
+						        if(date2>date){
+							       alert("당신 미래에서 오셨나요 ? ")
+						            $("#memBirth").val(null);
+						        }
+						    };
+						
 							/* 선호지역 API 스크립트 */
 							jQuery(document).ready(function(){
 								  //sido option 추가

@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.kh.joba.admin.administer.model.service.AdminService;
+import com.kh.joba.admin.administer.model.vo.Admin;
 import com.kh.joba.user.category.model.vo.WishCategory;
 import com.kh.joba.user.common.exception.MemberException;
 import com.kh.joba.user.member.model.service.MemberService;
@@ -35,6 +37,8 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private AdminService adminService;
 	
 	// 이메일 인증 
 	@Autowired
@@ -42,8 +46,16 @@ public class MemberController {
 	
 	// 로그인 페이지 접속
 	@RequestMapping("login.do")
-	public String loginForm() {
+	public String loginForm(Model model) {
+		Member m = (Member) model.getAttribute("member");
+		
+		System.out.println("멤버정보:"+m);
 		System.out.println("로그인페이지 접속ok");
+		
+		if(m != null) {
+			
+			return "index";
+		} 
 		
 		return "user/member/login";
 	}
@@ -97,7 +109,7 @@ public class MemberController {
 		String plainPassword = member.getMemPw();
 		
 		String encryptPassword = bcryptPasswordEncoder.encode(plainPassword); // 비밀번호 암호화
-		
+		System.out.println("gradeNo: " + member.getGradeNo());
 		System.out.println("원문 : " + plainPassword);
 		System.out.println("암호문 : " + encryptPassword);
 		
@@ -113,19 +125,16 @@ public class MemberController {
 			
 			if(result > 0) msg = "취뽀 성공해요!";
 			else msg = "어쩌죠~ 다시 시도해주세요!";
+		
+			 Member m = memberService.selectOneMember(member.getMemId());
 			
-			
-			
-			/*
-			 * Member m = memberService.selectOneMember(member.getMemId());
-			 * memberService.insertWishCategory(m.getMemNo(),WishCategory.getCategory_No());
-			 */
+				/*
+				 * memberService.insertWishCategory(m.getMemNo(),WishCategory.getCategory_No());
+				 */			
 			 
-
-			
 			model.addAttribute("loc", loc);
 			model.addAttribute("msg", msg); 
-			// model.addAttribute("member", m);
+			model.addAttribute("member", m);
 
 			System.out.println("loc : " + loc); 
 			
@@ -154,13 +163,24 @@ public class MemberController {
 	
 	// 마이페이지 접속
 	@RequestMapping("/member/myPage.do")
-	public String mypage(
-			@RequestParam String memId,
-            Model model) {
-		System.out.println("마이페이지 접속 ok");
+	public String mypage(Member member, Model model) {
 		
-		Member m = memberService.selectOneMember(memId);
-		model.addAttribute("member", m);
+		Admin admin = new Admin(member.getMemNo(), member.getGradeNo(), member.getMemId(), 
+								member.getMemPw(), member.getMemName(), member.getMemPhone(), 
+								member.getMemEmail(), member.getMemNick(), member.getMemDate());
+		
+		System.out.println("마이페이지 접속 ok");
+		System.out.println("member : " + member);
+		
+		if(member.getGradeNo()== 0 || member.getGradeNo()==1) {
+			
+			System.out.println("admin 정보 : " + admin);
+			// System.out.println("admin 정보2 : " + admin2); --> Member member, Admin admin 이 안되서 강제로 삽입함
+			
+			model.addAttribute("admin", admin);
+			return "admin/administer/adminUpdateView";
+			
+		}
 		
 		return "user/member/myPage";
 		

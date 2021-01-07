@@ -52,7 +52,8 @@
 	}
 </style>
 </head>
-<body>
+<body>		
+
 	<!-- Wrapper -->
 	<div id="wrapper">
 
@@ -97,10 +98,12 @@
 		<c:import url="../common/sideBar.jsp" />
 
 	</div>
+	
 	<script>
 		function goJoin() {
 			location.href = "${pageContext.request.contextPath}/join.do";
 		}
 	</script>
+
 </body>
 </html>
