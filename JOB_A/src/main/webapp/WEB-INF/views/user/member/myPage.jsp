@@ -158,19 +158,19 @@
 					</div>
 					
 					<div class="porm2" id="writeandcomment">
-					<div class="click3" >
+					<div class="click3" onclick="location.href='${pageContext.request.contextPath}/mypage/selectMyPost.do?mem_No=${member.memNo}'">
 						<c:if test="${!empty member}"/>
 						<c:if test="${member.gradeNo >= '2' && member.gradeNo <= '5'}"/>
 						
 						<div class="icon">
-							<a href="#" title="내가 작성한 게시글"> <i class="xi-pen"></i></a>
+						<a href="#" title="내가 작성한 게시글"> <i class="xi-pen"></i></a>
 						</div>
 						<div class="next" id="writeboard">
 							<p class="number">15</p><!-- 내가 작성한 게시글 갯수 삽입 코드 -->
 						</div>
 					</div>
 				
-					<div class="click4" >
+					<div class="click4" onclick="location.href='${pageContext.request.contextPath}/mypage/selectMyComment.do?mem_No=${member.memNo}'">
 						<c:if test="${!empty member}"/>
 						<c:if test="${member.gradeNo >= '2' && member.gradeNo <= '5'}"/>
 						

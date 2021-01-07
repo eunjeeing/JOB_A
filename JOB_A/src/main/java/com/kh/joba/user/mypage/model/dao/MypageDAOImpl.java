@@ -22,7 +22,18 @@ public class MypageDAOImpl implements MypageDAO {
 
 	@Override
 	public int selectMyPostTotalContents(int mem_No) {
-		return sqlSession.selectOne("board2Mapper.selectMyPostTotalContents");
+		return sqlSession.selectOne("board2Mapper.selectMyPostTotalContents", mem_No);
+	}
+
+	@Override
+	public List<Map<String, String>> selectMyComment(int cPage, int numPerPage, int mem_No) {
+		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
+		return sqlSession.selectList("comments2Mapper.selectMyComment", mem_No, rows);
+	}
+
+	@Override
+	public int selectMyCommentTotalContents(int mem_No) {
+		return sqlSession.selectOne("comments2Mapper.selectMyCommentTotalContents", mem_No);
 	}
 
 }

@@ -27,6 +27,7 @@ public class Comments2 {
 	private String comm_Date;
 	
 	private String mem_Nick;
+	private int type_No;
 	
 
 }

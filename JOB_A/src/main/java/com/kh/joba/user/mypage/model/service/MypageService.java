@@ -9,4 +9,8 @@ public interface MypageService {
 
 	int selectMyPostTotalContents(int mem_No);
 
+	List<Map<String, String>> selectMyComment(int cPage, int numPerPage, int mem_No);
+
+	int selectMyCommentTotalContents(int mem_No);
+
 }

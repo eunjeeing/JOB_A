@@ -152,7 +152,6 @@ p {
 					<center>
 						<c:out value="${pageBar}" escapeXml="false" />
 					</center>
-
 				</section>
 			</div>
 		</div>
