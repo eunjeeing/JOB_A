@@ -120,7 +120,7 @@
 								<td><span>${m.gradeNo}</span></td>
 								<td><span>${m.memBirth}</span></td>
 								<td><a href="#"><span>${m.memEmail}</span></a></td>
-								<td><span>${m.enrollDate}</span></td>
+								<td><span>${m.memDate}</span></td>
 								<td><button type="button" onclick="location.href='${pageContext.request.contextPath}/admin/adminDelete/${a.memNo}'">삭제</button></td>
 							</tr>
 						</c:forEach>

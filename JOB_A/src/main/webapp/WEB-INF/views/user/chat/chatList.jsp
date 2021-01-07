@@ -133,7 +133,7 @@
 									</div>
 								</div>
 								<div class="chat-rbox">
-									<ul class="chat-list p-5" id="chatList" >
+									<ul class="chat-list p-5" id="chatdata" >
 	
 									</ul>
 								</div>
@@ -162,14 +162,14 @@
        								<span aria-hidden="true">&times;</span>
      							</button>
    							</div>
-   							<form id="newChatForm" method="post" onsubmit="addChat();">
+   							<form id="newChatForm" action="${pageContext.request.contextPath }/chat/insertChat" method="post">
     							<div class="modal-body">
     								<h3 for="exampleInputTitle">채팅방 이름</h3>
     								<input type="text" class="form-control" name="chatTitle" id="exampleInputPassword1" placeholder="30자 내외 입력" required>
     								<input type="hidden" name="memId" value="${member.memId}">
     							</div>
     							<div class="modal-footer">
-					        		<input type="submit" class="button" value="채팅시작"/></button>
+					        		<button type="submit" class="button">채팅 시작</button>
    								</div>
 							</form>
 						</div>
@@ -202,39 +202,55 @@
 	        });
 		}); 
 
-	
 		// addConfirm
-<<<<<<< HEAD
-		function addChat() {
-			//var title = chatTitle.value.trim();
-			//form.chatTitle.value = form.chatTitle.value.trim();
-			if(chatTitle.length = 0) {
-				alert('채팅방 제목을 입력하세요');
-			} else {
-				console.log('제목이 입력되었습니다.');
-				document.forms[0].action="${pageContext.request.contextPath}/chat/insertChat" 
-=======
 		function addChat(form) {
 			form.chatTitle.value = form.chatTitle.value.trim();
 			if(form.chatTitle.value.length == 0) {
-				alert('채팅방 제목을 입력하세요')};
->>>>>>> refs/remotes/origin/feature_princess
+				alert('채팅방 제목을 입력하세요')}
 			}
-		}
 
 
        
 
 		var sock = new SockJS("<c:url value='/chatting'/>");
-
+		
+		$(function(){
+	        $("#sendChat").click(function(){
+	            console.log("send message.....");
+	            sendMessage(); // 작성 메세지 전송
+	            $("#message").val(''); // 전송 후 작성창 초기화
+	        });
+		});
+		
+		/* 엔터키로 전송
+		$('#sendChat').on('click', message);
+		$('#message').keypress(function(e) {
+			if (e.which == 13 && !e.shiftKey) {
+				sendMessage();
+				event.preventDefault();
+				$("#message").val('');
+			}
+		});
+		*/
+		
+		function sendMessage() {
+     		if ($('#message').val() != "") {
+         		sock.send($("#message").val());
+     		} else {
+				alert("메세지를 입력하세요!");
+			};
+        };
+	    
+    
+		var today=null;
 		// 메세지 전송
 		sock.onmessage = function(evt) {
-			var data=evt.data;//new text객체로 보내준 값을 받아옴.
-	        var host=null;//메세지를 보낸 사용자 ip저장
-	        var strArray=data.split("|");//데이터 파싱처리하기
-	        var userName=null;//대화명 저장
+			var data = evt.data;//new text객체로 보내준 값을 받아옴.
+	        var host = null;//메세지를 보낸 사용자 ip저장
+	        var strArray = data.split("|");//데이터 파싱처리하기
+	        var userName = null;//대화명 저장
 	        
-	        //전송된 데이터 출력해보기
+	        // 전송된 데이터 출력해보기
 	        for(var i=0;i<strArray.length;i++) {
 	            console.log('str['+i+'] :' + strArray[i]);	 		
 	        }
@@ -282,35 +298,15 @@
 	            var printHTML="<div class='well'  style='margin-left30%:'>";
 	            printHTML+="<div class='alert alert-danger'>";
 	            printHTML+="<sub>"+printDate+"</sub><br/>";
-	            printHTML+="<strong>[서버관리자] : "+message+"</strong>";
+	            printHTML+= message;
 	            printHTML+="</div>";
 	            printHTML+="</div>";
 	            $('#chatdata').append(printHTML);	
 	        }
 	    };
 
-	    /*
-    	$('#sendChat').on('click', message);
-		$('#message').keypress(function(e) {
-			if (e.which == 13 && !e.shiftKey) {
-				sendMessage();
-				event.preventDefault();
-			}
-		});*/
-
-     	function sendMessage() {
-     		if ($('#message').val() != "") {
-         		sock.send($("#message").val());
-     		} else {
-				alert("메세지를 입력하세요!");
-			}
-        }
-
-
-
      // exitConfirm
 		$("#exitChat").click(function () {
-			
 			Swal.fire({
                 title: '🚰·̫🚰',
                 text: "채팅방을 나가시겠습니까?",
@@ -322,13 +318,11 @@
 			}).then((result) => {
                 if (result.value) {
                     location.href="${pageContext.request.contextPath}/chat/exitChat";
-                    
                 }
             })
         });
 
 		// exitConfirm
-		var chatNo = $()
 		$("#deleteChat").click(function () {
 			Swal.fire({
                 title: '⁽⁽(´༎ຶД༎ຶ`)⁾⁾',
@@ -340,10 +334,7 @@
                 cancelButtonText: '쵸큼만 더 있어볼까..?'
 			}).then((result) => {
                 if (result.value) {
-                    location.href="${pageContext.request.contextPath}/chat/deleteChat/" + "${chat.CHAT_NO}";
-                    sock.onclose = function (){
-                        self.close();
-                    };
+                   	location.href="${pageContext.request.contextPath}/chat/deleteChat/" + "${chat.CHAT_NO}";
                 }
             })
 		});	
