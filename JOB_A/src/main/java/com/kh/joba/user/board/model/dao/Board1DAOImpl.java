@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.joba.user.board.model.vo.Attachment1;
 import com.kh.joba.user.board.model.vo.Board1;
 
 @Repository
@@ -16,9 +17,9 @@ public class Board1DAOImpl implements Board1DAO {
 	@Autowired
 	SqlSessionTemplate sqlSession;
 	
-	// *******************************************************************************************
-	// 							Notice Controller Area
-	// *******************************************************************************************
+// *******************************************************************************************
+// 							Notice DAO Area
+// *******************************************************************************************
 	@Override
 	public List<Map<String, String>> selectNoticeList(int cPage, int numPerPage) {
 		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
@@ -63,23 +64,23 @@ public class Board1DAOImpl implements Board1DAO {
 	}
 	
 	
-	// *******************************************************************************************
-	// 							Mentoring Controller Area
-	// *******************************************************************************************
-	
-	
-	
-	
-	// *******************************************************************************************
-	// 							UntilTomorrow Controller Area
-	// *******************************************************************************************
-	
-	
-	
-	
-	// *******************************************************************************************
-	// 							InterviewReview Controller Area
-	// *******************************************************************************************
+// *******************************************************************************************
+// 							Mentoring DAO Area
+// *******************************************************************************************
+
+
+
+
+// *******************************************************************************************
+// 							UntilTomorrow DAO Area
+// *******************************************************************************************
+
+
+
+
+// *******************************************************************************************
+// 								Interview DAO Area
+// *******************************************************************************************
 	@Override
 	public List<Map<String, String>> selectInterviewList(int cPage, int numPerPage) {
 		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
@@ -89,11 +90,19 @@ public class Board1DAOImpl implements Board1DAO {
 	public int selectInterviewTotalContents() {
 		return sqlSession.selectOne("board1Mapper.selectInterviewTotalContents");
 	}
+	@Override
+	public Board1 selectOneInterview(int board_no) {
+		return sqlSession.selectOne("board1Mapper.selectOneInterview", board_no);
+	}
+	@Override
+	public List<Attachment1> selectAttachmentList(int board_no) {
+		return sqlSession.selectList("board1Mapper.selectAttachmentList", board_no);
+	}
 	
 	
-	// *******************************************************************************************
-	// 							AcceptanceReview Controller Area
-	// *******************************************************************************************
+// *******************************************************************************************
+//								Acceptance DAO Area
+//*******************************************************************************************
 	@Override
 	public List<Map<String, String>> selectAcceptList(int cPage, int numPerPage) {
 		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
@@ -103,10 +112,5 @@ public class Board1DAOImpl implements Board1DAO {
 	public int selectAcceptTotalContents() {
 		return sqlSession.selectOne("board1Mapper.selectAcceptTotalContents");
 	}
-	
-	
-	
-	
-	
 
 }

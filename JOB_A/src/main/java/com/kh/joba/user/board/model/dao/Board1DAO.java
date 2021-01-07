@@ -3,6 +3,7 @@ package com.kh.joba.user.board.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.joba.user.board.model.vo.Attachment1;
 import com.kh.joba.user.board.model.vo.Board1;
 
 public interface Board1DAO {
@@ -32,17 +33,21 @@ public interface Board1DAO {
 	
 	
 	// *******************************************************************************************
-	// 							InterviewReview Controller Area
+	// 							Interview Review DAO Area
 	// *******************************************************************************************
 	List<Map<String, String>> selectInterviewList(int cPage, int numPerPage);
 	int selectInterviewTotalContents();
-	
+	Board1 selectOneInterview(int board_no);
+	List<Attachment1> selectAttachmentList(int board_no);
+
+
 	
 	// *******************************************************************************************
-	// 							AcceptanceReview Controller Area
+	// 							Acceptance Review DAO Area
 	// *******************************************************************************************
 	List<Map<String, String>> selectAcceptList(int cPage, int numPerPage);
 	int selectAcceptTotalContents();
+
 	
 
 }

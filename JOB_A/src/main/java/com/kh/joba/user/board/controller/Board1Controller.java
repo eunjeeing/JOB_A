@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.joba.user.board.model.service.Board1Service;
+import com.kh.joba.user.board.model.vo.Attachment1;
 import com.kh.joba.user.board.model.vo.Board1;
 import com.kh.joba.user.common.util.UtilsBoard1;
 
@@ -155,8 +156,8 @@ public class Board1Controller {
 	public String insertNotice(Board1 notice, Model model) {
 		System.out.println("[insertNotice] board_title : " + notice.getBoard_title());
 		int result = bs.insertNotice(notice);
+		
 		return "redirect:notice.bo";
-		//return "user/common/msg";
 	}
 
 	// *******************************************************************************************
@@ -177,7 +178,7 @@ public class Board1Controller {
 	// 							InterviewReview Controller Area
 	// *******************************************************************************************
 	@RequestMapping("/interviewList.bo")
-	public String interviewList(
+	public String reviewList(
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
 			Model model) {
 		int numPerPage = 10;
@@ -199,10 +200,17 @@ public class Board1Controller {
 	@RequestMapping("/selectOneInterview.bo")
 	public String selectOneInterview(@RequestParam int board_no, Model model) {
 		
-		System.out.println("Interview select One controller : " + board_no);
+		//System.out.println("Interview select One controller : " + board_no);
 		
-		return "redirect:interviewList.bo";
-		//return "user/board/review/interview/interviewList";
+		Board1 interview = bs.selectOneInterview(board_no);
+		List attach = bs.selectAttachmentList(board_no);
+		List commentList = bs.selectCommentList(board_no);
+		
+		model.addAttribute("interview", interview);
+		model.addAttribute("attachment", attach);
+		model.addAttribute("commentList", commentList);
+		
+		return "user/board/review/interview/interviewView";
 	}
 	
 	// *******************************************************************************************

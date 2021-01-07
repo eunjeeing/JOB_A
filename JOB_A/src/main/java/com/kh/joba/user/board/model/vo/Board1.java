@@ -28,4 +28,5 @@ public class Board1 {
 	private int board_view;
 	private String board_url;
 	private Attachment1 attachment;
+	private int comm_count;
 }

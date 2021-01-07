@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.joba.user.board.model.dao.Board1DAO;
+import com.kh.joba.user.board.model.vo.Attachment1;
 import com.kh.joba.user.board.model.vo.Board1;
 
 @Service
@@ -15,9 +16,9 @@ public class Board1ServiceImpl implements Board1Service {
 	@Autowired
 	Board1DAO board1DAO;
 
-	// *******************************************************************************************
-	// 							Notice Controller Area
-	// *******************************************************************************************
+// *******************************************************************************************
+// 							Notice Service Area
+// *******************************************************************************************
 	@Override
 	public List<Map<String, String>> selectNoticeList(int cPage, int numPerPage) {
 		return board1DAO.selectNoticeList(cPage, numPerPage);
@@ -57,23 +58,23 @@ public class Board1ServiceImpl implements Board1Service {
 		return board1DAO.insertNotice(notice);
 	}
 	
-	// *******************************************************************************************
-	// 							Mentoring Controller Area
-	// *******************************************************************************************
-	
-	
-	
-	
-	// *******************************************************************************************
-	// 							UntilTomorrow Controller Area
-	// *******************************************************************************************
-	
-	
-	
-	
-	// *******************************************************************************************
-	// 							InterviewReview Controller Area
-	// *******************************************************************************************
+// *******************************************************************************************
+// 							Mentoring Service Area
+// *******************************************************************************************
+
+
+
+
+// *******************************************************************************************
+// 							UntilTomorrow Service Area
+// *******************************************************************************************
+
+
+
+
+// *******************************************************************************************
+// 							InterviewReview Service Area
+// *******************************************************************************************
 	@Override
 	public List<Map<String, String>> selectInterviewList(int cPage, int numPerPage) {
 		return board1DAO.selectInterviewList(cPage, numPerPage);
@@ -82,10 +83,32 @@ public class Board1ServiceImpl implements Board1Service {
 	public int selectInterviewTotalContents() {
 		return board1DAO.selectInterviewTotalContents();
 	}
+	@Override
+	public List<Map<String, String>> searchInterviewList(int cPage, int numPerPage, String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public int searchInterviewTotalContents(String keyword) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public Board1 selectOneInterview(int board_no) {
+		Board1 interview = board1DAO.selectOneInterview(board_no);
+		if( interview != null) board1DAO.updateViewCount(board_no);
+		return interview;
+	}
+	@Override
+	public List<Attachment1> selectAttachmentList(int board_no) {
+		return board1DAO.selectAttachmentList(board_no);
+	}
+
 	
-	// *******************************************************************************************
-	// 							AcceptanceReview Controller Area
-	// *******************************************************************************************
+	
+// *******************************************************************************************
+// 							AcceptanceReview Service Area
+// *******************************************************************************************
 	@Override
 	public List<Map<String, String>> selectAcceptList(int cPage, int numPerPage) {
 		return board1DAO.selectAcceptList(cPage, numPerPage);
@@ -94,8 +117,27 @@ public class Board1ServiceImpl implements Board1Service {
 	public int selectAcceptTotalContents() {
 		return board1DAO.selectAcceptTotalContents();
 	}
+	@Override
+	public List<Map<String, String>> searchAcceptList(int cPage, int numPerPage, String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public int searchAcceptTotalContents(String keyword) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
+	
+// *******************************************************************************************
+//						Comment Service Area
+//*******************************************************************************************	
+	@Override
+	public List selectCommentList(int board_no) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>JOB_A | 블라블라</title>
+<title> 후기 | 면접후기</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board.css" />
 <style>
@@ -174,45 +174,45 @@ p {
 						<div role="main" class="contents">
 							<div class="acticle-view-head" id="head">
 								<div class="title-close" style="display: flex;">
-								<h2 id="title">${board2.board_Title }</h2>
+								<h2 id="title">${interview.board_Title }</h2>
 								<i class="far fa-window-close" id="close-icon" style="font-size: 30px; color: #f56a6a; margin-left:auto; margin-right: 0;"
-								   onclick="location.href='${pageContext.request.contextPath}/board2/blahList.do'"></i>
+								   onclick="location.href='${pageContext.request.contextPath}/interviewList.bo'"></i>
 								</div>
-								<p class="name">${board2.mem_Nick }</p>
+								<p class="name">${interview.mem_nick }</p>
 								<div class="wrap-info">
 									<span class="date"> <i class="far fa-clock">
-											${board2.board_Date }</i>
+											${interview.board_Date }</i>
 									</span> <span class="pv"> <i class="far fa-eye">
-											${board2.board_View }</i>
+											${interview.board_View }</i>
 									</span> <span class="cmt"> <i class="far fa-comment">
-											${board2.comm_Count }</i>
+											${interview.comm_Count }</i>
 									</span>
 									<div class="info_fnc">
-										<span class="rebo"> <i
-											class="fas fa-exclamation-triangle" id="report"></i> 신고
-										</span> <span class="rebo"> <i class="far fa-bookmark"
-											id="book"> </i> 스크랩
+										<span class="rebo"> 
+										<i class="fas fa-exclamation-triangle" id="report"></i> 신고
+										</span> 
+										<span class="rebo"> <i class="far fa-bookmark" id="book"> </i> 스크랩
 										</span>
 									</div>
 								</div>
 							</div>
 							<div class="article-view-contents">
 								<div id="contentArea" class="contents-txt">
-									${board2.board_Content }</div>
+									${interview.board_Content }</div>
 								<p>
-								<c:if test="${member.memNo eq board2.mem_No}">
-								<div align="right">
-									<button style="font-weight: 300; margin-right:10px;"
-									 onclick="location.href='${pageContext.request.contextPath}/board2/blahUpdateForm.do?board_No=${board2.board_No}'">수정</button>
-									<button style="font-weight: 300;" onclick="location.href='${pageContext.request.contextPath}/board2/blahDelete.do?board_No=${board2.board_No}'">삭제</button>
-								</div>
+								<c:if test="${member.memNo eq interview.mem_no}">
+									<div align="right">
+										<button style="font-weight: 300; margin-right:10px;"
+										 onclick="location.href='${pageContext.request.contextPath}/interviewUpdateForm.bo?board_No=${interview.board_No}'">수정</button>
+										<button style="font-weight: 300;" onclick="location.href='${pageContext.request.contextPath}/interviewDelete.bo?board_No=${interview.board_No}'">삭제</button>
+									</div>
 								</c:if>
 								</p>
 							</div>
 
 							<!-- 댓글 -->
 							<div class="article-comments">
-								<h3 style="font-weight: 500">댓글 ${board2.comm_Count }</h3>
+								<h3 style="font-weight: 500">댓글 ${commentList.comm_Count }</h3>
 								<div class="write_area">
 									<div id="btn_add_comment" style="display: flex;">
 										<div class="reply_area" style="width: 100%;">
@@ -227,20 +227,20 @@ p {
 										</form>
 									</div>
 								</div>
-								<c:forEach items="${selectComment}" var="co">
-									<div id="${co.comm_No }" class="wrap-comment comment-area">
-										<p class="name">${co.mem_Nick }</p>
+								<c:forEach items="${commentList}" var="comment">
+									<div id="${comment.comm_No }" class="wrap-comment comment-area">
+										<p class="name">${comment.mem_Nick }</p>
 										<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content }</textarea></p>
 										<div class="wrap-info">
-											<span class="date"> <i class="far fa-clock">${co.comm_Date }</i></span>
+											<span class="date"> <i class="far fa-clock">${comment.comm_Date }</i></span>
 											<a class="cmt"> <i class="far fa-comment"> 대댓글</i>
 											</a>
 											<div class="info_fnc">
 													<input type="hidden" name="comm_No" value="${co.comm_No }"/>
-												<c:if test="${member.memNo eq co.mem_No}">
+												<c:if test="${member.memNo eq comment.mem_no}">
 													<a href="#" onclick="updateComment(this);return false;">수정</a>
 													<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
-													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
+													<a href="#" onclick="location.href='${pageContext.request.contextPath}/deleteComment.bo?board_No=${interview.board_No}&comm_No=${comment.comm_No }'">삭제</a>
 												</c:if>
 												<span><i class="fas fa-exclamation-triangle"></i></span>
 											</div>
@@ -268,33 +268,22 @@ p {
 								alert("댓글을 입력해 주세요");
 								return false;
 							} else {
-								location.href = '${pageContext.request.contextPath}/comments2/insertComment.do?board_No=${board2.board_No}&mem_No=${member.memNo}&comm_Content='
+								location.href = '${pageContext.request.contextPath}/insertComment.bo?board_No=${interview.board_No}&mem_No=${member.memNo}&comm_Content='
 										+ comm_Content.value;
 							}
 						}, false);
 
 
 		function updateComment(obj) {
-			// 현재 버튼의 위치와 가장 가까운 textarea 접근하기
 			$(obj).parent().parent().parent().find('textarea').removeAttr('readonly');
-			
-			// 수정 완료 버튼 보이게 하기
 			$(obj).siblings('.updateConfirm').css('display', 'inline');
-			
-			// 현재 클릭한 수정 버튼 숨기기
 			$(obj).css('display', 'none');
 		}
 
 		function updateConfirm(obj) {
-			// 수정을 마친 댓글 내용 가져오기
 			var content = $(obj).parent().parent().parent().find('textarea').val();
-			
-			// 댓글 번호 가져오기
 			var comm_No = $(obj).siblings('input').val();
-
-			console.log(content);
-			
-			location.href = "${pageContext.request.contextPath}/comments2/updateComment.do?board_No=${board2.board_No}&comm_No=" + comm_No + "&comm_Content="
+			location.href = "${pageContext.request.contextPath}/updateComment.bo?board_No=${interview.board_no}&comm_No=" + comm_No + "&comm_Content="
 				+ content;
 		}
 
