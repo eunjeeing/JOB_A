@@ -25,12 +25,12 @@
 		}
 		
 		.left {
-		width: 40%;
+		width: 45%;
 		padding-right : 10px;
 		}
 		
 		.right {
-			width : 60%;
+			width : 55%;
 			border-left : 1px black solid;
 			border-color: lightgrey;
 			padding-left : 10px;
@@ -91,8 +91,9 @@
 		
 		#message {
 			resize: none; 
-			width: 600px;
+			width: 110%;
 		}
+		
 	</style>
 </head>
 <body>
@@ -120,8 +121,8 @@
 						<c:if test="${chatNo ne 0}">
 							<div class="chat-right-aside">
 								<div class="chat-main-header">
-									<div class="p-3 border-bottom">
-										<h3 class="box-title">${chat.CHAT_TITLE}
+									<div class="border-bottom">
+										<h3>${chat.CHAT_TITLE} &nbsp;&nbsp;&nbsp;
 											<c:if test="${chat.CHAT_CREATOR.equals(member.memId) == false}">
 												<a href="javascript:void(0)" id="exitChat"><i class="fas fa-door-open"></i></a>
 											</c:if>
@@ -132,10 +133,8 @@
 										</h3>
 									</div>
 								</div>
-								<div class="chat-rbox">
-									<ul class="chat-list p-5" id="chatdata" >
-	
-									</ul>
+								<div class="chat-list">
+									<ul id="chatdata" class="chat-list p-5"></ul>
 								</div>
 								<div class="card-body border-top">
 									<div class="row">
@@ -202,24 +201,22 @@
 	        });
 		}); 
 
-		// addConfirm
-		function addChat(form) {
-			form.chatTitle.value = form.chatTitle.value.trim();
-			if(form.chatTitle.value.length == 0) {
-				alert('채팅방 제목을 입력하세요')}
-			}
-
-
-       
-
 		var sock = new SockJS("<c:url value='/chatting'/>");
 		
+
+		sock.onclose=onClose;
+		function onClose(){
+	        self.close();
+	    };
+	    
 		$(function(){
 	        $("#sendChat").click(function(){
 	            console.log("send message.....");
 	            sendMessage(); // 작성 메세지 전송
 	            $("#message").val(''); // 전송 후 작성창 초기화
+				$('#message').focus();
 	        });
+	        
 		});
 		
 		/* 엔터키로 전송
@@ -229,6 +226,7 @@
 				sendMessage();
 				event.preventDefault();
 				$("#message").val('');
+				$('#message').focus();
 			}
 		});
 		*/
@@ -241,14 +239,14 @@
 			};
         };
 	    
-    
+	    
 		var today=null;
-		// 메세지 전송
+		// 메세지 전송	    
 		sock.onmessage = function(evt) {
-			var data = evt.data;//new text객체로 보내준 값을 받아옴.
-	        var host = null;//메세지를 보낸 사용자 ip저장
-	        var strArray = data.split("|");//데이터 파싱처리하기
-	        var userName = null;//대화명 저장
+			var data = evt.data; // new text객체로 보내준 값을 받아옴.
+	        var host = null; // 메세지를 보낸 사용자 ip저장
+	        var strArray = data.split("|"); // 데이터 파싱처리하기
+	        var userName = null; // 대화명 저장
 	        
 	        // 전송된 데이터 출력해보기
 	        for(var i=0;i<strArray.length;i++) {
@@ -275,7 +273,7 @@
 	                var printHTML="<div class='well' style='margin-left: 30%;'>";
 	                printHTML+="<div class='alert alert-info'>";
 	                printHTML+="<sub>"+printDate+"</sub><br/>";
-	                printHTML+="<strong>["+userName+"] : "+message+"</strong>";
+	                printHTML+="["+userName+"] : "+message;
 	                printHTML+="</div>";
 	                printHTML+="</div>";
 	                $('#chatdata').append(printHTML);
@@ -283,7 +281,7 @@
 	                var printHTML="<div class='well'  style='margin-left: -5%;margin-right:30%;'>";
 	                printHTML+="<div class='alert alert-warning'>";
 	                printHTML+="<sub>"+printDate+"</sub><br/>";
-	                printHTML+="<strong>["+userName+"] : "+message+"</strong>";
+	                printHTML+="["+userName+"] : "+message;
 	                printHTML+="</div>";
 	                printHTML+="</div>";
 	                $('#chatdata').append(printHTML);
@@ -304,7 +302,7 @@
 	            $('#chatdata').append(printHTML);	
 	        }
 	    };
-
+	
      // exitConfirm
 		$("#exitChat").click(function () {
 			Swal.fire({
@@ -317,6 +315,7 @@
                 cancelButtonText: '쵸큼만 더 있어볼까..?'
 			}).then((result) => {
                 if (result.value) {
+                	sock.onclose();
                     location.href="${pageContext.request.contextPath}/chat/exitChat";
                 }
             })
@@ -334,10 +333,18 @@
                 cancelButtonText: '쵸큼만 더 있어볼까..?'
 			}).then((result) => {
                 if (result.value) {
+                	sock.onclose();
                    	location.href="${pageContext.request.contextPath}/chat/deleteChat/" + "${chat.CHAT_NO}";
                 }
             })
 		});	
+
+		function pageDown() {
+			$('#chatdata').animate({
+				scrollTop : $('#chatdata').get(0).scrollHeight
+			}, 10);
+		}
+		
 	</script>
 
 

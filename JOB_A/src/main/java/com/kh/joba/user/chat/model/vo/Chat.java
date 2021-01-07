@@ -16,5 +16,5 @@ public class Chat {
 	private int chatNo; // 채팅방 번호
 	private String chatTitle;
 	private String chatDate;
-	private int memId; // 채팅방 생성자
+	private String memId; // 채팅방 생성자
 }
