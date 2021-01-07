@@ -22,7 +22,6 @@
 	</typeAliases>
 	
 	<typeHandlers>
-		<package name="com.kh.joba.user.common.typeHandler"/>
 		<package name="com.kh.joba.common.typeHandler"/>
 	</typeHandlers>
 </configuration>

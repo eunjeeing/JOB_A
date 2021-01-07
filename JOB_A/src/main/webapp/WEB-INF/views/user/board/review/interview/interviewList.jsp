@@ -167,7 +167,7 @@
 								<tbody>
 									<c:forEach items="${ interviewList }" var="interview">
 									<!--  onclick="selectOne();" -->
-									<tr id="${interview.board_no}" onClick="selectOne();">
+									<tr id="${interview.board_no}" onclick="selectOne();">
 										<td>${interview.board_no}</td>		<!-- 숫자 카운팅으로 변경 -->
 										<td>${interview.board_title}</td>
 										<td>${interview.mem_nick}</td>
@@ -231,40 +231,20 @@
 					function selectOne() {
 						var gradeNo = '${sessionScope.member.gradeNo}';
 						console.log("gradeNo : " + gradeNo);
-						if (gradeNo != null) {
-					     	if (gradeNo != 2 || gradeNo != 5) {
-					     		/*$("tr[id]").on("click", function(){*/
-					    			var board_no = $("tr[id]").attr("id");
-					    			console.log("board_no="+ board_no);
-					    			location.href = "${pageContext.request.contextPath}/selectOneInterview.bo?board_no="+ board_no;
-					     		/*});*/
-					     	} else {
+						if (gradeNo.length != 0) {
+					     	if (gradeNo == '2' || gradeNo == '5') {
 					     		alert("우수, 최우수 회원만 접근할 수 있습니다.");
+					     	} else {
+				    			var board_no = $("tr[id]").attr("id");
+				    			console.log("board_no="+ board_no);
+				    			location.href = "${pageContext.request.contextPath}/selectOneInterview.bo?board_no="+ board_no;
 							}
 						} else {
 							alert("로그인 후 이용가능합니다.");
 						}
-					}
-						
-					/*
-			     	$(function(){
-			     		var gradeNo = '${sessionScope.member.gradeNo}';
-				     	console.log("gradeNo : " + gradeNo);
-				     	if (gradeNo != null) {
-					     	if (gradeNo != 2 || gradeNo != 5) {
-					    		$("tr[id]").on("click", function(){
-					    			var board_no = $(this).attr("id");
-					    			console.log("board_no="+ board_no);
-					    			location.href = "${pageContext.request.contextPath}/selectOneInterview.bo?board_no="+ board_no;
-						     	});
-					     	} else {
-								alert("우수, 최우수 회원만 접근할 수 있습니다.");
-							}
-					    } else {
-							alert("로그인 후 이용가능합니다.");
-						}
-			    	});*/
 
+					}
+					
 			    	
 			    	function search() {
 						if (cPage==1) {
