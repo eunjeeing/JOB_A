@@ -7,7 +7,6 @@ import com.kh.joba.user.search.model.vo.Search;
 
 public interface SearchService {
 	
-	Search selectOne(int board_No);
 	
 	List<Map<String,String>> searchList(int cPage, int numPerPage, String keyword);
 	

@@ -17,12 +17,6 @@ public class SearchDAOImpl implements SearchDAO {
 	SqlSessionTemplate sqlSession;
 	
 	@Override
-	public Search selectOne(int board_No) {
-		
-		return sqlSession.selectOne("searchMapper.selectOne", board_No);
-	}
-
-	@Override
 	public List<Map<String, String>> searchList(int cPage, int numPerPage, String keyword) {
 		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
 		return sqlSession.selectList("searchMapper.searchList", keyword, rows);
