@@ -16,12 +16,6 @@ public class SearchServiceImpl implements SearchService {
 	SearchDAO searchDAO;
 	
 	@Override
-	public Search selectOne(int board_No) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
 	public List<Map<String, String>> searchList(int cPage, int numPerPage, String keyword) {
 		// TODO Auto-generated method stub
 		return searchDAO.searchList(cPage,numPerPage,keyword);
@@ -30,7 +24,7 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	public int searchTotalContents(String keyword) {
 		// TODO Auto-generated method stub
-		return 0;
+		return searchDAO.searchTotalContents(keyword);
 	}
 
 

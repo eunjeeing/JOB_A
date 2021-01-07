@@ -23,6 +23,7 @@ public class Search {
 	private String board_Status;
 	private int board_View;
 	
+	private String type_Name;
 	private int comm_Count;
 	private String mem_Nick;
 	private int file_Count;

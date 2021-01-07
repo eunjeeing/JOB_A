@@ -29,7 +29,7 @@ public class SearchController {
 		
 		// 조회확인용
 		System.out.println("keyword : " + keyword);
-		//System.out.println("totalContents : " + totalContents);
+		System.out.println("totalContents : " + totalContents);
 		//System.out.println("list : " + list);
 	
 		model.addAttribute("searchList", list);
@@ -40,11 +40,4 @@ public class SearchController {
 		return "user/search/searchList"; 
 	}
 	
-	@RequestMapping("/search/selectOne.do")
-	public String selectOne(@RequestParam int board_No, Model model) {
-		
-		
-		
-		return null;
-	}
 }

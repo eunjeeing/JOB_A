@@ -86,6 +86,10 @@ p {
 #nonListArea>div>p{
 	font-size : 35px;
 }
+.infoMsg>p{
+	font-size: 20px;
+	padding-left: 15px;
+}
 </style>
 </head>
 <body class="is-preload">
@@ -112,7 +116,13 @@ p {
 				<section class="container">
 					<div class="wrapped">
 						<div role="main" class="contents">
-							
+							<div class="infoMsg" >
+							<c:if test="${not empty searchList}">
+								<p>
+									 ${totalContents} 개의 게시글이 있어요!
+								</p>
+							</div>
+							</c:if>
 							 <c:if test="${empty searchList}">
 							<div id="nonListArea">
 								<div>
@@ -120,11 +130,11 @@ p {
 								</div>
 							</div>
 							</c:if> 
-							<div class="article-list">
-								<c:forEach items="${searchList}" var="blah">
+							<div class="article-list" onclick="clickEvent()">
+								<c:forEach items="${searchList}" var="search">
 									<div class="article-list-pre">
 										<div class="tit" id="${search.board_No}">
-											<p style="display: none;">${search.board_No }</p>
+											<p >${search.board_No }</p>
 											<h3 class="hh">${search.board_Title}</h3>
 											<div class="pre-txt">${search.board_Content}</div>
 										</div>
@@ -176,6 +186,57 @@ p {
 		</div>
 		<c:import url="../common/sideBar.jsp" />
 	</div>
-	
+	<c:if test="${ !empty member }" >
+	<script>
+		$(function() {
+			$("div[class=tit]")
+					.on(
+							"click",
+							function() {
+								var board_No = $(this).attr("id");
+								console.log("board_No=" + board_No);
+								location.href = "${pageContext.request.contextPath}/board2/blahView.do?board_No="
+										+ board_No;
+							});
+		});
+	</script>
+	</c:if>
+	<c:if test="${ empty member }">
+	<script>
+			$(function() {
+			$("div[class=tit]")
+					.on(
+							"click",function() {
+								window.alert("로그인 후 이용해주세요");
+							});
+			});
+	</script>
+	</c:if>
+	<script type="text/javascript">
+		// Menu.sidebar 오류때문에 넣음
+        var $menu = $('#menu'),
+           $menu_openers = $menu.children('ul').find('.opener');
+  
+        // Openers.
+           $menu_openers.each(function() {
+  
+              var $this = $(this);
+  
+              $this.on('click', function(event) {
+  
+                 // Prevent default.
+                    event.preventDefault();
+  
+                 // Toggle.
+                    $menu_openers.not($this).removeClass('active');
+                    $this.toggleClass('active');
+  
+                 // Trigger resize (sidebar lock).
+                    $window.triggerHandler('resize.sidebar-lock');
+  
+              });
+  
+           });
+	</script>
 </body>
 </html>
