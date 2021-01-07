@@ -20,13 +20,15 @@
 		<result property="memArea" column="MEM_AREA"/>
 		<result property="memState" column="MEM_STATE"/>
 		<result property="memDate" column="MEM_DATE"/>
+		<result property="memName" column="MEM_NAME"/>
+		<result property="memPhone" column="MEM_PHONE"/>
 	</resultMap>
 
 	<insert id="insertMember" parameterType="Member" >
 	 	INSERT INTO MEMBER
-	 	(MEM_NO, GRADE_NO, MEM_ID, MEM_PW, MEM_NICK, MEM_EMAIL, MEM_BIRTH, MEM_AREA, MEM_STATE, MEM_DATE)
+	 	(MEM_NO, GRADE_NO, MEM_ID, MEM_PW, MEM_NICK, MEM_EMAIL, MEM_BIRTH, MEM_AREA, MEM_STATE, MEM_DATE, MEM_NAME, MEM_PHONE)
 		VALUES 
-		(MEMBER_SEQ.NEXTVAL, 2, #{memId}, #{memPw}, #{memNick}, #{memEmail}, #{memBirth}, #{memArea}, 0, DEFAULT) 
+		(MEMBER_SEQ.NEXTVAL, 2, #{memId}, #{memPw}, #{memNick}, #{memEmail}, #{memBirth}, #{memArea}, 0, DEFAULT, DEFAULT, DEFAULT) 
 	</insert> 
 
 	<insert id="insertWishCategory" parameterType="WishCategory">
