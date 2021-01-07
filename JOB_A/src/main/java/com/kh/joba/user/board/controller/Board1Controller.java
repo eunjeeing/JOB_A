@@ -226,7 +226,7 @@ public class Board1Controller {
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "acceptList.bo");
 		
 		// 조회확인용
-		//System.out.println("list : " + list);
+		System.out.println("list : " + list);
 		
 		model.addAttribute("acceptList", list);
 		model.addAttribute("totalContents", totalContents);
