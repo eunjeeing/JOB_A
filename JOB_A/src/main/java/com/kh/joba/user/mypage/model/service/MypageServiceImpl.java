@@ -26,4 +26,16 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 
+	@Override
+	public List<Map<String, String>> selectMyComment(int cPage, int numPerPage, int mem_No) {
+		return md.selectMyComment(cPage, numPerPage, mem_No);
+	}
+
+
+	@Override
+	public int selectMyCommentTotalContents(int mem_No) {
+		return md.selectMyCommentTotalContents(mem_No);
+	}
+
+
 }

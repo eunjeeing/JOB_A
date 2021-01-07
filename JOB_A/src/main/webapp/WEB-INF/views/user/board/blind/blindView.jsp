@@ -13,7 +13,7 @@
 <style>
 #topbanner {
 	background:
-		url(${pageContext.request.contextPath}/resources/images/blah.jpg)
+		url(${pageContext.request.contextPath}/resources/images/com.jpg)
 		no-repeat;
 	background-position: center center;
 	margin-top: 10px;
@@ -232,8 +232,9 @@ p {
 										<p class="name">익명</p>
 										<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content }</textarea></p>
 										<div class="wrap-info">
-											<span class="date"> <i class="far fa-clock"> <fmt:formatDate
-														value="${co.comm_Date }" pattern="yyyy-MM-dd hh:mm:ss" /></i></span>
+											<span class="date"> <i class="far fa-clock">
+											<fmt:parseDate var="parsedDate" value="${co.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
+											<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/></i></span>
 											<a class="cmt"> <i class="far fa-comment"> 대댓글</i>
 											</a>
 											<div class="info_fnc">

@@ -70,6 +70,8 @@ public class UtilsBoard1 { // 게시판 페이징처리
 		pageBar += "function fn_paging(cPage,numPerPage){";
 		if (url.contains("keyword")) {
 			pageBar += "location.href='"+url+"&cPage='+cPage";			
+		} else if (url.contains("mem_No")) {
+			pageBar += "location.href='"+url+"&cPage='+cPage";
 		} else {
 			pageBar += "location.href='"+url+"?cPage='+cPage";			
 		}
