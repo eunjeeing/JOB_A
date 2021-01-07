@@ -34,6 +34,11 @@ public class Board1Controller {
 		return "user/board/write/commonWrite";
 	}
 	
+	@RequestMapping("/reviewWrite.bo")
+	public String reviewForm() {
+		return "user/board/write/reviewWrite";
+	}
+	
 	
 	// *******************************************************************************************
 	// 							Notice Controller Area
