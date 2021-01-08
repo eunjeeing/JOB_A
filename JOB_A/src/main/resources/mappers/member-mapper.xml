@@ -7,7 +7,7 @@
     <resultMap id="resultWishCategory" type="WishCategory">
     	<id property="mem_No" column="MEM_NO"/>
 		<!-- <result property="mem_No" column="MEM_NO"/> -->
-		<result property="category_no" column="CATEGORY_NO"/>
+		<result property="resultCategory" column="CATEGORY_NO"/>
 	</resultMap>
 	
 	<resultMap id="resultMember" type="Member">
