@@ -7,14 +7,24 @@
 
 <!-- 댓글조회 -->
 	<select id="selectComment" resultType="Comments2">
-		SELECT *
+<!-- 		SELECT *
 		FROM COMMENTS C, MEMBER M
-		WHERE BOARD_NO = #{board_No} AND M.MEM_NO = C.MEM_NO AND COMM_STATUS = 'Y'
+		WHERE BOARD_NO = #{board_No} AND M.MEM_NO = C.MEM_NO AND COMM_STATUS = 'Y' -->
+		    SELECT C.*, (SELECT MEM_NICK FROM MEMBER WHERE MEM_NO = C.MEM_NO) MEM_NICK
+            FROM COMMENTS C
+            WHERE BOARD_NO = #{board_No} AND COMM_STATUS = 'Y'
+            START WITH COMM_LEVEL = 1
+            CONNECT BY PRIOR COMM_NO = COMM_REF
 	</select>
 	
 	<insert id="insertComment" parameterType="Comments2">
-		INSERT INTO COMMENTS(COMM_NO, MEM_NO, BOARD_NO, COMM_CONTENT, COMM_STATUS, COMM_DATE)
-		VALUES(COMMENTS_SEQ.NEXTVAL, #{mem_No}, #{board_No}, #{comm_Content}, DEFAULT, DEFAULT)
+		INSERT INTO COMMENTS
+		VALUES(COMMENTS_SEQ.NEXTVAL, #{mem_No}, #{board_No}, #{comm_Content},
+		<if test="comm_Ref != 0">2,</if>
+		<if test="comm_Ref == 0">1,</if>
+		<if test="comm_Ref != 0">#{comm_Ref},</if>
+		<if test="comm_Ref == 0">NULL,</if>
+		 DEFAULT, DEFAULT)
 	</insert>
 	
 	<update id="deleteComment" parameterType="Comments2">
@@ -32,7 +42,6 @@
 		FROM COMMENTS C, MEMBER M, BOARD B
 		WHERE C.MEM_NO = #{mem_No} AND COMM_STATUS = 'Y' AND C.MEM_NO = M.MEM_NO 
 				AND B.BOARD_NO = C.BOARD_NO
-		ORDER BY COMM_DATE DESC
 	</select>
 	
 	<!-- 내가 쓴 댓글 수 -->

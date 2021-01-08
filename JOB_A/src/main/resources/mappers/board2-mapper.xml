@@ -213,6 +213,12 @@
 		SELECT COUNT(*) FROM BOARD
 		WHERE MEM_NO = #{mem_No} AND BOARD_STATUS = 'Y'
 	</select>
+	
+	<!-- 내가 쓴 게시글 선택 삭제 -->
+	<update id="deleteChkPost">
+		UPDATE BOARD SET BOARD_STATUS = 'N'
+		WHERE BOARD_NO = #{board_No}
+	</update>
 
 	
 

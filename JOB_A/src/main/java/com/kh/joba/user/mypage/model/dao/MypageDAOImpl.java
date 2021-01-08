@@ -8,6 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.joba.user.board2.blahblah.model.vo.Board2;
+
 @Repository
 public class MypageDAOImpl implements MypageDAO {
 
@@ -34,6 +36,11 @@ public class MypageDAOImpl implements MypageDAO {
 	@Override
 	public int selectMyCommentTotalContents(int mem_No) {
 		return sqlSession.selectOne("comments2Mapper.selectMyCommentTotalContents", mem_No);
+	}
+
+	@Override
+	public void deleteChkPost(Board2 board) {
+		sqlSession.update("board2Mapper.deleteChkPost", board);
 	}
 
 }

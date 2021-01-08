@@ -119,13 +119,13 @@ p {
 .article-comments .wrap-comment .name {
 	margin-top: 9px;
 	color: #94969b;
-	font-size: 13px;
+	font-size: 14px;
 	line-height: 1.33em;
 }
 
 .article-comments .wrap-comment .cmt-txt {
 	margin-top: 4px;
-	font-size: 14px;
+	font-size: 16px;
 	line-height: 1.43em;
 }
 
@@ -151,6 +151,21 @@ p {
 	border: none;
     box-shadow: 0 0 0 0; 
 } */
+
+/* 대댓글 스타일 */
+.article-comments .wrap-reply {
+    margin-top: -1px;
+    border-top: 1px solid #eee;
+    background-color: #f8f8f8;
+}
+
+.article-comments .wrap-reply .wrap-comment {
+    padding: 8px 20px 15px 40px;
+}
+
+.article-comments .wrap-reply textarea {
+	 background-color: #f8f8f8;
+}
 
 </style>
 </head>
@@ -210,36 +225,46 @@ p {
 								</p>
 							</div>
 
-							<!-- 댓글 -->
+							<!-- 댓글작성 -->
 							<div class="article-comments">
 								<h3 style="font-weight: 500">댓글 ${board2.comm_Count }</h3>
 								<div class="write_area">
 									<div id="btn_add_comment" style="display: flex;">
 										<div class="reply_area" style="width: 100%;">
-											<from id="commentForm" method="post"> <input
-												type="hidden" id="mem_No" name="mem_No"
+											<from id="commentForm" method="post">
+											<input type="hidden" id="mem_No" name="mem_No"
 												value="${sessionScope.mem_No }" /> 
-												<textarea id="comm_Content" name="comm_Content"
+											<input type="hidden" name="comm_Ref" value="0" />
+											<input type="hidden" name="comm_Level" value="1" />
+											<textarea id="comm_Content" name="comm_Content"
 												placeholder="댓글을 남겨주세요." style="resize: none;"></textarea>
 										</div>
 										<button id="insertComment"
 											style="height: 75px; font-weight: 300; font-size: 20px;">작성</button>
-										</form>
+											</form>
 									</div>
 								</div>
-								<c:forEach items="${selectComment }" var="co">
+								
+								
+								
+								<!-- 댓글리스트 -->
+								<c:forEach items="${selectComment}" var="co">
+								<c:if test="${co.comm_Level eq 1}">
 									<div id="${co.comm_No }" class="wrap-comment comment-area">
-										<p class="name">${co.mem_Nick }</p>
+										<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq board2.mem_No }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
 										<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content }</textarea></p>
 										<div class="wrap-info">
+										
 											<span class="date"> <i class="far fa-clock">
 											<fmt:parseDate var="parsedDate" value="${co.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
 											<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/></i></span>
-
-											<a class="cmt"> <i class="far fa-comment"> 대댓글</i>
+											<a class="cmt" href="#" onclick="reComment(this);return false;"> <i class="far fa-comment"> 대댓글</i>
 											</a>
 											<div class="info_fnc">
-													<input type="hidden" name="comm_No" value="${co.comm_No }"/>
+													<input type="hidden" id="comm_No" name="comm_No" value="${co.comm_No }"/>
+										      		<input type="hidden" class="mem_No"  name="mem_no" value="${member.memNo}" />
+											  		<input type="hidden" class="comm_Ref"  name="comm_Ref" value="${co.comm_No}" />
+											  		<input type="hidden" class="comm_Level"  name="comm_Level" value="${co.comm_Level}" />
 												<c:if test="${member.memNo eq co.mem_No}">
 													<a href="#" onclick="updateComment(this);return false;">수정</a>
 													<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
@@ -249,6 +274,35 @@ p {
 											</div>
 										</div>
 									</div>
+								</c:if>
+								
+								<!-- 대댓글일때 -->
+								<c:if test="${co.comm_Level ne 1}">
+									<div class="wrap-reply">
+										<div id="${co.comm_No }" class="wrap-comment comment-area">
+											<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq board2.mem_No }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
+											<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content }</textarea></p>
+											<div class="wrap-info">
+											
+												<span class="date"> <i class="far fa-clock">
+												<fmt:parseDate var="parsedDate" value="${co.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
+												<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/></i></span>
+												<div class="info_fnc">
+														<input type="hidden" id="comm_No" name="comm_No" value="${co.comm_No }"/>
+											      		<input type="hidden" class="mem_No"  name="mem_no" value="${member.memNo}" />
+												  		<input type="hidden" class="comm_Ref"  name="comm_Ref" value="${co.comm_No}" />
+												  		<input type="hidden" class="comm_Level"  name="comm_Level" value="${co.comm_Level}" />
+													<c:if test="${member.memNo eq co.mem_No}">
+														<a href="#" onclick="updateComment(this);return false;">수정</a>
+														<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
+														<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/qnaDeleteComment.do?board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
+													</c:if>
+													<span><i class="fas fa-exclamation-triangle"></i></span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</c:if>
 								</c:forEach>
 							</div>
 
@@ -302,7 +356,52 @@ p {
 		}
 
 		// 대댓글
-				
+		function reComment(obj) {
+
+			var commentDiv = $(obj).parent().parent();
+
+			var comm_Ref = $(obj).next().find('.comm_Ref').val();
+			console.log("원 댓글 번호 : " + comm_Ref);
+			
+
+			$(obj).css('display','none');
+
+			var reCommentCode =
+				"<div class='write_area' style='padding: 8px 20px 15px 40px;'>" + 
+				"<i class='fa fa-reply fa-rotate-180'></i>" + 
+				"<text>   대댓글</text>" + 
+				"<div id='btn_add_comment' style='display: flex;'>" + 
+				"<div class='reply_area' style='width: 100%;'>" +
+					"<from id='commentForm' method='post'>" +
+					"<input type='hidden' id='mem_No' name='mem_No' value='${sessionScope.mem_No }' />" +
+					"<input type='hidden' name='comm_Ref' value=" + comm_Ref + " />" +
+					"<input type='hidden' name='comm_Level' value='1' />" +
+					"<textarea id='comm_Content' name='comm_Content' placeholder='댓글을 남겨주세요.' style='resize: none;'>" +
+					"</textarea>" +
+				"</div>" +
+				"<button onclick='reConfirm(this); return false;' style='height: 75px; font-weight: 300; font-size: 20px;'> 작성</button>" +
+				"</form>" +
+			"</div>" +
+			"</div>";
+
+			commentDiv.append(reCommentCode);
+
+		}
+
+	    function reConfirm(obj){
+
+	    	var comm_Ref = $(obj).prev().find('input[name=comm_Ref]').val();
+			console.log("원 댓글 번호 : " + comm_Ref);
+			
+			var comm_Level = Number($(obj).prev().find('input[name=comm_Level]').val()) + 1;
+			console.log("댓글 레벨 : " + comm_Level);
+
+			var comm_Content = $(obj).prev().find('textarea').val();
+			console.log("댓글 내용 : " + comm_Content);
+
+			location.href="${pageContext.request.contextPath}/comments2/qnaInsertComment.do?board_No=${board2.board_No}&mem_No=${member.memNo}&comm_Content="
+				+ comm_Content + "&comm_Ref=" + comm_Ref + "&comm_Level=" + comm_Level;
+	    }		
 
 	</script>
 </body>
