@@ -1,6 +1,8 @@
 package com.kh.joba.user.member.model.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,11 +49,11 @@ public class MemberDAOImpl implements MemberDAO {
 		return m;
 	}
 
-	// 회원 정보 삭제 - 탈퇴
+	// 회원 탈퇴
 	@Override
 	public int deleteMember(String memId) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return sqlSession.delete("memberMapper.deleteMember", memId);
 	}
 
 	// 닉네임 중복 체크
@@ -67,12 +69,22 @@ public class MemberDAOImpl implements MemberDAO {
 
 	// 선호 직종 삽입
 	@Override
-	public void insertWishCategory(int mem_No, int[] category_No) {
+	public void insertWishCategory(int mem_No, int category_no) {
+				WishCategory wish = new WishCategory(mem_No, category_no);
+				
+		sqlSession.insert("memberMapper.insertWishCategory",wish);
 		
-		WishCategory ws = new WishCategory(mem_No, category_No);
+	}
+
+	// 회원정보수정페이지에서 DB에 있는 선호직종 가져오기
+	@Override
+	public List<WishCategory> selectWishCategory(int memNo) {
 		
-		sqlSession.insert("memberMapper.insertWishCategory", ws);
+		List<WishCategory> ws = new ArrayList<WishCategory>();
 		
+		ws = sqlSession.selectList("memberMapper.selectWishCategory", memNo);
+		
+		return ws;
 	}
 
 }

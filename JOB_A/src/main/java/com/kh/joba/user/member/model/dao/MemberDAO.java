@@ -1,7 +1,9 @@
 package com.kh.joba.user.member.model.dao;
 
 import java.util.HashMap;
+import java.util.List;
 
+import com.kh.joba.user.category.model.vo.WishCategory;
 import com.kh.joba.user.member.model.vo.Member;
 
 public interface MemberDAO {
@@ -18,5 +20,7 @@ public interface MemberDAO {
 
 	Member checkNicknameDuplicate(String memNick);
 
-	void insertWishCategory(int mem_No, int[] category_No);
+	void insertWishCategory(int mem_No, int category_no);
+
+	List<WishCategory> selectWishCategory(int memNo);
 }
