@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.kh.joba.user.board.model.vo.Attachment1;
 import com.kh.joba.user.board.model.vo.Board1;
+import com.kh.joba.user.board.model.vo.Comment1;
 
 public interface Board1Service {
 	
@@ -42,6 +43,9 @@ public interface Board1Service {
 	int searchInterviewTotalContents(String keyword);
 	Board1 selectOneInterview(int board_no);
 	List<Attachment1> selectAttachmentList(int board_no);
+	int interviewUpdate(Board1 interview);
+	int interviewDelete(int board_no);
+	int interviewInsert(Board1 interview);
 	
 // *******************************************************************************************
 // 							Accaptance Review Service Area
@@ -54,7 +58,8 @@ public interface Board1Service {
 // *******************************************************************************************
 //							Comment Service Area
 //*******************************************************************************************	
-	List selectCommentList(int board_no);
+	List<Comment1> selectCommentList(int board_no);
+	/*Attachment1 selectAttachment(int board_no);*/
 	
 	
 }

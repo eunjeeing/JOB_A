@@ -4,7 +4,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board1Mapper">
 	
-	<!--  Notice  -->
+<!--  Notice  -->
 	<select id="selectNoticeList" resultType="Board1">
 		SELECT * FROM BOARD, MEMBER 
 		WHERE TYPE_NO = 1 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD.BOARD_STATUS = 'Y'
@@ -45,15 +45,15 @@
 	</insert>
 	
 	
-	<!-- Mentoring -->
+<!-- Mentoring -->
 	
 	
 	
-	<!-- UntilTomorrow -->
+<!-- UntilTomorrow -->
 	
 	
 	
-	<!-- Interview -->
+<!-- Interview -->
 	<select id="selectInterviewList" resultType="Board1">
 		SELECT * FROM BOARD, MEMBER
 		WHERE TYPE_NO = 9 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD_STATUS = 'Y'
@@ -68,8 +68,34 @@
 	<select id="selectAttachmentList" parameterType="_int" resultType="Attachment1">
 		SELECT * FROM ATTACHMENT WHERE BOARD_NO = #{board_no}
 	</select>
+	<update id="interviewUpdate" parameterType="Board1">
+		UPDATE BOARD
+		SET BOARD_TITLE = #{board_title}, BOARD_CONTENT = #{board_content}
+		WHERE BOARD_NO = #{board_no}
+	</update>
+	<update id="interviewDelete" parameterType="_int">
+		UPDATE BOARD
+		SET BOARD_STATUS = 'N'
+		WHERE BOARD_NO = #{board_no}
+	</update>
+	<insert id="interviewInsert" parameterType="Board1">
+		INSERT INTO BOARD (BOARD_NO,TYPE_NO, MEM_NO, BOARD_TITLE, BOARD_CONTENT)
+		VALUES (BOARD_SEQ.NEXTVAL, 9, #{mem_no} ,#{board_title}, #{board_content})
+	</insert>
+	<select id="searchInterviewList" parameterType="string" resultType="Board1">
+		SELECT * FROM BOARD, MEMBER 
+		WHERE TYPE_NO = 9 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%' AND BOARD.BOARD_STATUS = 'Y'
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	<select id="searchInterviewTotalContents" resultType="_int" >
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 9 AND BOARD_TITLE LIKE '%' || #{keyword} || '%' AND BOARD_STATUS = 'Y'
+	</select>
 	
-	<!-- Acceptance -->
+	
+	
+	
+	
+<!-- Acceptance -->
 	<select id="selectAcceptList" resultType="Board1">
 		SELECT * FROM BOARD, MEMBER
 		WHERE TYPE_NO = 10 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD_STATUS = 'Y'
@@ -78,7 +104,13 @@
 	<select id="selectAcceptTotalContents" resultType="_int">
 		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 10 AND BOARD_STATUS = 'Y'
 	</select>
-	
-	
+
+
+<!-- Attachment -->
+<!-- 
+	<select id="selectAttachment" parameterType="_int" resultType="Attachment1">
+		SELECT * FROM ATTACHMENT
+		WHERE BOARD_NO = #{board_no} 
+	</select> -->	
 	
 </mapper>

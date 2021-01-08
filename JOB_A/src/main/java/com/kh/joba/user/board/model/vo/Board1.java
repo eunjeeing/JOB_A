@@ -23,10 +23,11 @@ public class Board1 {
 	private String board_title;
 	private String board_content;
 	private String mem_nick;
-	private Date board_date;
+	private String board_date;
 	private String board_status;
 	private int board_view;
 	private String board_url;
 	private Attachment1 attachment;
 	private int comm_count;
+	private String board_mainTitle;
 }

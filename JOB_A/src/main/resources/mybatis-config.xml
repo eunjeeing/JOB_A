@@ -13,6 +13,7 @@
 		<typeAlias type="com.kh.joba.user.member.model.vo.Member" alias="Member" />
 		<typeAlias type="com.kh.joba.user.board.model.vo.Attachment1" alias="Attachment1" /> 
 		<typeAlias type="com.kh.joba.user.attachment.model.vo.Attachment" alias="Attachment"/>
+		<typeAlias type="com.kh.joba.user.board.model.vo.Comment1" alias="Comment1" /> 
 		<typeAlias type="com.kh.joba.user.comments2.model.vo.Comments2" alias="Comments2"/>
 		<typeAlias type="com.kh.joba.user.chat.model.vo.Chat" alias="Chat"/>
 		<typeAlias type="com.kh.joba.user.search.model.vo.Search" alias="Search"/>

@@ -159,14 +159,14 @@ p {
 		<div id="main">
 			<div class="inner">
 
-				<c:import url="../../common/header.jsp" />
+				<c:import url="../../../common/header.jsp" />
 
 				<!-- Top Banner Area -->
-				<div id="topbanner">
+				<!--  <div id="topbanner">
 					<div id="topbanner-textarea">
 						<h3 id="topbanner-text">블라블라</h3>
 					</div>
-				</div>
+				</div>-->
 
 				<!-- 게시글 -->
 				<section class="container">
@@ -174,18 +174,18 @@ p {
 						<div role="main" class="contents">
 							<div class="acticle-view-head" id="head">
 								<div class="title-close" style="display: flex;">
-								<h2 id="title">${interview.board_Title }</h2>
+								<h2 id="title">${interview.board_title }</h2>
 								<i class="far fa-window-close" id="close-icon" style="font-size: 30px; color: #f56a6a; margin-left:auto; margin-right: 0;"
 								   onclick="location.href='${pageContext.request.contextPath}/interviewList.bo'"></i>
 								</div>
 								<p class="name">${interview.mem_nick }</p>
 								<div class="wrap-info">
 									<span class="date"> <i class="far fa-clock">
-											${interview.board_Date }</i>
+											${interview.board_date }</i>
 									</span> <span class="pv"> <i class="far fa-eye">
-											${interview.board_View }</i>
+											${interview.board_view }</i>
 									</span> <span class="cmt"> <i class="far fa-comment">
-											${interview.comm_Count }</i>
+											${interview.comm_count }</i>
 									</span>
 									<div class="info_fnc">
 										<span class="rebo"> 
@@ -198,13 +198,13 @@ p {
 							</div>
 							<div class="article-view-contents">
 								<div id="contentArea" class="contents-txt">
-									${interview.board_Content }</div>
+									${interview.board_content }</div>
 								<p>
 								<c:if test="${member.memNo eq interview.mem_no}">
 									<div align="right">
 										<button style="font-weight: 300; margin-right:10px;"
-										 onclick="location.href='${pageContext.request.contextPath}/interviewUpdateForm.bo?board_No=${interview.board_No}'">수정</button>
-										<button style="font-weight: 300;" onclick="location.href='${pageContext.request.contextPath}/interviewDelete.bo?board_No=${interview.board_No}'">삭제</button>
+										 onclick="location.href='${pageContext.request.contextPath}/interviewUpdateForm.bo?board_no=${interview.board_no}'">수정</button>
+										<button style="font-weight: 300;" onclick="location.href='${pageContext.request.contextPath}/interviewDelete.bo?board_no=${interview.board_no}'">삭제</button>
 									</div>
 								</c:if>
 								</p>
@@ -212,14 +212,14 @@ p {
 
 							<!-- 댓글 -->
 							<div class="article-comments">
-								<h3 style="font-weight: 500">댓글 ${commentList.comm_Count }</h3>
+								<h3 style="font-weight: 500">댓글 ${interview.comm_count }</h3>
 								<div class="write_area">
 									<div id="btn_add_comment" style="display: flex;">
 										<div class="reply_area" style="width: 100%;">
 											<from id="commentForm" method="post"> <input
-												type="hidden" id="mem_No" name="mem_No"
-												value="${sessionScope.mem_No }" /> 
-												<textarea id="comm_Content" name="comm_Content"
+												type="hidden" id="mem_No" name="mem_no"
+												value="${sessionScope.memNo }" /> 
+												<textarea id="comm_Content" name="comm_content"
 												placeholder="댓글을 남겨주세요." style="resize: none;"></textarea>
 										</div>
 										<button id="insertComment"
@@ -228,19 +228,19 @@ p {
 									</div>
 								</div>
 								<c:forEach items="${commentList}" var="comment">
-									<div id="${comment.comm_No }" class="wrap-comment comment-area">
-										<p class="name">${comment.mem_Nick }</p>
-										<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content }</textarea></p>
+									<div id="${comment.comm_no }" class="wrap-comment comment-area">
+										<p class="name">${comment.mem_nick }</p>
+										<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${comment.comm_content }</textarea></p>
 										<div class="wrap-info">
-											<span class="date"> <i class="far fa-clock">${comment.comm_Date }</i></span>
+											<span class="date"> <i class="far fa-clock">${comment.comm_date }</i></span>
 											<a class="cmt"> <i class="far fa-comment"> 대댓글</i>
 											</a>
 											<div class="info_fnc">
-													<input type="hidden" name="comm_No" value="${co.comm_No }"/>
+													<input type="hidden" name="comm_no" value="${co.comm_no }"/>
 												<c:if test="${member.memNo eq comment.mem_no}">
 													<a href="#" onclick="updateComment(this);return false;">수정</a>
 													<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
-													<a href="#" onclick="location.href='${pageContext.request.contextPath}/deleteComment.bo?board_No=${interview.board_No}&comm_No=${comment.comm_No }'">삭제</a>
+													<a href="#" onclick="location.href='${pageContext.request.contextPath}/deleteComment.bo?board_no=${interview.board_no}&comm_no=${comment.comm_no }'">삭제</a>
 												</c:if>
 												<span><i class="fas fa-exclamation-triangle"></i></span>
 											</div>
@@ -254,7 +254,7 @@ p {
 				</section>
 			</div>
 		</div>
-		<c:import url="../../common/sideBar.jsp" />
+		<c:import url="../../../common/sideBar.jsp" />
 	</div>
 
 	<script>
@@ -263,13 +263,13 @@ p {
 				.addEventListener(
 						"click",
 						function() {
-							if (comm_Content.value == ""
-									|| comm_Content.value.length == 0) {
+							if (comm_content.value == ""
+									|| comm_content.value.length == 0) {
 								alert("댓글을 입력해 주세요");
 								return false;
 							} else {
-								location.href = '${pageContext.request.contextPath}/insertComment.bo?board_No=${interview.board_No}&mem_No=${member.memNo}&comm_Content='
-										+ comm_Content.value;
+								location.href = '${pageContext.request.contextPath}/insertComment.bo?board_no=${interview.board_no}&mem_no=${member.memNo}&comm_content='
+										+ comm_content.value;
 							}
 						}, false);
 
@@ -283,7 +283,7 @@ p {
 		function updateConfirm(obj) {
 			var content = $(obj).parent().parent().parent().find('textarea').val();
 			var comm_No = $(obj).siblings('input').val();
-			location.href = "${pageContext.request.contextPath}/updateComment.bo?board_No=${interview.board_no}&comm_No=" + comm_No + "&comm_Content="
+			location.href = "${pageContext.request.contextPath}/updateComment.bo?board_no=${interview.board_no}&comm_no=" + comm_no + "&comm_content="
 				+ content;
 		}
 

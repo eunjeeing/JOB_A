@@ -110,7 +110,7 @@
 </style>
 <html>
 	<head>
-		<title>공지사항</title>
+		<title>JOBA | 면접후기</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
@@ -141,7 +141,7 @@
 						<!-- search / write area -->
 						<div id="utilBox">
 							<div id="searchBox">
-								<input type="search" id="search" placeholder="검색내용을 입력해주세요." onKeyDown="enterKey();" />
+								<input type="search" id="search" placeholder="기업명 또는 제목으로 검색해주세요" onKeyDown="enterKey();" />
 							</div>
 							<button type="button" id="searchBtn" onclick="search()">검색
 							</button>
@@ -165,7 +165,7 @@
 									<th><center>스크랩</center></th>
 								</thead>
 								<tbody>
-									<c:forEach items="${ interviewList }" var="interview">
+									<c:forEach items="${interviewList}" var="interview">
 									<!--  onclick="selectOne();" -->
 									<tr id="${interview.board_no}" onclick="selectOne();">
 										<td>${interview.board_no}</td>		<!-- 숫자 카운팅으로 변경 -->
@@ -261,7 +261,7 @@
 			    		}
 
 			    	function fn_goBoardForm(){
-			    		location.href = "${pageContext.request.contextPath}/reviewWrite.bo";
+			    		location.href = "${pageContext.request.contextPath}/interviewWrite.bo";
 			    	}
 
 			    	function toList() {

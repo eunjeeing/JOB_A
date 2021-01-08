@@ -85,13 +85,11 @@ public class Board1ServiceImpl implements Board1Service {
 	}
 	@Override
 	public List<Map<String, String>> searchInterviewList(int cPage, int numPerPage, String keyword) {
-		// TODO Auto-generated method stub
-		return null;
+		return board1DAO.searchInterviewList(cPage, numPerPage, keyword);
 	}
 	@Override
 	public int searchInterviewTotalContents(String keyword) {
-		// TODO Auto-generated method stub
-		return 0;
+		return board1DAO.searchInterviewTotalContents(keyword);
 	}
 	@Override
 	public Board1 selectOneInterview(int board_no) {
@@ -103,10 +101,19 @@ public class Board1ServiceImpl implements Board1Service {
 	public List<Attachment1> selectAttachmentList(int board_no) {
 		return board1DAO.selectAttachmentList(board_no);
 	}
-
-	
-	
-// *******************************************************************************************
+	@Override
+	public int interviewUpdate(Board1 interview) {
+		return board1DAO.interviewUpdate(interview);
+	}
+	@Override
+	public int interviewDelete(int board_no) {
+		return board1DAO.interviewDelete(board_no);
+	}
+	@Override
+	public int interviewInsert(Board1 interview) {
+		return board1DAO.interviewInsert(interview);
+	}
+	// *******************************************************************************************
 // 							AcceptanceReview Service Area
 // *******************************************************************************************
 	@Override
@@ -124,7 +131,6 @@ public class Board1ServiceImpl implements Board1Service {
 	}
 	@Override
 	public int searchAcceptTotalContents(String keyword) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 	
@@ -135,9 +141,14 @@ public class Board1ServiceImpl implements Board1Service {
 //*******************************************************************************************	
 	@Override
 	public List selectCommentList(int board_no) {
-		// TODO Auto-generated method stub
 		return null;
 	}
+	/* dead code
+	@Override
+	public Attachment1 selectAttachment(int board_no) {
+		return board1DAO.selectAttachment(board_no);
+	}*/
+	
 	
 	
 

@@ -98,9 +98,29 @@ public class Board1DAOImpl implements Board1DAO {
 	public List<Attachment1> selectAttachmentList(int board_no) {
 		return sqlSession.selectList("board1Mapper.selectAttachmentList", board_no);
 	}
-	
-	
-// *******************************************************************************************
+	@Override
+	public int interviewUpdate(Board1 interview) {
+		return sqlSession.update("board1Mapper.interviewUpdate", interview);
+	}
+	@Override
+	public int interviewDelete(int board_no) {
+		return sqlSession.update("board1Mapper.interviewDelete", board_no);
+	}
+	@Override
+	public int interviewInsert(Board1 interview) {
+		return sqlSession.insert("board1Mapper.interviewInsert", interview);
+	}
+	@Override
+	public List<Map<String, String>> searchInterviewList(int cPage, int numPerPage, String keyword) {
+		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
+		return sqlSession.selectList("board1Mapper.searchInterviewList", keyword, rows);
+	}
+	@Override
+	public int searchInterviewTotalContents(String keyword) {
+		return sqlSession.selectOne("board1Mapper.searchInterviewTotalContents" , keyword);
+	}
+
+	// *******************************************************************************************
 //								Acceptance DAO Area
 //*******************************************************************************************
 	@Override

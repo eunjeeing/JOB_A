@@ -39,6 +39,11 @@ public interface Board1DAO {
 	int selectInterviewTotalContents();
 	Board1 selectOneInterview(int board_no);
 	List<Attachment1> selectAttachmentList(int board_no);
+	int interviewUpdate(Board1 interview);
+	int interviewDelete(int board_no);
+	int interviewInsert(Board1 interview);
+	List<Map<String, String>> searchInterviewList(int cPage, int numPerPage, String keyword);
+	int searchInterviewTotalContents(String keyword);
 
 
 	
@@ -47,6 +52,8 @@ public interface Board1DAO {
 	// *******************************************************************************************
 	List<Map<String, String>> selectAcceptList(int cPage, int numPerPage);
 	int selectAcceptTotalContents();
+	
+	
 
 	
 

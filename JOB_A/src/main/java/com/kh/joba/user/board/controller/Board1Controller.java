@@ -1,5 +1,7 @@
 package com.kh.joba.user.board.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.joba.user.board.model.service.Board1Service;
-import com.kh.joba.user.board.model.vo.Attachment1;
 import com.kh.joba.user.board.model.vo.Board1;
+import com.kh.joba.user.board.model.vo.Comment1;
 import com.kh.joba.user.common.util.UtilsBoard1;
 
 @Controller
@@ -29,17 +31,14 @@ public class Board1Controller {
 	public String noticeForm() {
 		return "user/board/write/noticeWrite";
 	}
-	
 	@RequestMapping("/commonWrite.bo")
 	public String commonForm() {
 		return "user/board/write/commonWrite";
 	}
-	
-	@RequestMapping("/reviewWrite.bo")
-	public String reviewForm() {
-		return "user/board/write/reviewWrite";
+	@RequestMapping("/interviewWrite.bo")
+	public String interviewForm() {
+		return "user/board/review/interview/interviewInsertForm";
 	}
-	
 	
 	// *******************************************************************************************
 	// 							Notice Controller Area
@@ -159,6 +158,8 @@ public class Board1Controller {
 		
 		return "redirect:notice.bo";
 	}
+	
+	
 
 	// *******************************************************************************************
 	// 							Mentoring Controller Area
@@ -178,7 +179,7 @@ public class Board1Controller {
 	// 							InterviewReview Controller Area
 	// *******************************************************************************************
 	@RequestMapping("/interviewList.bo")
-	public String reviewList(
+	public String interviewList(
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
 			Model model) {
 		int numPerPage = 10;
@@ -199,19 +200,81 @@ public class Board1Controller {
 	
 	@RequestMapping("/selectOneInterview.bo")
 	public String selectOneInterview(@RequestParam int board_no, Model model) {
-		
 		//System.out.println("Interview select One controller : " + board_no);
-		
 		Board1 interview = bs.selectOneInterview(board_no);
-		List attach = bs.selectAttachmentList(board_no);
-		List commentList = bs.selectCommentList(board_no);
+		List<Comment1> commentList = bs.selectCommentList(board_no);
 		
 		model.addAttribute("interview", interview);
-		model.addAttribute("attachment", attach);
 		model.addAttribute("commentList", commentList);
 		
 		return "user/board/review/interview/interviewView";
 	}
+	
+	@RequestMapping("/interviewUpdateForm.bo")
+	public String interviewUpdateForm (@RequestParam int board_no, Model model) {
+		Board1 interview = bs.selectOneInterview(board_no);
+		
+		String mainTitle = interview.getBoard_title().substring(interview.getBoard_title().indexOf("["));
+		
+		System.out.println("mainTitle :" + mainTitle);
+		//String result = 
+		
+		model.addAttribute("interview", interview);		
+		return "user/board/review/interview/interviewUpdateForm";
+	}
+	
+	@RequestMapping("/interviewUpdate.bo")
+	public String interviewUpdate(@RequestParam String board_mainTitle, Board1 interview, Model model) {
+		
+		int result = bs.interviewUpdate(interview);
+		String msg = "";
+		String loc = "";
+		
+		if (result > 0) {
+			loc = "/selectOneInterview.bo?board_no=" + interview.getBoard_no();
+			msg = "게시글 수정 성공";
+		} else {
+			msg = "게시글 수정 실패";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("loc", loc);
+	
+		return "user/common/msg";
+	}
+	
+	@RequestMapping("/interviewDelete.bo")
+	public String interviewDelete(@RequestParam int board_no, Model model) {
+		int result = bs.interviewDelete(board_no);
+		return "redirect:interviewList.bo";
+	}
+	
+	@RequestMapping("/interviewInsert.bo")
+	public String interviewInsert(@RequestParam String board_mainTitle, Board1 interview, Model model) {
+		interview.setBoard_title("[" + changeToUpper(board_mainTitle) + "] " + interview.getBoard_title());
+		int result = bs.interviewInsert(interview);
+		return "redirect:interviewList.bo";
+	}
+	
+	@RequestMapping("/searchInterview.bo")
+	public String searchInterview(
+			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
+			@RequestParam String keyword,
+			Model model) { 
+		
+		int numPerPage = 10;
+		List<Map<String,String>> list = bs.searchInterviewList(cPage, numPerPage, changeToUpper(keyword));
+		int totalContents = bs.searchInterviewTotalContents(changeToUpper(keyword));
+		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "searchInterview.bo?keyword="+changeToUpper(keyword));
+	
+		model.addAttribute("interviewList", list);
+		model.addAttribute("totalContents", totalContents);
+		model.addAttribute("numPerPage", numPerPage);
+		model.addAttribute("pageBar", pageBar);
+		
+		return "user/board/review/interview/interviewList"; 
+	}	
+	
 	
 	// *******************************************************************************************
 	// 							AcceptanceReview Controller Area
@@ -236,5 +299,31 @@ public class Board1Controller {
 		return "user/board/review/acceptance/acceptList"; 
 	}
 	
+// *******************************************************************************************
+// 							Common Method Area
+// *******************************************************************************************
+		public String fileNameChanger(String oldFileName) {
+			
+			String ext = oldFileName.substring(oldFileName.lastIndexOf(".") + 1);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+			int rnd = (int)(Math.random() * 1000);
+			return sdf.format(new Date(System.currentTimeMillis())) + "_" + rnd + "." + ext;
+		}
+		
+		//대문자 변환
+		public String changeToUpper(String keyword) {
+			String originalWord = keyword;
+			String changedWord = "";
+			char temp;
+			for (int i = 0; i < keyword.length(); i++) {
+				temp = originalWord.charAt(i);
+				if ((97 <= temp) && (temp <= 122)) {
+					changedWord += originalWord.valueOf(temp).toUpperCase();
+				} else {
+					changedWord += (char)temp;
+				}
+			}
+			return changedWord;
+		}
 	
 }
