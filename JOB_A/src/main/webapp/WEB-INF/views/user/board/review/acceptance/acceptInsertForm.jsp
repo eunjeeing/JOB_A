@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>JOB_A | 블라블라</title>
+<title>JOB_A | 면접후기</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -133,39 +133,40 @@ a {
 			<div class="inner">
 
 				<c:import url="../../../common/header.jsp" />
-				
+
  				<!-- insert Form -->
 				<section class="container">
 					<div class="wrapped" id="wrapped">
 						<div role="main" class="contents">
-					<form action="${pageContext.request.contextPath}/interviewUpdate.bo"
+					<form action="${pageContext.request.contextPath}/acceptInsert.bo"
 						method="post" name="" onsubmit="return validate();" enctype="multipart/form-data">
 							<div class="acticle-view-head" id="head">
 								<div class="title-close" style="display: flex;">
 									<!-- 제목 -->
-									<input type="hidden" name="board_no"  value="${interview.board_no}"/>
-									<h2>면접후기 수정</h2>
+									<input type="hidden" name="mem_nick" value="${member.memNick}"/>
+									<input type="hidden" name="mem_no" value="${member.memNo}"/>
+									<h2>면접후기 글쓰기</h2>									
 									<i class="far fa-window-close" id="close-icon" style="font-size: 30px; color: #f56a6a; margin-left:auto; margin-right: 0;"
 								  	 onclick="window.history.back();"></i>
 								 	</div>
 								 	<hr />
-								 	
+
 								 	<h4>제목</h4>
-									<input type="text" name="board_mainTitle" value="${interview.board_mainTitle}" placeholder="회사명" required />
+								 	<input type="text" name="board_mainTitle" placeholder="회사명" required/>
 									<input type="text" class="form-control" 
-									name="board_title" id="board_Title" value="${interview.board_title }" placeholder="상세제목" required>
-									<br />
+									name="board_title" id="board_Title" placeholder="상세제목" required>
 							</div>
 							<br />
+
 							
 							<div class="article-view-contents">
 							<h4>본문</h4>
 								<textarea class="summernote" name="board_content"
 								placeholder="내용" required>
-								${interview.board_content}
 								</textarea>
 							<br />
 							<button type="submit">확인</button>
+
 							</div>
 							</form>
 						</div>

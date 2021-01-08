@@ -61,6 +61,10 @@ public class Board1ServiceImpl implements Board1Service {
 // *******************************************************************************************
 // 							Mentoring Service Area
 // *******************************************************************************************
+	@Override
+	public List<Map<String, String>> selectMentoList(int cPage, int numPerPage) {
+		return board1DAO.selectMentoList(cPage, numPerPage);
+	}
 
 
 
@@ -72,7 +76,7 @@ public class Board1ServiceImpl implements Board1Service {
 
 
 
-// *******************************************************************************************
+	// *******************************************************************************************
 // 							InterviewReview Service Area
 // *******************************************************************************************
 	@Override
@@ -98,10 +102,6 @@ public class Board1ServiceImpl implements Board1Service {
 		return interview;
 	}
 	@Override
-	public List<Attachment1> selectAttachmentList(int board_no) {
-		return board1DAO.selectAttachmentList(board_no);
-	}
-	@Override
 	public int interviewUpdate(Board1 interview) {
 		return board1DAO.interviewUpdate(interview);
 	}
@@ -113,7 +113,7 @@ public class Board1ServiceImpl implements Board1Service {
 	public int interviewInsert(Board1 interview) {
 		return board1DAO.interviewInsert(interview);
 	}
-	// *******************************************************************************************
+// *******************************************************************************************
 // 							AcceptanceReview Service Area
 // *******************************************************************************************
 	@Override
@@ -126,17 +126,31 @@ public class Board1ServiceImpl implements Board1Service {
 	}
 	@Override
 	public List<Map<String, String>> searchAcceptList(int cPage, int numPerPage, String keyword) {
-		// TODO Auto-generated method stub
-		return null;
+		return board1DAO.searchAcceptList(cPage,numPerPage, keyword);
 	}
 	@Override
 	public int searchAcceptTotalContents(String keyword) {
-		return 0;
+		return board1DAO.searchAcceptTotalContents(keyword);
 	}
-	
-	
-	
-// *******************************************************************************************
+	@Override
+	public Board1 selectOneAccept(int board_no) {
+		Board1 accept = board1DAO.selectOneAccept(board_no);
+		if( accept != null) board1DAO.updateViewCount(board_no);
+		return accept;
+	}
+	@Override
+	public int acceptUpdate(Board1 accept) {
+		return board1DAO.acceptUpdate(accept);
+	}          
+	@Override  
+	public int acceptDelete(int board_no) {
+		return board1DAO.acceptDelete(board_no);
+	}          
+	@Override  
+	public int acceptInsert(Board1 accept) {
+		return board1DAO.acceptInsert(accept);
+	}
+	// *******************************************************************************************
 //						Comment Service Area
 //*******************************************************************************************	
 	@Override

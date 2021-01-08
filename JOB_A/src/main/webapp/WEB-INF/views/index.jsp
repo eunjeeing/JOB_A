@@ -292,10 +292,10 @@ section>div>.sub_menu3 {
 				
 				<div id="adminBtn" style="display: none;">
 				<button id="Btn" onclick="goAdmin();" style="">관리자 페이지</button>
-				</c:if>
 				<script type="text/javascript">
 					
 				</script>
+				</div>
 				<!-- Banner -->
 				<section id="banner">
 					<!-- 왼쪽 구역 -->

@@ -7,13 +7,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>JOB_A | 블라블라</title>
+<title>JOB_A | MENTO</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board.css" />
 <style>
 #topbanner {
 	background:
-		url(${pageContext.request.contextPath}/resources/images/blah.jpg)
+		url(${pageContext.request.contextPath}/resources/images/pic01.jpg)
 		no-repeat;
 	background-position: center center;
 	margin-top: 10px;
@@ -42,7 +42,7 @@ p {
 	overflow: hidden;
 	line-height: 1.33em;
 	text-overflow: ellipsis;
-	-webkit-line-clamp: 1;
+	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	word-wrap: break-word;
 	box-sizing: border-box;
@@ -78,7 +78,7 @@ p {
 				<!-- Top Banner Area -->
 				<div id="topbanner">
 					<div id="topbanner-textarea">
-						<h3 id="topbanner-text">블라블라</h3>
+						<h3 id="topbanner-text">멘토링</h3>
 					</div>
 				</div>
 
@@ -88,10 +88,16 @@ p {
 						<input type="search" id="search" placeholder="검색내용을 입력해주세요."
 							onKeyDown="enterKey();" />
 					</div>
-					<button type="button" id="searchBtn" onclick="search()">검색
+					<button type="button" id="searchBtn" onclick="search()"
+					style="width: 50px;"><i class="fas fa-search" style="margin: -9px;"></i>
 					</button>
+					<button type="button" onclick="location.href='${pageContext.request.contextPath}/mentoList.bo'"
+					style="width: 50px;"><i class="fas fa-redo" style="margin: -9px;"></i></button>
+					
 					<c:if test="${ !empty member }" >
-						<button id="writeBtn" onclick="goBlahForm();">글쓰기</button>
+						<c:if test="${ member.gradeNo == 4 || member.gradeNo < 2 }">
+							<button id="writeBtn" onclick="goMentoForm();">글쓰기</button>
+						</c:if>
 					</c:if>
 				</div>
 
@@ -100,47 +106,26 @@ p {
 						<div role="main" class="contents">
 
 							<div class="article-list">
-								<c:forEach items="${blahList}" var="blah">
+								<c:forEach items="${mentoList}" var="mento">
 									<div class="article-list-pre">
-										<div class="tit" id="${blah.board_No}">
-											<p style="display: none;">${blah.board_No }</p>
-											<h3 class="hh">${blah.board_Title}</h3>
-											<div class="pre-txt">${blah.board_Content}</div>
+										<div class="tit" id="${mento.board_no}">
+											<p style="display: none;">${mento.board_no }</p>
+											<h3 class="hh">${mento.board_title}</h3>
+											<div class="pre-txt">${mento.board_content}</div>
 										</div>
 										<div class="sub">
-											<p class="name" style="padding-top: 2em;">${blah.mem_Nick}</p>
+											<p class="name" style="padding-top: 2em;">${mento.mem_nick}</p>
 											<div class="wrap-info">
-												<i class="far fa-eye"> ${blah.board_View }</i> <i
-													class="far fa-comment"> ${blah.comm_Count }</i>
+												<i class="far fa-eye" style="margin-right: 0;"></i> ${mento.board_view }
+												<i class="far fa-comment" style="margin-right: 0; margin-left: 14px;"></i> ${mento.comm_Count }
 												<div class="info_fnc">
-													${blah.board_Date} <i class="far fa-bookmark" id="bookmark"></i>
+													${mento.board_date} <i class="far fa-bookmark" id="bookmark"></i>
 												</div>
 											</div>
 										</div>
 									</div>
-<%-- 									<c:if test="${blah.board_Content eq img}">
-										<div class="article-list-pre attach-img-pre">
-											<div class="tit" id="${blah.board_No}">
-												<p style="display: none;">${blah.board_No }</p>
-												<h3 class="hh">${blah.board_Title}</h3>
-												<div class="pre-txt">${blah.board_Content}</div>
-												<span class="attach-img"> <img src="http://localhost:8087/joba/resources/uplaodFiles/board/20210104_023203_730.png">
-												</span>
-											</div>
-											<div class="sub">
-												<p class="name">${blah.mem_Nick}</p>
-												<div class="wrap-info">
-													<i class="far fa-eye"> ${blah.board_View }</i> <i
-														class="far fa-comment"> ${blah.comm_Count }</i>
-													<div class="info_fnc">
-														${blah.board_Date} <i class="far fa-bookmark"
-															id="bookmark"></i>
-													</div>
-												</div>
-											</div>
-										</div>
-									</c:if> --%>
 								</c:forEach>
+								
 							</div>
 						</div>
 					</div>
@@ -148,7 +133,6 @@ p {
 					<center>
 						<c:out value="${pageBar}" escapeXml="false" />
 					</center>
-
 				</section>
 			</div>
 		</div>
@@ -163,7 +147,7 @@ p {
 							function() {
 								var board_No = $(this).attr("id");
 								console.log("board_No=" + board_No);
-								location.href = "${pageContext.request.contextPath}/board2/blahView.do?board_No="
+								location.href = "${pageContext.request.contextPath}/board2/mentoView.bo?board_No="
 										+ board_No;
 							});
 		});
@@ -181,18 +165,21 @@ p {
 	</script>
 	</c:if>
 	<script>
-		function goBlahForm() {
-			location.href = "${pageContext.request.contextPath}/board2/blahForm.do";
+		function goMentoForm() {
+			location.href = "${pageContext.request.contextPath}/board2/mentoForm.bo";
 		}
 
     	function search() {
-			location.href="${pageContext.request.contextPath}/board2/searchBlahList.do?keyword="+$('#search').val();
+
+    		var a = 'aa';
+        	
+			location.href="${pageContext.request.contextPath}/board2/searchMentoList.bo?keyword="+$('#search').val();
 
     	}
     	
     	function enterKey() {
     			if (event.keyCode==13){
-    				location.href="${pageContext.request.contextPath}/board2/searchBlahList.do?keyword="+$('#search').val();
+    				location.href="${pageContext.request.contextPath}/board2/searchMentoList.bo?keyword="+$('#search').val();
     			}
     		}
 	</script>			

@@ -30,12 +30,12 @@
 					<ul>
 						<li><a href="${pageContext.request.contextPath}/board2/blahList.do">블라블라</a></li>						
 						<li><a href="${pageContext.request.contextPath}/board2/selectBlindList.do">블라인드</a></li>
-						<li><a href="#">언틸 투모로우</a></li>
+						<li><a href="${pageContext.request.contextPath}/untiltomList.bo">언틸 투모로우</a></li>
 					</ul>
 				</li>
 				<li><a href="${pageContext.request.contextPath}/board2/selectQnAList.do">Q & A</a></li>
 				<li><a href=javascript:void(0);" onclick="chat();">실시간 채팅</a></li>
-				<li><a href="#">멘토 멘티</a></li>
+				<li><a href="${pageContext.request.contextPath}/mentoList.bo">멘토 멘티</a></li>
 				<li><span class="opener">꿀팁 후기</span>
 					<ul>
 						<li><a href="${pageContext.request.contextPath}/interviewList.bo">면접 후기</a></li>

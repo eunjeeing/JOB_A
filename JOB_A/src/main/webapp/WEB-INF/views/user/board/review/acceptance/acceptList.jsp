@@ -100,10 +100,17 @@
 		font-size : 150%;
 	}
 	
+	/* bookmark icon size adjustment*/
+	.bookmarkIcon {
+		height : 20px;
+		width : 20px;
+
+	}
+	
 </style>
 <html>
 	<head>
-		<title>공지사항</title>
+		<title>JOBA | 합격후기</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
@@ -134,12 +141,12 @@
 						<!-- search / write area -->
 						<div id="utilBox">
 							<div id="searchBox">
-								<input type="search" id="search" placeholder="검색내용을 입력해주세요." onKeyDown="enterKey();" />
+								<input type="search" id="search" placeholder="기업명 또는 제목으로 검색해주세요" onKeyDown="enterKey();" />
 							</div>
 							<button type="button" id="searchBtn" onclick="search()">검색
 							</button>
 							<button type="button" id="cancelSearchBtn" onclick="toList();">목록으로</button>
-							<c:if test="${member.gradeNo==0 || member.gradeNo==1}">
+							<c:if test="${member.gradeNo != 2 || member.gradeNo != 5}">
 								<button id="writeBtn" onclick="fn_goBoardForm();">글쓰기
 								</button>
 							</c:if>
@@ -158,15 +165,24 @@
 									<th><center>스크랩</center></th>
 								</thead>
 								<tbody>
-									<c:forEach items="${ acceptList }" var="accept">
+									<c:forEach items="${acceptList}" var="accept">
 									<!--  onclick="selectOne();" -->
-									<tr id="${accept.board_no}">
+									<tr id="${accept.board_no}" onclick="selectOne(${accept.board_no});">
 										<td>${accept.board_no}</td>		<!-- 숫자 카운팅으로 변경 -->
 										<td>${accept.board_title}</td>
 										<td>${accept.mem_nick}</td>
 										<td>${accept.board_date}</td>
 										<td>${accept.board_view}</td>
-										<td><img src="${pageContext.request.contextPath}/resources/images/bookmark.png" alt="스크랩버튼" /></td>
+										<c:if test="${empty bookmarkList}">
+											<td><img class="bookmarkIcon" src="${pageContext.request.contextPath}/resources/images/bookmark-disabled.png" alt="스크랩"></button></td>
+										</c:if>
+										<c:if test="${!empty bookmarkList}">
+											<c:forEach items="${bookmarkList}" var = "bookmarkList">
+												<c:if test="${bookmarkList.board_no == accept.board_no}">
+													<td><img class="bookmarkIcon" src="${pageContext.request.contextPath}/resources/images/bookmark-abled.png" alt="스크랩"></button></td>
+												</c:if>
+											</c:forEach>
+										</c:if>
 									</tr>
 									</c:forEach>
 								</tbody>
@@ -175,10 +191,11 @@
 						<c:out value="${pageBar}" escapeXml="false"/>
 						</c:if>
 						
+						<!-- list 가 존재 하지 않을 경우 출력 -->
 						<c:if test="${empty acceptList}">
-						<div id="nonListArea">
-							<p>아직 등록된 게시글이 없어요.. ㅠㅜ</p>
-						</div>
+							<div id="nonListArea">
+								<p>아직 등록된 게시글이 없어요.. ㅠㅜ</p>
+							</div>
 						</c:if>
 						
 					</div>		<!-- #inner -->
@@ -209,34 +226,44 @@
 			            });
 			         });
 
-			     	$(function(){
-			    		$("tr[id]").on("click", function(){
-			    			var board_no = $(this).attr("id");
-			    			console.log("board_no="+ board_no);
-			    			location.href = "${pageContext.request.contextPath}/selectOneNotice.bo?board_no="+ board_no;
-			    		});
-			    	});
+
+
+					function selectOne(boardNo) {
+						var gradeNo = '${sessionScope.member.gradeNo}';
+						console.log("gradeNo : " + gradeNo);
+						if (gradeNo.length != 0) {
+					     	if (gradeNo == '2' || gradeNo == '5') {
+					     		alert("우수, 최우수 회원만 접근할 수 있습니다.");
+					     	} else {
+				    			location.href = "${pageContext.request.contextPath}/selectOneAccept.bo?board_no="+ boardNo;
+							}
+						} else {
+							alert("로그인 후 이용가능합니다.");
+						}
+
+					}
+					
 			    	
 			    	function search() {
 						if (cPage==1) {
-			    			location.href="${pageContext.request.contextPath}/searchNotice.bo?keyword="+$('#search').val();
+			    			location.href="${pageContext.request.contextPath}/searchAccept.bo?keyword="+$('#search').val();
 						} else {
-			    			location.href="${pageContext.request.contextPath}/searchNotice.bo?keyword=${keyword}";
+			    			location.href="${pageContext.request.contextPath}/searchAccept.bo?keyword=${keyword}";
 			    		}
 			    	}
 			    	
 			    	function enterKey() {
 			    			if (event.keyCode==13){
-			    				location.href="${pageContext.request.contextPath}/searchNotice.bo?keyword="+$('#search').val();
+			    				location.href="${pageContext.request.contextPath}/searchAccept.bo?keyword="+$('#search').val();
 			    			}
 			    		}
 
 			    	function fn_goBoardForm(){
-			    		location.href = "${pageContext.request.contextPath}/noticeWrite.bo";
+			    		location.href = "${pageContext.request.contextPath}/acceptWrite.bo";
 			    	}
 
 			    	function toList() {
-						location.href = "${pageContext.request.contextPath}/notice.bo"
+						location.href = "${pageContext.request.contextPath}/acceptList.bo"
 				    }
 			    						
          	</script>

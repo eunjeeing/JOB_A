@@ -167,7 +167,7 @@
 								<tbody>
 									<c:forEach items="${interviewList}" var="interview">
 									<!--  onclick="selectOne();" -->
-									<tr id="${interview.board_no}" onclick="selectOne();">
+									<tr id="${interview.board_no}" onclick="selectOne(${interview.board_no});">
 										<td>${interview.board_no}</td>		<!-- 숫자 카운팅으로 변경 -->
 										<td>${interview.board_title}</td>
 										<td>${interview.mem_nick}</td>
@@ -228,16 +228,14 @@
 
 
 
-					function selectOne() {
+					function selectOne(boardNo) {
 						var gradeNo = '${sessionScope.member.gradeNo}';
 						console.log("gradeNo : " + gradeNo);
 						if (gradeNo.length != 0) {
 					     	if (gradeNo == '2' || gradeNo == '5') {
 					     		alert("우수, 최우수 회원만 접근할 수 있습니다.");
 					     	} else {
-				    			var board_no = $("tr[id]").attr("id");
-				    			console.log("board_no="+ board_no);
-				    			location.href = "${pageContext.request.contextPath}/selectOneInterview.bo?board_no="+ board_no;
+				    			location.href = "${pageContext.request.contextPath}/selectOneInterview.bo?board_no="+ boardNo;
 							}
 						} else {
 							alert("로그인 후 이용가능합니다.");
