@@ -46,6 +46,11 @@
 	
 	
 <!-- Mentoring -->
+	<select id="selectMentoList" resultType="Board1">
+		SELECT * FROM BOARD, MEMBER
+		WHERE TYPE_NO = 8 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD_STATUS = 'Y'
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
 	
 	
 	
@@ -91,10 +96,7 @@
 		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 9 AND BOARD_TITLE LIKE '%' || #{keyword} || '%' AND BOARD_STATUS = 'Y'
 	</select>
 	
-	
-	
-	
-	
+
 <!-- Acceptance -->
 	<select id="selectAcceptList" resultType="Board1">
 		SELECT * FROM BOARD, MEMBER
@@ -104,8 +106,31 @@
 	<select id="selectAcceptTotalContents" resultType="_int">
 		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 10 AND BOARD_STATUS = 'Y'
 	</select>
-
-
+	<select id="selectOneAccept" parameterType="_int" resultType="Board1">
+		SELECT * FROM BOARD, MEMBER WHERE TYPE_NO = 10 AND BOARD_NO = #{board_no} AND BOARD.MEM_NO = MEMBER.MEM_NO 
+	</select>
+	<update id="acceptUpdate" parameterType="Board1">
+		UPDATE BOARD
+		SET BOARD_TITLE = #{board_title}, BOARD_CONTENT = #{board_content}
+		WHERE BOARD_NO = #{board_no}
+	</update>
+	<update id="acceptDelete" parameterType="_int">
+		UPDATE BOARD
+		SET BOARD_STATUS = 'N'
+		WHERE BOARD_NO = #{board_no}
+	</update>
+	<insert id="acceptInsert" parameterType="Board1">
+		INSERT INTO BOARD (BOARD_NO,TYPE_NO, MEM_NO, BOARD_TITLE, BOARD_CONTENT)
+		VALUES (BOARD_SEQ.NEXTVAL, 10, #{mem_no} ,#{board_title}, #{board_content})
+	</insert>
+	<select id="searchAcceptList" parameterType="string" resultType="Board1">
+		SELECT * FROM BOARD, MEMBER 
+		WHERE TYPE_NO = 10 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%' AND BOARD.BOARD_STATUS = 'Y'
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	<select id="searchAcceptTotalContents" resultType="_int" >
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 10 AND BOARD_TITLE LIKE '%' || #{keyword} || '%' AND BOARD_STATUS = 'Y'
+	</select>
 <!-- Attachment -->
 <!-- 
 	<select id="selectAttachment" parameterType="_int" resultType="Attachment1">

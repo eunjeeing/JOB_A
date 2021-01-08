@@ -25,6 +25,7 @@ public interface Board1DAO {
 	// *******************************************************************************************
 	// 							Mentoring DAO Area
 	// *******************************************************************************************
+	List<Map<String, String>> selectMentoList(int cPage, int numPerPage);
 	
 	
 	// *******************************************************************************************
@@ -37,13 +38,13 @@ public interface Board1DAO {
 	// *******************************************************************************************
 	List<Map<String, String>> selectInterviewList(int cPage, int numPerPage);
 	int selectInterviewTotalContents();
+	List<Map<String, String>> searchInterviewList(int cPage, int numPerPage, String keyword);
+	int searchInterviewTotalContents(String keyword);
 	Board1 selectOneInterview(int board_no);
-	List<Attachment1> selectAttachmentList(int board_no);
 	int interviewUpdate(Board1 interview);
 	int interviewDelete(int board_no);
 	int interviewInsert(Board1 interview);
-	List<Map<String, String>> searchInterviewList(int cPage, int numPerPage, String keyword);
-	int searchInterviewTotalContents(String keyword);
+	List<Attachment1> selectAttachmentList(int board_no);
 
 
 	
@@ -52,6 +53,12 @@ public interface Board1DAO {
 	// *******************************************************************************************
 	List<Map<String, String>> selectAcceptList(int cPage, int numPerPage);
 	int selectAcceptTotalContents();
+	List<Map<String, String>> searchAcceptList(int cPage, int numPerPage, String keyword);
+	int searchAcceptTotalContents(String keyword);
+	Board1 selectOneAccept(int board_no);
+	int acceptUpdate(Board1 accept);
+	int acceptDelete(int board_no);
+	int acceptInsert(Board1 accept);
 	
 	
 

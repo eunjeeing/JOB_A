@@ -164,7 +164,25 @@ public class Board1Controller {
 	// *******************************************************************************************
 	// 							Mentoring Controller Area
 	// *******************************************************************************************
-	
+	@RequestMapping("/mentoList.bo")
+	public String mentowList(
+			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
+			Model model) {
+		int numPerPage = 10;
+		List<Map<String,String>> list = bs.selectMentoList(cPage, numPerPage);
+		int totalContents = bs.selectMentoTotalContents();
+		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "mentoList.bo");
+		
+		// 조회확인용
+		//System.out.println("list : " + list);
+		
+		model.addAttribute("mentoList", list);
+		model.addAttribute("totalContents", totalContents);
+		model.addAttribute("numPerPage", numPerPage);
+		model.addAttribute("pageBar", pageBar);
+
+		return "user/board/mento/mentoList"; 
+	}
 	
 	
 	
@@ -214,10 +232,17 @@ public class Board1Controller {
 	public String interviewUpdateForm (@RequestParam int board_no, Model model) {
 		Board1 interview = bs.selectOneInterview(board_no);
 		
-		String mainTitle = interview.getBoard_title().substring(interview.getBoard_title().indexOf("["));
+		String oriTitle = interview.getBoard_title();
+		int target = oriTitle.indexOf("[");
+		String mainTitle = oriTitle.substring(oriTitle.indexOf("[")+1, oriTitle.indexOf("]")).trim();
+		String subTitle = oriTitle.substring(oriTitle.indexOf("]")+1).trim();
 		
-		System.out.println("mainTitle :" + mainTitle);
-		//String result = 
+		interview.setBoard_mainTitle(mainTitle);
+		interview.setBoard_title(subTitle);
+		
+		//System.out.println("mainTitle :" + mainTitle.trim());
+		//System.out.println("subTitle :" + subTitle.trim());
+		
 		
 		model.addAttribute("interview", interview);		
 		return "user/board/review/interview/interviewUpdateForm";
@@ -225,6 +250,8 @@ public class Board1Controller {
 	
 	@RequestMapping("/interviewUpdate.bo")
 	public String interviewUpdate(@RequestParam String board_mainTitle, Board1 interview, Model model) {
+		
+		interview.setBoard_title("[" + changeToUpper(board_mainTitle) + "] " + interview.getBoard_title());
 		
 		int result = bs.interviewUpdate(interview);
 		String msg = "";
@@ -235,8 +262,7 @@ public class Board1Controller {
 			msg = "게시글 수정 성공";
 		} else {
 			msg = "게시글 수정 실패";
-		}
-		
+		}	
 		model.addAttribute("msg", msg);
 		model.addAttribute("loc", loc);
 	
@@ -289,7 +315,7 @@ public class Board1Controller {
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "acceptList.bo");
 		
 		// 조회확인용
-		System.out.println("list : " + list);
+		//System.out.println("list : " + list);
 		
 		model.addAttribute("acceptList", list);
 		model.addAttribute("totalContents", totalContents);
@@ -298,6 +324,95 @@ public class Board1Controller {
 
 		return "user/board/review/acceptance/acceptList"; 
 	}
+	
+	@RequestMapping("/selectOneAccept.bo")
+	public String selectOneAccept(@RequestParam int board_no, Model model) {
+		//System.out.println("Interview select One controller : " + board_no);
+		Board1 accept = bs.selectOneAccept(board_no);
+		List<Comment1> commentList = bs.selectCommentList(board_no);
+		
+		model.addAttribute("accept", accept);
+		model.addAttribute("commentList", commentList);
+		
+		return "user/board/review/acceptance/acceptView";
+	}
+	
+	@RequestMapping("/acceptUpdateForm.bo")
+	public String AcceptUpdateForm (@RequestParam int board_no, Model model) {
+		Board1 accept = bs.selectOneAccept(board_no);
+		
+		String oriTitle = accept.getBoard_title();
+		int target = oriTitle.indexOf("[");
+		String mainTitle = oriTitle.substring(oriTitle.indexOf("[")+1, oriTitle.indexOf("]")).trim();
+		String subTitle = oriTitle.substring(oriTitle.indexOf("]")+1).trim();
+		
+		accept.setBoard_mainTitle(mainTitle);
+		accept.setBoard_title(subTitle);
+		
+		//System.out.println("mainTitle :" + mainTitle.trim());
+		//System.out.println("subTitle :" + subTitle.trim());
+		
+		
+		model.addAttribute("accept", accept);		
+		return "user/board/review/acceptance/acceptUpdateForm";
+	}
+	
+	@RequestMapping("/acceptUpdate.bo")
+	public String acceptUpdate(@RequestParam String board_mainTitle, Board1 accept, Model model) {
+		
+		accept.setBoard_title("[" + changeToUpper(board_mainTitle) + "] " + accept.getBoard_title());
+		
+		int result = bs.acceptUpdate(accept);
+		String msg = "";
+		String loc = "";
+		
+		if (result > 0) {
+			loc = "/selectOneAccept.bo?board_no=" + accept.getBoard_no();
+			msg = "게시글 수정 성공";
+		} else {
+			msg = "게시글 수정 실패";
+		}	
+		model.addAttribute("msg", msg);
+		model.addAttribute("loc", loc);
+	
+		return "user/common/msg";
+	}
+	
+	@RequestMapping("/acceptDelete.bo")
+	public String acceptDelete(@RequestParam int board_no, Model model) {
+		int result = bs.acceptDelete(board_no);
+		return "redirect:acceptList.bo";
+	}
+	
+	@RequestMapping("/acceptInsert.bo")
+	public String acceptInsert(@RequestParam String board_mainTitle, Board1 accept, Model model) {
+		accept.setBoard_title("[" + changeToUpper(board_mainTitle) + "] " + accept.getBoard_title());
+		int result = bs.acceptInsert(accept);
+		return "redirect:acceptList.bo";
+	}
+	
+	@RequestMapping("/searchAccept.bo")
+	public String searchAccept(
+			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
+			@RequestParam String keyword,
+			Model model) { 
+		
+		int numPerPage = 10;
+		List<Map<String,String>> list = bs.searchInterviewList(cPage, numPerPage, changeToUpper(keyword));
+		int totalContents = bs.searchAcceptTotalContents(changeToUpper(keyword));
+		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "searchInterview.bo?keyword="+changeToUpper(keyword));
+	
+		model.addAttribute("interviewList", list);
+		model.addAttribute("totalContents", totalContents);
+		model.addAttribute("numPerPage", numPerPage);
+		model.addAttribute("pageBar", pageBar);
+		
+		return "user/board/review/acceptance/acceptList"; 
+	}	
+	
+	
+	
+	
 	
 // *******************************************************************************************
 // 							Common Method Area

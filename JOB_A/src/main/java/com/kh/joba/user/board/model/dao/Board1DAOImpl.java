@@ -67,7 +67,11 @@ public class Board1DAOImpl implements Board1DAO {
 // *******************************************************************************************
 // 							Mentoring DAO Area
 // *******************************************************************************************
-
+	@Override
+	public List<Map<String, String>> selectMentoList(int cPage, int numPerPage) {
+		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
+		return sqlSession.selectList("board1Mapper.selectMentoList", null, rows);
+	}
 
 
 
@@ -132,5 +136,31 @@ public class Board1DAOImpl implements Board1DAO {
 	public int selectAcceptTotalContents() {
 		return sqlSession.selectOne("board1Mapper.selectAcceptTotalContents");
 	}
+	@Override
+	public List<Map<String, String>> searchAcceptList(int cPage, int numPerPage, String keyword) {
+		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
+		return sqlSession.selectList("board1Mapper.searchAcceptList", keyword, rows);
+	}
+	@Override
+	public int searchAcceptTotalContents(String keyword) {
+		return sqlSession.selectOne("board1Mapper.searchAcceptTotatlContents");
+	}
+	@Override
+	public Board1 selectOneAccept(int board_no) {
+		return sqlSession.selectOne("board1Mapper.selectOneAccept", board_no);
+	}
+	@Override
+	public int acceptUpdate(Board1 accept) {
+		return sqlSession.update("board1Mapper.acceptUpdate", accept);
+	}
+	@Override
+	public int acceptDelete(int board_no) {
+		return sqlSession.update("board1Mapper.acceptDelete", board_no);
+	}
+	@Override
+	public int acceptInsert(Board1 accept) {
+		return sqlSession.insert("board1Mapper.acceptInsert", accept);
+	}
+	
 
 }
