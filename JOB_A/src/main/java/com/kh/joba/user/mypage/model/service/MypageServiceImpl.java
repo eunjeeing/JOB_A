@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.joba.user.board2.blahblah.model.vo.Board2;
 import com.kh.joba.user.mypage.model.dao.MypageDAO;
 
 @Service
@@ -35,6 +36,12 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public int selectMyCommentTotalContents(int mem_No) {
 		return md.selectMyCommentTotalContents(mem_No);
+	}
+
+
+	@Override
+	public void deleteChkPost(Board2 board) {
+		md.deleteChkPost(board);
 	}
 
 

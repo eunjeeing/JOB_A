@@ -112,7 +112,7 @@
 									<!--  onclick="selectOne();" -->
 									<tr align="center">
 										<input class="tno" type="hidden" value="${mp.type_No }" />
-										<td><input type="checkbox" id="chk" value="${mp.board_No}"></td>
+										<td><input type="checkbox" class="chk" data-bno="${mp.board_No }"></td>
 										<td>${mp.board_No}</td>
 										<td>${mp.type_Name }</td>
 										<td class="goBoard" id="${mp.board_No}">${mp.board_Title}</td>
@@ -124,7 +124,7 @@
 								</tbody>
 							</table>
 						</div>
-							<button id="delete" class="btn btn-default" onclick="deleteChk();"><i class="fa fa-check" aria-hidden="true"></i>
+							<button class="btn btn-default" data-bno="${mp.board_No }" id="deleteChk"><i class="fa fa-check" aria-hidden="true"></i>
 							삭제</button>				
 						<c:out value="${pageBar}" escapeXml="false"/>
 							
@@ -168,17 +168,54 @@
 		});
 	});
 
-	$(document).ready(function(){
-	    $("#checkAll").click(function(){
-	        if($("#checkAll").prop("checked")){
-	            $("input[type=checkbox]").prop("checked",true);
-	        }else{
-	            $("input[type=checkbox]").prop("checked",false);
-	        }
-	    });
+	// checkAll 체크 --> 개별 체크박스 모두 체크
+	$("#checkAll").click(function(){
+	    if($("#checkAll").prop("checked")){
+	            $(".chk").prop("checked",true);
+	    }else{
+	            $(".chk").prop("checked",false);
+	    }
 	});
 
-	function deleteChk(){
+	// 개별 체크박스 선택 or 선택해제 --> checkAll 체크박스 해제
+	$(".chk").click(function(){
+		$("#checkAll").prop("checked", false);
+	});
+
+	// 체크된 게시글 삭제
+	$("#deleteChk").click(function(){
+
+		
+		var confirm_val = window.confirm("정말 삭제하시겠습니까?");
+
+		if(confirm_val) {
+			var checkArr = new Array();
+
+			$("input[class='chk']:checked").each(function(){
+				checkArr.push($(this).attr("data-bno"));
+			});
+
+			console.log(checkArr);
+			
+			$.ajax({
+				url : "/mypage/deleteChkPost.do",
+				type : "post",
+				data : { chk : checkArr },
+				success : function(result){
+
+					if(result == 1) {
+						location.href = "/myPage/selectMyPost.do?mem_No" + ${member.memNo};
+					}
+					else{
+						window.alert("삭제 실패");
+					}
+					
+				}
+			});
+		}
+	});
+
+/* 	function deleteChk(){
 			var chk = "";
 			$( "input[id='chk']:checked" ).each (function (){
 				  chk = chk + $(this).val()+ "," ;
@@ -192,7 +229,8 @@
 			 
 	  if(confirm("삭제 하시겠습니까?")){
 	  }
-	}
+	} */
 </script>
+
 </body>
 </html>
