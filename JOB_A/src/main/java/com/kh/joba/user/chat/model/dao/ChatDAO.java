@@ -15,7 +15,7 @@ public interface ChatDAO {
 
 	int selectChatSeq();
 
-	Map<String, String> selectChat(int chatNo);
+	Map<String, Chat> selectChat(int chatNo);
 
 	Object deleteChat(int chatNo);
 

@@ -134,7 +134,7 @@
 									</div>
 								</div>
 								<div class="chat-list">
-									<ul id="chatdata" class="chat-list p-5"></ul>
+									<ul id="chatdata" class="chat-list p-5" style="height: 550px; overflow: auto;"></ul>
 								</div>
 								<div class="card-body border-top">
 									<div class="row">
@@ -202,38 +202,35 @@
 		}); 
 
 		var sock = new SockJS("<c:url value='/chatting'/>");
-		
 
 		sock.onclose=onClose;
 		function onClose(){
 	        self.close();
 	    };
-	    
+
+	    // click & enter
 		$(function(){
 	        $("#sendChat").click(function(){
-	            console.log("send message.....");
 	            sendMessage(); // 작성 메세지 전송
 	            $("#message").val(''); // 전송 후 작성창 초기화
 				$('#message').focus();
 	        });
 	        
+	        $('#message').keypress(function(e) {
+				if (e.which == 13 && !e.shiftKey) {
+					sendMessage();
+					event.preventDefault();
+					$("#message").val('');
+					$('#message').focus();
+				}
+			});
 		});
 		
-		/* 엔터키로 전송
-		$('#sendChat').on('click', message);
-		$('#message').keypress(function(e) {
-			if (e.which == 13 && !e.shiftKey) {
-				sendMessage();
-				event.preventDefault();
-				$("#message").val('');
-				$('#message').focus();
-			}
-		});
-		*/
 		
 		function sendMessage() {
      		if ($('#message').val() != "") {
          		sock.send($("#message").val());
+         		pageDown(); // scroll
      		} else {
 				alert("메세지를 입력하세요!");
 			};
@@ -243,12 +240,12 @@
 		var today=null;
 		// 메세지 전송	    
 		sock.onmessage = function(evt) {
-			var data = evt.data; // new text객체로 보내준 값을 받아옴.
+			var data = evt.data; // new text객체로 보내준 값을 받아옴
 	        var host = null; // 메세지를 보낸 사용자 ip저장
 	        var strArray = data.split("|"); // 데이터 파싱처리하기
 	        var userName = null; // 대화명 저장
 	        
-	        // 전송된 데이터 출력해보기
+	        // 전송된 데이터 출력
 	        for(var i=0;i<strArray.length;i++) {
 	            console.log('str['+i+'] :' + strArray[i]);	 		
 	        }
@@ -270,31 +267,25 @@
 	            console.log('ck_host : '+ck_host);
 	            /* 서버에서 데이터를 전송할경우 분기 처리 */
 	            if(host==ck_host||(host==0&&ck_host.includes('0:0:'))) {
-	                var printHTML="<div class='well' style='margin-left: 30%;'>";
-	                printHTML+="<div class='alert alert-info'>";
+	                var printHTML="<div class='alert alert-danger' style='margin-left: 30%;'>";
 	                printHTML+="<sub>"+printDate+"</sub><br/>";
 	                printHTML+="["+userName+"] : "+message;
-	                printHTML+="</div>";
 	                printHTML+="</div>";
 	                $('#chatdata').append(printHTML);
 	            } else {
-	                var printHTML="<div class='well'  style='margin-left: -5%;margin-right:30%;'>";
-	                printHTML+="<div class='alert alert-warning'>";
+	                var printHTML="<div class='alert alert-warning' style='margin-left: -5%;margin-right:30%;'>";
 	                printHTML+="<sub>"+printDate+"</sub><br/>";
 	                printHTML+="["+userName+"] : "+message;
 	                printHTML+="</div>";
-	                printHTML+="</div>";
 	                $('#chatdata').append(printHTML);
-	                
 	            }
 	            //console.log('chatting data : '+data);
 	        } else {
-	            //나가기 구현
 	            today=new Date();
 	            printDate=today.getFullYear()+"/"+today.getMonth()+"/"+today.getDate()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
 	            message=strArray[0];
 	            var printHTML="<div class='well'  style='margin-left30%:'>";
-	            printHTML+="<div class='alert alert-danger'>";
+	            printHTML+="<div class='alert'>";
 	            printHTML+="<sub>"+printDate+"</sub><br/>";
 	            printHTML+= message;
 	            printHTML+="</div>";

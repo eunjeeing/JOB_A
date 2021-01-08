@@ -1,7 +1,9 @@
 package com.kh.joba.user.chat.controller;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.socket.WebSocketSession;
 
 import com.kh.joba.user.chat.model.service.ChatService;
 import com.kh.joba.user.chat.model.vo.Chat;
@@ -28,6 +31,9 @@ public class ChatController {
 	@RequestMapping("chat/chatList/{chatNo}")
 	public String selectChatList(@PathVariable int chatNo, @RequestParam(value="cPage", required=false, defaultValue="1") int cPage, Model model, HttpServletRequest req) { 
 		
+		model.addAttribute("host", req.getRemoteHost());
+
+		// 페이징
 		int numPerPage = 9; // 한 페이지당 채팅방 and 페이지 수
 		
 		// 1. 현재 페이지 채팅 구하기
@@ -39,22 +45,24 @@ public class ChatController {
 		// 3. 페이지 계산된 HTML 구하기
 		String pageBar = Utils.getPageBar(totalChats, cPage, numPerPage, "");
 		
-		System.out.println("list : " + chatList);
+		// System.out.println("list : " + chatList);
 		// 1,2,3 모델에 담기
 		model.addAttribute("chatList", chatList);
 		model.addAttribute("totalChats", totalChats);
 		model.addAttribute("numPerPage", numPerPage);
 		model.addAttribute("pageBar", pageBar);
 		
-		System.out.println(chatNo);
+		// System.out.println(chatNo);
 		
-		Map<String, String> chat = chatService.selectChat(chatNo);
+		// 방 정보
+		Map<String, Chat> chat = chatService.selectChat(chatNo);
 		System.out.println(chatNo + "번째 chat: " + chat);
 		
 		model.addAttribute("chat", chat);
 		
-		model.addAttribute("host", req.getRemoteHost());
 		
+		
+
 		return "user/chat/chatList";
 	}
 	

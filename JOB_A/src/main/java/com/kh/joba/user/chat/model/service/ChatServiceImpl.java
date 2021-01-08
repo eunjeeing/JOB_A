@@ -44,7 +44,7 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
-	public Map<String, String> selectChat(int chatNo) {
+	public Map<String, Chat> selectChat(int chatNo) {
 		// TODO Auto-generated method stub
 		return chatDAO.selectChat(chatNo);
 	}

@@ -42,7 +42,7 @@ public class ChatDAOImpl implements ChatDAO {
 	}
 
 	@Override
-	public Map<String, String> selectChat(int chatNo) {
+	public Map<String, Chat> selectChat(int chatNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("chatMapper.selectChat", chatNo);
 	}
