@@ -171,6 +171,7 @@ public class Board1Controller {
 		int numPerPage = 10;
 		List<Map<String,String>> list = bs.selectMentoList(cPage, numPerPage);
 		int totalContents = bs.selectMentoTotalContents();
+		
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "mentoList.bo");
 		
 		// 조회확인용
