@@ -279,8 +279,10 @@ public class MemberController {
     	model.addAttribute("member", m);
     	
     	List<WishCategory> ws = new ArrayList<WishCategory>();
-     	ws = memberService.selectWishCategory(m.getMemNo());
     	
+     	ws = memberService.selectWishCategory(m.getMemNo());
+     	model.addAttribute("wishcategory", ws);
+     	
     	System.out.println("wishcategory : " + ws.toString());
     	
     	return "user/member/memberView";

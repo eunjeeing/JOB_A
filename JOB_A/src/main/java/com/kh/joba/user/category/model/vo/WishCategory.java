@@ -16,12 +16,12 @@ public class WishCategory {
 
 	private int mem_No;
 	private int[] category_No;	
-	private int category_no; // 객체 생성을 위한 용도 
+	private int resultCategory; // 객체 생성을 위한 용도 
 	
-	public WishCategory(int mem_No, int category_no) {
+	public WishCategory(int mem_No, int resultCategory) {
 		super();
 		this.mem_No = mem_No;
-		this.category_no = category_no;
+		this.resultCategory = resultCategory;
 	}
 	
 }
