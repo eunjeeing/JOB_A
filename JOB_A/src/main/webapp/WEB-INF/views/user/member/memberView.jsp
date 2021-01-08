@@ -91,8 +91,9 @@
 		width : 280.67px;
 	}
 	
-	input[type=submit]{
-		margin-left : -150px;
+	/* 수정 버튼 */
+	#updated{
+		margin-left : 0px;
 	}
 </style>
 </head>
@@ -116,6 +117,8 @@
 								<input type="hidden" class="email" name="memEmail" value="" />	<!-- 컨트롤러로 보낼 이메일 -->
 								<input type="hidden" class="check_Id" value="false" /> <!-- 아이디 중복 체크 여부 -->
 								<input type="hidden" class="check_info" value="false" /> <!-- 약관 체크 여부 -->
+								<input type="hidden" class="local" value="${member.memArea}" /> <!-- 선호지역 바인딩 -->
+								<input type="hidden" class="check_nickName" value="${member.memNick}" /> <!-- 닉네임 수정시 비교대상 -->
 								
 								<table>
 									<tr>
@@ -147,12 +150,15 @@
 									<tr>
 										<th class="table_th">닉네임 <span class="star">*</span></th>
 										<td id="memNick-container">
-											<input type="text" size="30" class="form-control" name="memNick" id="nickname_" placeholder="10글자 미만" required />
+											<input type="text" size="30" class="form-control" name="memNick" id="nickname_" value="${member.memNick}" required />
 											<!-- 닉네임 중복 검사 코멘트 추가 -->
 											<span class="guide ok">사용 가능</span>
 				            				<span class="guide error">사용 불가</span>
 				            				<span class="guide invalid">10글자 미만</span>
 				            				<input type="hidden" name="nickNameDuplicateCheck" id="nickNameDuplicateCheck" value="0"/>
+										</td>
+										<td>
+											
 										</td>
 									</tr>
 									
@@ -188,7 +194,7 @@
 									<tr>
 										<th class="table_th">생년월일 <span class="star">*</span></th>
 										<td>
-											<input type="date" size="30" id="memBirth" name="memBirth" onchange="check()"/> 
+											<input type="date" size="30" id="memBirth" name="memBirth" onchange="check()" value="${member.memBirth}"/> 
 										</td>
 									</tr>
 								</table>
@@ -275,10 +281,10 @@
 										</select></td>
 									</tr>
 								</table>
-								<br> 
 									<input type="button" class="updateSuccess" onclick="location.href='${pageContext.request.contextPath}/member/memberDelete.do'" value="회원탈퇴">&nbsp;
 									<input type="reset" class="updateSuccess" value="취소">&nbsp;
-									<input type="submit" class="updateSuccess" onclick="location.href='${pageContext.request.contextPath}/member/memberUpdated.do'" value="수정" >
+									<input type="submit" class="updateSuccess" id="updated" onclick="location.href='${pageContext.request.contextPath}/member/memberUpdated.do'" value="수정" >
+								<br> 
 							</form>
 						</div>
 					</div>
@@ -313,6 +319,7 @@
 							$("#domain").val(email_id[1]);
 											
 						});
+
 						/*각 종 유효성 검사*/
 						function validate2(obj){
 						
@@ -444,15 +451,26 @@
 
 							/* 닉네임 중복검사 이벤트 추가 */
 							$("#nickname_").on("keyup", function(){
-						        var memNick = $(this).val().trim();
+						        var memNick = $(this).val().trim(); // ajax에 보낼 닉네임값
 						        
-						        if(memNick.length>10) {
+						   
+						        var nickName = $(".check_nickName").val().trim();
+					        	console.log("memNick:"+memNick+"nickName:"+nickName);
+					        	
+						        if( memNick == nickName || memNick =="" || memNick == null){ // 내 닉네임과 수정할 닉네임 비교 시작
+							        	console.log("같다");
+					                    $(".guide.ok").hide();
+							        	$(".guide.error").hide();
+					                    $(".guide.invalid").hide();
+					                    
+								        
+						        } else {
+						        if(memNick.length>10 ) {
 						        	$(".guide.error").hide();
 						        	$(".guide.ok").hide();
 						        	$(".guide.invalid").show();
 						        	return;
-						        	
-						        } else {
+						        }else{
 						        	
 							        $.ajax({
 							            url  : "${pageContext.request.contextPath}/member/checkNicknameDuplicate.do",
@@ -482,6 +500,9 @@
 						        	});
 						     	}
 						     console.log(memNick);
+						        } // 원래 내 닉네임과 수정할 닉네임 비교 
+						     
+						        
 							});
 						
 						
@@ -536,7 +557,6 @@
 								    //append를 이용하여 option 하위에 붙여넣음
 								    jQuery('#sido1').append(fn_option(code.sido, code.codeNm));
 								  });
-								 
 								  //sido 변경시 시군구 option 추가
 								  jQuery('#sido1').change(function(){
 								    jQuery('#sigugun1').show();
@@ -592,11 +612,12 @@
 								    alert(sido + ":" + sigungu);
 								    
 								  });
+
+								
 								});
 								function fn_option(code, name){
 								  return '<option value="' + code +'">' + name +'</option>';
 								}
-		
 								/*두번째 선호지역 */
 								jQuery(document).ready(function(){
 									  //sido option 추가
@@ -699,6 +720,57 @@
 										  return '<option value="' + code +'">' + name +'</option>';
 										}		
 
+
+										/* 선호지역 바인딩 */
+										$(function(){
+											var area = $(".local").val();
+											var area_local = area.split(",");
+											
+											var area1 = area_local[0].split(" ");
+											var area2 = area_local[1].split(" ");
+											var area3 = area_local[2].split(" ");
+											
+											// alert(area_local);
+											console.log(area1[0], area1[1]);
+											console.log(area2[0], area2[1]);
+											
+											/* 첫 번째 선호지역 하드코딩 */
+										    var result = hangjungdong.sido.findIndex(i => i.codeNm == area1[0]);
+										    var resultsido = hangjungdong.sido[result].sido;
+										    console.log("resultsido:"+resultsido);
+										    
+										    var result2 = hangjungdong.sigugun.findIndex(i=>i.codeNm == area1[1]  &&i.sido==resultsido);					   
+										    var result2sigungu = hangjungdong.sigugun[result2].sigugun;//시군구
+										    console.log("result2sigungu:"+result2sigungu);
+
+										    $("#sido1").val(resultsido).trigger('change');
+											$("#sigugun1").val(result2sigungu).prop("selected", true);					
+											
+										    /* 두 번째 선호지역 하드코딩 */
+										    var result = hangjungdong.sido.findIndex(i => i.codeNm == area2[0]);
+										    var resultsido = hangjungdong.sido[result].sido;
+										    console.log("resultsido:"+resultsido);
+										    
+										    var result2 = hangjungdong.sigugun.findIndex(i=>i.codeNm == area2[1]  &&i.sido==resultsido);					   
+										    var result2sigungu = hangjungdong.sigugun[result2].sigugun;//시군구
+										    console.log("result2sigungu:"+result2sigungu);
+
+											$("#sido2").val(resultsido).trigger('change');
+											$("#sigugun2").val(result2sigungu).prop("selected", true);					
+											
+										    /* 세 번째 선호지역 하드코딩 */
+										    var result = hangjungdong.sido.findIndex(i => i.codeNm == area3[0]);
+										    var resultsido = hangjungdong.sido[result].sido;
+										    console.log("resultsido:"+resultsido);
+										    
+										    var result2 = hangjungdong.sigugun.findIndex(i=>i.codeNm == area3[1]  &&i.sido==resultsido);					   
+										    var result2sigungu = hangjungdong.sigugun[result2].sigugun;//시군구
+										    console.log("result2sigungu:"+result2sigungu);
+																			
+											$("#sido3").val(resultsido).trigger('change');
+											$("#sigugun3").val(result2sigungu).prop("selected", true);					
+								
+										});
 						</script>
 
 </html>

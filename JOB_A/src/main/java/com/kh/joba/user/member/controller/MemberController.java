@@ -1,6 +1,8 @@
 package com.kh.joba.user.member.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -116,8 +118,9 @@ public class MemberController {
 		member.setMemPw(encryptPassword);
 		
 		try {
-			
 			int result = memberService.insertMember(member);
+			
+			// int result = memberService.insertMember(member, WishCategory);
 			// Member m = memberService.selectOneMember(member.getMemId());
 
 			String loc="/"; // /login.do
@@ -128,9 +131,9 @@ public class MemberController {
 		
 			 Member m = memberService.selectOneMember(member.getMemId());
 			
-				/*
-				 * memberService.insertWishCategory(m.getMemNo(),WishCategory.getCategory_No());
-				 */			
+				
+			memberService.insertWishCategory(m.getMemNo(),WishCategory.getCategory_No());
+							
 			 
 			model.addAttribute("loc", loc);
 			model.addAttribute("msg", msg); 
@@ -268,13 +271,39 @@ public class MemberController {
 	
     // 회원 정보 수정 페이지
     @RequestMapping("/member/memberView.do")
-    public String memberUpdate(@RequestParam String memId, Model model) {
-    	System.out.println("memId : " + memId);	
+    public String memberUpdate(@RequestParam String memId, int memNo, Model model) {
+    	
+    	System.out.println("memId : " + memId + " memNo : " + memNo);	
     	
     	Member m = memberService.selectOneMember(memId);
     	model.addAttribute("member", m);
     	
+    	List<WishCategory> ws = new ArrayList<WishCategory>();
+     	ws = memberService.selectWishCategory(m.getMemNo());
+    	
+    	System.out.println("wishcategory : " + ws.toString());
+    	
     	return "user/member/memberView";
     	
+    }
+    
+    // 회원 탈퇴
+    @RequestMapping("member/memberDelete.do")
+    public String memberDelete(SessionStatus sessionStatus, Model model, Member member) {
+    	
+    	int result = memberService.deleteMember(member.getMemId());
+    	// 삭제가 될경우 양수 1이 온다. 
+    	if(result > 0) sessionStatus.setComplete(); // 세션의 정보를 없앤다.
+    	
+    	String loc = "/";
+    	String msg = "";
+    	
+    	if(result > 0) msg = "그동안 JOBA를 이용해주셔서 감사합니다.";
+    	else msg = "회원 탈퇴를 실패하였습니다.";
+    	
+    	model.addAttribute("loc", loc);
+    	model.addAttribute("msg", msg);
+    	
+    	return "user/common/msg";
     }
 }

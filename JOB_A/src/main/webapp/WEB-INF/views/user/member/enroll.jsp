@@ -112,7 +112,10 @@
 								<input type="hidden" class="email" name="memEmail" value="" />	<!-- 컨트롤러로 보낼 이메일 -->
 								<input type="hidden" class="check_Id" value="false" /> <!-- 아이디 중복 체크 여부 -->
 								<input type="hidden" class="check_info" value="false" /> <!-- 약관 체크 여부 -->
-								
+								<!-- 선호지역 -->
+								<input type="hidden" class="local1" name="memArea" value="">
+								<input type="hidden" class="local2" name="memArea" value="">
+								<input type="hidden" class="local3" name="memArea" value="">
 								<table>
 									<tr>
 										<h2 class="info">기본정보</h2>
@@ -260,11 +263,11 @@
 									<tr>
 										<th class="table_th">선호지역</th>
 										<td>
-											<select name="memArea" size="1"  class="location_sido" id="sido1">
+											<select name="" size="1" class="location_sido" id="sido1">
 												<option value="" > &nbsp;&nbsp;---------- 시/도 ----------</option>
 											</select> 
 											<br />
-											<select name="memArea" size="1"  class="location_sigu" id="sigugun1">
+											<select name="" size="1" class="location_sigu" id="sigugun1">
 												<option value="" >&nbsp;&nbsp;----------- 구 -----------</option>
 											</select>
 										</td>
@@ -272,11 +275,11 @@
 									<tr>
 										<th></th>
 										<td>
-											<select name="memArea" size="1" class="location_sido" id="sido2">
+											<select name="" size="1" class="location_sido" id="sido2">
 												<option value="" > &nbsp;&nbsp;---------- 시/도 ----------</option>
 											</select> 
 											<br />
-											<select name="memArea" size="1" class="location_sigu" id="sigugun2">
+											<select name="" size="1" class="location_sigu" id="sigugun2">
 												<option value="" >&nbsp;&nbsp;----------- 구 -----------</option>
 											</select>
 										</td>
@@ -285,11 +288,11 @@
 									<tr>
 										<th></th>
 										<td>
-											<select name="memArea" size="1" class="location_sido" id="sido3">
+											<select name="" size="1" class="location_sido" id="sido3">
 												<option value="" > &nbsp;&nbsp;---------- 시/도 ----------</option>
 											</select> 
 											<br />
-											<select name="memArea" size="1" class="location_sigu" id="sigugun3">
+											<select name="" size="1" class="location_sigu" id="sigugun3">
 												<option value="" >&nbsp;&nbsp;----------- 구 -----------</option>
 										</select></td>
 									</tr>
@@ -638,25 +641,7 @@
 								      jQuery('#sigugun1').trigger('change');
 								    }
 								  });
-								 
-								  //시군구 변경시 행정동 옵션추가
-								  // jQuery('#sigugun').change(function(){
-								    //option 제거
-								    /*
-								    jQuery('#dong').empty();
-								    jQuery.each(hangjungdong.dong, function(idx, code){
-								      if(jQuery('#sido > option:selected').val() == code.sido && jQuery('#sigugun > option:selected').val() == code.sigugun)
-								        jQuery('#dong').append(fn_option(code.dong, code.codeNm));
-								    });
-								    
-								    //option의 맨앞에 추가
-								    jQuery('#dong').prepend(fn_option('','선택'));
-								    //option중 선택을 기본으로 선택
-								    jQuery('#dong option:eq("")').attr('selected', 'selected');
-								 
-								  });
-								*/
-								 
+
 								  jQuery('#sigugun1').change(function(){
 								    var sido = jQuery('#sido1 option:selected').val();
 								    var sigugun = jQuery('#sigugun1 option:selected').val();
@@ -669,7 +654,8 @@
 								    var sido = hangjungdong.sido[sidoIdx].codeNm;//시
 								    var sigungu = hangjungdong.sigugun[sigugunIdx].codeNm;//시군구
 		
-								    alert(sido + ":" + sigungu);
+								    // alert(sido + ":" + sigungu);
+								    $(".local1").val(sido+" "+sigungu); // 예) 서울특별시/강남구 로 한 쌍씩 주려고 만듬.
 								    
 								  });
 								});
@@ -720,7 +706,8 @@
 									    var sido = hangjungdong.sido[sidoIdx].codeNm;//시
 									    var sigungu = hangjungdong.sigugun[sigugunIdx].codeNm;//시군구
 		
-									    alert(sido + ":" + sigungu);
+									    // alert(sido + ":" + sigungu);
+									    $(".local2").val(sido+" "+sigungu); // 예) 서울특별시/강남구 로 한 쌍씩 주려고 만듬.
 									    
 									  });
 									});
@@ -771,7 +758,8 @@
 										    var sido = hangjungdong.sido[sidoIdx].codeNm;//시
 										    var sigungu = hangjungdong.sigugun[sigugunIdx].codeNm;//시군구
 		
-										    alert(sido + ":" + sigungu);
+										    // alert(sido + ":" + sigungu);
+										    $(".local3").val(sido+" "+sigungu); // 예) 서울특별시/강남구 로 한 쌍씩 주려고 만듬.
 										    
 										  });
 										});

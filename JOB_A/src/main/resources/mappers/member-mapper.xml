@@ -4,10 +4,11 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="memberMapper">
 		
-   <resultMap id="result" type="WishCategory">
-		<result property="category_no" column="category_no"
-			typeHandler="intarrHandler" />
-		</resultMap>
+    <resultMap id="resultWishCategory" type="WishCategory">
+    	<id property="mem_No" column="MEM_NO"/>
+		<!-- <result property="mem_No" column="MEM_NO"/> -->
+		<result property="category_no" column="CATEGORY_NO"/>
+	</resultMap>
 	
 	<resultMap id="resultMember" type="Member">
 		<id property="memNo" column="MEM_NO"/>
@@ -24,6 +25,8 @@
 		<result property="memPhone" column="MEM_PHONE"/>
 	</resultMap>
 
+
+
 	<insert id="insertMember" parameterType="Member" >
 	 	INSERT INTO MEMBER
 	 	(MEM_NO, GRADE_NO, MEM_ID, MEM_PW, MEM_NICK, MEM_EMAIL, MEM_BIRTH, MEM_AREA, MEM_STATE, MEM_DATE, MEM_NAME, MEM_PHONE)
@@ -34,13 +37,19 @@
 	<insert id="insertWishCategory" parameterType="WishCategory">
 		INSERT INTO WISH_CATEGORY
 		VALUES
-		(#{mem_No}, #{category_No, typeHandler=intarrHandler})
+		(#{mem_No}, #{category_no})
 	</insert>
 	
 	<select id="loginMember" parameterType="string" resultMap="resultMember">
 		SELECT * FROM MEMBER
 		WHERE MEM_ID = #{memId}
 		<!-- PASSWORD는 지운다. 비밀번호는 계속 다르게 들어오기 때문에 이유가 없어짐 -->
+	</select>
+	
+	<select id="selectWishCategory" parameterType="int" resultMap="resultWishCategory">
+		SELECT MEM_NO, CATEGORY_NO
+		FROM WISH_CATEGORY
+		WHERE MEM_NO = #{memNo}
 	</select>
 <!--
 	<update id="updateMember" parameterType="Member">
@@ -55,12 +64,12 @@
 		WHERE USERID = #{ userId } 
 	</update>
 -->
-	<!--
+	
 	<delete id="deleteMember" parameterType="string">
  	DELETE FROM MEMBER WHERE
-		USERID = #{ userId } 
+		MEM_ID = #{ memId } 
 	</delete>
--->
+
 
 	<!-- 아이디 중복 검사 -->
 	<select id="checkIdDuplicate" parameterType="string" resultMap="resultMember"> 

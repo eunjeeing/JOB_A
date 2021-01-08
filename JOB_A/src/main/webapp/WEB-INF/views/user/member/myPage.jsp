@@ -138,7 +138,7 @@
 							<i class="xi-user"></i>
 						</div>
 						<div class="next" id="update">
-							<a href="${pageContext.request.contextPath}/member/memberView.do?memId=${member.memId}" title="정보 수정" ><span>${member.memNick}&nbsp;님</span></a>
+							<a href="${pageContext.request.contextPath}/member/memberView.do?memId=${member.memId}&memNo=${member.memNo}" title="정보 수정" ><span>${member.memNick}&nbsp;님</span></a>
 							<br />
 							<span><a href="${pageContext.request.contextPath}/member/memberView.do" id="gradeNo" title=""><span></span></a></span>
 						</div>
