@@ -8,7 +8,7 @@ public class IndexController {
 	@RequestMapping("/adminIndex.do")
 	public String calendar() {
 		
-		System.out.println("admin페이지 연결완료");
+		//System.out.println("admin페이지 연결완료");
 		
 		return "/adminIndex";
 	}

@@ -134,7 +134,7 @@ p {
 								<c:forEach items="${searchList}" var="search">
 									<div class="article-list-pre">
 										<div class="tit" id="${search.board_No}">
-											<p >${search.board_No }</p>
+											<p >${search.type_Name } 게시판</p>
 											<h3 class="hh">${search.board_Title}</h3>
 											<div class="pre-txt">${search.board_Content}</div>
 										</div>
