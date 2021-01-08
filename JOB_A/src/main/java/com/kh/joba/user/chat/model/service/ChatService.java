@@ -14,7 +14,7 @@ public interface ChatService {
 
 	int insertChat(Chat chat) throws ChatException;
 
-	Map<String, String> selectChat(int chatNo);
+	Map<String, Chat> selectChat(int chatNo);
 
 	void deleteChat(int chatNo);
 

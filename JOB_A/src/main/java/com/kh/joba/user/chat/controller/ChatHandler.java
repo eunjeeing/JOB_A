@@ -22,7 +22,6 @@ public class ChatHandler extends TextWebSocketHandler {
 		sessionList.add(session);
 		
 		System.out.println(session.getId() + " :: 연결됨.. " );
-		
 		// session으로부터 로그인한 사용자 정보 가져오기
 		Member loginMember = (Member)session.getAttributes().get("member");
 		
@@ -41,6 +40,7 @@ public class ChatHandler extends TextWebSocketHandler {
 		// 메시지 송신자
 		Member loginMember = (Member)session.getAttributes().get("member");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		
 		
 		// 송신자가 보낸 메시지를 접속한 사용자들에게 전송하기
 		for(WebSocketSession user: sessionList) {
