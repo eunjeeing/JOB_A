@@ -81,6 +81,20 @@ opacity: 1 !important;
   input[type="radio"]:focus {
     border-color: #f56a6a;
     box-shadow: 0 0 0 1px #f56a6a; }
+	#nonListArea {
+			height : 300px;
+			width : 10%;
+			text-align: center;
+			display: table-cell;
+			vertical-align: middle;
+		}
+	#nonListArea>div{
+		display: inline-block;
+	}
+	
+	#nonListArea>div>p{
+		font-size : 35px;
+	}
 </style>
 </head>
 	<body class="is-preload">
@@ -92,8 +106,11 @@ opacity: 1 !important;
 						<div class="inner">
 
 							<c:import url="../common/header.jsp"/>
-							
+						
+						<c:if test="${!empty selectMyComment}">
 						<div id="listArea">
+						<p style="font-size:17px;"><a href="${pageContext.request.contextPath}/mypage/selectMyPost.do?mem_No=${member.memNo}" style="border: none; color: black;">게시글</a>
+							&nbsp;&nbsp;&nbsp;<text style="font-size:20px; color:black;">|</text>&nbsp;&nbsp;&nbsp;&nbsp;<text style="color: #f56a6a;">댓글</text></p>
 							<table id="myPostList">
 								<thead>
 								<tr>
@@ -107,7 +124,7 @@ opacity: 1 !important;
 									<!--  onclick="selectOne();" -->
 									<tr id="${mp.comm_No }" align="center">
 										<input class="tno" type="hidden" value="${mc.type_No }" />
-										<td><input type="checkbox" id="chk" value="${mc.comm_No}"></td>
+										<td><input type="checkbox" class="chk" data-cno="${mc.comm_No}"></td>
 										<td class="goBoard" id="${mc.board_No}">${mc.comm_Content}</td>
 										<fmt:parseDate var="parsedDate" value="${mc.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
 										<td id="clock"><fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
@@ -117,9 +134,17 @@ opacity: 1 !important;
 								</tbody>
 							</table>
 						</div>
-						<button id="delete" class="btn btn-default" onclick="deleteChk();"><i class="fa fa-check" aria-hidden="true"></i>
+						<button class="btn btn-default" data-cno="${mc.comm_No }" id="deleteChk"><i class="fa fa-check" aria-hidden="true"></i>
 							삭제</button>
 						<c:out value="${pageBar}" escapeXml="false"/>
+						</c:if>
+						
+						<c:if test="${empty selectMyComment}">
+							<div id="nonListArea">
+								<p>등록된 댓글이 없습니다.</p>
+							</div>
+						</c:if>	
+							
 							
 						</div>
 					</div>
@@ -128,63 +153,92 @@ opacity: 1 !important;
 
 			</div>
 <script>
-$(function(){
-	$(".goBoard").on("click", function(){
-		var board_No = $(this).attr("id");
-		var tno = $(this).siblings('.tno').val();
 
-		console.log(board_No);
-		console.log(tno);
-		
-		switch(tno) {
-		case '1':
-			location.href = "${pageContext.request.contextPath}/notice.bo?board_no="+ board_No;
-			break;
+	// 해당 게시글로 이동
+	$(function(){
+		$(".goBoard").on("click", function(){
+			var board_No = $(this).attr("id");
+			var tno = $(this).siblings('.tno').val();
+	
+			console.log(board_No);
+			console.log(tno);
 			
-		case '2':
-			location.href = "${pageContext.request.contextPath}/board2/jobSelectOne.do?board_No="+ board_No;
-			break;
+			switch(tno) {
+			case '1':
+				location.href = "${pageContext.request.contextPath}/notice.bo?board_no="+ board_No;
+				break;
+				
+			case '2':
+				location.href = "${pageContext.request.contextPath}/board2/jobSelectOne.do?board_No="+ board_No;
+				break;
+	
+			case '4':
+				location.href = "${pageContext.request.contextPath}/board2/blahView.do?board_No="+ board_No;
+				break;
+			
+			case '5':
+				location.href = "${pageContext.request.contextPath}/board2/blindSelectOne.do?board_No="+ board_No;
+				break;
+	
+			case '7':
+				location.href = "${pageContext.request.contextPath}/board2/qnaSelectOne.do?board_No="+ board_No;
+				break;	
+			}
+		});
+	});
 
-		case '4':
-			location.href = "${pageContext.request.contextPath}/board2/blahView.do?board_No="+ board_No;
-			break;
+	// checkAll 체크 --> 개별 체크박스 모두 체크
+	$("#checkAll").click(function(){
+	    if($("#checkAll").prop("checked")){
+	            $(".chk").prop("checked",true);
+	    }else{
+	            $(".chk").prop("checked",false);
+	    }
+	});
+
+	// 개별 체크박스 선택 or 선택해제 --> checkAll 체크박스 해제
+	$(".chk").click(function(){
+		$("#checkAll").prop("checked", false);
+	});
+
+	// 체크된 댓글 삭제
+	$("#deleteChk").click(function(){
+
+		var checkArr = new Array();
+
+		$("input[class='chk']:checked").each(function(){
+			checkArr.push($(this).attr("data-cno"));
+		});
+
+		console.log(checkArr);
+
+		if(checkArr.length == 0) {
+			alert("선택된 항목이 없습니다.")
+			return false;
+		}
 		
-		case '5':
-			location.href = "${pageContext.request.contextPath}/board2/blindSelectOne.do?board_No="+ board_No;
-			break;
+		var confirm_val = window.confirm("정말 삭제하시겠습니까?");
+		
+		if(confirm_val) {
 
-		case '7':
-			location.href = "${pageContext.request.contextPath}/board2/qnaSelectOne.do?board_No="+ board_No;
-			break;	
+			$.ajax({
+				url : "/joba/mypage/deleteChkComment.do",
+				type : "post",
+				data : { chk : checkArr },
+				success : function(result){
+
+					if(result == 1) {
+						location.href = "/joba/mypage/selectMyComment.do?mem_No=" + ${member.memNo};
+					}
+					else{
+						window.alert("삭제 실패");
+					}
+					
+				}
+			});
 		}
 	});
-});
 
-$(document).ready(function(){
-    $("#checkAll").click(function(){
-        if($("#checkAll").prop("checked")){
-            $("input[type=checkbox]").prop("checked",true);
-        }else{
-            $("input[type=checkbox]").prop("checked",false);
-        }
-    });
-});
-
-function deleteChk(){
-		var chk = "";
-		$( "input[id='chk']:checked" ).each (function (){
-			  chk = chk + $(this).val()+ "," ;
-		 });
-		 chk = chk.substring(0,chk.lastIndexOf( ","));
- 
-  if(chk == ''){
-    alert("삭제할 항목을 선택하세요.");
-    return false;
-  }
-		 
-  if(confirm("삭제 하시겠습니까?")){
-  }
-}
 </script>
 </body>
 </html>

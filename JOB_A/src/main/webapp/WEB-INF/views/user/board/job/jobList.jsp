@@ -144,10 +144,10 @@
 					<button type="button" onclick="location.href='${pageContext.request.contextPath}/board2/selectJobList.do'"
 					style="width: 50px;"><i class="fas fa-redo" style="margin: -9px;"></i></button>
 					
-<%--  					<c:if test="${ $member.gradeNo == 5 }" >
- --%>						<button id="writeBtn" onclick="goJobForm();">글쓰기</button>
-<%--  					</c:if>
- --%>				</div>
+  					<c:if test="${member.gradeNo == 0 || member.gradeNo == 1 || member.gradeNo == 5 }" >
+						<button id="writeBtn" onclick="goJobForm();">글쓰기</button>
+  					</c:if>
+				</div>
 				<br />
 				
 				<!-- 카테고리 -->
@@ -229,45 +229,7 @@
 		</div>
 		<c:import url="../../common/sideBar.jsp" />
 	</div>
-<%-- 	<c:choose>
-		<c:when test="${ empty member }">
-		<script>
-				$(function() {
-				$("div[class=tit]")
-						.on(
-								"click",function() {
-									window.alert("로그인 후 이용해주세요");
-								});
-				});
-		</script>
-		</c:when>
-		<c:when test="${ !empty member && member.gradeNo eq 3 || member.gradeNo eq  5 }">
-		<script>
-				$(function() {
-				$("div[class=tit]")
-						.on(
-								"click",function() {
-									window.alert("우수회원 이상 이용 가능합니다.");
-								});
-				});
-		</script>
-		</c:when>
-		<c:otherwise>
-		<script>
-			$(function() {
-				$("div[class=tit]")
-						.on(
-								"click",
-								function() {
-									var board_No = $(this).attr("id");
-									console.log("board_No=" + board_No);
-									location.href = "${pageContext.request.contextPath}/board2/jobSelectOne.do?board_No="
-											+ board_No;
-								});
-			});
-		</script>
-		</c:otherwise>
-	</c:choose> --%>
+	
 	<script>
 		
  	$(function(){

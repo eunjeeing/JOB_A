@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.joba.user.board2.blahblah.model.vo.Board2;
+import com.kh.joba.user.comments2.model.vo.Comments2;
 
 @Repository
 public class MypageDAOImpl implements MypageDAO {
@@ -41,6 +42,11 @@ public class MypageDAOImpl implements MypageDAO {
 	@Override
 	public void deleteChkPost(Board2 board) {
 		sqlSession.update("board2Mapper.deleteChkPost", board);
+	}
+
+	@Override
+	public void deleteChkComment(Comments2 comment) {
+		sqlSession.update("comments2Mapper.deleteChkComment", comment);		
 	}
 
 }

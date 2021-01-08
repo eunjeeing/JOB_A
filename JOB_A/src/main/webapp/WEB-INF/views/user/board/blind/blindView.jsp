@@ -151,6 +151,11 @@ p {
 	border: none;
     box-shadow: 0 0 0 0; 
 } */
+
+.wrap-info i {
+    margin-right: 0;
+}
+
 /* 대댓글 스타일 */
 .article-comments .wrap-reply {
     margin-top: -1px;
@@ -193,12 +198,12 @@ p {
 								</div>
 								<p class="name">익명</p>
 								<div class="wrap-info">
-									<span class="date"> <i class="far fa-clock">
-											${board2.board_Date }</i>
-									</span> <span class="pv"> <i class="far fa-eye">
-											${board2.board_View }</i>
-									</span> <span class="cmt"> <i class="far fa-comment">
-											${board2.comm_Count }</i>
+									<span class="date"> <i class="far fa-clock"></i>
+											${board2.board_Date }
+									</span> <span class="pv"> <i class="far fa-eye"></i>
+											${board2.board_View }
+									</span> <span class="cmt"> <i class="far fa-comment"></i>
+											${board2.comm_Count }
 									</span>
 									<div class="info_fnc">
 										<span class="rebo"> <i
@@ -255,10 +260,10 @@ p {
 										<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content }</textarea></p>
 										<div class="wrap-info">
 										
-											<span class="date"> <i class="far fa-clock">
+											<span class="date"> <i class="far fa-clock"></i>
 											<fmt:parseDate var="parsedDate" value="${co.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
-											<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/></i></span>
-											<a class="cmt" href="#" onclick="reComment(this);return false;"> <i class="far fa-comment"> 대댓글</i>
+											<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
+											<a class="cmt" href="#" onclick="reComment(this);return false;"> <i class="far fa-comment"> </i> 대댓글
 											</a>
 											<div class="info_fnc">
 													<input type="hidden" id="comm_No" name="comm_No" value="${co.comm_No }"/>
@@ -284,9 +289,9 @@ p {
 											<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content }</textarea></p>
 											<div class="wrap-info">
 											
-												<span class="date"> <i class="far fa-clock">
-												<fmt:parseDate var="parsedDate" value="${co.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
-												<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/></i></span>
+											<span class="date"> <i class="far fa-clock"></i>
+											<fmt:parseDate var="parsedDate" value="${co.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
+											<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
 												<div class="info_fnc">
 														<input type="hidden" id="comm_No" name="comm_No" value="${co.comm_No }"/>
 											      		<input type="hidden" class="mem_No"  name="mem_no" value="${member.memNo}" />

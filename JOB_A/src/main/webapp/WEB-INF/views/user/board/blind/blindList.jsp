@@ -42,7 +42,7 @@ p {
 	overflow: hidden;
 	line-height: 1.33em;
 	text-overflow: ellipsis;
-	-webkit-line-clamp: 1;
+	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	word-wrap: break-word;
 	box-sizing: border-box;
@@ -114,8 +114,8 @@ p {
 										<div class="sub">
 											<p class="name" style="padding-top: 2em;">익명</p>
 											<div class="wrap-info">
-												<i class="far fa-eye"> ${blind.board_View }</i> <i
-													class="far fa-comment"> ${blind.comm_Count }</i>
+												<i class="far fa-eye" style="margin-right: 0;"></i> ${blind.board_View }
+												<i class="far fa-comment" style="margin-right: 0; margin-left: 14px;"></i> ${blind.comm_Count }
 												<div class="info_fnc">
 													${blind.board_Date} <i class="far fa-bookmark" id="bookmark"></i>
 												</div>

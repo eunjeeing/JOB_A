@@ -190,7 +190,6 @@ p {
 
     	function search() {
 
-    		var a = 'aa';
         	
 			location.href="${pageContext.request.contextPath}/board2/searchBlahList.do?keyword="+$('#search').val();
 

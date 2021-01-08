@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.joba.user.board2.blahblah.model.vo.Board2;
+import com.kh.joba.user.comments2.model.vo.Comments2;
 
 public interface MypageDAO {
 
@@ -16,5 +17,7 @@ public interface MypageDAO {
 	int selectMyCommentTotalContents(int mem_No);
 	
 	void deleteChkPost(Board2 board);
+
+	void deleteChkComment(Comments2 comment);
 
 }

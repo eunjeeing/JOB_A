@@ -5,18 +5,16 @@
 	<resultMap id="resultComments2" type="Comments2">
 	</resultMap>
 
-<!-- 댓글조회 -->
+	<!-- 댓글 조회 -->
 	<select id="selectComment" resultType="Comments2">
-<!-- 		SELECT *
-		FROM COMMENTS C, MEMBER M
-		WHERE BOARD_NO = #{board_No} AND M.MEM_NO = C.MEM_NO AND COMM_STATUS = 'Y' -->
-		    SELECT C.*, (SELECT MEM_NICK FROM MEMBER WHERE MEM_NO = C.MEM_NO) MEM_NICK
-            FROM COMMENTS C
-            WHERE BOARD_NO = #{board_No} AND COMM_STATUS = 'Y'
-            START WITH COMM_LEVEL = 1
-            CONNECT BY PRIOR COMM_NO = COMM_REF
+		SELECT C.*, (SELECT MEM_NICK FROM MEMBER WHERE MEM_NO = C.MEM_NO) MEM_NICK
+        FROM COMMENTS C
+        WHERE BOARD_NO = #{board_No} AND COMM_STATUS = 'Y'
+        START WITH COMM_LEVEL = 1
+        CONNECT BY PRIOR COMM_NO = COMM_REF
 	</select>
 	
+	<!-- 댓글 작성 -->
 	<insert id="insertComment" parameterType="Comments2">
 		INSERT INTO COMMENTS
 		VALUES(COMMENTS_SEQ.NEXTVAL, #{mem_No}, #{board_No}, #{comm_Content},
@@ -27,13 +25,16 @@
 		 DEFAULT, DEFAULT)
 	</insert>
 	
+	<!-- 댓글 삭제 -->
 	<update id="deleteComment" parameterType="Comments2">
 		UPDATE COMMENTS SET COMM_STATUS = 'N' WHERE COMM_NO = #{comm_No}
 	</update>
 	
+	<!-- 댓글 수정 -->
 	<update id="updateComment" parameterType="Comments2">
 		UPDATE COMMENTS SET COMM_CONTENT = #{comm_Content} WHERE COMM_NO = #{comm_No}
 	</update>
+	
 	
 <!-- 마이페이지 -->
 	<!-- 내가 쓴 댓글 조회 -->
@@ -42,6 +43,7 @@
 		FROM COMMENTS C, MEMBER M, BOARD B
 		WHERE C.MEM_NO = #{mem_No} AND COMM_STATUS = 'Y' AND C.MEM_NO = M.MEM_NO 
 				AND B.BOARD_NO = C.BOARD_NO
+		ORDER BY COMM_DATE DESC, COMM_NO DESC
 	</select>
 	
 	<!-- 내가 쓴 댓글 수 -->
@@ -49,5 +51,12 @@
 		SELECT COUNT(*) FROM COMMENTS
 		WHERE MEM_NO = #{mem_No} AND COMM_STATUS = 'Y'
 	</select>
+	
+	<!-- 내가 쓴 댓글 선택 삭제 -->
+	<update id="deleteChkComment">
+		UPDATE COMMENTS SET COMM_STATUS = 'N'
+		WHERE COMM_NO = #{comm_No}
+	</update>
+	
 		
 </mapper>

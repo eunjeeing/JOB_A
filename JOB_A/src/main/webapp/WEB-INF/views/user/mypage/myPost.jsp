@@ -29,15 +29,12 @@
 	
 	.goBoard:hover {
 		cursor: pointer;
+		opacity: 0.3;
 		
 	}
 	
 	tr>td{
 		background : white;
-	}
-	
-	.goBoard:hover{
-		opacity: 0.3;
 	}
 	
 	#nonListArea {
@@ -57,10 +54,10 @@
 	appearance: auto !important;
 	opacity: 1 !important;
 	 }
- input[type="checkbox"],
-  input[type="radio"] {
+	 
+ input[type="checkbox"]{
     text-decoration: none;
-    color: #7f888f;
+    color: #7f888f !important;
     cursor: pointer;
     display: inline-block;
     font-size: 1em;
@@ -68,20 +65,34 @@
     padding-left: 2.4em;
     padding-right: 0.75em;
     position: unset;
-          border-radius: 0.375em;
-      border: solid 1px rgba(210, 215, 217, 0.75); }
+    border-radius: 0.375em;
+    border: solid 1px rgba(210, 215, 217, 0.75); }
 
-  input[type="checkbox"]:checked,
-  input[type="radio"]:checked {
-    background: #3d4449 !important;
+  input[type="checkbox"]:checked
+  {
+    background-color: red;
     border-color: #3d4449 !important;
     color: #ffffff !important; }
     
   input[type="checkbox"]:focus,
   input[type="radio"]:focus {
     border-color: #f56a6a;
-    box-shadow: 0 0 0 1px #f56a6a; }	
-
+    box-shadow: 0 0 0 1px #f56a6a; }
+    
+	#nonListArea {
+			height : 300px;
+			width : 10%;
+			text-align: center;
+			display: table-cell;
+			vertical-align: middle;
+		}
+	#nonListArea>div{
+		display: inline-block;
+	}
+	
+	#nonListArea>div>p{
+		font-size : 35px;
+	}
 </style>
 </head>
 	<body class="is-preload">
@@ -93,8 +104,11 @@
 						<div class="inner">
 
 							<c:import url="../common/header.jsp"/>
-							
+						
+						<c:if test="${!empty selectMyPost}">
 						<div id="listArea">
+							<p style="font-size:17px;"><text style="color: #f56a6a;">게시글</text>
+							&nbsp;&nbsp;&nbsp;<text style="font-size:20px; color:black;">|</text>&nbsp;&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/mypage/selectMyComment.do?mem_No=${member.memNo}" style="border: none; color: black;">댓글</a></p>
 							<table id="myPostList">
 								<thead>
 								<tr>
@@ -116,7 +130,7 @@
 										<td>${mp.board_No}</td>
 										<td>${mp.type_Name }</td>
 										<td class="goBoard" id="${mp.board_No}">${mp.board_Title}</td>
-										<td >${mp.mem_Nick}</td>
+										<td>${mp.mem_Nick}</td>
 										<td>${mp.board_Date}</td>
 										<td>${mp.board_View}</td>
 									</tr>
@@ -127,7 +141,13 @@
 							<button class="btn btn-default" data-bno="${mp.board_No }" id="deleteChk"><i class="fa fa-check" aria-hidden="true"></i>
 							삭제</button>				
 						<c:out value="${pageBar}" escapeXml="false"/>
-							
+						</c:if>
+						
+						<c:if test="${empty selectMyPost}">
+							<div id="nonListArea">
+								<p>등록된 게시글이 없습니다.</p>
+							</div>
+						</c:if>		
 							
 						</div>
 					</div>
@@ -136,6 +156,8 @@
 
 			</div>
 <script>
+
+	// 해당 게시글로 이동
 	$(function(){
 		$(".goBoard").on("click", function(){
 			var board_No = $(this).attr("id");
@@ -185,26 +207,31 @@
 	// 체크된 게시글 삭제
 	$("#deleteChk").click(function(){
 
+		var checkArr = new Array();
+
+		$("input[class='chk']:checked").each(function(){
+			checkArr.push($(this).attr("data-bno"));
+		});
+
+		console.log(checkArr);
+
+		if(checkArr.length == 0) {
+			alert("선택된 항목이 없습니다.")
+			return false;
+		}
 		
 		var confirm_val = window.confirm("정말 삭제하시겠습니까?");
-
+		
 		if(confirm_val) {
-			var checkArr = new Array();
 
-			$("input[class='chk']:checked").each(function(){
-				checkArr.push($(this).attr("data-bno"));
-			});
-
-			console.log(checkArr);
-			
 			$.ajax({
-				url : "/mypage/deleteChkPost.do",
+				url : "/joba/mypage/deleteChkPost.do",
 				type : "post",
 				data : { chk : checkArr },
 				success : function(result){
 
 					if(result == 1) {
-						location.href = "/myPage/selectMyPost.do?mem_No" + ${member.memNo};
+						location.href = "/joba/mypage/selectMyPost.do?mem_No=" + ${member.memNo};
 					}
 					else{
 						window.alert("삭제 실패");
@@ -215,21 +242,6 @@
 		}
 	});
 
-/* 	function deleteChk(){
-			var chk = "";
-			$( "input[id='chk']:checked" ).each (function (){
-				  chk = chk + $(this).val()+ "," ;
-			 });
-			 chk = chk.substring(0,chk.lastIndexOf( ","));
-	 
-	  if(chk == ''){
-	    alert("삭제할 항목을 선택하세요.");
-	    return false;
-	  }
-			 
-	  if(confirm("삭제 하시겠습니까?")){
-	  }
-	} */
 </script>
 
 </body>
