@@ -263,6 +263,15 @@ section>div>.sub_menu3 {
 	cursor: pointer;
 	background-color: lightgrey;
 }
+
+.adminBtn{
+	width : 10%;
+	height : 15px;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+	padding-top: 15px;
+}
 </style>
 <html>
 <head>
@@ -290,12 +299,10 @@ section>div>.sub_menu3 {
 
 				<c:import url="user/common/header.jsp" />
 				
-				<div id="adminBtn" style="display: none;">
-				<button id="Btn" onclick="goAdmin();" style="">관리자 페이지</button>
-				<script type="text/javascript">
-					
-				</script>
+				<div class="adminBtn">
+				<button id="Btn" onclick="goAdmin();" style="">관리자 페이지로 이동</button>
 				</div>
+				
 				<!-- Banner -->
 				<section id="banner">
 					<!-- 왼쪽 구역 -->
