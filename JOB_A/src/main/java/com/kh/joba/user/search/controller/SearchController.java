@@ -30,7 +30,7 @@ public class SearchController {
 		// 조회확인용
 		System.out.println("keyword : " + keyword);
 		System.out.println("totalContents : " + totalContents);
-		//System.out.println("list : " + list);
+		System.out.println("list : " + list);
 	
 		model.addAttribute("searchList", list);
 		model.addAttribute("totalContents", totalContents);

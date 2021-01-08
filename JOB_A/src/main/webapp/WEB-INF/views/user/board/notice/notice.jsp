@@ -96,8 +96,8 @@
 	#nonListArea>p{
 		height : auto;
 		width : auto;
-		margin : auto;
-		font-size : 150%;
+		margin-left : 40%;
+		font-size : 40px;
 	}
 	
 </style>

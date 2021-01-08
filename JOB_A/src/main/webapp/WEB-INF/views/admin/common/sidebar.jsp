@@ -44,7 +44,7 @@
 				<div class="w-100 mb-4 d-flex" style="display: flex; align-items: center;flex-direction: column">
 					<div>
 				 		<img
-						src="${pageContext.request.contextPath}/resources/admin/images/admin.png"
+						src="${pageContext.request.contextPath}/resources/admin/images/adminIcon.png"
 						alt="..." class="avatar-img rounded-circle"
 						style="width: 60px; height : 60px; overflow: hidden; margin-bottom: 7px;">
 					</div>

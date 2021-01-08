@@ -289,7 +289,13 @@ section>div>.sub_menu3 {
 			<div class="inner">
 
 				<c:import url="user/common/header.jsp" />
-				<button id="Btn" onclick="goAdmin();">관리자 페이지</button>
+				
+				<div id="adminBtn" style="display: none;">
+				<button id="Btn" onclick="goAdmin();" style="">관리자 페이지</button>
+				</c:if>
+				<script type="text/javascript">
+					
+				</script>
 				<!-- Banner -->
 				<section id="banner">
 					<!-- 왼쪽 구역 -->

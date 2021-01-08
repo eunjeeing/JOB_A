@@ -701,8 +701,17 @@ html, body {
 			$("#teachermale").on("change", function(){
 			    $("#calendar").fullCalendar("refetchEvents");
 			});
-
-
+			// 캘린더 옵션
+			$("#calendar").fullCalendar({
+				windowResize:  function (view) {
+					if ($(window).width() <  514) {
+						$('#calendar').fullCalendar('changeView', 'basicDay');
+					} else {
+						$('#calendar').fullCalendar('changeView', 'month');
+					}
+				}
+				});
+				
 	          // Menu.sidebar 오류때문에 넣음
 	            var $menu = $('#menu'),
 	               $menu_openers = $menu.children('ul').find('.opener');
