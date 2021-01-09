@@ -18,7 +18,7 @@
 		<typeAlias type="com.kh.joba.user.chat.model.vo.Chat" alias="Chat"/>
 		<typeAlias type="com.kh.joba.user.search.model.vo.Search" alias="Search"/>
 		<typeAlias type="com.kh.joba.user.category.model.vo.WishCategory" alias="WishCategory"/>
-		<typeAlias type="com.kh.joba.admin.administer.model.vo.Admin" alias="Admin" />
+		<typeAlias type="com.kh.joba.admin.management.model.vo.Admin" alias="Admin" />
 		<typeAlias type="com.kh.joba.common.typeHandler.IntegerTypeHandler" alias="intarrHandler"/>
 	</typeAliases>
 	

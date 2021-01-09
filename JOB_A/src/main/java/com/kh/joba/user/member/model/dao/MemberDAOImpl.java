@@ -68,13 +68,13 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	// 선호 직종 삽입
-	@Override
-	public void insertWishCategory(int mem_No, int category_no) {
-				WishCategory wish = new WishCategory(mem_No, category_no);
-				
-		sqlSession.insert("memberMapper.insertWishCategory",wish);
-		
-	}
+	   @Override
+	   public void insertWishCategory(int mem_No, int resultCategory) {
+	            WishCategory wish = new WishCategory(mem_No, resultCategory);
+	            
+	      sqlSession.insert("memberMapper.insertWishCategory",wish);
+	      
+	   }
 
 	// 회원정보수정페이지에서 DB에 있는 선호직종 가져오기
 	@Override

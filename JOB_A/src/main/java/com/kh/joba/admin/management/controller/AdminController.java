@@ -1,4 +1,4 @@
-package com.kh.joba.admin.administer.controller;
+package com.kh.joba.admin.management.controller;
 
 import java.util.List;
 import java.util.Map;
@@ -8,13 +8,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.support.SessionStatus;
 
-import com.kh.joba.admin.administer.model.service.AdminService;
-import com.kh.joba.admin.administer.model.vo.Admin;
-import com.kh.joba.user.common.util.Utils;
-import com.kh.joba.user.member.model.vo.Member;
+import com.kh.joba.admin.management.model.service.AdminService;
+import com.kh.joba.admin.management.model.vo.Admin;
 
 @Controller
 public class AdminController {
@@ -26,33 +22,18 @@ public class AdminController {
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	@RequestMapping("admin/adminList")
-	public String selcetAdminList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, Model model) { 
+	public String selcetAdminList(Model model) { 
 		
-		int numPerPage = 10; // 한 페이지당 채팅방 and 페이지 수
+		List<Map<String,String>> list = adminService.selectAdminList();
 		
-		// 1. 현재 페이지 채팅 구하기
-		List<Map<String,String>> list = adminService.selectAdminList(cPage, numPerPage);
-		
-		// 2. 전체 채팅방 수 (페이지 처리를 위함 몇페이지까지 있는지)
-		int totalAdmin = adminService.selectTotalAdmin();
-		
-		// 3. 페이지 계산된 HTML 구하기
-		String pageBar = Utils.getPageBar(totalAdmin, cPage, numPerPage, "adminList");
-		
-		System.out.println("list : " + list);
-		
-		// 1,2,3 모델에 담기
 		model.addAttribute("adminList", list);
-		model.addAttribute("totalAdmin", totalAdmin);
-		model.addAttribute("numPerPage", numPerPage);
-		model.addAttribute("pageBar", pageBar);
 		
-		return "admin/administer/adminList";
+		return "admin/management/adminList";
 	}
 
 	@RequestMapping("admin/adminEnrollView")
 	public String adminEnrollView() {
-		return "admin/administer/adminEnroll";
+		return "admin/management/adminEnroll";
 	}
 	
 	
@@ -70,19 +51,23 @@ public class AdminController {
 		
 		admin.setAdminPw(encryptPassword);
 		
-			
+		String fullEmail = admin.getAdminEmail() + "@job-jo8a.com";
+		
+		admin.setAdminEmail(fullEmail);
+		
 		int result = adminService.insertAdmin(admin);
 		if (result > 0) {
 			model.addAttribute("admin", admin);
 		}
 		
-		return "redirect:admin/adminList";
+		return "redirect:adminList";
 	}
 	
-	@RequestMapping("admin/adminDelete/{adminNo}")
-	public String adminDelete (Model model, Admin admin) {
+	@RequestMapping("admin/adminDelete")
+	public String adminDelete (int adminNo, Model model) {
 		
-		int result = adminService.deleteAdmin(admin.getMemNo()); // no로 조회하고 삭제
+		System.out.println(adminNo);
+		int result = adminService.deleteAdmin(adminNo); // no로 조회하고 삭제
 		
 		String loc = "/";
 		String msg = "";
@@ -93,19 +78,19 @@ public class AdminController {
 		 model.addAttribute("loc", loc);
 		 model.addAttribute("msg", msg);
 		
-		return "redirect:admin/adminList";		
+		return "redirect:adminList";		
 	}
 	
 	
 /******************************************************************/
 	
 	@RequestMapping("admin/adminUpdateView")
-	public String adminUpdateView(int memNo, Model model) {
-		System.out.println(memNo);
-		Admin admin = adminService.selectAdmin(memNo);
+	public String adminUpdateView(int adminNo, Model model) {
+		System.out.println(adminNo);
+		Admin admin = adminService.selectAdmin(adminNo);
 		
 		model.addAttribute("admin", admin);
-		return "admin/administer/adminUpdateView";
+		return "admin/management/adminUpdateView";
 	}
 	
 	

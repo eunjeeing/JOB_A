@@ -2,19 +2,25 @@ package com.kh.joba.user.chat.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.kh.joba.user.chat.model.vo.Chat;
 import com.kh.joba.user.member.model.vo.Member;
 
 public class ChatHandler extends TextWebSocketHandler {
 	
 	private List<WebSocketSession> sessionList = new ArrayList<>();
+	private Map<WebSocketSession, Integer> chatMap = new HashMap<>(); // 세션, 방번호
 	
 	@Override // 세션 연결시 동작
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {

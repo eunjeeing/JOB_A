@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.kh.joba.admin.administer.model.service.AdminService;
-import com.kh.joba.admin.administer.model.vo.Admin;
+import com.kh.joba.admin.management.model.service.AdminService;
+import com.kh.joba.admin.management.model.vo.Admin;
 import com.kh.joba.user.category.model.vo.WishCategory;
 import com.kh.joba.user.common.exception.MemberException;
 import com.kh.joba.user.member.model.service.MemberService;
@@ -181,7 +181,7 @@ public class MemberController {
 			// System.out.println("admin 정보2 : " + admin2); --> Member member, Admin admin 이 안되서 강제로 삽입함
 			
 			model.addAttribute("admin", admin);
-			return "admin/administer/adminUpdateView";
+			return "admin/management/adminUpdateView";
 			
 		}
 		
