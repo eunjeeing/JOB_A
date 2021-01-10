@@ -1,4 +1,4 @@
-package com.kh.joba.admin.administer.model.service;
+package com.kh.joba.admin.management.model.service;
 
 import java.util.List;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.joba.admin.administer.model.dao.UserDAO;
+import com.kh.joba.admin.management.model.dao.UserDAO;
 
 
 @Service
@@ -16,16 +16,11 @@ public class UserServiceImpl implements UserService {
 	UserDAO userDAO;
 
 	@Override
-	public List<Map<String, String>> selectUserList(int cPage, int numPerPage) {
+	public List<Map<String, String>> selectMemberList() {
 		// TODO Auto-generated method stub
-		return null;
+		return userDAO.selectMemberList();
 	}
 
-	@Override
-	public int selectTotalUser() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 
 }

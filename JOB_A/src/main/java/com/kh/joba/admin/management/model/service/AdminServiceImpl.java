@@ -1,4 +1,4 @@
-package com.kh.joba.admin.administer.model.service;
+package com.kh.joba.admin.management.model.service;
 
 import java.util.List;
 import java.util.Map;
@@ -6,8 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.joba.admin.administer.model.dao.AdminDAO;
-import com.kh.joba.admin.administer.model.vo.Admin;
+import com.kh.joba.admin.management.model.dao.AdminDAO;
+import com.kh.joba.admin.management.model.vo.Admin;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -16,15 +16,9 @@ public class AdminServiceImpl implements AdminService {
 	AdminDAO adminDAO;
 	
 	@Override
-	public List<Map<String, String>> selectAdminList(int cPage, int numPerPage) {
+	public List<Map<String, String>> selectAdminList() {
 		// TODO Auto-generated method stub
-		return adminDAO.selectAdminList(cPage, numPerPage);
-	}
-
-	@Override
-	public int selectTotalAdmin() {
-		// TODO Auto-generated method stub
-		return adminDAO.selectTotalAdmin();
+		return adminDAO.selectAdminList();
 	}
 
 	@Override
@@ -34,18 +28,18 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public int deleteAdmin(int memNo) {
+	public int deleteAdmin(int adminNo) {
 		// TODO Auto-generated method stub
-		return adminDAO.deleteAdmin(memNo);
+		return adminDAO.deleteAdmin(adminNo);
 	}
 
 	
 	/******************************************************************/
 
 	@Override
-	public Admin selectAdmin(int memNo) {
+	public Admin selectAdmin(int adminNo) {
 		// TODO Auto-generated method stub
-		return adminDAO.selectAdmin(memNo);
+		return adminDAO.selectAdmin(adminNo);
 	}
 	
 	@Override

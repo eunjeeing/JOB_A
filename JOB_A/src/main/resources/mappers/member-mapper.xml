@@ -35,10 +35,10 @@
 	</insert> 
 
 	<insert id="insertWishCategory" parameterType="WishCategory">
-		INSERT INTO WISH_CATEGORY
-		VALUES
-		(#{mem_No}, #{category_no})
-	</insert>
+      INSERT INTO WISH_CATEGORY
+      VALUES
+      (#{mem_No}, #{resultCategory})
+   </insert>
 	
 	<select id="loginMember" parameterType="string" resultMap="resultMember">
 		SELECT * FROM MEMBER
@@ -83,5 +83,19 @@
 		WHERE MEM_NICK = #{memNick}
 	</select>
 	<!-- jdbcType 참조 : https://mybatis.org/mybatis-3/apidocs/reference/org/apache/ibatis/type/JdbcType.html -->
+	
+	
+	
+	
+	<!--=========================================================================-->
+	<select id="selectMemberList" resultMap="resultMember">
+		SELECT * FROM MEMBER
+		WHERE GRADE_NO > 1
+		ORDER BY MEM_NO DESC
+	</select>
+	
+	
+	
+	
 	
 </mapper> 
