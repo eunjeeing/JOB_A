@@ -25,8 +25,6 @@
 		<result property="memPhone" column="MEM_PHONE"/>
 	</resultMap>
 
-
-
 	<insert id="insertMember" parameterType="Member" >
 	 	INSERT INTO MEMBER
 	 	(MEM_NO, GRADE_NO, MEM_ID, MEM_PW, MEM_NICK, MEM_EMAIL, MEM_BIRTH, MEM_AREA, MEM_STATE, MEM_DATE, MEM_NAME, MEM_PHONE)
@@ -37,7 +35,7 @@
 	<insert id="insertWishCategory" parameterType="WishCategory">
 		INSERT INTO WISH_CATEGORY
 		VALUES
-		(#{mem_No}, #{category_no})
+		(#{mem_No}, #{resultCategory})
 	</insert>
 	
 	<select id="loginMember" parameterType="string" resultMap="resultMember">
@@ -51,25 +49,35 @@
 		FROM WISH_CATEGORY
 		WHERE MEM_NO = #{memNo}
 	</select>
-<!--
+
 	<update id="updateMember" parameterType="Member">
-	 UPDATE MEMBER SET
-		EMAIL = #{ email },
-		USERNAME = #{ userName },
-		AGE = #{ age },
-		PHONE = #{ phone },
-		ADDRESS = #{ address },
-		HOBBY = #{
-		hobby, typeHandler=strArrTypeHandler }
-		WHERE USERID = #{ userId } 
+	 	UPDATE MEMBER SET
+			MEM_NO = #{memNo},
+			GRADE_NO = #{gradeNo},
+			MEM_ID = #{memId},
+			MEM_PW = #{memPw},
+			MEM_NICK = #{memNick},
+			MEM_EMAIL = #{memEmail},
+			MEM_BIRTH = #{memBirth},
+			MEM_AREA = #{memArea},
+			MEM_STATE = #{memState},
+			MEM_DATE = DEFAULT,
+			MEM_NAME = DEFAULT,
+			MEM_PHONE = DEFAULT
+		WHERE MEM_NO = #{memNo} 
 	</update>
--->
-	
+
+
 	<delete id="deleteMember" parameterType="string">
- 	DELETE FROM MEMBER WHERE
+ 		DELETE FROM MEMBER WHERE
 		MEM_ID = #{ memId } 
 	</delete>
-
+	
+	<delete id="deleteWishCategory" parameterType="int">
+		DELETE FROM WISH_CATEGORY
+		WHERE
+		MEM_NO = #{ memNo } 
+	</delete>
 
 	<!-- 아이디 중복 검사 -->
 	<select id="checkIdDuplicate" parameterType="string" resultMap="resultMember"> 

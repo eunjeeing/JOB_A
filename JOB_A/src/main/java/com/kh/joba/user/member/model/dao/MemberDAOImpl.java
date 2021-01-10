@@ -20,6 +20,7 @@ public class MemberDAOImpl implements MemberDAO {
 	// 회원가입
 	@Override
 	public int insertMember(Member member) {
+		
 		return sqlSession.insert("memberMapper.insertMember", member);
 	}
 
@@ -34,8 +35,8 @@ public class MemberDAOImpl implements MemberDAO {
 	// 회원정보 수정
 	@Override
 	public int updateMember(Member member) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		return sqlSession.update("memberMapper.updateMember", member);
 	}
 
 	// 아이디 중복 체크
@@ -69,8 +70,8 @@ public class MemberDAOImpl implements MemberDAO {
 
 	// 선호 직종 삽입
 	@Override
-	public void insertWishCategory(int mem_No, int category_no) {
-				WishCategory wish = new WishCategory(mem_No, category_no);
+	public void insertWishCategory(int mem_No, int resultCategory) {
+				WishCategory wish = new WishCategory(mem_No, resultCategory);
 				
 		sqlSession.insert("memberMapper.insertWishCategory",wish);
 		
@@ -85,6 +86,11 @@ public class MemberDAOImpl implements MemberDAO {
 		ws = sqlSession.selectList("memberMapper.selectWishCategory", memNo);
 		
 		return ws;
+	}
+	// 관심직종 삭제
+	@Override
+	public void deleteWishCategory(int memNo) {
+		sqlSession.delete("memberMapper.deleteWishCategory", memNo);
 	}
 
 }

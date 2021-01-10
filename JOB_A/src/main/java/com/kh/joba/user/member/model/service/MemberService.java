@@ -22,4 +22,6 @@ public interface MemberService {
 	void insertWishCategory(int mem_No, int[] category_No);
 
 	List<WishCategory> selectWishCategory(int memNo);
+
+	void deleteWishCategory(int memNo);
 }

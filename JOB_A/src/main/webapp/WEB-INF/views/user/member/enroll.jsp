@@ -37,13 +37,13 @@
 	/* 회원가입 폼 사이드바 옆으로 배열*/
 	#list_2 {
 		display: flex;
-		height: 1800px;
+		height: 2000px;
 	}
 	/* 폼 배치 조절 */
-	.memberEnrollForm {
+	#list_2 form{
+		width: 580px;
+		margin: 0 auto;
 		padding-top: 100px;
-		padding-left: 280px;
-
 	}
 	
 	/* 회원가입 버튼 중간배열 */
@@ -503,7 +503,7 @@
 
 								console.log("code: "+code+"userInputCode: "+userInputCode);
 
-								if( code != null ){
+								if( code != null && code != ""){
 									if( code == userInputCode){
 										alert("이메일 인증 성공 >_<");
 										$(".check_email").val("true");
@@ -603,13 +603,20 @@
 						        var date = new Date(); // 오늘날짜 생성
 						 
 						        var date2 = new Date( $("#memBirth").val()); // 우리가 선택한 날짜 
-						        // alert("date2:"+date2);
-						        // alert("date:"+date);
-						
+						        var date3 = new Date('1919-12-31');
+						        
+						        console.log("date2:"+date2);
+						        console.log("date:"+date);
+						        console.log("date3:"+date3);
+														        
+						        
 						        if(date2>date){
-							       alert("당신 미래에서 오셨나요 ? ")
-						            $("#memBirth").val(null);
-						        }
+							       alert("당신 미래에서 오셨군요?");
+						           		$("#memBirth").val(null);
+						        }else if(date2 < date3){
+							        alert("장수하셨네요! 하지만 회원가입은 어렵답니다 ㅠ_ㅠ");
+							        	$("#memBirth").val(null);
+							        }
 						    };
 						
 							/* 선호지역 API 스크립트 */

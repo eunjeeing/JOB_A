@@ -36,15 +36,17 @@
 <style>
 
 	#loginForm {
-		margin-top: 100px;
-		margin-left: 300px;
-		width: 450px;
+	
+		width: 440px;
+		margin: 0 auto;
+		
+		margin-top: 250px;
 		height: 300px;
 	}
 	
 	#list_2 {
 		display: flex;
-		height: 1200px;
+		height: 100%;
 	}
 	
 	.btn-outline-success {

@@ -70,28 +70,28 @@ public class MemberController {
                        Model model) {
       System.out.println("member/memberLogin.do 접속 ok");
       
-         String loc = "/";
+         String loc = "/login.do";
          String msg = "";
          
          Member m = memberService.selectOneMember(memId);
          
          if(m == null) {
-            msg = "존재하지 않는 아이디입니다.";
+            msg = "회원가입 해주셨나요? 존재하지 않는 아이디입니다 ㅠ_ㅠ";
          } else {
-            if(bcryptPasswordEncoder.matches(memPw, m.getMemPw())){
-               msg = "로그인에 성공하였습니다!";
+            if(bcryptPasswordEncoder.matches(memPw, m.getMemPw()) && m.getMemState() != 2){
+               msg = "로그인 성공 >_<!";
                model.addAttribute("member", m);
                
             } else {
-               msg = "비밀번호가 일치하지 않습니다!";
+               msg = "로그인 실패 ㅠ_ㅠ";
                
-            }
+            } 
          }
          
          model.addAttribute("msg", msg);
          model.addAttribute("loc", loc);
       
-      return "index";
+      return "user/common/msg";
    }
 	
 	// 회원가입 페이지 접속
@@ -283,10 +283,50 @@ public class MemberController {
      	ws = memberService.selectWishCategory(m.getMemNo());
      	model.addAttribute("wishcategory", ws);
      	
-    	System.out.println("wishcategory : " + ws.toString());
+    	System.out.println("회원정보 수정페이지 wishcategory : " + ws.toString());
     	
     	return "user/member/memberView";
     	
+    }
+    
+    // 회원정보수정 버튼
+    @RequestMapping("/member/memberUpdated.do")
+    public String memberUpdate(Member member, WishCategory WishCategory, Model model) throws MemberException{
+		System.out.println("컨트롤러 버튼에서 member : " + member);
+    	System.out.println("컨트롤러에서 WishCategory : " + WishCategory);
+    	
+    	// 비밀번호 암호화
+		String plainPassword = member.getMemPw();
+		
+		String encryptPassword = bcryptPasswordEncoder.encode(plainPassword); 
+		System.out.println("gradeNo: " + member.getGradeNo());
+		System.out.println("원문 : " + plainPassword);
+		System.out.println("암호문 : " + encryptPassword);
+		
+		member.setMemPw(encryptPassword);
+		
+    	//멤버테이블 수정
+    	int result = memberService.updateMember(member);
+    	// 관심직종 삭제 후 인서트
+    	memberService.deleteWishCategory(member.getMemNo());
+    	memberService.insertWishCategory(member.getMemNo(),WishCategory.getCategory_No());
+
+    	String loc = "/";
+    	String msg = "";
+    	
+    	if(result > 0) {
+    		msg = "회원 정보 수정 성공";
+    		model.addAttribute("member", member);
+    		System.out.println("컨트롤러에서 업데이트 된 member : " + member.toString());
+    		
+    	} else {
+    		msg = "회원 정보 수정 실패";
+    	}
+    	
+    	model.addAttribute("loc", loc);
+    	model.addAttribute("msg", msg);
+    	
+    	return "user/common/msg";
     }
     
     // 회원 탈퇴
