@@ -32,8 +32,8 @@ public class MemberServiceImpl implements MemberService {
 	// 회원 정보 수정
 	@Override
 	public int updateMember(Member member) {
-		// TODO Auto-generated method stub
-		return 0;
+	
+		return memberDAO.updateMember(member);
 	}
 
 	// 아이디 중복 확인
@@ -64,6 +64,7 @@ public class MemberServiceImpl implements MemberService {
 	public void insertWishCategory(int mem_No, int[] category_No) {// WishCategory까지 받는다 치고 여기서 반복문을 돌려야 합니다.
 		System.out.println("memNo "+ mem_No + " category+No : " + category_No);
 		for (int category_no : category_No ) {
+			System.out.println("category_no:"+category_no);
 			memberDAO.insertWishCategory(mem_No, category_no);
 		}  //이런 식으로 선택한 카테고리 갯수만큼 반복 시켜야 해요!
 		
@@ -76,6 +77,11 @@ public class MemberServiceImpl implements MemberService {
 	
 		
 		return memberDAO.selectWishCategory(memNo);
+	}
+	//선호직종 삭제
+	@Override
+	public void deleteWishCategory(int memNo) {
+		memberDAO.deleteWishCategory(memNo);
 	}
 
 }

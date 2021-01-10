@@ -23,4 +23,6 @@ public interface MemberDAO {
 	void insertWishCategory(int mem_No, int category_no);
 
 	List<WishCategory> selectWishCategory(int memNo);
+
+	void deleteWishCategory(int memNo);
 }

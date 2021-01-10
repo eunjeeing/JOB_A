@@ -36,14 +36,16 @@
 
 	/* 회원가입 폼 사이드바 옆으로 배열*/
 	#list_2 {
+
 		display: flex;
 		height: 1800px;
 	}
+	
 	/* 폼 배치 조절 */
-	.memberEnrollForm {
+	#list_2 form{
+		width: 580px;
+		margin: 0 auto;
 		padding-top: 100px;
-		padding-left: 280px;
-
 	}
 	
 	/* 회원가입 버튼 중간배열 */
@@ -95,6 +97,12 @@
 	#updated{
 		margin-left : 0px;
 	}
+	.buttons{
+	text-align: center;
+	}
+	.buttons input{
+		margin: 0 5px ;
+	}
 </style>
 </head>
 <body>
@@ -110,15 +118,22 @@
 						<c:import url="../common/header.jsp" />
 						<div id="list_2">
 
-
-							<form class="memberEnrollForm" id="memberEnrollForm" action="memberEnroll.do" method="post" onsubmit="return validate();">
+							<form class="memberEnrollForm" id="memberEnrollForm" action="memberUpdated.do" method="post" onsubmit="return validate();">
 								<!-- 기본정보 테이블 -->
-								<input type="hidden" class="check_email" value="false" /> <!-- 이메일 인증 여부 -->
-								<input type="hidden" class="email" name="memEmail" value="" />	<!-- 컨트롤러로 보낼 이메일 -->
+								<input type="hidden" class="check_email" value="true" /> <!-- 이메일 인증 여부 -->
+								<input type="hidden" class="email" name="memEmail" value="${member.memEmail}" />	<!-- 컨트롤러로 보낼 이메일 -->
 								<input type="hidden" class="check_Id" value="false" /> <!-- 아이디 중복 체크 여부 -->
 								<input type="hidden" class="check_info" value="false" /> <!-- 약관 체크 여부 -->
 								<input type="hidden" class="local" value="${member.memArea}" /> <!-- 선호지역 바인딩 -->
 								<input type="hidden" class="check_nickName" value="${member.memNick}" /> <!-- 닉네임 수정시 비교대상 -->
+								<!-- 선호지역 -->
+								<input type="hidden" class="local1" name="memArea" value="">
+								<input type="hidden" class="local2" name="memArea" value="">
+								<input type="hidden" class="local3" name="memArea" value="">
+								<!-- ★관심 직종 배열 바인딩★ -->
+								<c:forEach items="${wishcategory}" var="categoryList" varStatus="status">
+									<input type="hidden" class="jobList" id="category${status.count}" value="${categoryList.resultCategory}"/> 
+								</c:forEach>
 								
 								<table>
 									<tr>
@@ -155,7 +170,7 @@
 											<span class="guide ok">사용 가능</span>
 				            				<span class="guide error">사용 불가</span>
 				            				<span class="guide invalid">10글자 미만</span>
-				            				<input type="hidden" name="nickNameDuplicateCheck" id="nickNameDuplicateCheck" value="0"/>
+				            				<input type="hidden" name="nickNameDuplicateCheck" id="nickNameDuplicateCheck" value="1"/>
 										</td>
 										<td>
 											
@@ -247,11 +262,11 @@
 									<tr>
 										<th class="table_th">선호지역</th>
 										<td>
-											<select name="memArea" size="1"  class="location_sido" id="sido1">
+											<select name="" size="1"  class="location_sido" id="sido1">
 												<option value="" > &nbsp;&nbsp;---------- 시/도 ----------</option>
 											</select> 
 											<br />
-											<select name="memArea" size="1"  class="location_sigu" id="sigugun1">
+											<select name="" size="1"  class="location_sigu" id="sigugun1">
 												<option value="" >&nbsp;&nbsp;----------- 구 -----------</option>
 											</select>
 										</td>
@@ -259,11 +274,11 @@
 									<tr>
 										<th></th>
 										<td>
-											<select name="memArea" size="1" class="location_sido" id="sido2">
+											<select name="" size="1" class="location_sido" id="sido2">
 												<option value="" > &nbsp;&nbsp;---------- 시/도 ----------</option>
 											</select> 
 											<br />
-											<select name="memArea" size="1" class="location_sigu" id="sigugun2">
+											<select name="" size="1" class="location_sigu" id="sigugun2">
 												<option value="" >&nbsp;&nbsp;----------- 구 -----------</option>
 											</select>
 										</td>
@@ -272,18 +287,20 @@
 									<tr>
 										<th></th>
 										<td>
-											<select name="memArea" size="1" class="location_sido" id="sido3">
+											<select name="" size="1" class="location_sido" id="sido3">
 												<option value="" > &nbsp;&nbsp;---------- 시/도 ----------</option>
 											</select> 
 											<br />
-											<select name="memArea" size="1" class="location_sigu" id="sigugun3">
+											<select name="" size="1" class="location_sigu" id="sigugun3">
 												<option value="" >&nbsp;&nbsp;----------- 구 -----------</option>
 										</select></td>
 									</tr>
 								</table>
+								<div class="buttons">								
 									<input type="button" class="updateSuccess" onclick="location.href='${pageContext.request.contextPath}/member/memberDelete.do'" value="회원탈퇴">&nbsp;
-									<input type="reset" class="updateSuccess" value="취소">&nbsp;
-									<input type="submit" class="updateSuccess" id="updated" onclick="location.href='${pageContext.request.contextPath}/member/memberUpdated.do'" value="수정" >
+									<input type="button" class="updateSuccess" value="취소" onclick="location.href='${pageContext.request.contextPath}/member/myPage.do'">&nbsp;
+									<input type="submit" class="updateSuccess" id="updated" value="수정" >
+								</div>
 								<br> 
 							</form>
 						</div>
@@ -313,13 +330,23 @@
 							var email_id = email.split("@");
 		
 							// alert(email);
-							// console.log(email_id[0]);					
-							// console.log(email_id[1]);	
+							 console.log(email_id[0]);					
+							 console.log(email_id[1]);	
 							$("#memEmail").val(email_id[0]);
 							$("#domain").val(email_id[1]);
-											
-						});
 
+						/* 관심직종 배열 바인딩 */
+							var jobList = $(".jobList").length; // 배열갯수를 가지고 옴
+							console.log("jobList : " + jobList);
+							for(var i = 1; i <= jobList; i++){
+								$('input:checkbox[name="category_No"][value="'+$("#category"+i).val()+'"]').prop('checked', true);	
+							}
+						});
+						/* 이메일 변경시 이메일인증 하도록 */
+						$("#memEmail").on("change keyup paste", function() {
+							$('.check_email').val("false");
+							console.log("이메일인증을하시오");
+						});
 						/*각 종 유효성 검사*/
 						function validate2(obj){
 						
@@ -410,10 +437,11 @@
 								// console.log("email : " + email);
 								var checkBox = $(".mail_check_input");        // 인증번호 입력란
 							    var boxWrap = $(".mail_check_input_box");    // 인증번호 입력란 박스
+							    console.log("1");
    						    $.ajax({
-   						   
+   						   		
    						        type:"GET",
-   						        url:"member/emailCheck.do",
+   						        url:"emailCheck.do",
    						        data: "email=" + email,
    						        success:function(data){ 				// data : 스트링으로 변환된 인증코드
 
@@ -433,7 +461,7 @@
 
 								console.log("code: "+code+"userInputCode: "+userInputCode);
 
-								if( code != null ){
+								if( code != null && code != ""){
 									if( code == userInputCode){
 										alert("이메일 인증 성공 >_<");
 										$(".check_email").val("true");
@@ -515,11 +543,11 @@
 							}
 							
 							// 아이디 중복 체크 여부
-							if($(".check_Id").val()=="false"){
-								alert("아이디를 다시 확인 해주세요.");
-								return false;
+							//if($(".check_Id").val()=="false"){
+							//	alert("아이디를 다시 확인 해주세요.");
+							//	return false;
 								
-							}
+							//}
 							
 							// 닉네임 중복 체크 여부
 						    if($("#nickNameDuplicateCheck").val()==0){
@@ -557,6 +585,7 @@
 								    //append를 이용하여 option 하위에 붙여넣음
 								    jQuery('#sido1').append(fn_option(code.sido, code.codeNm));
 								  });
+								 
 								  //sido 변경시 시군구 option 추가
 								  jQuery('#sido1').change(function(){
 								    jQuery('#sigugun1').show();
@@ -578,25 +607,7 @@
 								      jQuery('#sigugun1').trigger('change');
 								    }
 								  });
-								 
-								  //시군구 변경시 행정동 옵션추가
-								  // jQuery('#sigugun').change(function(){
-								    //option 제거
-								    /*
-								    jQuery('#dong').empty();
-								    jQuery.each(hangjungdong.dong, function(idx, code){
-								      if(jQuery('#sido > option:selected').val() == code.sido && jQuery('#sigugun > option:selected').val() == code.sigugun)
-								        jQuery('#dong').append(fn_option(code.dong, code.codeNm));
-								    });
-								    
-								    //option의 맨앞에 추가
-								    jQuery('#dong').prepend(fn_option('','선택'));
-								    //option중 선택을 기본으로 선택
-								    jQuery('#dong option:eq("")').attr('selected', 'selected');
-								 
-								  });
-								*/
-								 
+
 								  jQuery('#sigugun1').change(function(){
 								    var sido = jQuery('#sido1 option:selected').val();
 								    var sigugun = jQuery('#sigugun1 option:selected').val();
@@ -609,15 +620,15 @@
 								    var sido = hangjungdong.sido[sidoIdx].codeNm;//시
 								    var sigungu = hangjungdong.sigugun[sigugunIdx].codeNm;//시군구
 		
-								    alert(sido + ":" + sigungu);
+								    // alert(sido + ":" + sigungu);
+								    $(".local1").val(sido+" "+sigungu); // 예) 서울특별시/강남구 로 한 쌍씩 주려고 만듬.
 								    
 								  });
-
-								
 								});
 								function fn_option(code, name){
 								  return '<option value="' + code +'">' + name +'</option>';
 								}
+		
 								/*두번째 선호지역 */
 								jQuery(document).ready(function(){
 									  //sido option 추가
@@ -661,7 +672,8 @@
 									    var sido = hangjungdong.sido[sidoIdx].codeNm;//시
 									    var sigungu = hangjungdong.sigugun[sigugunIdx].codeNm;//시군구
 		
-									    alert(sido + ":" + sigungu);
+									    // alert(sido + ":" + sigungu);
+									    $(".local2").val(sido+" "+sigungu); // 예) 서울특별시/강남구 로 한 쌍씩 주려고 만듬.
 									    
 									  });
 									});
@@ -712,20 +724,20 @@
 										    var sido = hangjungdong.sido[sidoIdx].codeNm;//시
 										    var sigungu = hangjungdong.sigugun[sigugunIdx].codeNm;//시군구
 		
-										    alert(sido + ":" + sigungu);
+										    // alert(sido + ":" + sigungu);
+										    $(".local3").val(sido+" "+sigungu); // 예) 서울특별시/강남구 로 한 쌍씩 주려고 만듬.
 										    
 										  });
 										});
 										function fn_option(code, name){
 										  return '<option value="' + code +'">' + name +'</option>';
-										}		
-
+										}	
 
 										/* 선호지역 바인딩 */
 										$(function(){
 											var area = $(".local").val();
 											var area_local = area.split(",");
-											
+											console.log("area는?:"+area);
 											var area1 = area_local[0].split(" ");
 											var area2 = area_local[1].split(" ");
 											var area3 = area_local[2].split(" ");
@@ -734,6 +746,8 @@
 											console.log(area1[0], area1[1]);
 											console.log(area2[0], area2[1]);
 											
+											//$("#sido1").val(area1[0]).trigger('change');
+											//$("#sigugun1").val(area1[1]).prop("selected", true);	
 											/* 첫 번째 선호지역 하드코딩 */
 										    var result = hangjungdong.sido.findIndex(i => i.codeNm == area1[0]);
 										    var resultsido = hangjungdong.sido[result].sido;
@@ -743,8 +757,11 @@
 										    var result2sigungu = hangjungdong.sigugun[result2].sigugun;//시군구
 										    console.log("result2sigungu:"+result2sigungu);
 
-										    $("#sido1").val(resultsido).trigger('change');
+										    $("#sido1").val(resultsido).prop("selected", true).trigger('change');
 											$("#sigugun1").val(result2sigungu).prop("selected", true);					
+										//	$('#sido1 option:selected').val(area1[0]);
+										//	$('#sigugun1 option:selected').val(area1[1]);
+											$(".local1").val(area1[0]+" "+area1[1]); 
 											
 										    /* 두 번째 선호지역 하드코딩 */
 										    var result = hangjungdong.sido.findIndex(i => i.codeNm == area2[0]);
@@ -757,6 +774,7 @@
 
 											$("#sido2").val(resultsido).trigger('change');
 											$("#sigugun2").val(result2sigungu).prop("selected", true);					
+											$(".local2").val(area2[0]+" "+area2[1]); 
 											
 										    /* 세 번째 선호지역 하드코딩 */
 										    var result = hangjungdong.sido.findIndex(i => i.codeNm == area3[0]);
@@ -769,8 +787,11 @@
 																			
 											$("#sido3").val(resultsido).trigger('change');
 											$("#sigugun3").val(result2sigungu).prop("selected", true);					
-								
+											$(".local3").val(area3[0]+" "+area3[1]); 
+											
 										});
+	
+														
 						</script>
 
 </html>
