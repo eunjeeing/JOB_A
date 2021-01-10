@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardM-Mapper">
+
+	<!-- 채용공고 리스트 -->
+	<select id="selectJobList" resultType="Board">
+		SELECT B.*, M.MEM_NICK, C.*
+		FROM BOARD B, MEMBER M, CATEGORY C
+		WHERE TYPE_NO = 2 AND M.MEM_NO = B.MEM_NO AND C.CATEGORY_NO = B.CATEGORY_NO
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+
+	<!-- 채용공고 게시글 수 -->
+	<select id="selectJobTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 2
+	</select>
+	
+	<!-- 블라블라 리스트 -->
+	<select id="selectBlahBlahList" resultType="Board">
+		SELECT B.*, M.MEM_NICK
+		FROM BOARD B, MEMBER M
+		WHERE TYPE_NO = 4 AND M.MEM_NO = B.MEM_NO
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	
+	<!-- 블라블라 게시글 수 -->
+	<select id="selectBlahBlahTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 4
+	</select>
+	
+	<!-- 블라인드 리스트 -->
+	<select id="selectBlindList" resultType="Board">
+		SELECT B.*, M.MEM_NICK
+		FROM BOARD B, MEMBER M
+		WHERE TYPE_NO = 5 AND M.MEM_NO = B.MEM_NO
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+
+	<!-- 블라인드 게시글 수 -->
+	<select id="selectBlindTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 5
+	</select>
+	
+	<!-- QnA 리스트 -->
+	<select id="selectQnAList" resultType="Board">
+		SELECT B.*, M.MEM_NICK
+		FROM BOARD B, MEMBER M
+		WHERE TYPE_NO = 7 AND M.MEM_NO = B.MEM_NO
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+
+	<!-- QnA 게시글 수 -->
+	<select id="selectQnATotalContents" resultType="_int">
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 7 
+	</select>
+	
+	<!-- 합격후기 리스트 -->
+	<select id="selectAcceptList" resultType="Board1">
+		SELECT * FROM BOARD, MEMBER
+		WHERE TYPE_NO = 10 AND MEMBER.MEM_NO = BOARD.MEM_NO
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	
+	<!-- 합격후기 게시글 수  -->
+	<select id="selectAcceptTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 10
+	</select>
+	
+	<!-- 면접후기 리스트 -->
+	<select id="selectInterviewList" resultType="Board1">
+		SELECT * FROM BOARD, MEMBER
+		WHERE TYPE_NO = 9 AND MEMBER.MEM_NO = BOARD.MEM_NO
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	
+	<!-- 면접후기 게시글 수 -->
+	<select id="selectInterviewTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 9
+	</select>
+	
+	<!-- 멘토멘티 리스트 -->
+	<select id="selectMentoList" resultType="Board1">
+		SELECT * FROM BOARD, MEMBER
+		WHERE TYPE_NO = 8 AND MEMBER.MEM_NO = BOARD.MEM_NO
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	
+	<select id="selectMentoTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 8
+	</select>
+	
+	
+</mapper>
