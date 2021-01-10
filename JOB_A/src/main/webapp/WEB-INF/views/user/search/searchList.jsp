@@ -190,8 +190,7 @@ p {
 	<script>
 		$(function() {
 			$("div[class=tit]")
-					.on(
-							"click",
+					.on("click",
 							function() {
 								var board_No = $(this).attr("id");
 								console.log("board_No=" + board_No);
