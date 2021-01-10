@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>JOB_A | MENTO</title>
+<title>JOB_A | TOMORROW</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board.css" />
 <style>
@@ -91,12 +91,12 @@ p {
 					<button type="button" id="searchBtn" onclick="search()"
 					style="width: 50px;"><i class="fas fa-search" style="margin: -9px;"></i>
 					</button>
-					<button type="button" onclick="location.href='${pageContext.request.contextPath}/mentoList.bo'"
+					<button type="button" onclick="location.href='${pageContext.request.contextPath}/tomorrowList.bo'"
 					style="width: 50px;"><i class="fas fa-redo" style="margin: -9px;"></i></button>
 					
 					<c:if test="${ !empty member }" >
 						<c:if test="${ member.gradeNo >= 4 || member.gradeNo < 2 }">
-							<button id="writeBtn" onclick="goMentoForm();">글쓰기</button>
+							<button id="writeBtn" onclick="goTomorrowForm();">글쓰기</button>
 						</c:if>
 					</c:if>
 				</div>
@@ -106,26 +106,26 @@ p {
 						<div role="main" class="contents">
 
 							<div class="article-list">
-								<c:forEach items="${mentoList}" var="mento">
-									<div class="article-list-pre" onclick="selectOne(${mento.board_no});">
-										<div class="tit" id="${mento.board_no}">
-											<p style="display: none;">${mento.board_no }</p>
-											<h3 class="hh">${mento.board_title}</h3>
-											<div class="pre-txt">${mento.board_content}</div>
+								<c:forEach items="${tomorrowList}" var="tomorrow">
+									<div class="article-list-pre" onclick="selectOne(${tomorrow.board_no});">
+										<div class="tit" id="${tomorrow.board_no}">
+											<p style="display: none;">${tomorrow.board_no }</p>
+											<h3 class="hh">${tomorrow.board_title}</h3>
+											<div class="pre-txt">${tomorrow.board_content}</div>
 										</div>
 										<div class="sub">
-											<p class="name" style="padding-top: 2em;">${mento.mem_nick}</p>
+											<p class="name" style="padding-top: 2em;">${tomorrow.mem_nick}</p>
 											<div class="wrap-info">
-												<i class="far fa-eye" style="margin-right: 0;"></i> ${mento.board_view }
-												<i class="far fa-comment" style="margin-right: 0; margin-left: 14px;"></i> ${mento.comm_count }
+												<i class="far fa-eye" style="margin-right: 0;"></i> ${tomorrow.board_view }
+												<i class="far fa-comment" style="margin-right: 0; margin-left: 14px;"></i> ${tomorrow.comm_count }
 												<div class="info_fnc">
-												<span class="date"> <i class="far fa-clock"></i> ${mento.board_date}
+												<span class="date"> <i class="far fa-clock"></i> ${tomorrow.board_date}
 												<c:if test="${!empty bookmarkList}">
 													<c:forEach items="${bookmarkList}" var="bookmark">
-														<c:if test="${bookmark.board_no == mento.board_no}">
+														<c:if test="${bookmark.board_no == tomorrow.board_no}">
 															<i class="fas fa-bookmark" id="bookmark"></i>
 														</c:if>
-														<c:if test="${bookmark.board_no != mento.board_no}">
+														<c:if test="${bookmark.board_no != tomorrow.board_no}">
 															<i class="fas fa-bookmark" id="bookmark"></i>
 														</c:if>
 													</c:forEach>
@@ -153,39 +153,37 @@ p {
 	</div>
  	
 	<script>
-
 	function selectOne(boardNo) {
 		var gradeNo = '${sessionScope.member.gradeNo}';
 		console.log("gradeNo : " + gradeNo);
 		if (gradeNo.length != 0) {
-	     	if (gradeNo == '2' || gradeNo=='3' || gradeNo == '5') {
-	     		alert("최우수 회원만 접근할 수 있습니다.");
+	     	if (gradeNo == '5') {
+	     		alert("일반 이상 회원만 접근할 수 있습니다.");
 	     	} else {
-    			location.href = "${pageContext.request.contextPath}/selectOneInterview.bo?board_no="+ boardNo;
+    			location.href = "${pageContext.request.contextPath}/selectOneTomorrow.bo?board_no="+ boardNo;
 			}
 		} else {
 			alert("로그인 후 이용가능합니다.");
 		}
 
 	}
-	
-	function goMentoForm() {
-		location.href = "${pageContext.request.contextPath}/mentoWrite.bo";
-	}
+		function gotomorrowForm() {
+			location.href = "${pageContext.request.contextPath}/tomorrowWrite.bo";
+		}
 
-   	function search() {
+    	function search() {
 
-   		var a = 'aa';
-       	
-		location.href="${pageContext.request.contextPath}/searchMentoList.bo?keyword="+$('#search').val();
+    		var a = 'aa';
+        	
+			location.href="${pageContext.request.contextPath}/searchTomorrowList.bo?keyword="+$('#search').val();
 
-   	}
-   	
-   	function enterKey() {
-   			if (event.keyCode==13){
-   				location.href="${pageContext.request.contextPath}/searchMentoList.bo?keyword="+$('#search').val();
-   			}
-   		}
+    	}
+    	
+    	function enterKey() {
+    			if (event.keyCode==13){
+    				location.href="${pageContext.request.contextPath}/searchTomorrowList.bo?keyword="+$('#search').val();
+    			}
+    		}
 	</script>			
 </body>
 </html>

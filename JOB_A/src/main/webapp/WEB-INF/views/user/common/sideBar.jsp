@@ -30,7 +30,7 @@
 					<ul>
 						<li><a href="${pageContext.request.contextPath}/board2/blahList.do">블라블라</a></li>						
 						<li><a href="${pageContext.request.contextPath}/board2/selectBlindList.do">블라인드</a></li>
-						<li><a href="${pageContext.request.contextPath}/untiltomList.bo">언틸 투모로우</a></li>
+						<li><a href="${pageContext.request.contextPath}/tomorrowList.bo">언틸 투모로우</a></li>
 					</ul>
 				</li>
 				<li><a href="${pageContext.request.contextPath}/board2/selectQnAList.do">Q & A</a></li>

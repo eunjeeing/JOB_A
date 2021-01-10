@@ -26,6 +26,13 @@ public interface Board1Service {
 // 							Mentoring Service Area
 // *******************************************************************************************
 	List<Map<String, String>> selectMentoList(int cPage, int numPerPage);
+	int selectMentoTotalContents();
+	Board1 selectOneMento(int board_no);
+	List<Map<String, String>> searchMentoList(int cPage, int numPerPage, String keyword);
+	int searchMentoTotalContents(String keyword);
+	int mentoUpdate(Board1 mento);
+	int mentoDelete(int board_no);
+	int mentoInsert(Board1 mento);
 	
 	
 	
@@ -33,7 +40,14 @@ public interface Board1Service {
 // *******************************************************************************************
 // 							UntilTomorrow Service Area
 // *******************************************************************************************
-	
+	List<Map<String, String>> selectTomorrowList(int cPage, int numPerPage);
+	int selectTomorrowTotalContents();
+	Board1 selectOneTomorrow(int board_no);
+	List<Map<String, String>> searchTomorrowList(int cPage, int numPerPage, String keyword);
+	int searchTomorrowTotalContents(String keyword);
+	int tomorrowUpdate(Board1 tomorrow);
+	int tomorrowDelete(int board_no);
+	int tomorrowInsert(Board1 tomorrow);
 	
 // *******************************************************************************************
 // 							Interview Review Service Area

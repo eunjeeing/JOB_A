@@ -65,18 +65,78 @@ public class Board1ServiceImpl implements Board1Service {
 	public List<Map<String, String>> selectMentoList(int cPage, int numPerPage) {
 		return board1DAO.selectMentoList(cPage, numPerPage);
 	}
-
-
+	@Override
+	public int selectMentoTotalContents() {
+		return board1DAO.selectMentoTotalContents();
+	}
+	@Override
+	public Board1 selectOneMento(int board_no) {
+		Board1 mento = board1DAO.selectOneMento(board_no);
+		if (mento != null) board1DAO.updateViewCount(board_no);
+		return mento;
+	}
+	@Override
+	public List<Map<String, String>> searchMentoList(int cPage, int numPerPage, String keyword) {
+		return board1DAO.searchMentoList(cPage, numPerPage, keyword);
+	}
+	@Override
+	public int searchMentoTotalContents(String keyword) {
+		return board1DAO.searchMentoTotalContents(keyword);
+	}
+	@Override
+	public int mentoUpdate(Board1 mento) {
+		return board1DAO.updateMento(mento);
+	}
+	@Override
+	public int mentoDelete(int board_no) {
+		return board1DAO.deleteMetno(board_no);
+	}
+	@Override
+	public int mentoInsert(Board1 mento) {
+		return board1DAO.insertMento(mento);
+	}
 
 
 // *******************************************************************************************
 // 							UntilTomorrow Service Area
 // *******************************************************************************************
-
-
-
-
-	// *******************************************************************************************
+	@Override
+	public List<Map<String, String>> selectTomorrowList(int cPage, int numPerPage) {
+		return board1DAO.selectTomorrowList(cPage, numPerPage);
+	}
+	@Override
+	public int selectTomorrowTotalContents() {
+		return board1DAO.selectTomorrowTotalContents();
+	}
+	@Override
+	public Board1 selectOneTomorrow(int board_no) {
+		Board1 tomorrow = board1DAO.selectOneTomorrow(board_no);
+		if (tomorrow != null) board1DAO.updateViewCount(board_no);
+		return tomorrow;
+	}
+	@Override
+	public List<Map<String, String>> searchTomorrowList(int cPage, int numPerPage, String keyword) {
+		return board1DAO.searchTomorrowList(cPage, numPerPage, keyword);
+	}
+	@Override
+	public int searchTomorrowTotalContents(String keyword) {
+		return board1DAO.searchTomorrowTotalContents(keyword);
+	}
+	@Override
+	public int tomorrowUpdate(Board1 tomorrow) {
+		return board1DAO.updateTomorrow(tomorrow);
+	}
+	@Override
+	public int tomorrowDelete(int board_no) {
+		return board1DAO.deleteTomorrow(board_no);
+	}
+	@Override
+	public int tomorrowInsert(Board1 tomorrow) {
+		return board1DAO.insertTomorrow(tomorrow);
+	}
+	
+	
+// *******************************************************************************************
 // 							InterviewReview Service Area
 // *******************************************************************************************
 	@Override

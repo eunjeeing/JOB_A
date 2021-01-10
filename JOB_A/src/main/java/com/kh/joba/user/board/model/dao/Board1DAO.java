@@ -26,11 +26,26 @@ public interface Board1DAO {
 	// 							Mentoring DAO Area
 	// *******************************************************************************************
 	List<Map<String, String>> selectMentoList(int cPage, int numPerPage);
+	int selectMentoTotalContents();
+	Board1 selectOneMento(int board_no);
+	List<Map<String, String>> searchMentoList(int cPage, int numPerPage, String keyword);
+	int searchMentoTotalContents(String keyword);
+	int updateMento(Board1 mento);
+	int deleteMetno(int board_no);
+	int insertMento(Board1 mento);
 	
 	
 	// *******************************************************************************************
 	// 							UntilTomorrow DAO Area
 	// *******************************************************************************************
+	List<Map<String, String>> selectTomorrowList(int cPage, int numPerPage);
+	int selectTomorrowTotalContents();
+	Board1 selectOneTomorrow(int board_no);
+	List<Map<String, String>> searchTomorrowList(int cPage, int numPerPage, String keyword);
+	int searchTomorrowTotalContents(String keyword);
+	int updateTomorrow(Board1 tomorrow);
+	int deleteTomorrow(int board_no);
+	int insertTomorrow(Board1 tomorrow);
 	
 	
 	// *******************************************************************************************

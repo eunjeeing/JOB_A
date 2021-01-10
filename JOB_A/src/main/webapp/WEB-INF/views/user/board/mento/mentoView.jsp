@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>JOB_A | NOTICE</title>
+<title>JOB_A | MENTO</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board.css" />
 <style>
@@ -188,18 +188,18 @@ p {
 						<div role="main" class="contents">
 							<div class="acticle-view-head" id="head">
 								<div class="title-close" style="display: flex;">
-								<h2 id="title">${notice.board_title }</h2>
+								<h2 id="title">${mento.board_title }</h2>
 								<i class="far fa-window-close" id="close-icon" style="font-size: 30px; color: #f56a6a; margin-left:auto; margin-right: 0;"
-								   onclick="location.href='${pageContext.request.contextPath}/notice.bo'"></i>
+								   onclick="location.href='${pageContext.request.contextPath}/mentoList.bo'"></i>
 								</div>
-								<p class="name">${notice.mem_nick }</p>
+								<p class="name">${mento.mem_nick }</p>
 								<div class="wrap-info">
 									<span class="date"> <i class="far fa-clock"></i>
-											${notice.board_date }
+											${mento.board_date }
 									</span> <span class="pv"> <i class="far fa-eye"></i>
-											${notice.board_view }
+											${mento.board_view }
 									</span> <span class="cmt"> <i class="far fa-comment"></i>
-											${notice.comm_count }
+											${mento.comm_count }
 									</span>
 									<div class="info_fnc">
 										<span class="rebo"> <i
@@ -212,17 +212,17 @@ p {
 							</div>
 							<div class="article-view-contents">
 								<div id="contentArea" class="contents-txt">
-									${notice.board_content }</div>
+									${mento.board_content }</div>
 								<p>
-								<c:if test="${member.memNo eq notice.mem_no}">
+								<c:if test="${member.memNo eq mento.mem_no}">
 								<div align="right">
 									<button style="font-weight: 300; margin-right:10px;"
-									 onclick="location.href='${pageContext.request.contextPath}/noticeUpdateForm.bo?board_no=${notice.board_no}'">수정</button>
+									 onclick="location.href='${pageContext.request.contextPath}/mentoUpdateForm.bo?board_no=${mento.board_no}'">수정</button>
 									<!-- 
 									 <button style="font-weight: 300; margin-right:10px;"
-									 onclick="location.href='${pageContext.request.contextPath}/noticeUpdateForm.bo?board_no=${notice.board_no}&mem_no=${SessionScope.member.memNo}&type_no=${notice.type_no}'">수정</button>
+									 onclick="location.href='${pageContext.request.contextPath}/mentoUpdateForm.bo?board_no=${mento.board_no}&mem_no=${SessionScope.member.memNo}&type_no=${mento.type_no}'">수정</button>
 									 -->
-									<button style="font-weight: 300;" onclick="location.href='${pageContext.request.contextPath}/noticeDelete.bo?board_no=${notice.board_no}'">삭제</button>
+									<button style="font-weight: 300;" onclick="location.href='${pageContext.request.contextPath}/mentoDelete.bo?board_no=${mento.board_no}'">삭제</button>
 								</div>
 								</c:if>
 								</p>
@@ -231,9 +231,8 @@ p {
 
 
 							<!-- 댓글작성 -->
-							<!-- 
 							<div class="article-comments">
-								<h3 style="font-weight: 500">댓글 ${notice.comm_count }</h3>
+								<h3 style="font-weight: 500">댓글 ${mento.comm_count }</h3>
 								<div class="write_area">
 									<div id="btn_add_comment" style="display: flex;">
 										<div class="reply_area" style="width: 100%;">
@@ -250,16 +249,14 @@ p {
 											</form>
 									</div>
 								</div>
-							 -->
 								
 								
 								
 								<!-- 댓글리스트 -->
-								<!-- -
 								<c:forEach items="${selectComment}" var="co">
 								<c:if test="${co.comm_level eq 1}">
 									<div id="${co.comm_no }" class="wrap-comment comment-area">
-										<p class="name">${co.mem_nick }<c:if test="${co.mem_no eq notice.mem_no }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
+										<p class="name">${co.mem_nick }<c:if test="${co.mem_no eq mento.mem_no }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
 										<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_content }</textarea></p>
 										<div class="wrap-info">
 										
@@ -276,21 +273,19 @@ p {
 												<c:if test="${member.memNo eq co.mem_No}">
 													<a href="#" onclick="updateComment(this);return false;">수정</a>
 													<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
-													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_no=${notice.board_no}&comm_No=${co.comm_No }'">삭제</a>
+													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_no=${mento.board_no}&comm_No=${co.comm_No }'">삭제</a>
 												</c:if>
 												<span><i class="fas fa-exclamation-triangle"></i></span>
 											</div>
 										</div>
 									</div>
 								</c:if>
-								 -->
 								
 								<!-- 대댓글일때 -->
-								<!-- 
 								<c:if test="${co.comm_Level ne 1}">
 									<div class="wrap-reply">
 										<div id="${co.comm_No }" class="wrap-comment comment-area">
-											<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq notice.mem_No }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
+											<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq mento.mem_No }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
 											<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content }</textarea></p>
 											<div class="wrap-info">
 											
@@ -305,7 +300,7 @@ p {
 													<c:if test="${member.memNo eq co.mem_No}">
 														<a href="#" onclick="updateComment(this);return false;">수정</a>
 														<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
-														<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_no=${notice.board_no}&comm_No=${co.comm_No }'">삭제</a>
+														<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_no=${mento.board_no}&comm_No=${co.comm_No }'">삭제</a>
 													</c:if>
 													<span><i class="fas fa-exclamation-triangle"></i></span>
 												</div>
@@ -318,7 +313,6 @@ p {
 							</div>
 
 						</div>
-								 -->
 					</div>
 				</section>
 			</div>
@@ -327,7 +321,6 @@ p {
 	</div>
 
 	<script>
-	/*
 		document
 				.getElementById("insertComment")
 				.addEventListener(
@@ -338,7 +331,7 @@ p {
 								alert("댓글을 입력해 주세요");
 								return false;
 							} else {
-								location.href = '${pageContext.request.contextPath}/comments2/insertComment.do?board_no=${notice.board_no}&mem_No=${member.memNo}&comm_Content='
+								location.href = '${pageContext.request.contextPath}/comments2/insertComment.do?board_no=${mento.board_no}&mem_No=${member.memNo}&comm_Content='
 										+ comm_Content.value;
 							}
 						}, false);
@@ -364,7 +357,7 @@ p {
 
 			console.log(content);
 			
-			location.href = "${pageContext.request.contextPath}/comments2/updateComment.do?board_no=${notice.board_no}&comm_No=" + comm_No + "&comm_Content="
+			location.href = "${pageContext.request.contextPath}/comments2/updateComment.do?board_no=${mento.board_no}&comm_No=" + comm_No + "&comm_Content="
 				+ content;
 		}
 
@@ -412,10 +405,9 @@ p {
 			var comm_Content = $(obj).prev().find('textarea').val();
 			console.log("댓글 내용 : " + comm_Content);
 
-			location.href="${pageContext.request.contextPath}/comments2/insertComment.do?board_No=${notice.board_no}&mem_No=${member.memNo}&comm_Content="
+			location.href="${pageContext.request.contextPath}/comments2/insertComment.do?board_No=${mento.board_no}&mem_No=${member.memNo}&comm_Content="
 				+ comm_Content + "&comm_Ref=" + comm_Ref + "&comm_Level=" + comm_Level;
 	    }
-	*/
 			
 
 				

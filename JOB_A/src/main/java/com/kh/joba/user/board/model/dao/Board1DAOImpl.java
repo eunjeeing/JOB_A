@@ -71,18 +71,80 @@ public class Board1DAOImpl implements Board1DAO {
 	public List<Map<String, String>> selectMentoList(int cPage, int numPerPage) {
 		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
 		return sqlSession.selectList("board1Mapper.selectMentoList", null, rows);
+	}	
+	@Override
+	public int selectMentoTotalContents() {
+		return sqlSession.selectOne("board1Mapper.selectMentoTotalContents");
 	}
-
-
+	@Override
+	public Board1 selectOneMento(int board_no) {
+		return sqlSession.selectOne("board1Mapper.selectOneMento", board_no);
+	}
+	@Override
+	public List<Map<String, String>> searchMentoList(int cPage, int numPerPage, String keyword) {
+		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
+		return sqlSession.selectList("board1Mapper.searchMentoList", keyword, rows);
+	}
+	@Override
+	public int searchMentoTotalContents(String keyword) {
+		return sqlSession.selectOne("board1Mapper.searchMentoTotalContents", keyword);
+	}
+	@Override
+	public int updateMento(Board1 mento) {
+		return sqlSession.update("board1Mapper.updateMento", mento);
+	}
+	@Override
+	public int deleteMetno(int board_no) {
+		return sqlSession.update("board1Mapper.deleteMento", board_no);
+	}
+	@Override
+	public int insertMento(Board1 mento) {
+		return sqlSession.insert("board1Mapper.insertMento", mento);
+	}
+	
+	
 
 // *******************************************************************************************
 // 							UntilTomorrow DAO Area
 // *******************************************************************************************
-
-
-
-
-// *******************************************************************************************
+	@Override
+	public List<Map<String, String>> selectTomorrowList(int cPage, int numPerPage) {
+		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
+		return sqlSession.selectList("board1Mapper.selectTomorrowList", null, rows);
+	}	
+	@Override
+	public int selectTomorrowTotalContents() {
+		return sqlSession.selectOne("board1Mapper.selectTomorrowTotalContents");
+	}
+	@Override
+	public Board1 selectOneTomorrow(int board_no) {
+		return sqlSession.selectOne("board1Mapper.selectOneTomorrow", board_no);
+	}
+	@Override
+	public List<Map<String, String>> searchTomorrowList(int cPage, int numPerPage, String keyword) {
+		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
+		return sqlSession.selectList("board1Mapper.searchTomorrowList", keyword, rows);
+	}
+	@Override
+	public int searchTomorrowTotalContents(String keyword) {
+		return sqlSession.selectOne("board1Mapper.searchTomorrowTotalContents", keyword);
+	}
+	@Override
+	public int updateTomorrow(Board1 tomorrow) {
+		return sqlSession.update("board1Mapper.updateTomorrow", tomorrow);
+	}
+	@Override
+	public int deleteTomorrow(int board_no) {
+		return sqlSession.update("board1Mapper.deleteTomorrow", board_no);
+	}
+	@Override
+	public int insertTomorrow(Board1 tomorrow) {
+		return sqlSession.insert("board1Mapper.insertTomorrow", tomorrow);
+	}
+	
+	
+	
+	// *******************************************************************************************
 // 								Interview DAO Area
 // *******************************************************************************************
 	@Override

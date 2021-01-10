@@ -51,10 +51,93 @@
 		WHERE TYPE_NO = 8 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD_STATUS = 'Y'
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 	</select>
+	<select id="selectMentoTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 8 AND BOARD_STATUS = 'Y'
+	</select>
+	<select id="selectOneMento" parameterType="_int" resultType="Board1">
+		SELECT B.BOARD_NO, B.TYPE_NO, B.MEM_NO, B.BOARD_TITLE, B.BOARD_CONTENT, 
+				M.MEM_NICK, TO_CHAR(B.BOARD_DATE, 'YYYY-MM-DD HH24:MI:SS') AS BOARD_DATE, B.BOARD_STATUS, B.BOARD_VIEW
+		FROM BOARD B, MEMBER M
+		WHERE B.TYPE_NO = 8 AND B.BOARD_NO = #{board_no} AND B.MEM_NO = M.MEM_NO 
+	</select>
+	<select id="searchMentoList" resultType="Board1" parameterType="string">
+		SELECT B.BOARD_NO, B.TYPE_NO, B.MEM_NO, B.BOARD_TITLE, B.BOARD_CONTENT, 
+				M.MEM_NICK, TO_CHAR(B.BOARD_DATE, 'YYYY-MM-DD HH24:MI:SS') AS BOARD_DATE, B.BOARD_STATUS, B.BOARD_VIEW
+		FROM BOARD B, MEMBER M
+		WHERE B.TYPE_NO = 8 AND B.BOARD_STATUS = 'Y' AND M.MEM_NO = B.MEM_NO AND B.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+	</select>
+	<select id="searchMentoTotalContents" resultType="_int" parameterType="string">
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 8 AND BOARD_STATUS = 'Y' AND BOARD_TITLE LIKE '%' || #{keyword} || '%'
+	</select>
+	<update id="updateMento" parameterType="Board1">
+		UPDATE BOARD
+		SET BOARD_TITLE = #{board_title}, BOARD_CONTENT = #{board_content}
+		WHERE BOARD_NO = #{board_no}
+	</update>
+	<update id="deleteMento">
+		UPDATE BOARD
+		SET BOARD_STATUS = 'N'
+		WHERE BOARD_NO = #{board_no}
+	</update>
+	<insert id="insertMento" parameterType="Board1">
+		INSERT INTO BOARD (BOARD_NO,TYPE_NO, MEM_NO, BOARD_TITLE, BOARD_CONTENT)
+		VALUES (BOARD_SEQ.NEXTVAL, #{type_no}, #{mem_no} ,#{board_title}, #{board_content})
+	</insert>
 	
 	
 	
 <!-- UntilTomorrow -->
+	<select id="selectTomorrowList" resultType="Board1">
+		<![CDATA[
+		SELECT * FROM BOARD, MEMBER
+		WHERE TYPE_NO = 6 
+			AND MEMBER.MEM_NO = BOARD.MEM_NO 
+			AND BOARD_STATUS = 'Y' 
+			AND (SYSDATE - BOARD.BOARD_DATE) < 1
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+		]]>
+	</select>
+	<select id="selectTomorrowTotalContents" resultType="_int">
+	<![CDATA[
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 6 AND BOARD_STATUS = 'Y' AND (SYSDATE - BOARD.BOARD_DATE) < 1
+	]]>
+	</select>
+	<select id="selectOneTomorrow" parameterType="_int" resultType="Board1">
+	<![CDATA[
+		SELECT B.BOARD_NO, B.TYPE_NO, B.MEM_NO, B.BOARD_TITLE, B.BOARD_CONTENT, 
+				M.MEM_NICK, TO_CHAR(B.BOARD_DATE, 'YYYY-MM-DD HH24:MI:SS') AS BOARD_DATE, B.BOARD_STATUS, B.BOARD_VIEW
+		FROM BOARD B, MEMBER M
+		WHERE B.TYPE_NO = 6 AND B.BOARD_NO = #{board_no} AND B.MEM_NO = M.MEM_NO AND 
+		(SYSDATE - BOARD.BOARD_DATE) < 1
+	]]>
+	</select>
+	<select id="searchTomorrowList" resultType="Board1" parameterType="string">
+	<![CDATA[
+		SELECT B.BOARD_NO, B.TYPE_NO, B.MEM_NO, B.BOARD_TITLE, B.BOARD_CONTENT, 
+				M.MEM_NICK, TO_CHAR(B.BOARD_DATE, 'YYYY-MM-DD HH24:MI:SS') AS BOARD_DATE, B.BOARD_STATUS, B.BOARD_VIEW
+		FROM BOARD B, MEMBER M
+		WHERE B.TYPE_NO = 6 AND B.BOARD_STATUS = 'Y' AND M.MEM_NO = B.MEM_NO AND B.BOARD_TITLE LIKE '%' || #{keyword} || '%' (SYSDATE - BOARD.BOARD_DATE) < 1
+	]]>
+	</select>
+	<select id="searchTomorrowTotalContents" resultType="_int" parameterType="string">
+	<![CDATA[
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 6 AND BOARD_STATUS = 'Y' AND BOARD_TITLE LIKE '%' || #{keyword} || '%' AND (SYSDATE - BOARD.BOARD_DATE) < 1
+	]]>
+	</select>
+	<update id="updateTomorrow" parameterType="Board1">
+		UPDATE BOARD
+		SET BOARD_TITLE = #{board_title}, BOARD_CONTENT = #{board_content}
+		WHERE BOARD_NO = #{board_no}
+	</update>
+	<update id="deleteTomorrow">
+		UPDATE BOARD
+		SET BOARD_STATUS = 'N'
+		WHERE BOARD_NO = #{board_no}
+	</update>
+	<insert id="insertTomorrow" parameterType="Board1">
+		INSERT INTO BOARD (BOARD_NO,TYPE_NO, MEM_NO, BOARD_TITLE, BOARD_CONTENT)
+		VALUES (BOARD_SEQ.NEXTVAL, #{type_no}, #{mem_no} ,#{board_title}, #{board_content})
+	</insert>
 	
 	
 	
