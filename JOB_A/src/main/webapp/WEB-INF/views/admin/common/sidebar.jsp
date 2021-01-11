@@ -73,15 +73,15 @@
 					</a>
 						<ul class="collapse list-unstyled pl-4 w-100" id="member-elements">
 							<li class="nav-item"><a class="nav-link pl-3"
-								href="#">
+								href="${pageContext.request.contextPath}/admin/adminEnrollView">
 								<span class="ml-1 item-text">Admin Register</span>
 							</a></li>
 							<li class="nav-item"><a class="nav-link pl-3"
-								href="#">
+								href="${pageContext.request.contextPath}/admin/adminList">
 								<span class="ml-1 item-text">Admin List</span></a>
 							</li>
 							<li class="nav-item"><a class="nav-link pl-3"
-								href="#">
+								href="${pageContext.request.contextPath}/user/userList">
 								<span class="ml-1 item-text">Member List</span></a>
 							</li>
 							<li class="nav-item"><a class="nav-link pl-3"
@@ -103,7 +103,7 @@
 								href="#">
 								<span class="ml-1 item-text">Write Notice</span></a></li>
 						</ul></li>
-						
+
 					<!-- 게시판 관리 -->
 					<li class="nav-item dropdown"><a href="#board"
 						data-toggle="collapse" aria-expanded="false"
@@ -112,13 +112,16 @@
 					</a>
 						<ul class="collapse list-unstyled pl-4 w-100" id="board">
 							<li class="nav-item"><a class="nav-link pl-3"
-								href="#">
-								<span class="ml-1 item-text">Board List</span></a></li>
+								href="${pageContext.request.contextPath}/admin/jobList.do"> <span
+									class="ml-1 item-text">Board List</span></a></li>
 							<li class="nav-item"><a class="nav-link pl-3"
-								href="#">
-								<span class="ml-1 item-text">Mentoring</span></a></li>
+								href="${pageContext.request.contextPath}/admin/jobCommentList.do">
+									<span class="ml-1 item-text">Comment List</span>
+							</a></li>
+							<li class="nav-item"><a class="nav-link pl-3" href="#"> <span
+									class="ml-1 item-text">Mentoring</span></a></li>
 						</ul></li>
-									
+		
 					<!-- 신고 관리 -->
 					<li class="nav-item dropdown"><a href="#report"
 						data-toggle="collapse" aria-expanded="false"
@@ -157,24 +160,7 @@
 				</ul>
 				
 				</ul>
-
-				<!-- <p class="text-muted nav-heading mt-4 mb-1">
-					<span>Documentation</span>
-				</p>
-				<ul class="navbar-nav flex-fill w-100 mb-2">
-					<li class="nav-item w-100"><a class="nav-link"
-						href="../docs/index.html"> <i class="fe fe-help-circle fe-16"></i>
-							<span class="ml-3 item-text">Getting Start</span>
-					</a></li>
-				</ul> -->
-				<!-- <div class="btn-box w-100 mt-4 mb-1">
-					<a
-						href="https://themeforest.net/item/tinydash-bootstrap-html-admin-dashboard-template/27511269"
-						target="_blank" class="btn mb-2 btn-primary btn-lg btn-block">
-						<i class="fe fe-shopping-cart fe-12 mx-2"></i><span class="small">Buy
-							now</span>
-					</a>
-				</div> -->
+				
 			</nav>
 		</aside>
 		<!-- .wrapper -->
@@ -207,20 +193,9 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/admin/js/datamaps.custom.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/Chart.min.js"></script>
-	<script>
-      /* defind global options */
-      Chart.defaults.global.defaultFontFamily = base.defaultFontFamily;
-      Chart.defaults.global.defaultFontColor = colors.mutedColor;
-    </script>
-	<script
 		src="${pageContext.request.contextPath}/resources/admin/js/gauge.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/admin/js/jquery.sparkline.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/apexcharts.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/apexcharts.custom.js"></script>
 	<script
 		src='${pageContext.request.contextPath}/resources/admin/js/jquery.mask.min.js'></script>
 	<script
@@ -262,68 +237,7 @@
         'scrollDefault': 'now',
         'zindex': '9999' /* fix modal open */
       });
-      /** date range picker */
-      if ($('.datetimes').length)
-      {
-        $('.datetimes').daterangepicker(
-        {
-          timePicker: true,
-          startDate: moment().startOf('hour'),
-          endDate: moment().startOf('hour').add(32, 'hour'),
-          locale:
-          {
-            format: 'M/DD hh:mm A'
-          }
-        });
-      }
-      var start = moment().subtract(29, 'days');
-      var end = moment();
-
-      function cb(start, end)
-      {
-        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-      }
-      $('#reportrange').daterangepicker(
-      {
-        startDate: start,
-        endDate: end,
-        ranges:
-        {
-          'Today': [moment(), moment()],
-          'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month': [moment().startOf('month'), moment().endOf('month')],
-          'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        }
-      }, cb);
-      cb(start, end);
-      $('.input-placeholder').mask("00/00/0000",
-      {
-        placeholder: "__/__/____"
-      });
-      $('.input-zip').mask('00000-000',
-      {
-        placeholder: "____-___"
-      });
-      $('.input-money').mask("#.##0,00",
-      {
-        reverse: true
-      });
-      $('.input-phoneus').mask('(000) 000-0000');
-      $('.input-mixed').mask('AAA 000-S0S');
-      $('.input-ip').mask('0ZZ.0ZZ.0ZZ.0ZZ',
-      {
-        translation:
-        {
-          'Z':
-          {
-            pattern: /[0-9]/,
-            optional: true
-          }
-        },
-        placeholder: "___.___.___.___"
-      });
+      
       // editor
       var editor = document.getElementById('editor');
       if (editor)

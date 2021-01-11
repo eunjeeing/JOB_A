@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+ <% if (application.getAttribute("Counter") != null) { 
+		String strCounter = String.valueOf(application.getAttribute("Counter")); 
+		int counter = Integer.parseInt(strCounter) + 1; 
+		// 페이지에 새로운 접속이 시도될때 application 변수에 Counter를 1씩 증가시킨다. 
+		application.setAttribute("Counter", counter); 
+	} else { application.setAttribute("Counter", 1); } %> 
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -33,7 +40,8 @@
 							<div class="row align-items-center">
 								<div class="col">
 									<small class="text-muted mb-1">Visitors</small>
-									<h3 class="card-title mb-0">108</h3>
+									 <%-- <h3 class="card-title mb-0"><%=application.getAttribute("Counter")%></h3>  --%>
+									<h3 class="card-title mb-0">${sessionScope.totalCount }</h3>
 									<p class="small text-muted mb-0">
 										<span class="fe fe-arrow-up fe-12 text-success"></span><span>37.7%
 											Last week</span>

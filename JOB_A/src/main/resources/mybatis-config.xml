@@ -20,6 +20,7 @@
 		<typeAlias type="com.kh.joba.user.category.model.vo.WishCategory" alias="WishCategory"/>
 		<typeAlias type="com.kh.joba.admin.management.model.vo.Admin" alias="Admin" />
 		<typeAlias type="com.kh.joba.common.typeHandler.IntegerTypeHandler" alias="intarrHandler"/>
+		<typeAlias type="com.kh.joba.admin.visitor.model.vo.VisitCount" alias="VisitCount" />
 	</typeAliases>
 	
 	<typeHandlers>
