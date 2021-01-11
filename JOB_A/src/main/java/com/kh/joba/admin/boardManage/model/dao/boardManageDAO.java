@@ -33,5 +33,16 @@ public interface boardManageDAO {
 
 	int selectMentoTotalContents();
 
+	List<Map<String, String>> selectTomoList(int cPage, int numPerPage);
+
+	int selectTomoTotalContents();
+
+	List<Map<String, String>> searchJobList(int cPage, int numPerPage, String keyword);
+
+	int searchJobTotalContents(String keyword);
+
+	int updateJobStatus(int board_No);
+
+
 
 }

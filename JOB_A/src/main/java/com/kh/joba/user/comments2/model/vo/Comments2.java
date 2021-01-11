@@ -28,7 +28,7 @@ public class Comments2 {
 	
 	private String mem_Nick;
 	private int type_No;
-	private String mem_Nick2;
+	private String board_Title;
 	
 
 }

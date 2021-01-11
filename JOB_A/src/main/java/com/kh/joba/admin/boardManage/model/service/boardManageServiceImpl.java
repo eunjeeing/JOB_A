@@ -84,4 +84,29 @@ public class boardManageServiceImpl implements boardManageService {
 		return bmd.selectMentoTotalContents();
 	}
 
+	@Override
+	public List<Map<String, String>> selectTomoList(int cPage, int numPerPage) {
+		return bmd.selectTomoList(cPage, numPerPage);
+	}
+
+	@Override
+	public int selectTomoTotalContents() {
+		return bmd.selectTomoTotalContents();
+	}
+
+	@Override
+	public List<Map<String, String>> searchJobList(int cPage, int numPerPage, String keyword) {
+		return bmd.searchJobList(cPage, numPerPage, keyword);
+	}
+
+	@Override
+	public int searchJobTotalContents(String keyword) {
+		return bmd.searchJobTotalContents(keyword);
+	}
+
+	@Override
+	public int updateJobStatus(int board_No) {
+		return bmd.updateJobStatus(board_No);
+	}
+
 }

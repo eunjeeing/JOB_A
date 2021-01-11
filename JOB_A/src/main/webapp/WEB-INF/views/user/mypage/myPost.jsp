@@ -50,35 +50,6 @@
 		font-size : 150%;
 	}
 	
-	input[type=checkbox] {
-	appearance: auto !important;
-	opacity: 1 !important;
-	 }
-	 
- input[type="checkbox"]{
-    text-decoration: none;
-    color: #7f888f !important;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 1em;
-    font-weight: 400;
-    padding-left: 2.4em;
-    padding-right: 0.75em;
-    position: unset;
-    border-radius: 0.375em;
-    border: solid 1px rgba(210, 215, 217, 0.75); }
-
-  input[type="checkbox"]:checked
-  {
-    background-color: red;
-    border-color: #3d4449 !important;
-    color: #ffffff !important; }
-    
-  input[type="checkbox"]:focus,
-  input[type="radio"]:focus {
-    border-color: #f56a6a;
-    box-shadow: 0 0 0 1px #f56a6a; }
-    
 	#nonListArea {
 			height : 300px;
 			width : 10%;
@@ -112,8 +83,11 @@
 							<table id="myPostList">
 								<thead>
 								<tr>
-									<th width="5%"><center><input type="checkbox" id="checkAll"></center></th>
-									<th><center>No.</center></th>
+									<th width="5%"><center>
+										<div><input type="checkbox" id="checkAll">
+										<label for="checkAll"></label></div>
+									</center></th>
+									<th><center>번호</center></th>									
 									<th><center>게시판</center></th>
 									<th width="50%"><center>제목</center></th>
 									<th><center>작성자</center></th>
@@ -126,7 +100,10 @@
 									<!--  onclick="selectOne();" -->
 									<tr align="center">
 										<input class="tno" type="hidden" value="${mp.type_No }" />
-										<td><input type="checkbox" class="chk" data-bno="${mp.board_No }"></td>
+										<td>
+											<div><input type="checkbox" class="chk" id="${mp.board_No }" data-bno="${mp.board_No }">
+											<label for="${mp.board_No }"></label></div>
+										</td>
 										<td>${mp.board_No}</td>
 										<td>${mp.type_Name }</td>
 										<td class="goBoard" id="${mp.board_No}">${mp.board_Title}</td>

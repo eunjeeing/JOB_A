@@ -18,7 +18,7 @@ public class boardManageController {
 	@Autowired
 	boardManageService bms;
 	
-	// 리스트 출력
+	// 게시판 리스트 출력
 	// 채용공고
 	@RequestMapping("/admin/jobList.do")
 	public String jobList(
@@ -83,10 +83,28 @@ public class boardManageController {
 	}
 	
 	// 언틸투모로우
-	// 추가예정
+	@RequestMapping("/admin/tomoList.do")
+	public String tomoList(
+			@RequestParam( value="cPage", required=false, defaultValue="1") int cPage, Model model) {
+		
+		int numPerPage = 10; // 한 페이지 당 게시글 and 페이지 수
+		
+		List<Map<String, String>> list = bms.selectTomoList(cPage, numPerPage);
+		
+		int totalContents = bms.selectTomoTotalContents();
+		
+		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "tomoList.do");
+				
+		model.addAttribute("tomoList", list);
+		model.addAttribute("totalContents", totalContents);
+		model.addAttribute("numPerPage", numPerPage);
+		model.addAttribute("pageBar", pageBar);
+		
+		return "admin/boardManage/tomoList";
+	}
 	
-	// QnA
-	@RequestMapping("/admin/QnAList.do")
+	// Q&A
+	@RequestMapping("/admin/qnaList.do")
 	public String QnAList(
 			@RequestParam( value="cPage", required=false, defaultValue="1") int cPage, Model model) {
 		
@@ -96,9 +114,9 @@ public class boardManageController {
 		
 		int totalContents = bms.selectQnATotalContents();
 		
-		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "QnAList.do");
+		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "qnaList.do");
 				
-		model.addAttribute("QnAList", list);
+		model.addAttribute("qnaList", list);
 		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("numPerPage", numPerPage);
 		model.addAttribute("pageBar", pageBar);
@@ -125,7 +143,7 @@ public class boardManageController {
 	}
 	
 	// 면접후기
-	@RequestMapping("/admim/interviewList.do")
+	@RequestMapping("/admin/interviewList.do")
 	public String interviewList(
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
 			Model model) {
@@ -161,5 +179,53 @@ public class boardManageController {
 
 		return "admin/boardManage/mentoList"; 
 	}
+	
+	// 서치
+	@RequestMapping("/admin/searchJobList.do")
+	public String searchJobList(
+			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
+			@RequestParam String keyword,
+			Model model) { 
+		
+		int numPerPage = 10;
+		List<Map<String,String>> list = bms.searchJobList(cPage, numPerPage, keyword);
+		int totalContents = bms.searchJobTotalContents(keyword);
+		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "searchJobList.do?keyword="+keyword);
+		
+
+		model.addAttribute("jobList", list);
+		model.addAttribute("totalContents", totalContents);
+		model.addAttribute("numPerPage", numPerPage);
+		model.addAttribute("pageBar", pageBar);
+		
+		return "admin/boardManage/jobList"; 
+	
+	}
+	
+	
+	// 게시글 블라인드 처리
+	@RequestMapping("/admin/updateJobStatus.do")
+	public String updateJobStatus(@RequestParam int board_No, Model model) {
+		
+		int result = bms.updateJobStatus(board_No);
+		
+		String msg = "";
+		String loc = "/admin/jobList.do";
+
+		if (result > 0) {
+			msg = "블라인드 처리 완료";
+
+		} else {
+			msg = "블라인드 처리 실패";
+		}
+
+		model.addAttribute("msg", msg).addAttribute("loc", loc);
+		
+		return "user/common/msg";
+	}
+	
+	
+
+
 
 }
