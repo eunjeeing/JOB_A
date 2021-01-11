@@ -53,34 +53,6 @@
 		font-size : 150%;
 	}
 	
-input[type=checkbox] {
-appearance: auto !important;
-opacity: 1 !important;
- }
- input[type="checkbox"],
-  input[type="radio"] {
-    text-decoration: none;
-    color: #7f888f;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 1em;
-    font-weight: 400;
-    padding-left: 2.4em;
-    padding-right: 0.75em;
-    position: unset;
-          border-radius: 0.375em;
-      border: solid 1px rgba(210, 215, 217, 0.75); }
-
-  input[type="checkbox"]:checked,
-  input[type="radio"]:checked {
-    background: #3d4449 !important;
-    border-color: #3d4449 !important;
-    color: #ffffff !important; }
-    
-  input[type="checkbox"]:focus,
-  input[type="radio"]:focus {
-    border-color: #f56a6a;
-    box-shadow: 0 0 0 1px #f56a6a; }
 	#nonListArea {
 			height : 300px;
 			width : 10%;
@@ -114,17 +86,22 @@ opacity: 1 !important;
 							<table id="myPostList">
 								<thead>
 								<tr>
-									<th width="5%"><center><input type="checkbox" id="checkAll"></center></th>
+									<th width="5%"><center>
+										<div><input type="checkbox" id="checkAll">
+										<label for="checkAll"></label></div>
+									</center></th>
 									<th><center>댓글내용</center></th>
 									<th width="20%"><center>등록일</center></th>
 									</tr>
 								</thead>
 								<tbody>
 									<c:forEach items="${ selectMyComment }" var="mc">
-									<!--  onclick="selectOne();" -->
 									<tr id="${mp.comm_No }" align="center">
 										<input class="tno" type="hidden" value="${mc.type_No }" />
-										<td><input type="checkbox" class="chk" data-cno="${mc.comm_No}"></td>
+										<td>
+											<div><input type="checkbox" class="chk" id="${mc.comm_No }" data-cno="${mc.comm_No }">
+											<label for="${mc.comm_No }"></label></div>
+										</td>
 										<td class="goBoard" id="${mc.board_No}">${mc.comm_Content}</td>
 										<fmt:parseDate var="parsedDate" value="${mc.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
 										<td id="clock"><fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>

@@ -39,7 +39,7 @@ public class boardManageDAOImpl implements boardManageDAO {
 	@Override
 	public List<Map<String, String>> selnctBlindList(int cPage, int numPerPage) {
 		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
-		return sqlSession.selectList("boardM-Mapper.selnctBlindList", null, rows);
+		return sqlSession.selectList("boardM-Mapper.selectBlindList", null, rows);
 	}
 
 	@Override
@@ -89,6 +89,33 @@ public class boardManageDAOImpl implements boardManageDAO {
 	@Override
 	public int selectMentoTotalContents() {
 		return sqlSession.selectOne("boardM-Mapper.selectMentoTotalContents");
+	}
+
+	@Override
+	public List<Map<String, String>> selectTomoList(int cPage, int numPerPage) {
+		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
+		return sqlSession.selectList("boardM-Mapper.selectTomoList", null, rows);
+	}
+
+	@Override
+	public int selectTomoTotalContents() {
+		return sqlSession.selectOne("boardM-Mapper.selectTomoTotalContents");
+	}
+
+	@Override
+	public List<Map<String, String>> searchJobList(int cPage, int numPerPage, String keyword) {
+		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
+		return sqlSession.selectList("boardM-Mapper.searchJobList", keyword, rows);
+	}
+
+	@Override
+	public int searchJobTotalContents(String keyword) {
+		return sqlSession.selectOne("boardM-Mapper.searchJobTotalContents");
+	}
+
+	@Override
+	public int updateJobStatus(int board_No) {
+		return sqlSession.update("boardM-Mapper.updateStatus", board_No);
 	}
 
 }

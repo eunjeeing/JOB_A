@@ -7,8 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시판 관리 | 채용공고</title>
-
+<title>게시판 관리 | 합격후기</title>
 <style>
 	.tab {
 		display: inline-block;
@@ -29,30 +28,9 @@
 		padding: 20px 8px 5px 8px;
 	}
 	
-	#job {
+	#accept {
 		font-weight:800;
 	}
-	
-	#utilBox {
-		width : 100%;
-		height : 50px;
-		margin-top : 20px;
-		margin-bottom: 10px;
-	}
-	
-	#searchBox {
-		width : 35%;
-		height : 100%;
-		float : left;
-		margin-right : 10px;
-	}
-	
-	.goBoard:hover{
-		cursor:pointer;
-	}
-	
-	
-	
 </style>
 </head>
 <body class="vertical  dark">
@@ -81,80 +59,63 @@
 							<div class="tab"><p id="mento">멘토&멘티</p></div>
 						</div>
 						
-
-						
 						<div class="row">
 							<div class="col-md-12">
 								<div class="card shadow">
 									<div class="card-body">
-										<!-- 검색 -->
-					  					<div id="utilBox">
-											<div id="searchBox">
-												<input type="search" class="form-control" id="search" placeholder="검색내용을 입력해주세요."
-													style="height:37px;" onKeyDown="enterKey();" />
-											</div>
-											<button type="button" class="btn mb-2 btn-light" id="searchBtn" onclick="search()"
-											style="width: 50px;"><span class="fe fe-24 fe-search" style="margin: -9px; font-size: 20px;"></span></button>
-											<button type="button" class="btn mb-2 btn-light" onclick="location.href='${pageContext.request.contextPath}/admin/jobList.do'"
-											style="width: 50px;"><span class="fe fe-24 fe-rotate-cw" style="margin: -9px; font-size: 20px;"></span></button>
-										</div>
-											
-										<!-- 테이블 -->
+									
 										<table class="table table-bordered table-hover mb-0"
 											align="center">
 											<thead>
 												<tr align="center">
 													<th>번호</th>
-													<th>직무</th>
 													<th width="40%">제목</th>
 													<th>작성자</th>
 													<th>등록일</th>
 													<th>조회수</th>
 													<th>상태</th>
-													<th></th>
+													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${jobList }" var="job">
+												<c:forEach items="${acceptList }" var="accept">
 													<tr align="center">
-														<td>${job.board_No}</td>
-														<td>${job.category_Name }</td>
-														<td class="goBoard" id="${job.board_No }">${job.board_Title}</td>
-														<td>${job.mem_Nick}</td>
-														<td>${job.board_Date}</td>
-														<td>${job.board_View}</td>
-														<td><c:if test="${job.board_Status eq 'Y'}">
+														<td>${accept.board_No}</td>
+														<td>${accept.board_Title}</td>
+														<td>${accept.mem_Nick}</td>
+														<td>${accept.board_Date}</td>
+														<td>${accept.board_View}</td>
+														<td><c:if test="${accept.board_Status eq 'Y'}">
 																<span class='badge badge-success'>정상</span>
-															</c:if> <c:if test="${job.board_Status eq 'N'}">
+															</c:if> <c:if test="${accept.board_Status eq 'N'}">
 																<span class='badge badge-secondary'>삭제</span>
-															</c:if> <c:if test="${job.board_Status eq 'B'}">
+															</c:if> <c:if test="${accept.board_Status eq 'B'}">
 																<span class='badge badge-danger'>블라인드</span>
 															</c:if></td>
 														<td>
-<%-- 															<div class="custom-control custom-switch">
+															<div class="custom-control custom-switch">
 															<!-- 체크박스 활성화 조건주기 -->
-																<c:if test="${job.board_Status eq 'Y'}">
+																<c:if test="${accept.board_Status eq 'Y'}">
 																	<input type="checkbox" class="custom-control-input"
-																		id="${job.board_No}" checked>
+																		id="${accept.board_No}" checked>
 																	<label class="custom-control-label"
-																		for="${job.board_No}"></label>
+																		for="${accept.board_No}"></label>
  																</c:if>
 																<c:if
-																	test="${job.board_Status eq 'B'}">
+																	test="${accept.board_Status eq 'B'}">
 																	<input type="checkbox" class="custom-control-input"
-																		id="${job.board_No}">
+																		id="${accept.board_No}">
 																	<label class="custom-control-label"
-																		for="${job.board_No}"></label>
+																		for="${accept.board_No}"></label>
 																</c:if>
 																<c:if
-																	test="${job.board_Status eq 'N'}">
+																	test="${accept.board_Status eq 'N'}">
 																	<input type="checkbox" class="custom-control-input"
-																		id="${job.board_No}"  disabled="disabled">
+																		id="${accept.board_No}"  disabled="disabled">
 																	<label class="custom-control-label"
-																		for="${job.board_No}"></label>
+																		for="${accept.board_No}"></label>
 																</c:if>
-															</div> --%>
-															<button onclick="updateStatus()">블라인드</button>
+															</div>
 														</td>
 													</tr>
 												</c:forEach>
@@ -191,59 +152,32 @@
 		$("#blahblah").on("click", function(){
 			location.href = "${pageContext.request.contextPath}/admin/blahList.do";
 		});
-
+	
 		$("#blind").on("click", function(){
 			location.href = "${pageContext.request.contextPath}/admin/blindList.do";
 		});
-
+	
 		$("#tomo").on("click", function(){
 			location.href = "${pageContext.request.contextPath}/admin/tomoList.do";
 		});
-
+	
 		$("#qna").on("click", function(){
 			location.href = "${pageContext.request.contextPath}/admin/qnaList.do";
 		});
-
+	
 		$("#accept").on("click", function(){
 			location.href = "${pageContext.request.contextPath}/admin/acceptList.do";
 		});
-
+	
 		$("#interview").on("click", function(){
 			location.href = "${pageContext.request.contextPath}/admin/interviewList.do";
 		});
-
+	
 		$("#mento").on("click", function(){
 			location.href = "${pageContext.request.contextPath}/admin/mentoList.do";
 		});
 		
 	});
-
- 	function search() {
-		location.href="${pageContext.request.contextPath}/admin/searchJobList.do?keyword="+$('#search').val();
-
-	}
-	
-	function enterKey() {
-			if (event.keyCode==13){
-				location.href="${pageContext.request.contextPath}/admin/searchJobList.do?keyword="+$('#search').val();
-			}
-		
-		}
-	
-	$(function(){
-		$(".goBoard").on("click", function(){
-			var board_No = $(this).attr("id");
-			location.href = "${pageContext.request.contextPath}/board2/jobSelectOne.do?board_No="+ board_No;
-		});
-	});
-
-/* 	function updateStatus() {
-		var board_No = 
-		location.href = "${pageContext.request.contextPath}/admin/updateJobStatus.do?board_No="+ board_No;
-	}
-	 */
-
-	
 </script>
 </body>
 </html>
