@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reportMapper">
+
+	<resultMap id="Report" type="Report">
+		<id property="reportNo" column="REPORT_NO"/>
+		<result property="memNo" column="MEM_NO"/>
+		<result property="boardNo" column="BOARD_NO"/>
+		<result property="commNo" column="COMM_NO"/>
+		<result property="reportReason" column="REPORT_REASON"/>
+		<result property="reportDate" column="REPORT_DATE"/>
+		<result property="memNo2" column="MEM_NO2"/>
+	</resultMap>
+	
+	<select id="selectReportList" resultMap="Report">
+		SELECT * FROM REPORT
+		ORDER BY MEM_NO DESC
+	</select>
+	
+	<insert id="insertReport" parameterType="Report">
+		INSERT INTO REPORT 
+		VALUES(REPORT_SEQ.NEXTVAL, #{memNo}, #{boardNo}, #{commNo}, #{reportReason}, DEFAULT, #{memNo2})
+	</insert>
+	
+</mapper>
