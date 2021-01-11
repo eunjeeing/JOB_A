@@ -181,14 +181,14 @@ p {
 			<div class="inner">
 
 				<c:import url="../../common/header.jsp" />
-
+				
 				<!-- Top Banner Area -->
 				<div id="topbanner">
 					<div id="topbanner-textarea">
 						<h3 id="topbanner-text">블라블라</h3>
 					</div>
 				</div>
-
+				
 				<!-- 게시글 -->
 				<section class="container">
 					<div class="wrapped" id="wrapped">
@@ -209,10 +209,14 @@ p {
 											${board2.comm_Count }
 									</span>
 									<div class="info_fnc">
-										<span class="rebo"> <i
-											class="fas fa-exclamation-triangle" id="report"></i> 신고
+										<span class="rebo"> <i class="fas fa-exclamation-triangle" id="report"></i>
+										<a class="reportBtn" id="myBtn">신고</a> 
 										</span> <span class="rebo"> <i class="far fa-bookmark"
 											id="book"> </i> 스크랩
+										<input type="hidden" id="board_info" value="${board2.board_No }">
+										<input type="hidden" id="board_mem_no" value="${board2.mem_No }">
+										<input type="hidden" id="board_reporter" value="${member }">
+											
 										</span>
 									</div>
 								</div>
@@ -314,15 +318,16 @@ p {
 								</c:forEach>
 								
 							</div>
-
 						</div>
 					</div>
+					
 				</section>
 			</div>
 		</div>
 		<c:import url="../../common/sideBar.jsp" />
 	</div>
-
+	<c:import url="../reportModal.jsp"/>	<!-- 신고 모달 창 -->
+	
 	<script>
 		document
 				.getElementById("insertComment")
@@ -401,7 +406,7 @@ p {
 
 	    	var comm_Ref = $(obj).prev().find('input[name=comm_Ref]').val();
 			console.log("원 댓글 번호 : " + comm_Ref);
-			
+
 			var comm_Level = Number($(obj).prev().find('input[name=comm_Level]').val()) + 1;
 			console.log("댓글 레벨 : " + comm_Level);
 
@@ -411,10 +416,13 @@ p {
 			location.href="${pageContext.request.contextPath}/comments2/insertComment.do?board_No=${board2.board_No}&mem_No=${member.memNo}&comm_Content="
 				+ comm_Content + "&comm_Ref=" + comm_Ref + "&comm_Level=" + comm_Level;
 	    }
+
+	    $('.reportBtn').click(function(){
+			$('.modal_board').val($('#board_info').val());
+			$('.modal_reporter').val($('#board_reporter').val());
+			$('.modal_board_no').val($('#board_mem_no').val());
 			
-
-				
-
+	    });
 	</script>
 </body>
 </html>

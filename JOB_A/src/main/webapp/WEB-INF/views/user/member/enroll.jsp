@@ -34,10 +34,15 @@
 <title>회원가입</title>
 <style>
 
-	/* 회원가입 폼 사이드바 옆으로 배열*/
+	.join-container{
+		height: 100%;
+	}
+	/* 회원가입 폼 사이드바 옆으로 배열*/	
 	#list_2 {
 		display: flex;
-		height: 2000px;
+		height: 100%;
+		min-height: 2000px;
+		margin-bottom: 200px;
 	}
 	/* 폼 배치 조절 */
 	#list_2 form{
