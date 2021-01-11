@@ -7,7 +7,7 @@
 	
 	<!-- 검색된 게시글 수 -->
 	<select id="searchTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE BOARD_STATUS = 'Y' AND B.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+		SELECT COUNT(*) FROM BOARD WHERE BOARD_STATUS = 'Y' AND BOARD_TITLE LIKE '%' || #{keyword} || '%'
 	</select>
 
 	<!-- 검색된 게시글 리스트 -->

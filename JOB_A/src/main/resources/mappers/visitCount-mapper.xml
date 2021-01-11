@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="visitCountMapper">
+
+	<insert id="insertVisitor" parameterType="visitCount">
+	 	INSERT INTO VISITOR
+	 	(VISIT_ID,VISIT_IP,VISIT_TIME,VISIT_AGENT)
+	 	VALUES
+	 	(VISITOR_SEQ.NEXTVAL,#{visit_ip},DEFAULT,#{visit_agent})
+	</insert> 
+	
+	<select id="selectAllVistor">
+		SELECT COUNT(*) FROM VISITOR
+	</select>
+	
+	<select id="selectTodayVisitor">
+		SELECT COUNT(*) FROM VISITOR
+		WHERE SUBSTR(TO_CHAR(VISIT_TIME),1,9)=TO_DATE(SYSDATE,'yy/MM/dd')
+	</select>
+
+</mapper> 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC
 "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -92,5 +93,4 @@
 		AND B.BOARD_NO = C.BOARD_NO
 		ORDER BY COMM_DATE DESC, COMM_NO DESC
 	</select>
-	
 </mapper>
