@@ -5,7 +5,7 @@
 <mapper namespace="adminMapper">
 
 	<resultMap id="Admin" type="Admin">
-		<id property="memNo" column="MEM_NO"/>
+		<id property="adminNo" column="MEM_NO"/>
 		<result property="gradeNo" column="GRADE_NO"/>
 		<result property="adminId" column="MEM_ID"/>
 		<result property="adminPw" column="MEM_PW"/>
@@ -18,11 +18,13 @@
 	
 	<select id="selectAdminList" resultMap="Admin">
 		SELECT * FROM MEMBER
+		WHERE GRADE_NO = 1
 		ORDER BY MEM_NO DESC
 	</select>
 	
 	<select id="selectTotalAdmin" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER
+		WHERE GRADE_NO > 2
 	</select>
 	
 	<insert id="insertAdmin" parameterType="Admin">
@@ -32,9 +34,9 @@
 		(MEMBER_SEQ.NEXTVAL, #{gradeNo}, #{adminId}, #{adminPw}, #{adminName}, #{adminPhone}, #{adminEmail}, #{adminName}, DEFAULT, 0) 
 	</insert> 
 	
-	<delete id="deleteAdmin" parameterType="string">
+	<delete id="deleteAdmin" parameterType="_int">
  		DELETE FROM MEMBER WHERE
-		MEM_ID = #{adminId} 
+		MEM_NO = #{adminNo} 
 	</delete>
 
 	<select id="selectAdmin" resultType="Admin">
@@ -46,6 +48,49 @@
 	 	UPDATE MEMBER SET
 		MEM_NAME = #{adminName},
 		MEM_PHONE = #{adminPhone},
-		WHERE MEM_NO = #{memNo} 
+		WHERE MEM_NO = #{adminNo} 
 	</update>
+	
+	<!-- 회원작성 게시글 조회 -->
+	<select id="selectBoardList" parameterType="_int" resultType="Board">
+		SELECT *
+		FROM BOARD B, MEMBER M, BOARDTYPE T
+		WHERE B.MEM_NO = #{mem_No} 
+		AND BOARD_STATUS = 'Y' 
+		AND B.MEM_NO = M.MEM_NO 
+		AND B.TYPE_NO = T.TYPE_NO
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	
+	<!-- 댓글조회 -->
+	<select id="selectCommentList" parameterType="_int" resultType="Comments2">
+		SELECT *
+		FROM COMMENTS C, MEMBER M, BOARD B
+		WHERE C.MEM_NO = #{mem_No} 
+		AND COMM_STATUS = 'Y' 
+		AND C.MEM_NO = M.MEM_NO 
+		AND B.BOARD_NO = C.BOARD_NO
+		ORDER BY COMM_DATE DESC, COMM_NO DESC
+	</select>
+	
+	<select id="selectReportBoardList" parameterType="_int" resultType="Board">
+		SELECT *
+		FROM BOARD B, MEMBER M, BOARDTYPE T
+		WHERE B.MEM_NO = #{mem_No} 
+		AND BOARD_REPORTNUM > 0 
+		AND B.MEM_NO = M.MEM_NO 
+		AND B.TYPE_NO = T.TYPE_NO
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	
+	<select id="selectReportCommentList" parameterType="_int" resultType="Comments2">
+		SELECT *
+		FROM COMMENTS C, MEMBER M, BOARD B
+		WHERE C.MEM_NO = #{mem_No} 
+		AND COMM_REPORTNUM > 0 
+		AND C.MEM_NO = M.MEM_NO 
+		AND B.BOARD_NO = C.BOARD_NO
+		ORDER BY COMM_DATE DESC, COMM_NO DESC
+	</select>
+	
 </mapper>

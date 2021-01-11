@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.joba.admin.management.model.vo.Admin;
+import com.kh.joba.user.member.model.vo.Member;
 
 public interface AdminService {
 
@@ -16,6 +17,20 @@ public interface AdminService {
 	Admin selectAdmin(int adminNo);
 	
 	int updateAdmin(Admin admin);
+
+	/*****************************/
+	
+	List<Map<String, String>> selectMemberList();
+
+	List<Map<String, String>> selectBoardList(int memNo);
+
+	List<Map<String, String>> selectCommentList(int memNo);
+
+	List<Map<String, String>> selectReportBoardList(int memNo);
+
+	List<Map<String, String>> selectReportCommentList(int memNo);
+
+	List<Map<String, String>> selectMember(int memNo);
 
 
 }

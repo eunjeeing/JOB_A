@@ -60,7 +60,7 @@
 												<label for="adminNick" class="col-sm-3 col-form-label">닉네임</label>
 												<div class="col-sm-9">
 													<input class="form-control" id="adminNick" type="text"
-														name="adminNick" value="${admin.adminNick}" readonly="readonly">
+														name="adminNick" value="${admin.adminNick}">
 												</div>
 											</div>
 											<fieldset class="form-group">

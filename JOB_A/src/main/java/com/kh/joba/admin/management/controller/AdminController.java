@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.joba.admin.management.model.service.AdminService;
 import com.kh.joba.admin.management.model.vo.Admin;
+import com.kh.joba.user.member.model.vo.Member;
 
 @Controller
 public class AdminController {
@@ -81,9 +82,6 @@ public class AdminController {
 		return "redirect:adminList";		
 	}
 	
-	
-/******************************************************************/
-	
 	@RequestMapping("admin/adminUpdateView")
 	public String adminUpdateView(int adminNo, Model model) {
 		System.out.println(adminNo);
@@ -104,5 +102,51 @@ public class AdminController {
 	}
 	
 
+	/******************************************************************/
+	
+	@RequestMapping("user/userList")
+	public String selcetUserList(Model model) { 
+		
+		List<Map<String,String>> list = adminService.selectMemberList();
+		
+		System.out.println("list : " + list);
+		
+		
+		model.addAttribute("memberList", list);
+		
+		return "admin/management/memberList";
+	}
+	
+	@RequestMapping("user/userDetail")
+	public String selcetUserDetail(int memNo, Model model) { 
+		
+		List<Map<String, String>> member = adminService.selectMember(memNo);
+		List<Map<String,String>> boardList = adminService.selectBoardList(memNo);
+		List<Map<String,String>> commentList = adminService.selectCommentList(memNo);
+		List<Map<String,String>> reportBoardList = adminService.selectReportBoardList(memNo);
+		List<Map<String,String>> reportCommentList = adminService.selectReportCommentList(memNo);
+		
+		System.out.println("member : " + member);
+		System.out.println("boardList : " + boardList);
+		System.out.println("commentList : " + commentList);
+		System.out.println("reportBoardList : " + reportBoardList);
+		System.out.println("reportCommentList : " + reportCommentList);
+		
+		model.addAttribute("user", member);
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("commentList", commentList);
+		model.addAttribute("reportBoardList", reportBoardList);
+		model.addAttribute("reportCommentList", reportCommentList);
+		
+		return "admin/management/memberDetail";
+	}
+	
+	@RequestMapping("user/upGradeListView")
+	public String upGradeList(Model model) {
+		
+		
+		
+		return "admin/management/upGradeList";
+	}
 
 }

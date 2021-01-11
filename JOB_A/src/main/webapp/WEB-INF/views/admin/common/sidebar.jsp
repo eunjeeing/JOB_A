@@ -84,6 +84,10 @@
 								href="${pageContext.request.contextPath}/user/userList">
 								<span class="ml-1 item-text">Member List</span></a>
 							</li>
+							<li class="nav-item"><a class="nav-link pl-3"
+								href="${pageContext.request.contextPath}/user/upGradeListView">
+								<span class="ml-1 item-text">Member Grade</span></a>
+							</li>
 						</ul></li>
 					<!-- 공지사항 -->
 					<li class="nav-item dropdown"><a href="#notice"
@@ -173,8 +177,7 @@
 				</div> -->
 			</nav>
 		</aside>
-		<!-- .wrapper -->
-	<script
+		<script
 		src="${pageContext.request.contextPath}/resources/admin/js/jquery.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/admin/js/popper.min.js"></script>
@@ -233,7 +236,14 @@
 		src='${pageContext.request.contextPath}/resources/admin/js/uppy.min.js'></script>
 	<script
 		src='${pageContext.request.contextPath}/resources/admin/js/quill.min.js'></script>
+	<script
+		src='${pageContext.request.contextPath}/resources/admin/js/apps.js'></script>
+	<script 
+		src='${pageContext.request.contextPath}/resources/admin/js/jquery.dataTables.min.js'></script>
+	<script 
+		src='${pageContext.request.contextPath}/resources/admin/js/dataTables.bootstrap4.min.js'></script>
 	<script>
+	
       $('.select2').select2(
       {
         theme: 'bootstrap4',

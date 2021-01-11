@@ -102,7 +102,10 @@
 		ORDER BY MEM_NO DESC
 	</select>
 	
-	
+	<select id="selectMember" resultMap="resultMember">
+		SELECT * FROM MEMBER
+		WHERE MEM_NO = #{memNo}
+	</select>
 	
 	
 	
