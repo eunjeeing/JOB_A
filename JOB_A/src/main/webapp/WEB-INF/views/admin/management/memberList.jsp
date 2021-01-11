@@ -63,10 +63,7 @@
 																<span class='badge badge-danger'>블라인드</span></c:if>
 														</td>
 														<td>
-															<div class="custom-control custom-switch">
-																<input type="checkbox" class="custom-control-input" id="${m.memNo}" onclick="toggle(this)">
-																<label class="custom-control-label" for="${m.memNo}"></label>
-															</div>
+															<a class="dropdown-item" href="${pageContext.request.contextPath}/user/userDetail?memNo=${m.memNo}">활동내역</a>
 														</td>
 													</tr>
 												</c:forEach>

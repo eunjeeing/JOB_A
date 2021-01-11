@@ -321,7 +321,7 @@
                 confirmButtonColor: '#fff',
                 cancelButtonColor: '#fff',
                 confirmButtonText: '이 방은 폭파시키겠어! 콰과광쾀ㅇ콰콰가왐ㄹ광쾅쾅랄ㅇ쾅',
-                cancelButtonText: '쵸큼만 더 있어볼까..?'
+                cancelButtonText: '아직까진 흥미진진 하구만..!'
 			}).then((result) => {
                 if (result.value) {
                 	sock.onclose();

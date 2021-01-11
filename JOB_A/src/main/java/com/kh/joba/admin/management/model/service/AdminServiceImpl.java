@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.joba.admin.management.model.dao.AdminDAO;
 import com.kh.joba.admin.management.model.vo.Admin;
+import com.kh.joba.user.member.model.vo.Member;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -33,9 +34,6 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.deleteAdmin(adminNo);
 	}
 
-	
-	/******************************************************************/
-
 	@Override
 	public Admin selectAdmin(int adminNo) {
 		// TODO Auto-generated method stub
@@ -47,6 +45,49 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		return adminDAO.updateAdmin(admin);
 	}
+	
+	
+	
+	/******************************************************************/
+
+
+	@Override
+	public List<Map<String, String>> selectMemberList() {
+		// TODO Auto-generated method stub
+		return adminDAO.selectMemberList();
+	}
+
+	@Override
+	public List<Map<String, String>> selectBoardList(int memNo) {
+		// TODO Auto-generated method stub
+		return adminDAO.selectBoardList(memNo);
+	}
+
+	@Override
+	public List<Map<String, String>> selectCommentList(int memNo) {
+		// TODO Auto-generated method stub
+		return adminDAO.selectCommentList(memNo);
+	}
+
+	@Override
+	public List<Map<String, String>> selectReportBoardList(int memNo) {
+		// TODO Auto-generated method stub
+		return adminDAO.selectReportBoardList(memNo);
+	}
+
+	@Override
+	public List<Map<String, String>> selectReportCommentList(int memNo) {
+		// TODO Auto-generated method stub
+		return adminDAO.selectReportCommentList(memNo);
+	}
+
+	@Override
+	public List<Map<String, String>> selectMember(int memNo) {
+		// TODO Auto-generated method stub
+		return adminDAO.selectMember(memNo);
+	}
+
+
 
 
 }

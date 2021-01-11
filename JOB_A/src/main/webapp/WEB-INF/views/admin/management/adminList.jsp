@@ -59,7 +59,6 @@
 										<table class="table datatables" id="dataTable-1">
 											<thead>
 												<tr>
-													<th></th>
 													<th>직급</th>
 													<th>사번</th>
 													<th>이름</th>
@@ -76,13 +75,7 @@
 												<c:forEach items="${adminList}" var="a">
 													<tr>
 														<td>
-															<div class="custom-control custom-checkbox">
-																<input type="checkbox" class="custom-control-input">
-																<label class="custom-control-label"></label>
-															</div>
-														</td>
-														<td>
-															<c:if test="${a.gradeNo eq 1}">일반관리자</c:if>
+															<c:if test="${a.gradeNo eq 1}">일반 관리자</c:if>
 														</td>
 														<td><span>${a.adminId}</span></td>
 														<th scope="col">${a.adminName}</th>
@@ -108,7 +101,6 @@
 										</table>
 									</div>
 								</div>
-
 							</div>
 							<!-- simple table -->
 						</div>
