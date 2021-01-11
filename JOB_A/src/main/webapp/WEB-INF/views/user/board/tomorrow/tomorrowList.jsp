@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>JOB_A | TOMORROW</title>
+<title>JOB_A | 투모로우</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board.css" />
 <style>
