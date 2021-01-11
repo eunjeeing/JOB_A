@@ -39,7 +39,7 @@
               	<div class="col-md-12 my-4">
                   <div class="card shadow">
                     <div class="card-body">
-                      <table class="table table-hover table-sm">
+                      <table class="table table-sm">
                         <thead>
                           <tr>
                           	<th>회원 번호</th>
@@ -93,7 +93,7 @@
                       </ul>
                       <div class="tab-content mb-1" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                        	<table class="table table-bordered" id="dataTable-1">
+                        	<table class="table table-hover table-bordered" id="dataTable-1">
 								<thead>
 									<tr role="row">
 										<th>No.</th>
@@ -119,7 +119,7 @@
 							</table>
                         </div>
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                        	<table class="table table-bordered" id="dataTable-2">
+                        	<table class="table table-hover table-bordered" id="dataTable-2">
 								<thead>
 									<tr role="row">
 										<th>No.</th>
@@ -141,7 +141,7 @@
 							</table>
                         </div>
                         <div class="tab-pane fade" id="pills-board" role="tabpanel" aria-labelledby="pills-board-tab">
-                        	<table class="table table-bordered" id="dataTable-3">
+                        	<table class="table table-hover table-bordered" id="dataTable-3">
 								<thead>
 									<tr role="row">
 										<th>No.</th>
@@ -167,7 +167,7 @@
 							</table>
                         </div>
                         <div class="tab-pane fade" id="pills-conmment" role="tabpanel" aria-labelledby="pills-conmment-tab">
-                        	<table class="table table-bordered" id="dataTable-4">
+                        	<table class="table table-hover table-bordered" id="dataTable-4">
 								<thead>
 									<tr role="row">
 										<th>No.</th>
@@ -235,37 +235,7 @@
       });
 
 
-      $(function(){
-  		$(".goBoard").on("click", function(){
-  			var board_No = $(this).attr("id");
-  			var tno = $(this).siblings('.tno').val();
-
-  			console.log(board_No);
-  			console.log(tno);
-  			
-  			switch(tno) {
-  			case '1':
-  				location.href = "${pageContext.request.contextPath}/notice.bo?board_no="+ board_No;
-  				break;
-  				
-  			case '2':
-  				location.href = "${pageContext.request.contextPath}/board2/jobSelectOne.do?board_No="+ board_No;
-  				break;
-
-  			case '4':
-  				location.href = "${pageContext.request.contextPath}/board2/blahView.do?board_No="+ board_No;
-  				break;
-  			
-  			case '5':
-  				location.href = "${pageContext.request.contextPath}/board2/blindSelectOne.do?board_No="+ board_No;
-  				break;
-
-  			case '7':
-  				location.href = "${pageContext.request.contextPath}/board2/qnaSelectOne.do?board_No="+ board_No;
-  				break;	
-  			}
-  		});
-  	});
+     
     </script>
 	<script src="${pageContext.request.contextPath}/resources/admin/js/apps.js"></script>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
