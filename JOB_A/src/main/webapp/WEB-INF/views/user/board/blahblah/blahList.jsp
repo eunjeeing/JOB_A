@@ -66,6 +66,7 @@ p {
 	margin-top: 54px;
 	margin-right: 24px;
 }
+
 </style>
 </head>
 <body class="is-preload">
@@ -117,7 +118,24 @@ p {
 												<i class="far fa-eye" style="margin-right: 0;"></i> ${blah.board_View }
 												<i class="far fa-comment" style="margin-right: 0; margin-left: 14px;"></i> ${blah.comm_Count }
 												<div class="info_fnc">
-													${blah.board_Date} <i class="far fa-bookmark" id="bookmark"></i>
+													<span class="date"> 
+													<i class="far fa-clock"></i> ${blah.board_Date}
+													</span>
+													<c:if test="${!empty bookmarkList}">
+														<c:set var="bCnt" value="0"/>
+														<c:forEach items="${bookmarkList}" var="bookmark">
+															<c:if test="${bookmark.board_no == blah.board_No}">
+																<i class="fas fa-bookmark" id="bookmark"></i>
+																<c:set var="bCnt" value="${bCnt + 1}"/>
+															</c:if>
+														</c:forEach>
+														<c:if test="${bCnt eq 0}">
+															<i class="far fa-bookmark" id="bookmark"></i>
+														</c:if>
+													</c:if>
+													<c:if test="${empty bookmarkList}">
+														<i class="far fa-bookmark" id="bookmark"></i>
+													</c:if>
 												</div>
 											</div>
 										</div>

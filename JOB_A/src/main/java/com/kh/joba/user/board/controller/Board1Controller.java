@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import com.kh.joba.user.bookmark.model.vo.Bookmark;
 import com.kh.joba.user.comments2.model.service.Comments2Service;
 import com.kh.joba.user.comments2.model.vo.Comments2;
 import com.kh.joba.user.common.util.UtilsBoard1;
+import com.kh.joba.user.member.model.vo.Member;
 
 @Controller
 public class Board1Controller {
@@ -31,8 +33,8 @@ public class Board1Controller {
 	@Autowired
 	Comments2Service cs;
 	
-	//@Autowired
-	//BookmarkService ms;
+	@Autowired
+	BookmarkService ms;
 	
 	// *******************************************************************************************
 	// 							Write Form Controller Area
@@ -181,13 +183,15 @@ public class Board1Controller {
 	@RequestMapping("/mentoList.bo")
 	public String mentowList(
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
-			Model model) {
+			Model model, HttpSession session) {
 		int numPerPage = 10;
 		List<Map<String,String>> list = bs.selectMentoList(cPage, numPerPage);
 		int totalContents = bs.selectMentoTotalContents();
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "mentoList.bo");
-		//List<Bookmark> bookmarkList = ms.selectBookmarkList(board_no, mem_no, type_no);
+		Member mem = (Member)session.getAttribute("member");
+		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
 		
+		model.addAttribute("bookmarkList", bookmarkList);
 		model.addAttribute("mentoList", list);
 		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("numPerPage", numPerPage);
@@ -197,11 +201,14 @@ public class Board1Controller {
 	}
 	
 	@RequestMapping("/mentoView.bo")
-	public String mentoView(@RequestParam int board_no, Model model) {
-		//System.out.println("Interview select One controller : " + board_no);
+	public String mentoView(@RequestParam int board_no, Model model, HttpSession session) {
 		Board1 mento = bs.selectOneMento(board_no);
 		List<Comments2> commentList = cs.selectComment(board_no);
-		//Bookmark bookmark = ms.selectBookmarkList(board_no, mem_no);
+		Member mem = (Member)session.getAttribute("member");
+		Bookmark isBookmark = new Bookmark(board_no, mem.getMemNo(), 0);
+		Bookmark bookmark = ms.selectOneBookmark(isBookmark);
+		
+		model.addAttribute("bookmark", bookmark);
 
 		model.addAttribute("mento", mento);
 		model.addAttribute("commentList", commentList);
@@ -214,13 +221,16 @@ public class Board1Controller {
 	public String searchMentoList(
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
 			@RequestParam String keyword,
-			Model model) { 
+			Model model, HttpSession session) { 
 		
 		int numPerPage = 10;
 		List<Map<String,String>> list = bs.searchMentoList(cPage, numPerPage, changeToUpper(keyword));
 		int totalContents = bs.searchMentoTotalContents(changeToUpper(keyword));
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "searchMentoList.bo?keyword="+changeToUpper(keyword));
-	
+		Member mem = (Member)session.getAttribute("member");
+		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
+		
+		model.addAttribute("bookmarkList", bookmarkList);
 		model.addAttribute("mentoList", list);
 		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("numPerPage", numPerPage);
@@ -277,13 +287,15 @@ public class Board1Controller {
 	@RequestMapping("/tomorrowList.bo")
 	public String tomorrowList(
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
-			Model model) {
+			Model model, HttpSession session) {
 		int numPerPage = 10;
 		List<Map<String,String>> list = bs.selectTomorrowList(cPage, numPerPage);
 		int totalContents = bs.selectTomorrowTotalContents();
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "tomorrowList.bo");
-		//List<Bookmark> bookmarkList = ms.selectBookmarkList(board_no, mem_no, type_no);
+		Member mem = (Member)session.getAttribute("member");
+		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
 		
+		model.addAttribute("bookmarkList", bookmarkList);		
 		model.addAttribute("tomorrowList", list);
 		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("numPerPage", numPerPage);
@@ -293,15 +305,16 @@ public class Board1Controller {
 	}
 	
 	@RequestMapping("/selectOneTomorrow.bo")
-	public String tomorrowView(@RequestParam int board_no, Model model) {
-		//System.out.println("Interview select One controller : " + board_no);
+	public String tomorrowView(@RequestParam int board_no, Model model, HttpSession session) {
 		Board1 tomorrow = bs.selectOneTomorrow(board_no);
 		List<Comments2> commentList = cs.selectComment(board_no);
-		//Bookmark bookmark = ms.selectBookmarkList(board_no, mem_no);
-
+		Member mem = (Member)session.getAttribute("member");
+		Bookmark isBookmark = new Bookmark(board_no, mem.getMemNo(), 0);
+		Bookmark bookmark = ms.selectOneBookmark(isBookmark);
+		
+		model.addAttribute("bookmark", bookmark);
 		model.addAttribute("tomorrow", tomorrow);
 		model.addAttribute("commentList", commentList);
-		//model.addAttribute("bookmarkList", bookmark);
 		
 		return "user/board/tomorrow/tomorrowView";
 	}
@@ -310,13 +323,16 @@ public class Board1Controller {
 	public String searchTomorrowList(
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
 			@RequestParam String keyword,
-			Model model) { 
+			Model model, HttpSession session) { 
 		
 		int numPerPage = 10;
 		List<Map<String,String>> list = bs.searchTomorrowList(cPage, numPerPage, changeToUpper(keyword));
 		int totalContents = bs.searchTomorrowTotalContents(changeToUpper(keyword));
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "searchTomorrowList.bo?keyword="+changeToUpper(keyword));
-	
+		Member mem = (Member)session.getAttribute("member");
+		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
+		
+		model.addAttribute("bookmarkList", bookmarkList);
 		model.addAttribute("tomorrowList", list);
 		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("numPerPage", numPerPage);
@@ -373,15 +389,17 @@ public class Board1Controller {
 	@RequestMapping("/interviewList.bo")
 	public String interviewList(
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
+			HttpSession session,
 			Model model) {
 		int numPerPage = 10;
 		List<Map<String,String>> list = bs.selectInterviewList(cPage, numPerPage);
 		int totalContents = bs.selectInterviewTotalContents();
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "interviewList.bo");
 		
-		// 조회확인용
-		//System.out.println("list : " + list);
+		Member mem = (Member)session.getAttribute("member");
+		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
 		
+		model.addAttribute("bookmarkList", bookmarkList);
 		model.addAttribute("interviewList", list);
 		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("numPerPage", numPerPage);
@@ -391,11 +409,16 @@ public class Board1Controller {
 	}
 	
 	@RequestMapping("/selectOneInterview.bo")
-	public String selectOneInterview(@RequestParam int board_no, Model model) {
+	public String selectOneInterview(@RequestParam int board_no, Model model, HttpSession session) {
 		//System.out.println("Interview select One controller : " + board_no);
 		Board1 interview = bs.selectOneInterview(board_no);
-		List<Comment1> commentList = bs.selectCommentList(board_no);
+		List<Comments2> commentList = cs.selectComment(board_no);
 		
+		Member mem = (Member)session.getAttribute("member");
+		Bookmark isBookmark = new Bookmark(board_no, mem.getMemNo(), 0);
+		Bookmark bookmark = ms.selectOneBookmark(isBookmark);
+		
+		model.addAttribute("bookmark", bookmark);
 		model.addAttribute("interview", interview);
 		model.addAttribute("commentList", commentList);
 		
@@ -460,13 +483,16 @@ public class Board1Controller {
 	public String searchInterview(
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
 			@RequestParam String keyword,
-			Model model) { 
+			Model model, HttpSession session) { 
 		
 		int numPerPage = 10;
 		List<Map<String,String>> list = bs.searchInterviewList(cPage, numPerPage, changeToUpper(keyword));
 		int totalContents = bs.searchInterviewTotalContents(changeToUpper(keyword));
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "searchInterview.bo?keyword="+changeToUpper(keyword));
-	
+		Member mem = (Member)session.getAttribute("member");
+		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
+		
+		model.addAttribute("bookmarkList", bookmarkList);
 		model.addAttribute("interviewList", list);
 		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("numPerPage", numPerPage);
@@ -481,16 +507,20 @@ public class Board1Controller {
 	// *******************************************************************************************
 	@RequestMapping("/acceptList.bo")
 	public String acceptList(
-			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
+			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, HttpSession session,
 			Model model) {
 		int numPerPage = 10;
 		List<Map<String,String>> list = bs.selectAcceptList(cPage, numPerPage);
 		int totalContents = bs.selectAcceptTotalContents();
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "acceptList.bo");
+		Member mem = (Member)session.getAttribute("member");
+		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
+		
 		
 		// 조회확인용
 		//System.out.println("list : " + list);
 		
+		model.addAttribute("bookmarkList", bookmarkList);
 		model.addAttribute("acceptList", list);
 		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("numPerPage", numPerPage);
@@ -500,11 +530,16 @@ public class Board1Controller {
 	}
 	
 	@RequestMapping("/selectOneAccept.bo")
-	public String selectOneAccept(@RequestParam int board_no, Model model) {
+	public String selectOneAccept(@RequestParam int board_no, Model model, HttpSession session) {
 		//System.out.println("Interview select One controller : " + board_no);
 		Board1 accept = bs.selectOneAccept(board_no);
-		List<Comment1> commentList = bs.selectCommentList(board_no);
+		List<Comments2> commentList = cs.selectComment(board_no);
 		
+		Member mem = (Member)session.getAttribute("member");
+		Bookmark isBookmark = new Bookmark(board_no, mem.getMemNo(), 0);
+		Bookmark bookmark = ms.selectOneBookmark(isBookmark);
+		
+		model.addAttribute("bookmark", bookmark);	
 		model.addAttribute("accept", accept);
 		model.addAttribute("commentList", commentList);
 		
@@ -569,13 +604,16 @@ public class Board1Controller {
 	public String searchAccept(
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
 			@RequestParam String keyword,
-			Model model) { 
+			Model model, HttpSession session) { 
 		
 		int numPerPage = 10;
 		List<Map<String,String>> list = bs.searchInterviewList(cPage, numPerPage, changeToUpper(keyword));
 		int totalContents = bs.searchAcceptTotalContents(changeToUpper(keyword));
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "searchInterview.bo?keyword="+changeToUpper(keyword));
-	
+		Member mem = (Member)session.getAttribute("member");
+		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
+		
+		model.addAttribute("bookmarkList", bookmarkList);
 		model.addAttribute("interviewList", list);
 		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("numPerPage", numPerPage);

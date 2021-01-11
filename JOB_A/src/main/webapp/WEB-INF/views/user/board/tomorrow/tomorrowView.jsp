@@ -171,7 +171,9 @@ p {
 .article-comments .wrap-reply textarea {
 	 background-color: #f8f8f8;
 }
-
+.rebo:hover {
+	cursor:pointer;
+}
 
 </style>
 </head>
@@ -202,10 +204,13 @@ p {
 											${tomorrow.comm_count }
 									</span>
 									<div class="info_fnc">
-										<span class="rebo"> <i
-											class="fas fa-exclamation-triangle" id="report"></i> 신고
-										</span> <span class="rebo"> <i class="far fa-bookmark"
-											id="book"> </i> 스크랩
+										<span class="rebo" onclick="bookmark(${tomorrow.board_no}, ${member.memNo})">
+											<c:if test="${!empty bookmark}">
+												<i class="fas fa-bookmark" id="bookmark"></i>스크랩
+											</c:if>
+											<c:if test="${empty bookmark}">
+												<i class="far fa-bookmark" id="bookmark"></i>스크랩
+											</c:if>
 										</span>
 									</div>
 								</div>
@@ -253,7 +258,7 @@ p {
 								
 								
 								<!-- 댓글리스트 -->
-								<c:forEach items="${selectComment}" var="co">
+								<c:forEach items="${commentList}" var="co">
 								<c:if test="${co.comm_level eq 1}">
 									<div id="${co.comm_no }" class="wrap-comment comment-area">
 										<p class="name">${co.mem_nick }<c:if test="${co.mem_no eq tomorrow.mem_no }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
@@ -331,7 +336,7 @@ p {
 								alert("댓글을 입력해 주세요");
 								return false;
 							} else {
-								location.href = '${pageContext.request.contextPath}/comments2/insertComment.do?board_no=${tomorrow.board_no}&mem_No=${member.memNo}&comm_Content='
+								location.href = '${pageContext.request.contextPath}/comments2/insertComment.do?board_No=${tomorrow.board_no}&mem_No=${member.memNo}&comm_Content='
 										+ comm_Content.value;
 							}
 						}, false);
@@ -357,7 +362,7 @@ p {
 
 			console.log(content);
 			
-			location.href = "${pageContext.request.contextPath}/comments2/updateComment.do?board_no=${tomorrow.board_no}&comm_No=" + comm_No + "&comm_Content="
+			location.href = "${pageContext.request.contextPath}/comments2/updateComment.do?board_No=${tomorrow.board_no}&comm_No=" + comm_No + "&comm_Content="
 				+ content;
 		}
 
@@ -408,9 +413,59 @@ p {
 			location.href="${pageContext.request.contextPath}/comments2/insertComment.do?board_No=${tomorrow.board_no}&mem_No=${member.memNo}&comm_Content="
 				+ comm_Content + "&comm_Ref=" + comm_Ref + "&comm_Level=" + comm_Level;
 	    }
-			
 
-				
+	    function bookmark(board_no, mem_no) {
+			var bookmarkClass = $('#bookmark').attr('class').substr(0,3);
+			if (bookmarkClass == 'far') {
+				console.log("북마크 안되어있음.")	
+				$.ajax({
+					type:"GET",
+					url:"${pageContext.request.contextPath}/bookmark/insertBookmark.bm",
+					data: {board_no : board_no, mem_no : mem_no},
+					datatype: 'json',
+					success: 
+						function(data){
+							if(data.isSuccess == true) {
+								$("#bookmark").attr('class', 'fas fa-bookmark');
+								console.log("북마크 INSERT 성공");
+							} else {
+								console.log("북마크 INSERT 실패")
+							}
+						},
+					error: 
+						function(jqxhr, textStatus, errorThrown) {
+							console.log("북마크 INSERT 실패");
+							console.log(jqxhr);
+							console.log(textStatus);
+							console.log(errorThrown);
+					}
+				});
+			} else {
+				console.log("북마크 되어있음.")
+				$.ajax({
+					type:"GET",
+					url:"${pageContext.request.contextPath}/bookmark/deleteBookmark.bm",
+					data: {board_no : board_no, mem_no : mem_no},
+					datatype : 'json',
+					success: 
+						function(data){
+							if(data.isSuccess == true) {
+								$("#bookmark").attr('class', 'far fa-bookmark');
+								console.log("북마크 DELETE 성공");
+							} else {
+								console.log("북마크 DELETE 실패")
+							}
+						},
+					error: 
+						function(jqxhr, textStatus, errorThrown) {
+							console.log("북마크 DELETE 실패");
+							console.log(jqxhr);
+							console.log(textStatus);
+							console.log(errorThrown);
+						}
+				});
+			}
+		}	
 
 	</script>
 </body>

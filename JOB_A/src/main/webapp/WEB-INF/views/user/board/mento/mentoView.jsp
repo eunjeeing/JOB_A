@@ -204,8 +204,14 @@ p {
 									<div class="info_fnc">
 										<span class="rebo"> <i
 											class="fas fa-exclamation-triangle" id="report"></i> 신고
-										</span> <span class="rebo"> <i class="far fa-bookmark"
-											id="book"> </i> 스크랩
+										</span> 
+										<span class="rebo" onclick="bookmark(${mento.board_no}, ${member.memNo})">
+											<c:if test="${!empty bookmark}">
+												<i class="fas fa-bookmark" id="bookmark"></i>스크랩
+											</c:if>
+											<c:if test="${empty bookmark}">
+												<i class="far fa-bookmark" id="bookmark"></i>스크랩
+											</c:if>
 										</span>
 									</div>
 								</div>
@@ -233,6 +239,7 @@ p {
 							<!-- 댓글작성 -->
 							<div class="article-comments">
 								<h3 style="font-weight: 500">댓글 ${mento.comm_count }</h3>
+								<c:if test=${sessionScope.member.gradeNo < 2}>
 								<div class="write_area">
 									<div id="btn_add_comment" style="display: flex;">
 										<div class="reply_area" style="width: 100%;">
@@ -249,19 +256,20 @@ p {
 											</form>
 									</div>
 								</div>
+								</c:if>
 								
 								
 								
 								<!-- 댓글리스트 -->
-								<c:forEach items="${selectComment}" var="co">
-								<c:if test="${co.comm_level eq 1}">
-									<div id="${co.comm_no }" class="wrap-comment comment-area">
-										<p class="name">${co.mem_nick }<c:if test="${co.mem_no eq mento.mem_no }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
-										<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_content }</textarea></p>
+								<c:forEach items="${commentList}" var="co">
+								<c:if test="${co.comm_Level eq 1}">
+									<div id="${co.comm_No }" class="wrap-comment comment-area">
+										<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq mento.mem_no }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
+										<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content }</textarea></p>
 										<div class="wrap-info">
 										
 											<span class="date"> <i class="far fa-clock"></i>
-											<fmt:parseDate var="parsedDate" value="${co.comm_date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
+											<fmt:parseDate var="parsedDate" value="${co.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
 											<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
 											<a class="cmt" href="#" onclick="reComment(this);return false;"> <i class="far fa-comment"> </i> 대댓글
 											</a>
@@ -273,7 +281,7 @@ p {
 												<c:if test="${member.memNo eq co.mem_No}">
 													<a href="#" onclick="updateComment(this);return false;">수정</a>
 													<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
-													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_no=${mento.board_no}&comm_No=${co.comm_No }'">삭제</a>
+													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_No=${mento.board_no}&comm_No=${co.comm_No }'">삭제</a>
 												</c:if>
 												<span><i class="fas fa-exclamation-triangle"></i></span>
 											</div>
@@ -331,7 +339,7 @@ p {
 								alert("댓글을 입력해 주세요");
 								return false;
 							} else {
-								location.href = '${pageContext.request.contextPath}/comments2/insertComment.do?board_no=${mento.board_no}&mem_No=${member.memNo}&comm_Content='
+								location.href = '${pageContext.request.contextPath}/comments2/insertComment.do?board_No=${mento.board_no}&mem_No=${member.memNo}&comm_Content='
 										+ comm_Content.value;
 							}
 						}, false);
@@ -357,7 +365,7 @@ p {
 
 			console.log(content);
 			
-			location.href = "${pageContext.request.contextPath}/comments2/updateComment.do?board_no=${mento.board_no}&comm_No=" + comm_No + "&comm_Content="
+			location.href = "${pageContext.request.contextPath}/comments2/updateComment.do?board_No=${mento.board_no}&comm_No=" + comm_No + "&comm_Content="
 				+ content;
 		}
 
@@ -408,6 +416,59 @@ p {
 			location.href="${pageContext.request.contextPath}/comments2/insertComment.do?board_No=${mento.board_no}&mem_No=${member.memNo}&comm_Content="
 				+ comm_Content + "&comm_Ref=" + comm_Ref + "&comm_Level=" + comm_Level;
 	    }
+
+	    function bookmark(board_no, mem_no) {
+			var bookmarkClass = $('#bookmark').attr('class').substr(0,3);
+			if (bookmarkClass == 'far') {
+				console.log("북마크 안되어있음.")	
+				$.ajax({
+					type:"GET",
+					url:"${pageContext.request.contextPath}/bookmark/insertBookmark.bm",
+					data: {board_no : board_no, mem_no : mem_no},
+					datatype: 'json',
+					success: 
+						function(data){
+							if(data.isSuccess == true) {
+								$("#bookmark").attr('class', 'fas fa-bookmark');
+								console.log("북마크 INSERT 성공");
+							} else {
+								console.log("북마크 INSERT 실패")
+							}
+						},
+					error: 
+						function(jqxhr, textStatus, errorThrown) {
+							console.log("북마크 INSERT 실패");
+							console.log(jqxhr);
+							console.log(textStatus);
+							console.log(errorThrown);
+					}
+				});
+			} else {
+				console.log("북마크 되어있음.")
+				$.ajax({
+					type:"GET",
+					url:"${pageContext.request.contextPath}/bookmark/deleteBookmark.bm",
+					data: {board_no : board_no, mem_no : mem_no},
+					datatype : 'json',
+					success: 
+						function(data){
+							if(data.isSuccess == true) {
+								$("#bookmark").attr('class', 'far fa-bookmark');
+								console.log("북마크 DELETE 성공");
+							} else {
+								console.log("북마크 DELETE 실패")
+							}
+						},
+					error: 
+						function(jqxhr, textStatus, errorThrown) {
+							console.log("북마크 DELETE 실패");
+							console.log(jqxhr);
+							console.log(textStatus);
+							console.log(errorThrown);
+						}
+				});
+			}
+		}
 			
 
 				

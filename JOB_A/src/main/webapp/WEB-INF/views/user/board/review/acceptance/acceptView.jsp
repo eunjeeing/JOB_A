@@ -151,6 +151,28 @@ p {
 	border: none;
     box-shadow: 0 0 0 0; 
 } */
+.wrap-info i {
+    margin-right: 0;
+}
+
+/* 대댓글 스타일 */
+.article-comments .wrap-reply {
+    margin-top: -1px;
+    border-top: 1px solid #eee;
+    background-color: #f8f8f8;
+}
+
+.article-comments .wrap-reply .wrap-comment {
+    padding: 8px 20px 15px 40px;
+}
+
+.article-comments .wrap-reply textarea {
+	 background-color: #f8f8f8;
+}
+
+.rebo:hover {
+	cursor:pointer;
+}
 
 </style>
 </head>
@@ -191,7 +213,13 @@ p {
 										<span class="rebo"> 
 										<i class="fas fa-exclamation-triangle" id="report"></i> 신고
 										</span> 
-										<span class="rebo"> <i class="far fa-bookmark" id="book"> </i> 스크랩
+										<span class="rebo"><span class="rebo" onclick="bookmark(${accept.board_no}, ${member.memNo})">
+											<c:if test="${!empty bookmark}">
+												<i class="fas fa-bookmark" id="bookmark"></i>스크랩
+											</c:if>
+											<c:if test="${empty bookmark}">
+												<i class="far fa-bookmark" id="bookmark"></i>스크랩
+											</c:if>
 										</span>
 									</div>
 								</div>
@@ -219,7 +247,7 @@ p {
 											<from id="commentForm" method="post"> <input
 												type="hidden" id="mem_No" name="mem_no"
 												value="${sessionScope.memNo }" /> 
-												<textarea id="comm_Content" name="comm_content"
+												<textarea id="comm_Content" name="comm_Content"
 												placeholder="댓글을 남겨주세요." style="resize: none;"></textarea>
 										</div>
 										<button id="insertComment"
@@ -227,26 +255,64 @@ p {
 										</form>
 									</div>
 								</div>
-								<c:forEach items="${commentList}" var="comment">
-									<div id="${comment.comm_no }" class="wrap-comment comment-area">
-										<p class="name">${comment.mem_nick }</p>
-										<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${comment.comm_content }</textarea></p>
+								
+								<c:forEach items="${commentList}" var="co">
+								<c:if test="${co.comm_Level eq 1}">
+									<div id="${co.comm_No }" class="wrap-comment comment-area">
+										<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq board2.mem_No }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
+										<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content }</textarea></p>
 										<div class="wrap-info">
-											<span class="date"> <i class="far fa-clock">${comment.comm_date }</i></span>
-											<a class="cmt"> <i class="far fa-comment"> 대댓글</i>
+										
+											<span class="date"> <i class="far fa-clock"></i>
+											<fmt:parseDate var="parsedDate" value="${co.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
+											<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
+											<a class="cmt" href="#" onclick="reComment(this);return false;"> <i class="far fa-comment"> </i> 대댓글
 											</a>
 											<div class="info_fnc">
-													<input type="hidden" name="comm_no" value="${co.comm_no }"/>
-												<c:if test="${member.memNo eq comment.mem_no}">
+													<input type="hidden" id="comm_No" name="comm_No" value="${co.comm_No }"/>
+										      		<input type="hidden" class="mem_No"  name="mem_no" value="${member.memNo}" />
+											  		<input type="hidden" class="comm_Ref"  name="comm_Ref" value="${co.comm_No}" />
+											  		<input type="hidden" class="comm_Level"  name="comm_Level" value="${co.comm_Level}" />
+												<c:if test="${member.memNo eq co.mem_No}">
 													<a href="#" onclick="updateComment(this);return false;">수정</a>
 													<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
-													<a href="#" onclick="location.href='${pageContext.request.contextPath}/deleteComment.bo?board_no=${accept.board_no}&comm_no=${comment.comm_no }'">삭제</a>
+													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
 												</c:if>
 												<span><i class="fas fa-exclamation-triangle"></i></span>
 											</div>
 										</div>
 									</div>
+								</c:if>
+								
+								<!-- 대댓글일때 -->
+								<c:if test="${co.comm_Level ne 1}">
+									<div class="wrap-reply">
+										<div id="${co.comm_No }" class="wrap-comment comment-area">
+											<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq board2.mem_No }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
+											<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content }</textarea></p>
+											<div class="wrap-info">
+											
+											<span class="date"> <i class="far fa-clock"></i>
+											<fmt:parseDate var="parsedDate" value="${co.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
+											<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
+												<div class="info_fnc">
+														<input type="hidden" id="comm_No" name="comm_No" value="${co.comm_No }"/>
+											      		<input type="hidden" class="mem_No"  name="mem_no" value="${member.memNo}" />
+												  		<input type="hidden" class="comm_Ref"  name="comm_Ref" value="${co.comm_No}" />
+												  		<input type="hidden" class="comm_Level"  name="comm_Level" value="${co.comm_Level}" />
+													<c:if test="${member.memNo eq co.mem_No}">
+														<a href="#" onclick="updateComment(this);return false;">수정</a>
+														<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
+														<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
+													</c:if>
+													<span><i class="fas fa-exclamation-triangle"></i></span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</c:if>
 								</c:forEach>
+								
 							</div>
 
 						</div>
@@ -258,36 +324,147 @@ p {
 	</div>
 
 	<script>
-		document
-				.getElementById("insertComment")
-				.addEventListener(
-						"click",
-						function() {
-							if (comm_content.value == ""
-									|| comm_content.value.length == 0) {
-								alert("댓글을 입력해 주세요");
-								return false;
-							} else {
-								location.href = '${pageContext.request.contextPath}/insertComment.bo?board_no=${accept.board_no}&mem_no=${member.memNo}&comm_content='
-										+ comm_content.value;
-							}
-						}, false);
+	document
+	.getElementById("insertComment")
+	.addEventListener(
+			"click",
+			function() {
+				if (comm_Content.value == ""
+						|| comm_Content.value.length == 0) {
+					alert("댓글을 입력해 주세요");
+					return false;
+				} else {
+					location.href = '${pageContext.request.contextPath}/comments2/insertComment.do?board_No=${accept.board_no}&mem_No=${member.memNo}&comm_Content='
+							+ comm_Content.value;
+				}
+			}, false);
 
 
 		function updateComment(obj) {
+			// 현재 버튼의 위치와 가장 가까운 textarea 접근하기
 			$(obj).parent().parent().parent().find('textarea').removeAttr('readonly');
+			
+			// 수정 완료 버튼 보이게 하기
 			$(obj).siblings('.updateConfirm').css('display', 'inline');
+			
+			// 현재 클릭한 수정 버튼 숨기기
 			$(obj).css('display', 'none');
 		}
-
+		
 		function updateConfirm(obj) {
+			// 수정을 마친 댓글 내용 가져오기
 			var content = $(obj).parent().parent().parent().find('textarea').val();
-			var comm_No = $(obj).siblings('input').val();
-			location.href = "${pageContext.request.contextPath}/updateComment.bo?board_no=${accept.board_no}&comm_no=" + comm_no + "&comm_content="
+			
+			// 댓글 번호 가져오기
+			var comm_No = $(obj).siblings('#comm_No').val();
+			
+			console.log(content);
+			
+			location.href = "${pageContext.request.contextPath}/comments2/updateComment.do?board_No=${accept.board_No}&comm_No=" + comm_No + "&comm_Content="
 				+ content;
 		}
-
-		// 대댓글
+		
+		// 대댓글 .......
+		function reComment(obj) {
+		
+			var commentDiv = $(obj).parent().parent();
+			
+			var comm_Ref = $(obj).next().find('.comm_Ref').val();
+			console.log("원 댓글 번호 : " + comm_Ref);
+			
+			
+			$(obj).css('display','none');
+		
+			var reCommentCode =
+				"<div class='write_area' style='padding: 8px 20px 15px 40px;'>" + 
+				"<i class='fa fa-reply fa-rotate-180'></i>" + 
+				"<text>   대댓글</text>" + 
+				"<div id='btn_add_comment' style='display: flex;'>" + 
+				"<div class='reply_area' style='width: 100%;'>" +
+					"<from id='commentForm' method='post'>" +
+					"<input type='hidden' id='mem_No' name='mem_No' value='${sessionScope.mem_No }' />" +
+					"<input type='hidden' name='comm_Ref' value=" + comm_Ref + " />" +
+					"<input type='hidden' name='comm_Level' value='1' />" +
+					"<textarea id='comm_Content' name='comm_Content' placeholder='댓글을 남겨주세요.' style='resize: none;'>" +
+					"</textarea>" +
+				"</div>" +
+				"<button onclick='reConfirm(this); return false;' style='height: 75px; font-weight: 300; font-size: 20px;'> 작성</button>" +
+				"</form>" +
+			"</div>" +
+			"</div>";
+		
+			commentDiv.append(reCommentCode);
+		
+		}
+		
+		function reConfirm(obj){
+		
+			var comm_Ref = $(obj).prev().find('input[name=comm_Ref]').val();
+			console.log("원 댓글 번호 : " + comm_Ref);
+			
+			var comm_Level = Number($(obj).prev().find('input[name=comm_Level]').val()) + 1;
+			console.log("댓글 레벨 : " + comm_Level);
+			
+			var comm_Content = $(obj).prev().find('textarea').val();
+			console.log("댓글 내용 : " + comm_Content);
+			
+			location.href="${pageContext.request.contextPath}/comments2/insertComment.do?board_No=${accept.board_No}&mem_No=${member.memNo}&comm_Content="
+				+ comm_Content + "&comm_Ref=" + comm_Ref + "&comm_Level=" + comm_Level;
+		}
+			
+	    function bookmark(board_no, mem_no) {
+			var bookmarkClass = $('#bookmark').attr('class').substr(0,3);
+			if (bookmarkClass == 'far') {
+				console.log("북마크 안되어있음.")	
+				$.ajax({
+					type:"GET",
+					url:"${pageContext.request.contextPath}/bookmark/insertBookmark.bm",
+					data: {board_no : board_no, mem_no : mem_no},
+					datatype: 'json',
+					success: 
+						function(data){
+							if(data.isSuccess == true) {
+								$("#bookmark").attr('class', 'fas fa-bookmark');
+								console.log("북마크 INSERT 성공");
+							} else {
+								console.log("북마크 INSERT 실패")
+							}
+						},
+					error: 
+						function(jqxhr, textStatus, errorThrown) {
+							console.log("북마크 INSERT 실패");
+							console.log(jqxhr);
+							console.log(textStatus);
+							console.log(errorThrown);
+					}
+				});
+			} else {
+				console.log("북마크 되어있음.")
+				$.ajax({
+					type:"GET",
+					url:"${pageContext.request.contextPath}/bookmark/deleteBookmark.bm",
+					data: {board_no : board_no, mem_no : mem_no},
+					datatype : 'json',
+					success: 
+						function(data){
+							if(data.isSuccess == true) {
+								$("#bookmark").attr('class', 'far fa-bookmark');
+								console.log("북마크 DELETE 성공");
+							} else {
+								console.log("북마크 DELETE 실패")
+							}
+						},
+					error: 
+						function(jqxhr, textStatus, errorThrown) {
+							console.log("북마크 DELETE 실패");
+							console.log(jqxhr);
+							console.log(textStatus);
+							console.log(errorThrown);
+						}
+				});
+			}
+		}	
+				
 				
 
 	</script>

@@ -117,7 +117,24 @@ p {
 												<i class="far fa-eye" style="margin-right: 0;"></i> ${qna.board_View }
 												<i class="far fa-comment" style="margin-right: 0; margin-left: 14px;"></i> ${qna.comm_Count }
 												<div class="info_fnc">
-													${qna.board_Date} <i class="far fa-bookmark" id="bookmark"></i>
+													<span class="date"> 
+														<i class="far fa-clock"></i> ${qna.board_Date}
+													</span>
+													<c:if test="${!empty bookmarkList}">
+														<c:set var="bCnt" value="0"/>
+														<c:forEach items="${bookmarkList}" var="bookmark">
+															<c:if test="${bookmark.board_no == qna.board_No}">
+																<i class="fas fa-bookmark" id="bookmark"></i>
+																<c:set var="bCnt" value="${bCnt + 1}"/>
+															</c:if>
+														</c:forEach>
+														<c:if test="${bCnt eq 0}">
+															<i class="far fa-bookmark" id="bookmark"></i>
+														</c:if>
+													</c:if>
+													<c:if test="${empty bookmarkList}">
+														<i class="far fa-bookmark" id="bookmark"></i>
+													</c:if>
 												</div>
 											</div>
 										</div>

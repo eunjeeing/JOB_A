@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.joba.user.attachment.model.vo.Attachment;
 import com.kh.joba.user.board2.blahblah.model.dao.BlahblahDAO;
 import com.kh.joba.user.board2.blahblah.model.vo.Board2;
+import com.kh.joba.user.bookmark.model.dao.BookmarkDAO;
 import com.kh.joba.user.common.exception.BoardException;
 
 
@@ -17,6 +18,9 @@ public class BlahblahServiceImpl implements BlahblahService {
 	
 	@Autowired
 	BlahblahDAO blahblahDAO;
+	
+	@Autowired
+	BookmarkDAO bmDAO;
 
 	@Override
 	public List<Map<String, String>> selectBlahBlahList(int cPage, int numPerPage) {
@@ -45,7 +49,11 @@ public class BlahblahServiceImpl implements BlahblahService {
 
 	@Override
 	public int blahDelete(int board_No) {
-		return blahblahDAO.blahDelete(board_No);
+		int result = blahblahDAO.blahDelete(board_No);
+		if (result > 0) {
+			int result2 = bmDAO.deleteAllBookmark(board_No);
+		}
+		return result;
 	}
 
 	@Override

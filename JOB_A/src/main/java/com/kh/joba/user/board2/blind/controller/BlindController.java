@@ -3,6 +3,8 @@ package com.kh.joba.user.board2.blind.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.joba.user.attachment.model.vo.Attachment;
 import com.kh.joba.user.board2.blahblah.model.vo.Board2;
 import com.kh.joba.user.board2.blind.model.service.BlindService;
+import com.kh.joba.user.bookmark.model.service.BookmarkService;
+import com.kh.joba.user.bookmark.model.vo.Bookmark;
 import com.kh.joba.user.comments2.model.service.Comments2Service;
 import com.kh.joba.user.comments2.model.vo.Comments2;
 import com.kh.joba.user.common.util.UtilsBoard1;
+import com.kh.joba.user.member.model.vo.Member;
 
 @Controller
 public class BlindController {
@@ -25,9 +30,12 @@ public class BlindController {
 	@Autowired
 	Comments2Service cs;
 	
+	@Autowired
+	BookmarkService ms;
+	
 	@RequestMapping("/board2/selectBlindList.do")
 	public String selectBlindList(
-			@RequestParam( value="cPage", required=false, defaultValue="1") int cPage, Model model) {
+			@RequestParam( value="cPage", required=false, defaultValue="1") int cPage, Model model, HttpSession session) {
 		
 		int numPerPage = 10; // 한 페이지 당 게시글 and 페이지 수
 		
@@ -38,6 +46,10 @@ public class BlindController {
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "selectBlindList.do");
 		
 		System.out.println("selectBlindList : " + list);
+		Member mem = (Member)session.getAttribute("member");
+		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
+		
+		model.addAttribute("bookmarkList", bookmarkList);
 		
 		model.addAttribute("selectBlindList", list);
 		model.addAttribute("totalContents", totalContents);
@@ -48,7 +60,7 @@ public class BlindController {
 	}
 	
 	@RequestMapping("/board2/blindSelectOne.do")
-	public String blindSelectOne(@RequestParam int board_No, Model model) {
+	public String blindSelectOne(@RequestParam int board_No, Model model, HttpSession session) {
 		
 		Board2 board = bs.blindSelectOne(board_No);
 		List<Attachment> attachmentList = bs.selectAttachmentList(board_No);
@@ -58,6 +70,12 @@ public class BlindController {
 		
 		List<Comments2> selectComment = cs.selectComment(board_No);
 		model.addAttribute("selectComment", selectComment);
+		
+		Member mem = (Member)session.getAttribute("member");
+		Bookmark isBookmark = new Bookmark(board_No, mem.getMemNo(), 0);
+		Bookmark bookmark = ms.selectOneBookmark(isBookmark);
+		
+		model.addAttribute("bookmark", bookmark);
 		
 		return "user/board/blind/blindView";
 	}
@@ -158,7 +176,7 @@ public class BlindController {
 	public String searchBlindList(
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
 			@RequestParam String keyword,
-			Model model) { 
+			Model model, HttpSession session) { 
 		
 		int numPerPage = 10;
 		List<Map<String,String>> list = bs.searchBlindList(cPage, numPerPage, keyword);
@@ -167,7 +185,10 @@ public class BlindController {
 		
 		// 조회확인용
 		System.out.println("keyword : " + keyword);
-
+		Member mem = (Member)session.getAttribute("member");
+		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
+		
+		model.addAttribute("bookmarkList", bookmarkList);
 	
 		model.addAttribute("selectBlindList", list);
 		model.addAttribute("totalContents", totalContents);

@@ -73,20 +73,16 @@
 					</a>
 						<ul class="collapse list-unstyled pl-4 w-100" id="member-elements">
 							<li class="nav-item"><a class="nav-link pl-3"
-								href="#">
+								href="${pageContext.request.contextPath}/admin/adminEnrollView">
 								<span class="ml-1 item-text">Admin Register</span>
 							</a></li>
 							<li class="nav-item"><a class="nav-link pl-3"
-								href="#">
+								href="${pageContext.request.contextPath}/admin/adminList">
 								<span class="ml-1 item-text">Admin List</span></a>
 							</li>
 							<li class="nav-item"><a class="nav-link pl-3"
-								href="#">
+								href="${pageContext.request.contextPath}/user/userList">
 								<span class="ml-1 item-text">Member List</span></a>
-							</li>
-							<li class="nav-item"><a class="nav-link pl-3"
-								href="#">
-								<span class="ml-1 item-text">Member Grade</span></a>
 							</li>
 						</ul></li>
 					<!-- 공지사항 -->

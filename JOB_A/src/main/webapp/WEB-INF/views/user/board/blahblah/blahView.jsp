@@ -172,6 +172,10 @@ p {
 	 background-color: #f8f8f8;
 }
 
+.rebo:hover {
+	cursor:pointer;
+}
+
 
 </style>
 </head>
@@ -209,10 +213,16 @@ p {
 											${board2.comm_Count }
 									</span>
 									<div class="info_fnc">
-										<span class="rebo"> <i
-											class="fas fa-exclamation-triangle" id="report"></i> 신고
-										</span> <span class="rebo"> <i class="far fa-bookmark"
-											id="book"> </i> 스크랩
+										<span class="rebo"> 
+											<i class="fas fa-exclamation-triangle" id="report"></i> 신고
+										</span> 
+										<span class="rebo" onclick="bookmark(${board2.board_No}, ${member.memNo})">
+											<c:if test="${!empty bookmark}">
+												<i class="fas fa-bookmark" id="bookmark"></i>스크랩
+											</c:if>
+											<c:if test="${empty bookmark}">
+												<i class="far fa-bookmark" id="bookmark"></i>스크랩
+											</c:if>
 										</span>
 									</div>
 								</div>
@@ -412,7 +422,58 @@ p {
 				+ comm_Content + "&comm_Ref=" + comm_Ref + "&comm_Level=" + comm_Level;
 	    }
 			
-
+	    function bookmark(board_no, mem_no) {
+			var bookmarkClass = $('#bookmark').attr('class').substr(0,3);
+			if (bookmarkClass == 'far') {
+				console.log("북마크 안되어있음.")	
+				$.ajax({
+					type:"GET",
+					url:"${pageContext.request.contextPath}/bookmark/insertBookmark.bm",
+					data: {board_no : board_no, mem_no : mem_no},
+					datatype: 'json',
+					success: 
+						function(data){
+							if(data.isSuccess == true) {
+								$("#bookmark").attr('class', 'fas fa-bookmark');
+								console.log("북마크 INSERT 성공");
+							} else {
+								console.log("북마크 INSERT 실패")
+							}
+						},
+					error: 
+						function(jqxhr, textStatus, errorThrown) {
+							console.log("북마크 INSERT 실패");
+							console.log(jqxhr);
+							console.log(textStatus);
+							console.log(errorThrown);
+					}
+				});
+			} else {
+				console.log("북마크 되어있음.")
+				$.ajax({
+					type:"GET",
+					url:"${pageContext.request.contextPath}/bookmark/deleteBookmark.bm",
+					data: {board_no : board_no, mem_no : mem_no},
+					datatype : 'json',
+					success: 
+						function(data){
+							if(data.isSuccess == true) {
+								$("#bookmark").attr('class', 'far fa-bookmark');
+								console.log("북마크 DELETE 성공");
+							} else {
+								console.log("북마크 DELETE 실패")
+							}
+						},
+					error: 
+						function(jqxhr, textStatus, errorThrown) {
+							console.log("북마크 DELETE 실패");
+							console.log(jqxhr);
+							console.log(textStatus);
+							console.log(errorThrown);
+						}
+				});
+			}
+		}	
 				
 
 	</script>

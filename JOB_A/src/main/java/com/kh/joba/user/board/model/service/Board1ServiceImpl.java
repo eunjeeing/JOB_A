@@ -7,14 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.joba.user.board.model.dao.Board1DAO;
-import com.kh.joba.user.board.model.vo.Attachment1;
 import com.kh.joba.user.board.model.vo.Board1;
+import com.kh.joba.user.bookmark.model.dao.BookmarkDAO;
 
 @Service
 public class Board1ServiceImpl implements Board1Service {
 	
 	@Autowired
 	Board1DAO board1DAO;
+	
+	@Autowired
+	BookmarkDAO bmDAO;
 
 // *******************************************************************************************
 // 							Notice Service Area
@@ -89,7 +92,11 @@ public class Board1ServiceImpl implements Board1Service {
 	}
 	@Override
 	public int mentoDelete(int board_no) {
-		return board1DAO.deleteMetno(board_no);
+		int result = board1DAO.deleteMetno(board_no);
+		if (result > 0) {
+			int result2 = bmDAO.deleteAllBookmark(board_no);
+		}
+		return result;
 	}
 	@Override
 	public int mentoInsert(Board1 mento) {
@@ -128,8 +135,13 @@ public class Board1ServiceImpl implements Board1Service {
 	}
 	@Override
 	public int tomorrowDelete(int board_no) {
-		return board1DAO.deleteTomorrow(board_no);
+		int result = board1DAO.deleteTomorrow(board_no);	
+		if (result > 0) {
+			int result2 = bmDAO.deleteAllBookmark(board_no);
+		}
+		return result;
 	}
+	
 	@Override
 	public int tomorrowInsert(Board1 tomorrow) {
 		return board1DAO.insertTomorrow(tomorrow);
@@ -167,7 +179,11 @@ public class Board1ServiceImpl implements Board1Service {
 	}
 	@Override
 	public int interviewDelete(int board_no) {
-		return board1DAO.interviewDelete(board_no);
+		int result = board1DAO.interviewDelete(board_no);
+		if (result > 0) {
+			int result2 = bmDAO.deleteAllBookmark(board_no);
+		}
+		return result;
 	}
 	@Override
 	public int interviewInsert(Board1 interview) {
@@ -204,8 +220,12 @@ public class Board1ServiceImpl implements Board1Service {
 	}          
 	@Override  
 	public int acceptDelete(int board_no) {
-		return board1DAO.acceptDelete(board_no);
-	}          
+		int result = board1DAO.acceptDelete(board_no);
+		if (result > 0) {
+			int result2 = bmDAO.deleteAllBookmark(board_no);
+		}
+		return result;
+	}         
 	@Override  
 	public int acceptInsert(Board1 accept) {
 		return board1DAO.acceptInsert(accept);

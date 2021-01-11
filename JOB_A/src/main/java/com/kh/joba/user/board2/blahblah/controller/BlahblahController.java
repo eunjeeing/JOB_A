@@ -1,29 +1,25 @@
 package com.kh.joba.user.board2.blahblah.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.joba.user.board2.blahblah.model.service.BlahblahService;
 import com.kh.joba.user.attachment.model.vo.Attachment;
+import com.kh.joba.user.board2.blahblah.model.service.BlahblahService;
 import com.kh.joba.user.board2.blahblah.model.vo.Board2;
+import com.kh.joba.user.bookmark.model.service.BookmarkService;
+import com.kh.joba.user.bookmark.model.vo.Bookmark;
 import com.kh.joba.user.comments2.model.service.Comments2Service;
 import com.kh.joba.user.comments2.model.vo.Comments2;
 import com.kh.joba.user.common.util.UtilsBoard1;
+import com.kh.joba.user.member.model.vo.Member;
 
 @Controller
 public class BlahblahController {
@@ -34,9 +30,12 @@ public class BlahblahController {
 	@Autowired
 	Comments2Service cs;
 	
+	@Autowired
+	BookmarkService ms;
+	
 	@RequestMapping("/board2/blahList.do")
 	public String selectBlahBlahList(
-			@RequestParam( value="cPage", required=false, defaultValue="1") int cPage, Model model) {
+			@RequestParam( value="cPage", required=false, defaultValue="1") int cPage, Model model, HttpSession session) {
 		
 		int numPerPage = 10; // 한 페이지 당 게시글 and 페이지 수
 		
@@ -48,6 +47,11 @@ public class BlahblahController {
 		
 		System.out.println("blahlist : " + list);
 		
+		Member mem = (Member)session.getAttribute("member");
+		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
+		
+		model.addAttribute("bookmarkList", bookmarkList);
+		
 		model.addAttribute("blahList", list);
 		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("numPerPage", numPerPage);
@@ -57,7 +61,7 @@ public class BlahblahController {
 	}
 	
 	@RequestMapping("/board2/blahView.do")
-	public String boardView(@RequestParam int board_No, Model model) {
+	public String boardView(@RequestParam int board_No, Model model, HttpSession session) {
 		
 		Board2 board = bs.selectOneBlah(board_No);
 		List<Attachment> attachmentList = bs.selectAttachmentList(board_No);
@@ -67,6 +71,12 @@ public class BlahblahController {
 		
 		List<Comments2> selectComment = cs.selectComment(board_No);
 		model.addAttribute("selectComment", selectComment);
+		
+		Member mem = (Member)session.getAttribute("member");
+		Bookmark isBookmark = new Bookmark(board_No, mem.getMemNo(), 0);
+		Bookmark bookmark = ms.selectOneBookmark(isBookmark);
+		
+		model.addAttribute("bookmark", bookmark);
 		
 		return "user/board/blahblah/blahView";
 	}
@@ -169,7 +179,7 @@ public class BlahblahController {
 	public String searchBlahList(
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
 			@RequestParam String keyword,
-			Model model) { 
+			Model model, HttpSession session) { 
 		
 		int numPerPage = 10;
 		List<Map<String,String>> list = bs.searchBlahList(cPage, numPerPage, keyword);
@@ -179,6 +189,10 @@ public class BlahblahController {
 		// 조회확인용
 		System.out.println("keyword : " + keyword);
 
+		Member mem = (Member)session.getAttribute("member");
+		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
+		
+		model.addAttribute("bookmarkList", bookmarkList);
 	
 		model.addAttribute("blahList", list);
 		model.addAttribute("totalContents", totalContents);

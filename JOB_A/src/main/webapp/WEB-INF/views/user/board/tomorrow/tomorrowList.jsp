@@ -119,20 +119,24 @@ p {
 												<i class="far fa-eye" style="margin-right: 0;"></i> ${tomorrow.board_view }
 												<i class="far fa-comment" style="margin-right: 0; margin-left: 14px;"></i> ${tomorrow.comm_count }
 												<div class="info_fnc">
-												<span class="date"> <i class="far fa-clock"></i> ${tomorrow.board_date}
-												<c:if test="${!empty bookmarkList}">
-													<c:forEach items="${bookmarkList}" var="bookmark">
-														<c:if test="${bookmark.board_no == tomorrow.board_no}">
-															<i class="fas fa-bookmark" id="bookmark"></i>
+													<span class="date"> 
+														<i class="far fa-clock"></i> ${tomorrow.board_date}
+													</span>
+													<c:if test="${!empty bookmarkList}">
+														<c:set var="bCnt" value="0"/>
+														<c:forEach items="${bookmarkList}" var="bookmark">
+															<c:if test="${bookmark.board_no == tomorrow.board_no}">
+																<i class="fas fa-bookmark" id="bookmark"></i>
+																<c:set var="bCnt" value="${bCnt + 1}"/>
+															</c:if>
+														</c:forEach>
+														<c:if test="${bCnt eq 0}">
+															<i class="far fa-bookmark" id="bookmark"></i>
 														</c:if>
-														<c:if test="${bookmark.board_no != tomorrow.board_no}">
-															<i class="fas fa-bookmark" id="bookmark"></i>
-														</c:if>
-													</c:forEach>
-												</c:if>
-												<c:if test="${empty bookmarkList}">
-													<i class="far fa-bookmark" id="bookmark"></i>
-												</c:if>
+													</c:if>
+													<c:if test="${empty bookmarkList}">
+														<i class="far fa-bookmark" id="bookmark"></i>
+													</c:if>
 												</div>
 											</div>
 										</div>

@@ -173,16 +173,18 @@
 										<td>${accept.mem_nick}</td>
 										<td>${accept.board_date}</td>
 										<td>${accept.board_view}</td>
+										<td>
 										<c:if test="${empty bookmarkList}">
-											<td><img class="bookmarkIcon" src="${pageContext.request.contextPath}/resources/images/bookmark-disabled.png" alt="스크랩"></button></td>
+											<img class="bookmarkIcon" src="${pageContext.request.contextPath}/resources/images/bookmark-disabled.png" alt="스크랩"></button>
 										</c:if>
 										<c:if test="${!empty bookmarkList}">
 											<c:forEach items="${bookmarkList}" var = "bookmarkList">
 												<c:if test="${bookmarkList.board_no == accept.board_no}">
-													<td><img class="bookmarkIcon" src="${pageContext.request.contextPath}/resources/images/bookmark-abled.png" alt="스크랩"></button></td>
+													<img class="bookmarkIcon" src="${pageContext.request.contextPath}/resources/images/bookmark-abled.png" alt="스크랩"></button>
 												</c:if>
 											</c:forEach>
 										</c:if>
+										</td>
 									</tr>
 									</c:forEach>
 								</tbody>
@@ -207,27 +209,6 @@
 
 		<!-- Scripts -->
  			<script>
- 				// Menu Controller 
-			      // Menu.
-			      var $menu = $('#menu'),
-			         $menu_openers = $menu.children('ul').find('.opener');
-			
-			      // Openers.
-			         $menu_openers.each(function() {
-			            var $this = $(this);
-			            $this.on('click', function(event) {
-			               // Prevent default.
-			                  event.preventDefault();
-			               // Toggle.
-			                  $menu_openers.not($this).removeClass('active');
-			                  $this.toggleClass('active');
-			               // Trigger resize (sidebar lock).
-			                  $window.triggerHandler('resize.sidebar-lock');
-			            });
-			         });
-
-
-
 					function selectOne(boardNo) {
 						var gradeNo = '${sessionScope.member.gradeNo}';
 						console.log("gradeNo : " + gradeNo);

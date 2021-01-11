@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bookmarkMapper">
+
+	<insert id="insertBookmark" parameterType="Bookmark">
+		INSERT INTO SCRAP
+		VALUES(#{board_no}, #{mem_no})
+	</insert>
+	<delete id="deleteBookmark">
+		DELETE FROM SCRAP
+		WHERE BOARD_NO = #{board_no} AND MEM_NO = #{mem_no}
+	</delete>
+	<select id="selectBookmarkList" resultType="Bookmark">
+		SELECT * FROM SCRAP WHERE MEM_NO = #{mem_no}
+	</select>
+	<select id="selectBookmark" resultType="Bookmark" parameterType="Bookmark">
+		SELECT * FROM SCRAP WHERE MEM_NO = #{mem_no} and BOARD_NO = #{board_no}
+	</select>
+	<delete id="deleteAllBookmark" parameterType="_int">
+		DELETE FROM SCRAP WHERE BOARD_NO = #{board_no}
+	</delete>
+	
+	
+	
+</mapper>

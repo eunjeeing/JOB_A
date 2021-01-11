@@ -68,6 +68,12 @@
 					href="https://html5up.net">HTML5 UP</a>.
 			</p>
 		</footer>
+		<!-- Scripts -->
+		<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 		<script>
 	      // Menu.
 	      var $menu = $('#menu'),
@@ -105,11 +111,5 @@
 	    }
          
         </script>
-		<!-- Scripts -->
-		<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	</div>
 </div>

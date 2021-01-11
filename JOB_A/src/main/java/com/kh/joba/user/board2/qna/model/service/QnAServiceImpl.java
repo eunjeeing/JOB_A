@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.joba.user.attachment.model.vo.Attachment;
 import com.kh.joba.user.board2.blahblah.model.vo.Board2;
 import com.kh.joba.user.board2.qna.model.dao.QnADAO;
+import com.kh.joba.user.bookmark.model.dao.BookmarkDAO;
 import com.kh.joba.user.common.exception.BoardException;
 
 @Service
@@ -16,6 +17,9 @@ public class QnAServiceImpl implements QnAService {
 	
 	@Autowired
 	QnADAO qd;
+	
+	@Autowired
+	BookmarkDAO bmDAO;
 
 	@Override
 	public List<Map<String, String>> selectQnAList(int cPage, int numPerPage) {
@@ -43,7 +47,11 @@ public class QnAServiceImpl implements QnAService {
 
 	@Override
 	public int deleteQnA(int board_No) {
-		return qd.deleteQnA(board_No);
+		int result = qd.deleteQnA(board_No);
+		if (result > 0) {
+			int result2 = bmDAO.deleteAllBookmark(board_No);
+		}
+		return result;
 	}
 
 	@Override
