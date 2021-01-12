@@ -8,7 +8,7 @@
 	<select id="selectOneBoard" parameterType="_int" resultType="Board">
 		SELECT B.*, M.MEM_NICK,(SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
 		FROM BOARD B, MEMBER M
-		WHERE BOARD_NO = #{board_No} AND M.MEM_NO = B.MEM_NO
+		WHERE BOARD_NO = #{board_No} AND M.MEM_NO = B.MEM_NO 
 	</select>
 	
 	<!-- 첨부파일 조회 -->
@@ -51,26 +51,28 @@
 	<select id="selectBlahBlahList" resultType="Board">
 		SELECT B.*, M.MEM_NICK,(SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
 		FROM BOARD B, MEMBER M
-		WHERE TYPE_NO = 4 AND BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO
+		WHERE TYPE_NO = 4 AND BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO AND B.BOARD_REPORTNUM <![CDATA[ < ]]> 4
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 	</select>
 	
 	<!-- 블라블라 게시글 수 -->
 	<select id="selectBlahBlahTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 4 AND BOARD_STATUS = 'Y' 
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 4 AND BOARD_STATUS = 'Y' AND BOARD_REPORTNUM <![CDATA[ < ]]> 4
 	</select>
 
 	<!-- 블라블라 검색 -->
 	<select id="searchBlahList" resultType="Board" parameterType="string">
 		SELECT B.*, M.MEM_NICK,(SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
 		FROM BOARD B, MEMBER M
-		WHERE TYPE_NO = 4 AND BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO AND B.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+		WHERE TYPE_NO = 4 AND BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO AND 
+			B.BOARD_TITLE LIKE '%' || #{keyword} || '%' AND B.BOARD_REPORTNUM <![CDATA[ < ]]> 4
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 	</select>
 	
 	<!-- 블라블라 검색된 게시글 수 -->
 	<select id="searchBlahTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 4 AND BOARD_STATUS = 'Y' AND BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 4 AND BOARD_STATUS = 'Y' AND
+			 BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%' AND BOARD_REPORTNUM <![CDATA[ < ]]> 4
 	</select>
 	
 <!-- 블라인드 게시판 -->
@@ -78,26 +80,28 @@
 	<select id="selectBlindList" resultType="Board">
 		SELECT B.*, M.MEM_NICK,(SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
 		FROM BOARD B, MEMBER M
-		WHERE TYPE_NO = 5 AND BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO
+		WHERE TYPE_NO = 5 AND BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO AND B.BOARD_REPORTNUM <![CDATA[ < ]]> 4
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 	</select>
 
 	<!-- 블라인드 게시글 수 -->
 	<select id="selectBlindTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 5 AND BOARD_STATUS = 'Y' 
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 5 AND BOARD_STATUS = 'Y' AND BOARD_REPORTNUM <![CDATA[ < ]]> 4
 	</select>
 	
 	<!-- 블라인드 검색 -->
 	<select id="searchBlindList" resultType="Board" parameterType="string">
 		SELECT B.*, M.MEM_NICK,(SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
 		FROM BOARD B, MEMBER M
-		WHERE TYPE_NO = 5 AND BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO AND B.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+		WHERE TYPE_NO = 5 AND BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO AND
+			 B.BOARD_TITLE LIKE '%' || #{keyword} || '%' AND B.BOARD_REPORTNUM <![CDATA[ < ]]> 4
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 	</select>
 	
 	<!-- 블라인드 검색된 게시글 수 -->
 	<select id="searchBlindTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 5 AND BOARD_STATUS = 'Y' AND BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 5 AND BOARD_STATUS = 'Y' AND 
+			BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%' AND BOARD_REPORTNUM <![CDATA[ < ]]> 4
 	</select>
 
 <!-- QnA 게시판 -->	
@@ -105,26 +109,28 @@
 	<select id="selectQnAList" resultType="Board">
 		SELECT B.*, M.MEM_NICK,(SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
 		FROM BOARD B, MEMBER M
-		WHERE TYPE_NO = 7 AND BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO
+		WHERE TYPE_NO = 7 AND BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO AND B.BOARD_REPORTNUM <![CDATA[ < ]]> 4
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 	</select>
 
 	<!-- QnA 게시글 수 -->
 	<select id="selectQnATotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 7 AND BOARD_STATUS = 'Y' 
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 7 AND BOARD_STATUS = 'Y' AND BOARD_REPORTNUM <![CDATA[ < ]]> 4
 	</select>
 	
 	<!-- QnA 검색 -->
 	<select id="searchQnAList" resultType="Board" parameterType="string">
 		SELECT B.*, M.MEM_NICK,(SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
 		FROM BOARD B, MEMBER M
-		WHERE TYPE_NO = 7 AND BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO AND B.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+		WHERE TYPE_NO = 7 AND BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO AND 
+			B.BOARD_TITLE LIKE '%' || #{keyword} || '%' AND B.BOARD_REPORTNUM <![CDATA[ < ]]> 4
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 	</select>
 	
 	<!-- QnA 검색된 게시글 수 -->
 	<select id="searchQnATotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 7 AND BOARD_STATUS = 'Y' AND BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 7 AND BOARD_STATUS = 'Y' AND 
+			BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%' AND BOARD_REPORTNUM <![CDATA[ < ]]> 4
 	</select>
 	
 <!-- 채용공고 게시판 -->
@@ -133,12 +139,13 @@
 		SELECT B.*, M.MEM_NICK, C.*, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
 		FROM BOARD B, MEMBER M, CATEGORY C
 		WHERE TYPE_NO = 2 AND BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO AND C.CATEGORY_NO = B.CATEGORY_NO
+			AND B.BOARD_REPORTNUM <![CDATA[ < ]]> 4
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 	</select>
 
 	<!-- 채용공고 게시글 수 -->
 	<select id="selectJobTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 2 AND BOARD_STATUS = 'Y' 
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 2 AND BOARD_STATUS = 'Y' AND BOARD_REPORTNUM <![CDATA[ < ]]> 4
 	</select>
 	
 	<!-- 채용공고 검색 -->
@@ -146,13 +153,14 @@
 		SELECT B.*, M.MEM_NICK, C.*, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
 		FROM BOARD B, MEMBER M, CATEGORY C
 		WHERE TYPE_NO = 2 AND BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO AND
-			  C.CATEGORY_NO = B.CATEGORY_NO AND B.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+			  C.CATEGORY_NO = B.CATEGORY_NO AND B.BOARD_TITLE LIKE '%' || #{keyword} || '%' AND B.BOARD_REPORTNUM <![CDATA[ < ]]> 4
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 	</select>
 	
 	<!-- 채용공고 검색된 게시글 수 -->
 	<select id="searchJobTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 2 AND BOARD_STATUS = 'Y' AND BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 2 AND BOARD_STATUS = 'Y' AND 
+			BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%' AND BOARD_REPORTNUM <![CDATA[ < ]]> 4
 	</select>
 	
 	<!-- 채용공고 카테고리 검색 -->
@@ -160,13 +168,14 @@
 		SELECT B.*, M.MEM_NICK, C.*, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
 		FROM BOARD B, MEMBER M, CATEGORY C
 		WHERE TYPE_NO = 2 AND BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO AND
-			C.CATEGORY_NO = B.CATEGORY_NO AND B.CATEGORY_NO = #{category_No}
+			C.CATEGORY_NO = B.CATEGORY_NO AND B.CATEGORY_NO = #{category_No} AND B.BOARD_REPORTNUM <![CDATA[ < ]]> 4
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 	</select>
 	
 	<!-- 채용공고 카테고리 검색된 게시글 수 -->
 	<select id="categorySearchJobTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 2 AND BOARD_STATUS = 'Y' AND BOARD.CATEGORY_NO = #{category_No}
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 2 AND BOARD_STATUS = 'Y' 
+			AND BOARD.CATEGORY_NO = #{category_No} AND BOARD_REPORTNUM <![CDATA[ < ]]> 4
 	</select>
 	
 	<!-- 채용공고 글쓰기 -->
@@ -205,13 +214,14 @@
 		SELECT *
 		FROM BOARD B, MEMBER M, BOARDTYPE T
 		WHERE B.MEM_NO = #{mem_No} AND BOARD_STATUS = 'Y' AND B.MEM_NO = M.MEM_NO AND B.TYPE_NO = T.TYPE_NO
+			 AND B.BOARD_REPORTNUM <![CDATA[ < ]]> 4
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 	</select>
 	
 	<!-- 내가 쓴 게시글 수 -->
 	<select id="selectMyPostTotalContents" resultType="_int">
 		SELECT COUNT(*) FROM BOARD
-		WHERE MEM_NO = #{mem_No} AND BOARD_STATUS = 'Y'
+		WHERE MEM_NO = #{mem_No} AND BOARD_STATUS = 'Y' AND BOARD_REPORTNUM <![CDATA[ < ]]> 4
 	</select>
 	
 	<!-- 내가 쓴 게시글 선택 삭제 -->

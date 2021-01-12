@@ -5,36 +5,24 @@ import java.util.Map;
 
 public interface CommentManageDAO {
 	
-	List<Map<String, String>> jobCommentList(int cPage, int numPerPage);
+	List<Map<String, String>> jobCommentList();
 
-	int jobCommentTotalContents();
+	List<Map<String, String>> blahCommentList();
 
-	List<Map<String, String>> blahCommentList(int cPage, int numPerPage);
+	List<Map<String, String>> blindCommentList();
 
-	int blahCommentTotalContents();
+	List<Map<String, String>> tomoCommentList();
 
-	List<Map<String, String>> blindCommentList(int cPage, int numPerPage);
+	List<Map<String, String>> qnaCommentList();
 
-	int blindCommentTotalContents();
+	List<Map<String, String>> acceptCommentList();
 
-	List<Map<String, String>> tomoCommentList(int cPage, int numPerPage);
+	List<Map<String, String>> interviewCommentList();
 
-	int tomoCommentTotalContents();
+	List<Map<String, String>> mentoCommentList();
 
-	List<Map<String, String>> qnaCommentList(int cPage, int numPerPage);
+	int updateCommStatusB(int comm_No, int type_No);
 
-	int qnaCommentTotalContents();
-
-	List<Map<String, String>> acceptCommentList(int cPage, int numPerPage);
-
-	int acceptCommentTotalContents();
-
-	List<Map<String, String>> interviewCommentList(int cPage, int numPerPage);
-
-	int interviewCommentTotalContents();
-
-	List<Map<String, String>> mentoCommentList(int cPage, int numPerPage);
-
-	int mentoCommentTotalContents();
+	int updateCommStatusY(int comm_No, int type_No);
 
 }

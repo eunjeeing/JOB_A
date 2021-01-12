@@ -15,83 +15,53 @@ public class CommentManageServiceImpl implements CommentManageService {
 	CommentManageDAO cmd;
 
 	@Override
-	public List<Map<String, String>> jobCommentList(int cPage, int numPerPage) {
-		return cmd.jobCommentList(cPage, numPerPage);
+	public List<Map<String, String>> jobCommentList() {
+		return cmd.jobCommentList();
 	}
 
 	@Override
-	public int jobCommentTotalContents() {
-		return cmd.jobCommentTotalContents();
+	public List<Map<String, String>> blahCommentList() {
+		return cmd.blahCommentList();
 	}
 
 	@Override
-	public List<Map<String, String>> blahCommentList(int cPage, int numPerPage) {
-		return cmd.blahCommentList(cPage, numPerPage);
+	public List<Map<String, String>> blindCommentList() {
+		return cmd.blindCommentList();
 	}
 
 	@Override
-	public int blahCommentTotalContents() {
-		return cmd.blahCommentTotalContents();
+	public List<Map<String, String>> tomoCommentList() {
+		return cmd.tomoCommentList();
 	}
 
 	@Override
-	public List<Map<String, String>> blindCommentList(int cPage, int numPerPage) {
-		return cmd.blindCommentList(cPage, numPerPage);
+	public List<Map<String, String>> qnaCommentList() {
+		return cmd.qnaCommentList();
 	}
 
 	@Override
-	public int blindCommentTotalContents() {
-		return cmd.blindCommentTotalContents();
+	public List<Map<String, String>> acceptCommentList() {
+		return cmd.acceptCommentList();
 	}
 
 	@Override
-	public List<Map<String, String>> tomoCommentList(int cPage, int numPerPage) {
-		return cmd.tomoCommentList(cPage, numPerPage);
+	public List<Map<String, String>> interviewCommentList() {
+		return cmd.interviewCommentList();
 	}
 
 	@Override
-	public int tomoCommentTotalContents() {
-		return cmd.tomoCommentTotalContents();
+	public List<Map<String, String>> mentoCommentList() {
+		return cmd.mentoCommentList();
 	}
 
 	@Override
-	public List<Map<String, String>> qnaCommentList(int cPage, int numPerPage) {
-		return cmd.qnaCommentList(cPage, numPerPage);
+	public int updateCommStatusB(int comm_No, int type_No) {
+		return cmd.updateCommStatusB(comm_No, type_No);
 	}
 
 	@Override
-	public int qnaCommentTotalContents() {
-		return cmd.qnaCommentTotalContents();
-	}
-
-	@Override
-	public List<Map<String, String>> acceptCommentList(int cPage, int numPerPage) {
-		return cmd.acceptCommentList(cPage, numPerPage);
-	}
-
-	@Override
-	public int acceptCommentTotalContents() {
-		return cmd.acceptCommentTotalContents();
-	}
-
-	@Override
-	public List<Map<String, String>> interviewCommentList(int cPage, int numPerPage) {
-		return cmd.interviewCommentList(cPage, numPerPage);
-	}
-
-	@Override
-	public int interviewCommentTotalContents() {
-		return cmd.interviewCommentTotalContents();
-	}
-
-	@Override
-	public List<Map<String, String>> mentoCommentList(int cPage, int numPerPage) {
-		return cmd.mentoCommentList(cPage, numPerPage);
-	}
-
-	@Override
-	public int mentoCommentTotalContents() {
-		return cmd.mentoCommentTotalContents();
+	public int updateCommStatusY(int comm_No, int type_No) {
+		return cmd.updateCommStatusY(comm_No, type_No);
 	}
 
 

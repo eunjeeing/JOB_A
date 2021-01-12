@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>게시판 관리 | 블라블라</title>
+
 <style>
 	.tab {
 		display: inline-block;
@@ -32,22 +33,14 @@
 		font-weight:800;
 	}
 	
-	#utilBox {
-		width : 100%;
-		height : 50px;
-		margin-top : 20px;
-	}
-	
-	#searchBox {
-		width : 35%;
-		height : 100%;
-		float : left;
-		margin-right : 10px;
-	}
-	
 	.goBoard:hover{
 		cursor:pointer;
 	}
+	
+	.trtr:hover{
+		background: #EAEAEA;
+	}
+	
 	
 </style>
 </head>
@@ -77,86 +70,60 @@
 							<div class="tab"><p id="mento">멘토&멘티</p></div>
 						</div>
 						
+
+						
 						<div class="row">
 							<div class="col-md-12">
 								<div class="card shadow">
 									<div class="card-body">
-										<!-- 검색 -->
-					  					<div id="utilBox">
-											<div id="searchBox">
-												<input type="search" class="form-control" id="search" placeholder="검색내용을 입력해주세요."
-													style="height:37px;" onKeyDown="enterKey();" />
-											</div>
-											<button type="button" class="btn mb-2 btn-light" id="searchBtn" onclick="search()"
-											style="width: 50px;"><span class="fe fe-24 fe-search" style="margin: -9px; font-size: 20px;"></span></button>
-											<button type="button" class="btn mb-2 btn-light" onclick="location.href='${pageContext.request.contextPath}/admin/blahList.do'"
-											style="width: 50px;"><span class="fe fe-24 fe-rotate-cw" style="margin: -9px; font-size: 20px;"></span></button>
-										</div>
 											
 										<!-- 테이블 -->
-										<table class="table table-bordered table-hover mb-0"
-											align="center">
+										<table class="table table-hover"
+											align="center" id="dataTable-1">
 											<thead>
-												<tr align="center">
-													<th>번호</th>
+												<tr align="center" role="row">
+													<th>No.</th>
 													<th width="40%">제목</th>
 													<th>작성자</th>
 													<th>등록일</th>
-													<th>조회수</th>
+													<th width="8%">조회수</th>
 													<th>상태</th>
-													<th>활성화</th>
+													<th width="10%"></th>
 												</tr>
 											</thead>
 											<tbody>
 												<c:forEach items="${blahList }" var="blah">
-													<tr align="center">
+													<tr align="center" class="trtr">
 														<td>${blah.board_No}</td>
-														<td class="goBoard" id="${job.board_No }">${blah.board_Title}</td>
+														<td class="goBoard" id="${blah.board_No }">${blah.board_Title}</td>
 														<td>${blah.mem_Nick}</td>
 														<td>${blah.board_Date}</td>
 														<td>${blah.board_View}</td>
 														<td><c:if test="${blah.board_Status eq 'Y'}">
 																<span class='badge badge-success'>정상</span>
-															</c:if> <c:if test="${blah.board_Status eq 'N'}">
-																<span class='badge badge-secondary'>삭제</span>
 															</c:if> <c:if test="${blah.board_Status eq 'B'}">
 																<span class='badge badge-danger'>블라인드</span>
-															</c:if></td>
+															</c:if>  <c:if test="${blah.board_Status eq 'N'}">
+																<span class='badge badge-secondary'>삭제</span>
+															</c:if> </td>
 														<td>
-															<div class="custom-control custom-switch">
-															<!-- 체크박스 활성화 조건주기 -->
-																<c:if test="${blah.board_Status eq 'Y'}">
-																	<input type="checkbox" class="custom-control-input"
-																		id="${blah.board_No}" name="statusY" checked>
-																	<label class="custom-control-label"
-																		for="${blah.board_No}"></label>
- 																</c:if>
-																<c:if
-																	test="${blah.board_Status eq 'B'}">
-																	<input type="checkbox" class="custom-control-input"
-																		id="${blah.board_No}" name="statusB">
-																	<label class="custom-control-label"
-																		for="${blah.board_No}"></label>
+																<c:if test="${blah.board_Status eq 'Y' }">
+																	<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
+																		onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusB.do?board_No=${blah.board_No}&type_No=${blah.type_No }'">블라인드</button>
 																</c:if>
-																<c:if
-																	test="${blah.board_Status eq 'N'}">
-																	<input type="checkbox" class="custom-control-input"
-																		id="${blah.board_No}" disabled="disabled">
-																	<label class="custom-control-label"
-																		for="${blah.board_No}"></label>
+																<c:if test="${blah.board_Status eq 'B' }">
+																	<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
+																		onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusY.do?board_No=${blah.board_No}&type_No=${blah.type_No }'">활성화</button>
 																</c:if>
-															</div>
+																<c:if test="${blah.board_Status eq 'N'}">
+																	<button class="btn mb-2 btn-light" disabled="disabled">활성화</button>
+																</c:if>
 														</td>
 													</tr>
 												</c:forEach>
 											</tbody>
 										</table>
 										<br>
-										
-										<!-- 페이징처리 -->
-										<div align="center">
-											<c:out value="${pageBar}" escapeXml="false" />
-										</div>
 										
 									</div>
 								</div>
@@ -182,45 +149,33 @@
 		$("#blahblah").on("click", function(){
 			location.href = "${pageContext.request.contextPath}/admin/blahList.do";
 		});
-	
+
 		$("#blind").on("click", function(){
 			location.href = "${pageContext.request.contextPath}/admin/blindList.do";
 		});
-	
+
 		$("#tomo").on("click", function(){
 			location.href = "${pageContext.request.contextPath}/admin/tomoList.do";
 		});
-	
+
 		$("#qna").on("click", function(){
 			location.href = "${pageContext.request.contextPath}/admin/qnaList.do";
 		});
-	
+
 		$("#accept").on("click", function(){
 			location.href = "${pageContext.request.contextPath}/admin/acceptList.do";
 		});
-	
+
 		$("#interview").on("click", function(){
 			location.href = "${pageContext.request.contextPath}/admin/interviewList.do";
 		});
-	
+
 		$("#mento").on("click", function(){
 			location.href = "${pageContext.request.contextPath}/admin/mentoList.do";
 		});
 		
 	});
-
- 	function search() {
-		location.href="${pageContext.request.contextPath}/admin/searchJobList.do?keyword="+$('#search').val();
-
-	}
 	
-	function enterKey() {
-			if (event.keyCode==13){
-				location.href="${pageContext.request.contextPath}/admin/searchJobList.do?keyword="+$('#search').val();
-			}
-		
-		}
-
 	$(function(){
 		$(".goBoard").on("click", function(){
 			var board_No = $(this).attr("id");
@@ -228,36 +183,30 @@
 		});
 	});
 
-	// 체크박스 
-/*     $(document).ready(function(){
-    	   $(".custom-control-input").change(function(){	   
-    	       if($(".custom-control-input").is(":checked")){
-     	          location.href = "${pageContext.request.contextPath}/admin/updateStatusBlind.do?board_No=" + board_No;
-				   var board_No = $(this).attr("id");
-				   alert("체크박스 선택!");				  
-    	      }else{
-    	          alert("체크박스 체크 해제!");
-    	     }
-       });
-  	}); */
-
-  	$(document).ready(function(){
-  		$("input:checkbox[name='statusB']").prop("checked", false);
-
-  		$("input:checkbox[name='statusY']").prop("checked", true);
-
-	});
-  	
-  	$(document).ready(function(){
-  	    $(".custom-control-input").change(function(){
-  	        if($(".custom-control-input").is(":checked")){
-  	            alert("체크박스 체크했음!");
-  	        }else{
-  	            alert("체크박스 체크 해제!");
-  	        }
-  	    });
-  	});
-	
 </script>
+	<script>
+      $('#dataTable-1').DataTable(
+      {
+        autoWidth: true,
+        "lengthMenu": [
+          [16, 32, 64, -1],
+          [16, 32, 64, "All"]
+        ]
+      });
+    </script>
+	<script src="${pageContext.request.contextPath}/resources/admin/js/apps.js"></script>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async
+		src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+	<script>
+      	window.dataLayer = window.dataLayer || [];
+
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
+		gtag('config', 'UA-56159088-1');
+
+    </script>
 </body>
 </html>

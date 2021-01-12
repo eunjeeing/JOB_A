@@ -31,6 +31,17 @@
 	#job {
 		font-weight:800;
 	}
+	
+	.goBoard:hover{
+		cursor:pointer;
+	}
+		
+	.trtr:hover{
+		background: #EAEAEA;
+	}
+	
+	
+	
 </style>
 </head>
 <body class="vertical  dark">
@@ -59,75 +70,62 @@
 							<div class="tab"><p id="mento">멘토&멘티</p></div>
 						</div>
 						
+
+						
 						<div class="row">
 							<div class="col-md-12">
 								<div class="card shadow">
 									<div class="card-body">
-									
-										<table class="table table-bordered table-hover mb-0"
-											align="center">
+											
+										<!-- 테이블 -->
+										<table class="table table-hover"
+											align="center" id="dataTable-1">
 											<thead>
-												<tr align="center">
-													<th>번호</th>
+												<tr align="center" role="row">
+													<th>No.</th>
 													<th width="20%">제목</th>
-													<th width="40%">댓글내용</th>
+													<th width="35%">댓글내용</th>
 													<th>작성자</th>
 													<th>등록일</th>
 													<th>상태</th>
-													<th>Action</th>
+													<th width="15%"></th>
 												</tr>
 											</thead>
 											<tbody>
 												<c:forEach items="${jobCommentList }" var="job">
-													<tr align="center">
+													<tr align="center" class="trtr">
 														<td>${job.comm_No}</td>
-														<td>${job.board_Title }</td>
-														<td>${job.comm_Content}</td>
+														<td class="goBoard" id="${job.board_No }">${job.board_Title }</td>
+														<td class="goBoard" id="${job.board_No }">${job.comm_Content}</td>
 														<td>${job.mem_Nick}</td>
 														<td><fmt:parseDate var="parsedDate" value="${job.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
 														<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 														<td><c:if test="${job.comm_Status eq 'Y'}">
 																<span class='badge badge-success'>정상</span>
-															</c:if> <c:if test="${job.comm_Status eq 'N'}">
-																<span class='badge badge-secondary'>삭제</span>
 															</c:if> <c:if test="${job.comm_Status eq 'B'}">
 																<span class='badge badge-danger'>블라인드</span>
-															</c:if></td>
+															</c:if>  <c:if test="${job.comm_Status eq 'N'}">
+																<span class='badge badge-secondary'>삭제</span>
+															</c:if> </td>
 														<td>
-															<div class="custom-control custom-switch">
-															<!-- 체크박스 활성화 조건주기 -->
-																<c:if test="${job.comm_Status eq 'Y'}">
-																	<input type="checkbox" class="custom-control-input"
-																		id="${job.comm_No}" checked>
-																	<label class="custom-control-label"
-																		for="${job.comm_No}"></label>
- 																</c:if>
-																<c:if
-																	test="${job.comm_Status eq 'B'}">
-																	<input type="checkbox" class="custom-control-input"
-																		id="${job.comm_No}">
-																	<label class="custom-control-label"
-																		for="${job.comm_No}"></label>
+																<c:if test="${job.comm_Status eq 'Y' }">
+																	<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
+																		onclick="location.href='${pageContext.request.contextPath}/admin/updateCommStatusB.do?comm_No=${job.comm_No}&type_No=${job.type_No }'">블라인드</button>
 																</c:if>
-																<c:if
-																	test="${job.comm_Status eq 'N'}">
-																	<input type="checkbox" class="custom-control-input"
-																		id="${job.comm_No}"  disabled="disabled">
-																	<label class="custom-control-label"
-																		for="${job.comm_No}"></label>
+																<c:if test="${job.comm_Status eq 'B' }">
+																	<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
+																		onclick="location.href='${pageContext.request.contextPath}/admin/updateCommStatusY.do?comm_No=${job.comm_No}&type_No=${job.type_No }'">활성화</button>
 																</c:if>
-															</div>
+																<c:if test="${job.comm_Status eq 'N'}">
+																	<button class="btn mb-2 btn-light" disabled="disabled">활성화</button>
+																</c:if>
 														</td>
 													</tr>
 												</c:forEach>
 											</tbody>
 										</table>
 										<br>
-										
-										<!-- 페이징처리 -->
-										<div align="center">
-											<c:out value="${pageBar}" escapeXml="false" />
-										</div>
+
 										
 									</div>
 								</div>
@@ -144,41 +142,73 @@
 	</div>
 	<!-- .wrapper -->
 <script>
-	$(function(){
-		
-		$("#job").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/jobCommentList.do";
-		});
-		
-		$("#blahblah").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/blahCommentList.do";
-		});
-
-		$("#blind").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/blindCommentList.do";
-		});
-
-		$("#tomo").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/tomoCommentList.do";
-		});
-
-		$("#qna").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/qnaCommentList.do";
-		});
-
-		$("#accept").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/acceptCommentList.do";
-		});
-
-		$("#interview").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/interviewCommentList.do";
-		});
-
-		$("#mento").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/mentoCommentList.do";
-		});
-		
+$(function(){
+	
+	$("#job").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/jobCommentList.do";
 	});
+	
+	$("#blahblah").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/blahCommentList.do";
+	});
+
+	$("#blind").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/blindCommentList.do";
+	});
+
+	$("#tomo").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/tomoCommentList.do";
+	});
+
+	$("#qna").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/qnaCommentList.do";
+	});
+
+	$("#accept").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/acceptCommentList.do";
+	});
+
+	$("#interview").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/interviewCommentList.do";
+	});
+
+	$("#mento").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/mentoCommentList.do";
+	});
+	
+});
+
+	$(function(){
+		$(".goBoard").on("click", function(){
+			var board_No = $(this).attr("id");
+			location.href = "${pageContext.request.contextPath}/board2/jobSelectOne.do?board_No="+ board_No;
+		});
+	});
+
 </script>
+	<script>
+      $('#dataTable-1').DataTable(
+      {
+        autoWidth: true,
+        "lengthMenu": [
+          [16, 32, 64, -1],
+          [16, 32, 64, "All"]
+        ]
+      });
+    </script>
+	<script src="${pageContext.request.contextPath}/resources/admin/js/apps.js"></script>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async
+		src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+	<script>
+      	window.dataLayer = window.dataLayer || [];
+
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
+		gtag('config', 'UA-56159088-1');
+
+    </script>
 </body>
 </html>

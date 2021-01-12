@@ -21,196 +21,156 @@ public class boardManageController {
 	// 게시판 리스트 출력
 	// 채용공고
 	@RequestMapping("/admin/jobList.do")
-	public String jobList(
-			@RequestParam( value="cPage", required=false, defaultValue="1") int cPage, Model model) {
-			
-		int numPerPage = 10; // 한 페이지 당 게시글 and 페이지 수
+	public String jobList(Model model) {
+					
+		List<Map<String, String>> list = bms.selectJobList();
 		
-		List<Map<String, String>> list = bms.selectJobList(cPage, numPerPage);
-		
-		int totalContents = bms.selectJobTotalContents();
-		
-		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "jobList.do");
-				
 		model.addAttribute("jobList", list);
-		model.addAttribute("totalContents", totalContents);
-		model.addAttribute("numPerPage", numPerPage);
-		model.addAttribute("pageBar", pageBar);
-	
+
 		return "admin/boardManage/jobList";
 	}
 	
 	// 블라블라
 	@RequestMapping("/admin/blahList.do")
-	public String blahList(
-			@RequestParam( value="cPage", required=false, defaultValue="1") int cPage, Model model) {
-		
-		int numPerPage = 10; // 한 페이지 당 게시글 and 페이지 수
-		
-		List<Map<String, String>> list = bms.selectBlahBlahList(cPage, numPerPage);
-		
-		int totalContents = bms.selectBlahBlahTotalContents();
-		
-		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "blahList.do");
+	public String blahList(Model model) {
 				
+		List<Map<String, String>> list = bms.selectBlahBlahList();
+								
 		model.addAttribute("blahList", list);
-		model.addAttribute("totalContents", totalContents);
-		model.addAttribute("numPerPage", numPerPage);
-		model.addAttribute("pageBar", pageBar);
 	
 		return "admin/boardManage/blahList";
 	}
 	
 	// 블라인드
 	@RequestMapping("/admin/blindList.do")
-	public String blindList(
-			@RequestParam( value="cPage", required=false, defaultValue="1") int cPage, Model model) {
-		
-		int numPerPage = 10; // 한 페이지 당 게시글 and 페이지 수
-		
-		List<Map<String, String>> list = bms.selnctBlindList(cPage, numPerPage);
-		
-		int totalContents = bms.selectBlindTotalContents();
-		
-		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "blindList.do");
+	public String blindList(Model model) {
 				
+		List<Map<String, String>> list = bms.selnctBlindList();
+								
 		model.addAttribute("blindList", list);
-		model.addAttribute("totalContents", totalContents);
-		model.addAttribute("numPerPage", numPerPage);
-		model.addAttribute("pageBar", pageBar);
 		
 		return "admin/boardManage/blindList";
 	}
 	
 	// 언틸투모로우
 	@RequestMapping("/admin/tomoList.do")
-	public String tomoList(
-			@RequestParam( value="cPage", required=false, defaultValue="1") int cPage, Model model) {
-		
-		int numPerPage = 10; // 한 페이지 당 게시글 and 페이지 수
-		
-		List<Map<String, String>> list = bms.selectTomoList(cPage, numPerPage);
-		
-		int totalContents = bms.selectTomoTotalContents();
-		
-		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "tomoList.do");
+	public String tomoList(Model model) {
 				
+		List<Map<String, String>> list = bms.selectTomoList();
+								
 		model.addAttribute("tomoList", list);
-		model.addAttribute("totalContents", totalContents);
-		model.addAttribute("numPerPage", numPerPage);
-		model.addAttribute("pageBar", pageBar);
 		
 		return "admin/boardManage/tomoList";
 	}
 	
 	// Q&A
 	@RequestMapping("/admin/qnaList.do")
-	public String QnAList(
-			@RequestParam( value="cPage", required=false, defaultValue="1") int cPage, Model model) {
-		
-		int numPerPage = 10; // 한 페이지 당 게시글 and 페이지 수
-		
-		List<Map<String, String>> list = bms.selectQnAList(cPage, numPerPage);
-		
-		int totalContents = bms.selectQnATotalContents();
-		
-		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "qnaList.do");
+	public String QnAList(Model model) {
 				
+		List<Map<String, String>> list = bms.selectQnAList();
+								
 		model.addAttribute("qnaList", list);
-		model.addAttribute("totalContents", totalContents);
-		model.addAttribute("numPerPage", numPerPage);
-		model.addAttribute("pageBar", pageBar);
-		
+
 		return "admin/boardManage/qnaList";
 	}
 	
 	// 합격후기
 	@RequestMapping("/admin/acceptList.do")
-	public String acceptList(
-			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, Model model) {
-		int numPerPage = 10;
-		List<Map<String,String>> list = bms.selectAcceptList(cPage, numPerPage);
-		int totalContents = bms.selectAcceptTotalContents();
-		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "acceptList.do");
-
+	public String acceptList(Model model) {
 		
+		List<Map<String,String>> list = bms.selectAcceptList();
+
 		model.addAttribute("acceptList", list);
-		model.addAttribute("totalContents", totalContents);
-		model.addAttribute("numPerPage", numPerPage);
-		model.addAttribute("pageBar", pageBar);
 
 		return "admin/boardManage/acceptList"; 
 	}
 	
 	// 면접후기
 	@RequestMapping("/admin/interviewList.do")
-	public String interviewList(
-			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
-			Model model) {
-		int numPerPage = 10;
-		List<Map<String,String>> list = bms.selectInterviewList(cPage, numPerPage);
-		int totalContents = bms.selectInterviewTotalContents();
-		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "interviewList.do");
+	public String interviewList(Model model) {
+		
+		List<Map<String,String>> list = bms.selectInterviewList();
 		
 		model.addAttribute("interviewList", list);
-		model.addAttribute("totalContents", totalContents);
-		model.addAttribute("numPerPage", numPerPage);
-		model.addAttribute("pageBar", pageBar);
 
 		return "admin/boardManage/interviewList"; 
 	}
 	
 	// 멘토멘티
 	@RequestMapping("/admin/mentoList.do")
-	public String mentoList(
-			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
-			Model model) {
-		int numPerPage = 10;
-		List<Map<String,String>> list = bms.selectMentoList(cPage, numPerPage);
-		int totalContents = bms.selectMentoTotalContents();
+	public String mentoList(Model model) {
 		
-		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "mentoList.do");
-
+		List<Map<String,String>> list = bms.selectMentoList();
 		
 		model.addAttribute("mentoList", list);
-		model.addAttribute("totalContents", totalContents);
-		model.addAttribute("numPerPage", numPerPage);
-		model.addAttribute("pageBar", pageBar);
+
 
 		return "admin/boardManage/mentoList"; 
 	}
 	
-	// 서치
-	@RequestMapping("/admin/searchJobList.do")
-	public String searchJobList(
-			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
-			@RequestParam String keyword,
-			Model model) { 
+	@RequestMapping("/admin/updateStatusY.do")
+	public String updateStatusY(@RequestParam int board_No, @RequestParam int type_No, Model model) {
 		
-		int numPerPage = 10;
-		List<Map<String,String>> list = bms.searchJobList(cPage, numPerPage, keyword);
-		int totalContents = bms.searchJobTotalContents(keyword);
-		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "searchJobList.do?keyword="+keyword);
-		
-
-		model.addAttribute("jobList", list);
-		model.addAttribute("totalContents", totalContents);
-		model.addAttribute("numPerPage", numPerPage);
-		model.addAttribute("pageBar", pageBar);
-		
-		return "admin/boardManage/jobList"; 
-	
-	}
-	
-	
-	// 게시글 블라인드 처리
-	@RequestMapping("/admin/updateJobStatus.do")
-	public String updateJobStatus(@RequestParam int board_No, Model model) {
-		
-		int result = bms.updateJobStatus(board_No);
+		int result = bms.updateStatusY(board_No, type_No);
 		
 		String msg = "";
-		String loc = "/admin/jobList.do";
+		String loc = "";
+		
+		if (type_No == 2) {
+			loc = "/admin/jobList.do";
+		} else if(type_No == 4) {
+			loc = "/admin/blahList.do";
+		} else if (type_No == 5) {
+			loc = "/admin/blindList.do";
+		} else if (type_No == 6) {
+			loc = "/admin/tomoList.do";
+		} else if (type_No == 7) {
+			loc = "/admin/qnaList.do";
+		} else if (type_No == 8) {
+			loc = "/admin/mentoList.do";
+		} else if (type_No == 9) {
+			loc = "/admin/interviewList.do";
+		} else if (type_No == 10) {
+			loc = "/admin/acceptList.do";
+		}
+
+		if (result > 0) {
+			msg = "활성화 처리 완료";
+
+		} else {
+			msg = "활성화 처리 실패";
+		}
+
+		model.addAttribute("msg", msg).addAttribute("loc", loc);
+		
+		return "user/common/msg";
+	}
+	
+	@RequestMapping("/admin/updateStatusB.do")
+	public String updateStatusB(@RequestParam int board_No, @RequestParam int type_No, Model model) {
+		
+		int result = bms.updateStatusB(board_No, type_No);
+		
+		String msg = "";
+		String loc = "";
+		
+		if (type_No == 2) {
+			loc = "/admin/jobList.do";
+		} else if(type_No == 4) {
+			loc = "/admin/blahList.do";
+		} else if (type_No == 5) {
+			loc = "/admin/blindList.do";
+		} else if (type_No == 6) {
+			loc = "/admin/tomoList.do";
+		} else if (type_No == 7) {
+			loc = "/admin/qnaList.do";
+		} else if (type_No == 8) {
+			loc = "/admin/mentoList.do";
+		} else if (type_No == 9) {
+			loc = "/admin/interviewList.do";
+		} else if (type_No == 10) {
+			loc = "/admin/acceptList.do";
+		}
 
 		if (result > 0) {
 			msg = "블라인드 처리 완료";
@@ -223,9 +183,5 @@ public class boardManageController {
 		
 		return "user/common/msg";
 	}
-	
-	
-
-
 
 }

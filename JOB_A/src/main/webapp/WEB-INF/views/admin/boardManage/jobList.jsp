@@ -50,6 +50,10 @@
 	.goBoard:hover{
 		cursor:pointer;
 	}
+		
+	.trtr:hover{
+		background: #EAEAEA;
+	}
 	
 	
 	
@@ -88,7 +92,7 @@
 								<div class="card shadow">
 									<div class="card-body">
 										<!-- 검색 -->
-					  					<div id="utilBox">
+<%-- 					  					<div id="utilBox">
 											<div id="searchBox">
 												<input type="search" class="form-control" id="search" placeholder="검색내용을 입력해주세요."
 													style="height:37px;" onKeyDown="enterKey();" />
@@ -97,26 +101,26 @@
 											style="width: 50px;"><span class="fe fe-24 fe-search" style="margin: -9px; font-size: 20px;"></span></button>
 											<button type="button" class="btn mb-2 btn-light" onclick="location.href='${pageContext.request.contextPath}/admin/jobList.do'"
 											style="width: 50px;"><span class="fe fe-24 fe-rotate-cw" style="margin: -9px; font-size: 20px;"></span></button>
-										</div>
+										</div> --%>
 											
 										<!-- 테이블 -->
-										<table class="table table-bordered table-hover mb-0"
-											align="center">
+										<table class="table table-hover"
+											align="center" id="dataTable-1">
 											<thead>
-												<tr align="center">
-													<th>번호</th>
+												<tr align="center" role="row">
+													<th>No.</th>
 													<th>직무</th>
 													<th width="40%">제목</th>
 													<th>작성자</th>
 													<th>등록일</th>
-													<th>조회수</th>
+													<th width="8%">조회수</th>
 													<th>상태</th>
-													<th></th>
+													<th width="10%"></th>
 												</tr>
 											</thead>
 											<tbody>
 												<c:forEach items="${jobList }" var="job">
-													<tr align="center">
+													<tr align="center" class="trtr">
 														<td>${job.board_No}</td>
 														<td>${job.category_Name }</td>
 														<td class="goBoard" id="${job.board_No }">${job.board_Title}</td>
@@ -125,36 +129,23 @@
 														<td>${job.board_View}</td>
 														<td><c:if test="${job.board_Status eq 'Y'}">
 																<span class='badge badge-success'>정상</span>
-															</c:if> <c:if test="${job.board_Status eq 'N'}">
-																<span class='badge badge-secondary'>삭제</span>
 															</c:if> <c:if test="${job.board_Status eq 'B'}">
 																<span class='badge badge-danger'>블라인드</span>
-															</c:if></td>
+															</c:if>  <c:if test="${job.board_Status eq 'N'}">
+																<span class='badge badge-secondary'>삭제</span>
+															</c:if> </td>
 														<td>
-<%-- 															<div class="custom-control custom-switch">
-															<!-- 체크박스 활성화 조건주기 -->
-																<c:if test="${job.board_Status eq 'Y'}">
-																	<input type="checkbox" class="custom-control-input"
-																		id="${job.board_No}" checked>
-																	<label class="custom-control-label"
-																		for="${job.board_No}"></label>
- 																</c:if>
-																<c:if
-																	test="${job.board_Status eq 'B'}">
-																	<input type="checkbox" class="custom-control-input"
-																		id="${job.board_No}">
-																	<label class="custom-control-label"
-																		for="${job.board_No}"></label>
+																<c:if test="${job.board_Status eq 'Y' }">
+																	<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
+																		onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusB.do?board_No=${job.board_No}&type_No=${job.type_No }'">블라인드</button>
 																</c:if>
-																<c:if
-																	test="${job.board_Status eq 'N'}">
-																	<input type="checkbox" class="custom-control-input"
-																		id="${job.board_No}"  disabled="disabled">
-																	<label class="custom-control-label"
-																		for="${job.board_No}"></label>
+																<c:if test="${job.board_Status eq 'B' }">
+																	<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
+																		onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusY.do?board_No=${job.board_No}&type_No=${job.type_No }'">활성화</button>
 																</c:if>
-															</div> --%>
-															<button onclick="updateStatus()">블라인드</button>
+																<c:if test="${job.board_Status eq 'N'}">
+																	<button class="btn mb-2 btn-light" disabled="disabled">활성화</button>
+																</c:if>
 														</td>
 													</tr>
 												</c:forEach>
@@ -162,10 +153,10 @@
 										</table>
 										<br>
 										
-										<!-- 페이징처리 -->
+<%-- 										<!-- 페이징처리 -->
 										<div align="center">
 											<c:out value="${pageBar}" escapeXml="false" />
-										</div>
+										</div> --%>
 										
 									</div>
 								</div>
@@ -217,7 +208,7 @@
 		});
 		
 	});
-
+/* 
  	function search() {
 		location.href="${pageContext.request.contextPath}/admin/searchJobList.do?keyword="+$('#search').val();
 
@@ -228,7 +219,7 @@
 				location.href="${pageContext.request.contextPath}/admin/searchJobList.do?keyword="+$('#search').val();
 			}
 		
-		}
+		} */
 	
 	$(function(){
 		$(".goBoard").on("click", function(){
@@ -237,13 +228,30 @@
 		});
 	});
 
-/* 	function updateStatus() {
-		var board_No = 
-		location.href = "${pageContext.request.contextPath}/admin/updateJobStatus.do?board_No="+ board_No;
-	}
-	 */
-
-	
 </script>
+	<script>
+      $('#dataTable-1').DataTable(
+      {
+        autoWidth: true,
+        "lengthMenu": [
+          [16, 32, 64, -1],
+          [16, 32, 64, "All"]
+        ]
+      });
+    </script>
+	<script src="${pageContext.request.contextPath}/resources/admin/js/apps.js"></script>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async
+		src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+	<script>
+      	window.dataLayer = window.dataLayer || [];
+
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
+		gtag('config', 'UA-56159088-1');
+
+    </script>
 </body>
 </html>

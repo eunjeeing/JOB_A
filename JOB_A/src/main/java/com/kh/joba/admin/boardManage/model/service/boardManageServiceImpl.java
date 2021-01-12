@@ -15,98 +15,54 @@ public class boardManageServiceImpl implements boardManageService {
 	boardManageDAO bmd;
 	
 	@Override
-	public List<Map<String, String>> selectJobList(int cPage, int numPerPage) {
-		return bmd.selectJobList(cPage, numPerPage);
+	public List<Map<String, String>> selectJobList() {
+		return bmd.selectJobList();
 	}
 
 	@Override
-	public int selectJobTotalContents() {
-		return bmd.selectJobTotalContents();
+	public List<Map<String, String>> selectBlahBlahList() {
+		return bmd.selectBlahBlahList();
 	}
 
 	@Override
-	public List<Map<String, String>> selectBlahBlahList(int cPage, int numPerPage) {
-		return bmd.selectBlahBlahList(cPage, numPerPage);
+	public List<Map<String, String>> selnctBlindList() {
+		return bmd.selnctBlindList();
 	}
 
 	@Override
-	public int selectBlahBlahTotalContents() {
-		return bmd.selectBlahBlahTotalContents();
+	public List<Map<String, String>> selectQnAList() {
+		return bmd.selectQnAList();
 	}
 
 	@Override
-	public List<Map<String, String>> selnctBlindList(int cPage, int numPerPage) {
-		return bmd.selnctBlindList(cPage, numPerPage);
+	public List<Map<String, String>> selectAcceptList() {
+		return bmd.selectAcceptList();
 	}
 
 	@Override
-	public int selectBlindTotalContents() {
-		return bmd.selectBlindTotalContents();
+	public List<Map<String, String>> selectInterviewList() {
+		return bmd.selectInterviewList();
+	}
+
+
+	@Override
+	public List<Map<String, String>> selectMentoList() {
+		return bmd.selectMentoList();
 	}
 
 	@Override
-	public List<Map<String, String>> selectQnAList(int cPage, int numPerPage) {
-		return bmd.selectQnAList(cPage, numPerPage);
+	public List<Map<String, String>> selectTomoList() {
+		return bmd.selectTomoList();
 	}
 
 	@Override
-	public int selectQnATotalContents() {
-		return bmd.selectQnATotalContents();
+	public int updateStatusY(int board_No, int type_No) {
+		return bmd.updateStatusY(board_No, type_No);
 	}
 
 	@Override
-	public List<Map<String, String>> selectAcceptList(int cPage, int numPerPage) {
-		return bmd.selectAcceptList(cPage, numPerPage);
-	}
-
-	@Override
-	public int selectAcceptTotalContents() {
-		return bmd.selectAcceptTotalContents();
-	}
-
-	@Override
-	public List<Map<String, String>> selectInterviewList(int cPage, int numPerPage) {
-		return bmd.selectInterviewList(cPage, numPerPage);
-	}
-
-	@Override
-	public int selectInterviewTotalContents() {
-		return bmd.selectInterviewTotalContents();
-	}
-
-	@Override
-	public List<Map<String, String>> selectMentoList(int cPage, int numPerPage) {
-		return bmd.selectMentoList(cPage, numPerPage);
-	}
-
-	@Override
-	public int selectMentoTotalContents() {
-		return bmd.selectMentoTotalContents();
-	}
-
-	@Override
-	public List<Map<String, String>> selectTomoList(int cPage, int numPerPage) {
-		return bmd.selectTomoList(cPage, numPerPage);
-	}
-
-	@Override
-	public int selectTomoTotalContents() {
-		return bmd.selectTomoTotalContents();
-	}
-
-	@Override
-	public List<Map<String, String>> searchJobList(int cPage, int numPerPage, String keyword) {
-		return bmd.searchJobList(cPage, numPerPage, keyword);
-	}
-
-	@Override
-	public int searchJobTotalContents(String keyword) {
-		return bmd.searchJobTotalContents(keyword);
-	}
-
-	@Override
-	public int updateJobStatus(int board_No) {
-		return bmd.updateJobStatus(board_No);
+	public int updateStatusB(int board_No, int type_No) {
+		return bmd.updateStatusB(board_No, type_No);
 	}
 
 }

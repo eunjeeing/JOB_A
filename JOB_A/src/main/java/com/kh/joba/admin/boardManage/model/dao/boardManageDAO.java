@@ -5,43 +5,25 @@ import java.util.Map;
 
 public interface boardManageDAO {
 
-	List<Map<String, String>> selectJobList(int cPage, int numPerPage);
+	List<Map<String, String>> selectJobList();
 
-	int selectJobTotalContents();
+	List<Map<String, String>> selectBlahBlahList();
 
-	List<Map<String, String>> selectBlahBlahList(int cPage, int numPerPage);
+	List<Map<String, String>> selnctBlindList();
 
-	int selectBlahBlahTotalContents();
+	List<Map<String, String>> selectQnAList();
 
-	List<Map<String, String>> selnctBlindList(int cPage, int numPerPage);
+	List<Map<String, String>> selectAcceptList();
 
-	int selectBlindTotalContents();
+	List<Map<String, String>> selectInterviewList();
 
-	List<Map<String, String>> selectQnAList(int cPage, int numPerPage);
+	List<Map<String, String>> selectMentoList();
 
-	int selectQnATotalContents();
+	List<Map<String, String>> selectTomoList();
 
-	List<Map<String, String>> selectAcceptList(int cPage, int numPerPage);
+	int updateStatusY(int board_No, int type_No);
 
-	int selectAcceptTotalContents();
-
-	List<Map<String, String>> selectInterviewList(int cPage, int numPerPage);
-
-	int selectInterviewTotalContents();
-
-	List<Map<String, String>> selectMentoList(int cPage, int numPerPage);
-
-	int selectMentoTotalContents();
-
-	List<Map<String, String>> selectTomoList(int cPage, int numPerPage);
-
-	int selectTomoTotalContents();
-
-	List<Map<String, String>> searchJobList(int cPage, int numPerPage, String keyword);
-
-	int searchJobTotalContents(String keyword);
-
-	int updateJobStatus(int board_No);
+	int updateStatusB(int board_No, int type_No);
 
 
 
