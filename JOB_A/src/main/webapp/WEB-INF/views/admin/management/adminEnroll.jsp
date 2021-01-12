@@ -21,16 +21,15 @@
 			<main role="main" class="main-content">
 				<div class="container-fluid">
 					<div class="row justify-content-center">
-						<div class="col-12">
+						<div class="col-6">
 						<h2 class="page-title">관리자 등록</h2>
-							<div class="row">
-							<div class="col-md-6 my-4">
-								<div class="card shadow">
+							<div class="card shadow my-4">
+								<div class="card-header">
 									<div class="card-body">
 										<form action="${pageContext.request.contextPath }/admin/adminEnroll" method="post">
 											<div class="form-group row">
 												<label for="adminId" class="col-sm-3 col-form-label">사번</label>
-												<div class="col-sm-5">
+												<div class="col-sm-6">
 													<input type="text" class="form-control userInputId" id="adminId"
 														name="adminId" onkeyup="enroll(this.value)">
 												</div>
@@ -39,14 +38,14 @@
 											</div>
 											<div class="form-group row">
 												<label for="adminPw" class="col-sm-3 col-form-label">비밀번호</label>
-												<div class="col-sm-5">
+												<div class="col-sm-6">
 													<input type="password" class="form-control" id="adminPw"
 														name="adminPw" placeholder="초기 비밀번호는 사번으로 설정됩니다">
 												</div>
 											</div>
 											<div class="form-group row">
 												<label for="adminName" class="col-sm-3 col-form-label">이름</label>
-												<div class="col-sm-5">
+												<div class="col-sm-6">
 													<input class="form-control" id="adminName" type="text"
 														name="adminName">
 												</div>
@@ -55,14 +54,14 @@
 												<div class="row">
 													<label for="adminPhone"
 														class="col-form-label col-sm-3 pt-0">연락처</label>
-													<div class="col-sm-5">
+													<div class="col-sm-6">
 														<input class="form-control input-phoneus" id="adminPhone" name="adminPhone" maxlength="14" required>
 													</div>
 												</div>
 											</fieldset>
 											<div class="form-group row">
 												<label for="adminEmail" class="col-sm-3 col-form-label">이메일</label>
-												<div class="col-sm-5">
+												<div class="col-sm-6">
 													<input type="text" class="form-control" id="adminEmail"
 														name="adminEmail" placeholder="사번이 아이디로 사용됩니다">
 												</div> @job-jo8a.com
@@ -77,7 +76,6 @@
 										</form>
 									</div>
 								</div>
-							</div>
 							</div>
 						</div>
 					</div>

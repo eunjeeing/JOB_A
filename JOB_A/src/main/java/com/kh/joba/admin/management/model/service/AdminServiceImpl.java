@@ -87,6 +87,24 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.selectMember(memNo);
 	}
 
+	@Override
+	public List<Map<String, String>> selectGradeList() {
+		// TODO Auto-generated method stub
+		return adminDAO.selectGradeList();
+	}
+
+	@Override
+	public int changeGrade(Member member) {
+		// TODO Auto-generated method stub
+		return adminDAO.changeGrade(member);
+	}
+
+	@Override
+	public int changeStatus(Member member) {
+		// TODO Auto-generated method stub
+		return adminDAO.changeStatus(member);
+	}
+
 
 
 

@@ -47,11 +47,13 @@
 							<th>닉네임</th>
                             <th>등급</th>
 							<th>상태</th>
+							<th>상태 변경</th>
                           </tr>
                         </thead>
                         <tbody>
                         	<c:forEach items="${user}" var="m">
                           <tr>
+                          	<input type="hidden" id="memberNo" value="${m.memNo}"/>
                             <td>${m.memNo}</td>
                             <td>${m.memId}</td>
 							<td>${m.memNick}</td>
@@ -66,6 +68,17 @@
 									<span class='badge badge-warning'>블랙리스트</span></c:if> 
 								<c:if test="${m.memState eq 2}">
 									<span class='badge badge-danger'>블라인드</span></c:if>
+							</td>
+							<td>
+								<div class="dropdown">
+                                <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <span class="text-muted sr-only">Action</span>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                  <a class="dropdown-item" data-toggle="modal" data-target="#grade" href="#">등급 변경</a>
+                                  <a class="dropdown-item" data-toggle="modal" data-target="#status" href="#">상태 변경</a>
+                                </div>
+                              </div>
 							</td>
                           </tr>
       					</c:forEach>
@@ -93,7 +106,7 @@
                       </ul>
                       <div class="tab-content mb-1" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                        	<table class="table table-hover table-bordered" id="dataTable-1">
+                        	<table class="table table-hover datatables" id="dataTable-1">
 								<thead>
 									<tr role="row">
 										<th>No.</th>
@@ -104,28 +117,15 @@
 										<th>조회수</th>
 									</tr>
 								</thead>
-								<tbody>
-									<c:forEach items="${boardList}" var="b">
-										<tr>
-											<td>${b.board_No}</td>
-											<td>${b.type_Name}</td>
-											<td class="goBoard" id="${b.board_No}">${b.board_Title}</td>
-											<td>${b.mem_Nick}</td>
-											<td>${b.board_Date}</td>
-											<td>${b.board_View}</td>
-										</tr>
-									</c:forEach>
-								</tbody>
 							</table>
                         </div>
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                        	<table class="table table-hover table-bordered" id="dataTable-2">
+                        	<table class="table table-hover datatables" id="dataTable-2">
 								<thead>
 									<tr role="row">
 										<th>No.</th>
 										<th>댓글 내용</th>
 										<th>등록일</th>
-										
 									</tr>
 								</thead>
 								<tbody>
@@ -141,7 +141,7 @@
 							</table>
                         </div>
                         <div class="tab-pane fade" id="pills-board" role="tabpanel" aria-labelledby="pills-board-tab">
-                        	<table class="table table-hover table-bordered" id="dataTable-3">
+                        	<table class="table table-hover datatables" id="dataTable-3">
 								<thead>
 									<tr role="row">
 										<th>No.</th>
@@ -167,13 +167,12 @@
 							</table>
                         </div>
                         <div class="tab-pane fade" id="pills-conmment" role="tabpanel" aria-labelledby="pills-conmment-tab">
-                        	<table class="table table-hover table-bordered" id="dataTable-4">
+                        	<table class="table table-hover datatables" id="dataTable-4">
 								<thead>
 									<tr role="row">
 										<th>No.</th>
 										<th>댓글 내용</th>
 										<th>등록일</th>
-										
 									</tr>
 								</thead>
 								<tbody>
@@ -192,7 +191,79 @@
                     </div>
                   </div>
                 </div>
-              </div> <!-- end section -->
+
+					<div class="modal fade" id="grade" tabindex="-1" role="dialog"  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<!--Content-->
+							<div class="modal-content">
+								<div class="modal-header text-center">
+									<h5 class="modal-title w-100 font-weight-bold py-2">
+										<strong><span>등급 변경하기</span></strong>
+									</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+
+								<!--Body-->
+	   							<form id="changeGrade" action="${pageContext.request.contextPath }/user/changeGrade" method="post">
+									<div class="modal-body">
+										<div class="row">
+											<div class="col">
+												<select name="gradeNo" class="mdb-select md-form colorful-select dropdown-danger" >
+													<option value="" disabled selected>등급 선택</option>
+													<option value="2">일반 회원</option>
+													<option value="3">우수 회원</option>
+													<option value="4">최우수 회원</option>
+												</select>
+												<input type="hidden" name="memNo" value="${user[0].memNo }">
+											</div>
+										</div>	
+									</div>
+									<div class="modal-footer">
+										<button type="submit" class="btn-save btn btn-primary btn-sm">변경</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					
+					<div class="modal fade" id="status" tabindex="-1" role="dialog"  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<!--Content-->
+							<div class="modal-content">
+								<div class="modal-header text-center">
+									<h5 class="modal-title w-100 font-weight-bold py-2">
+										<strong><span>상태 변경하기</span></strong>
+									</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+
+								<!--Body-->
+	   							<form id="changeStatus" action="${pageContext.request.contextPath }/user/changeStatus" method="post">
+									<div class="modal-body">
+										<div class="row">
+											<div class="col">
+												<select name="memState" class="mdb-select md-form colorful-select dropdown-danger" >
+													<option value="" disabled selected>상태 변경</option>
+													<option value="0">클린 회원</option>
+													<option value="1">블랙리스트</option>
+													<option value="2">블라인드</option>
+												</select>
+												<input type="hidden" name="memNo" value="${user.get(0).memNo }">
+											</div>
+										</div>	
+									</div>
+									<div class="modal-footer">
+										<button type="submit" class="btn btn-primary">변경</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div> <!-- end section -->
             </div> <!-- .col-12 -->
           </div> <!-- .row -->
         </div> <!-- .container-fluid -->
@@ -233,10 +304,52 @@
           [16, 32, 64, "All"]
         ]
       });
-
-
-     
     </script>
+    <script type="text/javascript">
+    	$('#pills-home-tab').on('click', function () {
+			$.ajax({
+				type: "GET"
+				url: "${pageContext.request.contextPath}/user/selectBoardList",
+				data: {memNo :$('#memberNo').val()},
+				success: function (data) {
+					console.log(data);
+					
+					var $tbody = $('<tbody>');
+					
+					for(var i = 0; i < data.boardList.length; i++) {
+						var boardList = data.boardList[i];
+						
+						var $tr = $('<tr>');
+						
+						var $board_No = $('<td>').text(boardList[i].board_No);
+						var $type_Name = $('<td>').text(boardList[i].type_Name);
+						var $board_Title = $('<td>').text(boardList[i].board_Title);
+						var $mem_Nick = $('<td>').text(boardList[i].mem_Nick);
+						var $board_Date = $('<td>').text(boardList[i].board_Date);
+						var $board_View = $('<td>').text(boardList[i].board_View);
+						
+						$tr.append($board_No);
+						$tr.append($type_Name);
+						$tr.append($board_Title);
+						$tr.append($mem_Nick);
+						$tr.append($board_Date);
+						$tr.append($board_View);
+						
+						$tbody.append($tr);
+					}
+					$('#dataTable-1>tbody').remove();
+					$('#dataTable-1').append($tbody);
+					
+					
+				}, error : function () {
+					alert("에러발생");
+				}
+				
+			});
+		});
+
+    </script>
+  
 	<script src="${pageContext.request.contextPath}/resources/admin/js/apps.js"></script>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async
@@ -244,17 +357,17 @@
 
 	<script
 		src="${pageContext.request.contextPath}/resources/admin/js/bootstrap.min.js"></script>
-
-	
 	<script>
-      window.dataLayer = window.dataLayer || [];
 
-      function gtag()
-      {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'UA-56159088-1');
-    </script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag()
+    {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'UA-56159088-1');
+	</script>
+	
   </body>
 </html>

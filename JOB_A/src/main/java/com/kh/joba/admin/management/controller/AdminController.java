@@ -1,5 +1,6 @@
 package com.kh.joba.admin.management.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,9 +9,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.joba.admin.management.model.service.AdminService;
 import com.kh.joba.admin.management.model.vo.Admin;
+import com.kh.joba.user.board2.blahblah.model.vo.Board2;
 import com.kh.joba.user.member.model.vo.Member;
 
 @Controller
@@ -96,9 +99,33 @@ public class AdminController {
 	@RequestMapping("admin/adminUpdate")
 	public String adminUpdate(Admin admin, Model model) {
 		
-		int result = adminService.updateAdmin(admin);
+		String plainPassword = admin.getAdminPw();
 		
-		return null;
+		String encryptPassword = bcryptPasswordEncoder.encode(plainPassword); // 비밀번호 암호화
+		System.out.println("gradeNo: " + admin.getGradeNo());
+		System.out.println("원문 : " + plainPassword);
+		System.out.println("암호문 : " + encryptPassword);
+		
+		admin.setAdminPw(encryptPassword);
+		
+		
+		System.out.println("admin 수정 : " + admin);
+		
+		
+		int result = adminService.updateAdmin(admin);
+		System.out.println(result);
+		String loc="/admin/adminList"; 
+		String msg="";
+		if (result > 0) {
+			msg = "수정 성공";
+
+		}else {
+			msg = "수정 실패";
+		}
+		 model.addAttribute("msg", msg);
+         model.addAttribute("loc", loc);
+      
+      return "user/common/msg";
 	}
 	
 
@@ -121,32 +148,69 @@ public class AdminController {
 	public String selcetUserDetail(int memNo, Model model) { 
 		
 		List<Map<String, String>> member = adminService.selectMember(memNo);
-		List<Map<String,String>> boardList = adminService.selectBoardList(memNo);
-		List<Map<String,String>> commentList = adminService.selectCommentList(memNo);
-		List<Map<String,String>> reportBoardList = adminService.selectReportBoardList(memNo);
-		List<Map<String,String>> reportCommentList = adminService.selectReportCommentList(memNo);
-		
-		System.out.println("member : " + member);
-		System.out.println("boardList : " + boardList);
-		System.out.println("commentList : " + commentList);
-		System.out.println("reportBoardList : " + reportBoardList);
-		System.out.println("reportCommentList : " + reportCommentList);
 		
 		model.addAttribute("user", member);
-		model.addAttribute("boardList", boardList);
-		model.addAttribute("commentList", commentList);
-		model.addAttribute("reportBoardList", reportBoardList);
-		model.addAttribute("reportCommentList", reportCommentList);
-		
 		return "admin/management/memberDetail";
 	}
 	
-	@RequestMapping("user/upGradeListView")
+	@RequestMapping("user/selectBoardList")
+	public List<Map<String,String>> selectBoardList(int memNo) { 
+		List<Map<String,String>> boardList = new ArrayList<Map<String,String>>();
+		boardList = adminService.selectBoardList(memNo);
+		System.out.println("boardList : " + boardList);
+		return boardList;
+	}
+	
+	@RequestMapping("user/selectCommentList")
+	public List<Map<String,String>> selectCommentList(int memNo) { 
+		List<Map<String,String>> commentList = adminService.selectCommentList(memNo);
+		System.out.println("commentList : " + commentList);
+		return commentList;
+	}
+	
+	@RequestMapping("user/selectReportBoardList")
+	public List<Map<String,String>> selectReportBoardList(int memNo) { 
+		List<Map<String,String>> reportBoardList = adminService.selectReportBoardList(memNo);
+		System.out.println("reportBoardList : " + reportBoardList);
+		return reportBoardList;
+	}
+	
+	@RequestMapping("user/selectReportCommentList")
+	public List<Map<String,String>> selectReportCommentList(int memNo) { 
+		List<Map<String,String>> reportCommentList = adminService.selectReportCommentList(memNo);
+		System.out.println("reportCommentList : " + reportCommentList);
+		return reportCommentList;
+	}
+	
+	
+	@RequestMapping("user/gradeListView")
 	public String upGradeList(Model model) {
-		
-		
-		
+		List<Map<String,String>> gradeList = adminService.selectGradeList();
+		System.out.println("boardList : " + gradeList);
+		model.addAttribute("gradeList", gradeList);
 		return "admin/management/upGradeList";
+	}
+	
+	@RequestMapping("user/changeGrade")
+	public String changeGrade(Member member, Model model) {
+		System.out.println(member);
+		int result = adminService.changeGrade(member);
+		
+		if ( result > 0) {
+		}
+		
+		return "redirect:/user/userDetail?memNo="+member.getMemNo();
+	}
+	
+	@RequestMapping("user/changeStatus")
+	public String changeStatus(Member member, Model model) {
+		
+		int result = adminService.changeStatus(member);
+		
+		if ( result > 0) {
+			model.addAttribute("statusMember", member);
+		}
+		return "redirect:/user/userDetail?memNo="+member.getMemNo();
 	}
 
 }

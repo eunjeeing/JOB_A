@@ -57,23 +57,13 @@ public class ChatController {
 		
 		model.addAttribute("chat", chat);
 		
-		
-		
-
 		return "user/chat/chatList";
 	}
 	
 	@RequestMapping("chat/insertChat")
 	public String insertChat(Chat chat, Model model, HttpServletRequest req) {
 
-		int chatNo = 0;
-		
-		try {
-			chatNo = chatService.insertChat(chat);
-		} catch (ChatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		int chatNo = chatService.insertChat(chat);
 		
 		return "redirect:/chat/chatList/" + chatNo;
 	}

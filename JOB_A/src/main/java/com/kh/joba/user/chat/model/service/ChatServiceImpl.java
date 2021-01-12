@@ -29,16 +29,12 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
-	public int insertChat(Chat chat) throws ChatException {
+	public int insertChat(Chat chat) {
 		// TODO Auto-generated method stub
 		int chatNo = chatDAO.selectChatSeq();
 		chat.setChatNo(chatNo);
 		
-		int result = chatDAO.insertChat(chat);
-		System.out.println(result);
-		if (result < 0) {
-			throw new ChatException();
-		}
+		chatDAO.insertChat(chat);
 		
 		return chatNo;
 	}

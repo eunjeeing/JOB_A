@@ -85,5 +85,23 @@ public class AdminDAOImpl implements AdminDAO{
 		return sqlSession.selectList("memberMapper.selectMember", memNo);
 	}
 
+	@Override
+	public List<Map<String, String>> selectGradeList() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("adminMapper.selectGradeList");
+	}
+
+	@Override
+	public int changeGrade(Member member) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("memberMapper.changeGrade", member);
+	}
+
+	@Override
+	public int changeStatus(Member member) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("memberMapper.changeStatus", member);
+	}
+
 
 }

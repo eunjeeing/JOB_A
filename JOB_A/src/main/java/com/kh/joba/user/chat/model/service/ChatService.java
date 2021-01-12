@@ -12,7 +12,7 @@ public interface ChatService {
 
 	int selectChatTotalContents();
 
-	int insertChat(Chat chat) throws ChatException;
+	int insertChat(Chat chat);
 
 	Map<String, Chat> selectChat(int chatNo);
 
