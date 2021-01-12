@@ -46,10 +46,13 @@ public class QnAController {
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "selectQnAList.do");
 		
 		System.out.println("selectQnAList : " + list);
-		Member mem = (Member)session.getAttribute("member");
-		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
 		
-		model.addAttribute("bookmarkList", bookmarkList);
+		if (session.getAttribute("member") != null) {
+			Member mem = (Member)session.getAttribute("member");
+			List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());			
+			model.addAttribute("bookmarkList", bookmarkList);
+		}
+		
 		
 		model.addAttribute("selectQnAList", list);
 		model.addAttribute("totalContents", totalContents);
@@ -186,10 +189,11 @@ public class QnAController {
 		// 조회확인용
 		System.out.println("keyword : " + keyword);
 		
-		Member mem = (Member)session.getAttribute("member");
-		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
-		
-		model.addAttribute("bookmarkList", bookmarkList);
+		if (session.getAttribute("member") != null) {
+			Member mem = (Member)session.getAttribute("member");
+			List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
+			model.addAttribute("bookmarkList", bookmarkList);			
+		}
 
 	
 		model.addAttribute("selectQnAList", list);

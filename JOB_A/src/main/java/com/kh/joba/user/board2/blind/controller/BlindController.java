@@ -46,10 +46,11 @@ public class BlindController {
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "selectBlindList.do");
 		
 		System.out.println("selectBlindList : " + list);
-		Member mem = (Member)session.getAttribute("member");
-		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
-		
-		model.addAttribute("bookmarkList", bookmarkList);
+		if (session.getAttribute("member") != null) {
+			Member mem = (Member)session.getAttribute("member");
+			List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
+			model.addAttribute("bookmarkList", bookmarkList);			
+		}
 		
 		model.addAttribute("selectBlindList", list);
 		model.addAttribute("totalContents", totalContents);
@@ -185,11 +186,11 @@ public class BlindController {
 		
 		// 조회확인용
 		System.out.println("keyword : " + keyword);
-		Member mem = (Member)session.getAttribute("member");
-		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
-		
-		model.addAttribute("bookmarkList", bookmarkList);
-	
+		if (session.getAttribute("member") != null) {
+			Member mem = (Member)session.getAttribute("member");
+			List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
+			model.addAttribute("bookmarkList", bookmarkList);			
+		}
 		model.addAttribute("selectBlindList", list);
 		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("numPerPage", numPerPage);

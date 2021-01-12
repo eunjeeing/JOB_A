@@ -198,9 +198,13 @@ p {
 											${notice.board_date }
 									</span> <span class="pv"> <i class="far fa-eye"></i>
 											${notice.board_view }
-									</span> <span class="cmt"> <i class="far fa-comment"></i>
+									</span> 
+									<!-- 
+									<span class="cmt"> <i class="far fa-comment"></i>
 											${notice.comm_count }
 									</span>
+									 -->
+									<!-- 
 									<div class="info_fnc">
 										<span class="rebo"> <i
 											class="fas fa-exclamation-triangle" id="report"></i> 신고
@@ -208,6 +212,7 @@ p {
 											id="book"> </i> 스크랩
 										</span>
 									</div>
+									 -->
 								</div>
 							</div>
 							<div class="article-view-contents">

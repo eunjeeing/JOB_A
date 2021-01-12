@@ -188,10 +188,12 @@ public class Board1Controller {
 		List<Map<String,String>> list = bs.selectMentoList(cPage, numPerPage);
 		int totalContents = bs.selectMentoTotalContents();
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "mentoList.bo");
-		Member mem = (Member)session.getAttribute("member");
-		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
+		if (session.getAttribute("member")!= null) {
+			Member mem = (Member)session.getAttribute("member");
+			List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
+			model.addAttribute("bookmarkList", bookmarkList);			
+		}
 		
-		model.addAttribute("bookmarkList", bookmarkList);
 		model.addAttribute("mentoList", list);
 		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("numPerPage", numPerPage);
@@ -200,7 +202,7 @@ public class Board1Controller {
 		return "user/board/mento/mentoList"; 
 	}
 	
-	@RequestMapping("/mentoView.bo")
+	@RequestMapping("/selectOneMento.bo")
 	public String mentoView(@RequestParam int board_no, Model model, HttpSession session) {
 		Board1 mento = bs.selectOneMento(board_no);
 		List<Comments2> commentList = cs.selectComment(board_no);
@@ -227,10 +229,13 @@ public class Board1Controller {
 		List<Map<String,String>> list = bs.searchMentoList(cPage, numPerPage, changeToUpper(keyword));
 		int totalContents = bs.searchMentoTotalContents(changeToUpper(keyword));
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "searchMentoList.bo?keyword="+changeToUpper(keyword));
-		Member mem = (Member)session.getAttribute("member");
-		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
 		
-		model.addAttribute("bookmarkList", bookmarkList);
+		if (session.getAttribute("member") != null) {
+			Member mem = (Member)session.getAttribute("member");
+			List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
+			model.addAttribute("bookmarkList", bookmarkList);			
+		}
+		
 		model.addAttribute("mentoList", list);
 		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("numPerPage", numPerPage);
@@ -292,10 +297,13 @@ public class Board1Controller {
 		List<Map<String,String>> list = bs.selectTomorrowList(cPage, numPerPage);
 		int totalContents = bs.selectTomorrowTotalContents();
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "tomorrowList.bo");
-		Member mem = (Member)session.getAttribute("member");
-		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
 		
-		model.addAttribute("bookmarkList", bookmarkList);		
+		if (session.getAttribute("member") != null) {
+			Member mem = (Member)session.getAttribute("member");
+			List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
+			model.addAttribute("bookmarkList", bookmarkList);					
+		}
+		
 		model.addAttribute("tomorrowList", list);
 		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("numPerPage", numPerPage);
@@ -329,10 +337,13 @@ public class Board1Controller {
 		List<Map<String,String>> list = bs.searchTomorrowList(cPage, numPerPage, changeToUpper(keyword));
 		int totalContents = bs.searchTomorrowTotalContents(changeToUpper(keyword));
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "searchTomorrowList.bo?keyword="+changeToUpper(keyword));
-		Member mem = (Member)session.getAttribute("member");
-		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
 		
-		model.addAttribute("bookmarkList", bookmarkList);
+		if (session.getAttribute("member") != null) {
+			Member mem = (Member)session.getAttribute("member");
+			List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
+			model.addAttribute("bookmarkList", bookmarkList);			
+		}
+		
 		model.addAttribute("tomorrowList", list);
 		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("numPerPage", numPerPage);
@@ -396,10 +407,12 @@ public class Board1Controller {
 		int totalContents = bs.selectInterviewTotalContents();
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "interviewList.bo");
 		
-		Member mem = (Member)session.getAttribute("member");
-		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
+		if (session.getAttribute("member") != null) {
+			Member mem = (Member)session.getAttribute("member");
+			List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
+			model.addAttribute("bookmarkList", bookmarkList);			
+		}
 		
-		model.addAttribute("bookmarkList", bookmarkList);
 		model.addAttribute("interviewList", list);
 		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("numPerPage", numPerPage);
@@ -489,10 +502,13 @@ public class Board1Controller {
 		List<Map<String,String>> list = bs.searchInterviewList(cPage, numPerPage, changeToUpper(keyword));
 		int totalContents = bs.searchInterviewTotalContents(changeToUpper(keyword));
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "searchInterview.bo?keyword="+changeToUpper(keyword));
-		Member mem = (Member)session.getAttribute("member");
-		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
 		
-		model.addAttribute("bookmarkList", bookmarkList);
+		if (session.getAttribute("member") != null) {
+			Member mem = (Member)session.getAttribute("member");
+			List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
+			model.addAttribute("bookmarkList", bookmarkList);			
+		}
+		
 		model.addAttribute("interviewList", list);
 		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("numPerPage", numPerPage);
@@ -513,14 +529,11 @@ public class Board1Controller {
 		List<Map<String,String>> list = bs.selectAcceptList(cPage, numPerPage);
 		int totalContents = bs.selectAcceptTotalContents();
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "acceptList.bo");
-		Member mem = (Member)session.getAttribute("member");
-		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
-		
-		
-		// 조회확인용
-		//System.out.println("list : " + list);
-		
-		model.addAttribute("bookmarkList", bookmarkList);
+		if (session.getAttribute("member") != null) {
+			Member mem = (Member)session.getAttribute("member");
+			List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
+			model.addAttribute("bookmarkList", bookmarkList);			
+		}
 		model.addAttribute("acceptList", list);
 		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("numPerPage", numPerPage);
@@ -610,10 +623,11 @@ public class Board1Controller {
 		List<Map<String,String>> list = bs.searchInterviewList(cPage, numPerPage, changeToUpper(keyword));
 		int totalContents = bs.searchAcceptTotalContents(changeToUpper(keyword));
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "searchInterview.bo?keyword="+changeToUpper(keyword));
-		Member mem = (Member)session.getAttribute("member");
-		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
-		
-		model.addAttribute("bookmarkList", bookmarkList);
+		if (session.getAttribute("member") != null) {
+			Member mem = (Member)session.getAttribute("member");
+			List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
+			model.addAttribute("bookmarkList", bookmarkList);			
+		}
 		model.addAttribute("interviewList", list);
 		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("numPerPage", numPerPage);

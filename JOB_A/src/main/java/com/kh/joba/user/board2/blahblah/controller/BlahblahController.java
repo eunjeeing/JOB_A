@@ -47,11 +47,12 @@ public class BlahblahController {
 		
 		System.out.println("blahlist : " + list);
 		
-		Member mem = (Member)session.getAttribute("member");
-		List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());
-		
-		model.addAttribute("bookmarkList", bookmarkList);
-		
+		if (session.getAttribute("member") != null) {
+			Member mem = (Member)session.getAttribute("member");
+			List<Bookmark> bookmarkList = ms.selectAllBookmark(mem.getMemNo());			
+			model.addAttribute("bookmarkList", bookmarkList);	
+		}
+
 		model.addAttribute("blahList", list);
 		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("numPerPage", numPerPage);

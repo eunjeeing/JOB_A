@@ -67,6 +67,8 @@ p {
 	margin-right: 24px;
 }
 
+
+
 </style>
 </head>
 <body class="is-preload">
@@ -119,7 +121,7 @@ p {
 												<i class="far fa-comment" style="margin-right: 0; margin-left: 14px;"></i> ${blah.comm_Count }
 												<div class="info_fnc">
 													<span class="date"> 
-													<i class="far fa-clock"></i> ${blah.board_Date}
+													<i class="far fa-clock"></i>${blah.board_Date}
 													</span>
 													<c:if test="${!empty bookmarkList}">
 														<c:set var="bCnt" value="0"/>

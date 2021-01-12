@@ -144,7 +144,7 @@
 						</div>
 					</div>
 				
-					<div class="click2" >
+					<div class="click2" onclick="location.href='${pageContext.request.contextPath}/myscrap/selectMyScrap.bo?mem_no=${member.memNo}'">
 						<c:if test="${!empty member}"/>
 						<c:if test="${member.gradeNo >= '2' && member.gradeNo <= '5'}"/>
 						

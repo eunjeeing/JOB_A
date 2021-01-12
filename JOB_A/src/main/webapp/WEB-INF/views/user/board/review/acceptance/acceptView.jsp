@@ -244,10 +244,12 @@ p {
 								<div class="write_area">
 									<div id="btn_add_comment" style="display: flex;">
 										<div class="reply_area" style="width: 100%;">
-											<from id="commentForm" method="post"> <input
-												type="hidden" id="mem_No" name="mem_no"
-												value="${sessionScope.memNo }" /> 
-												<textarea id="comm_Content" name="comm_Content"
+											<from id="commentForm" method="post"> 
+											<input type="hidden" id="mem_No" name="mem_No"
+												value="${sessionScope.mem_No }" /> 
+											<input type="hidden" name="comm_Ref" value="0" />
+											<input type="hidden" name="comm_Level" value="1" />
+											<textarea id="comm_Content" name="comm_Content"
 												placeholder="댓글을 남겨주세요." style="resize: none;"></textarea>
 										</div>
 										<button id="insertComment"
@@ -257,9 +259,9 @@ p {
 								</div>
 								
 								<c:forEach items="${commentList}" var="co">
-								<c:if test="${co.comm_Level eq 1}">
+									<c:if test="${co.comm_Level eq 1}">
 									<div id="${co.comm_No }" class="wrap-comment comment-area">
-										<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq board2.mem_No }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
+										<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq accept.mem_no }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
 										<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content }</textarea></p>
 										<div class="wrap-info">
 										
@@ -276,19 +278,19 @@ p {
 												<c:if test="${member.memNo eq co.mem_No}">
 													<a href="#" onclick="updateComment(this);return false;">수정</a>
 													<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
-													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
+													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_No=${accept.board_no}&comm_No=${co.comm_No }'">삭제</a>
 												</c:if>
 												<span><i class="fas fa-exclamation-triangle"></i></span>
 											</div>
 										</div>
 									</div>
 								</c:if>
-								
+									
 								<!-- 대댓글일때 -->
 								<c:if test="${co.comm_Level ne 1}">
 									<div class="wrap-reply">
 										<div id="${co.comm_No }" class="wrap-comment comment-area">
-											<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq board2.mem_No }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
+											<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq accept.mem_no }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
 											<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content }</textarea></p>
 											<div class="wrap-info">
 											
@@ -303,16 +305,15 @@ p {
 													<c:if test="${member.memNo eq co.mem_No}">
 														<a href="#" onclick="updateComment(this);return false;">수정</a>
 														<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
-														<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
+														<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_No=${accept.board_no}&comm_No=${co.comm_No }'">삭제</a>
 													</c:if>
 													<span><i class="fas fa-exclamation-triangle"></i></span>
 												</div>
 											</div>
 										</div>
 									</div>
-								</c:if>
+								</c:if>			
 								</c:forEach>
-								
 							</div>
 
 						</div>
@@ -360,7 +361,7 @@ p {
 			
 			console.log(content);
 			
-			location.href = "${pageContext.request.contextPath}/comments2/updateComment.do?board_No=${accept.board_No}&comm_No=" + comm_No + "&comm_Content="
+			location.href = "${pageContext.request.contextPath}/comments2/updateComment.do?board_No=${accept.board_no}&comm_No=" + comm_No + "&comm_Content="
 				+ content;
 		}
 		
@@ -408,7 +409,7 @@ p {
 			var comm_Content = $(obj).prev().find('textarea').val();
 			console.log("댓글 내용 : " + comm_Content);
 			
-			location.href="${pageContext.request.contextPath}/comments2/insertComment.do?board_No=${accept.board_No}&mem_No=${member.memNo}&comm_Content="
+			location.href="${pageContext.request.contextPath}/comments2/insertComment.do?board_No=${accept.board_no}&mem_No=${member.memNo}&comm_Content="
 				+ comm_Content + "&comm_Ref=" + comm_Ref + "&comm_Level=" + comm_Level;
 		}
 			

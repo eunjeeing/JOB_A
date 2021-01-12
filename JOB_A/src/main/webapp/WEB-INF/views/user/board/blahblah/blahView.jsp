@@ -253,7 +253,7 @@ p {
 								<div class="write_area">
 									<div id="btn_add_comment" style="display: flex;">
 										<div class="reply_area" style="width: 100%;">
-											<from id="commentForm" method="post">
+											<form id="commentForm" method="post">
 											<input type="hidden" id="mem_No" name="mem_No"
 												value="${sessionScope.mem_No }" /> 
 											<input type="hidden" name="comm_Ref" value="0" />
@@ -431,8 +431,9 @@ p {
 			$('.modal_board').val($('#board_info').val());
 			$('.modal_reporter').val($('#board_reporter').val());
 			$('.modal_board_no').val($('#board_mem_no').val());
+	    });
 			
-<<<<<<< HEAD
+
 	    function bookmark(board_no, mem_no) {
 			var bookmarkClass = $('#bookmark').attr('class').substr(0,3);
 			if (bookmarkClass == 'far') {
@@ -486,10 +487,6 @@ p {
 			}
 		}	
 				
-
-=======
-	    });
->>>>>>> refs/remotes/origin/feature_yeori
 	</script>
 </body>
 </html>

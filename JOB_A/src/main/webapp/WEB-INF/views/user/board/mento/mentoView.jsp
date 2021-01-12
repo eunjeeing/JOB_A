@@ -237,15 +237,15 @@ p {
 
 
 							<!-- 댓글작성 -->
-							<div class="article-comments">
+						<div class="article-comments">
 								<h3 style="font-weight: 500">댓글 ${mento.comm_count }</h3>
-								<c:if test=${sessionScope.member.gradeNo < 2}>
+								<c:if test="${sessionScope.member.gradeNo < 2}">
 								<div class="write_area">
 									<div id="btn_add_comment" style="display: flex;">
 										<div class="reply_area" style="width: 100%;">
-											<from id="commentForm" method="post">
+											<from id="commentForm" method="post"> 
 											<input type="hidden" id="mem_No" name="mem_No"
-												value="${sessionScope.member.memNo}" /> 
+												value="${sessionScope.mem_No }" /> 
 											<input type="hidden" name="comm_Ref" value="0" />
 											<input type="hidden" name="comm_Level" value="1" />
 											<textarea id="comm_Content" name="comm_Content"
@@ -253,24 +253,22 @@ p {
 										</div>
 										<button id="insertComment"
 											style="height: 75px; font-weight: 300; font-size: 20px;">작성</button>
-											</form>
+										</form>
 									</div>
 								</div>
 								</c:if>
 								
-								
-								
-								<!-- 댓글리스트 -->
 								<c:forEach items="${commentList}" var="co">
-								<c:if test="${co.comm_Level eq 1}">
+									<c:if test="${co.comm_Level eq 1}">
 									<div id="${co.comm_No }" class="wrap-comment comment-area">
-										<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq mento.mem_no }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
+										<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq board2.mem_No }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
 										<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content }</textarea></p>
 										<div class="wrap-info">
 										
 											<span class="date"> <i class="far fa-clock"></i>
 											<fmt:parseDate var="parsedDate" value="${co.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
 											<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
+											<c:if test="${sessionScope.member.gradeNo < 2}">
 											<a class="cmt" href="#" onclick="reComment(this);return false;"> <i class="far fa-comment"> </i> 대댓글
 											</a>
 											<div class="info_fnc">
@@ -281,19 +279,21 @@ p {
 												<c:if test="${member.memNo eq co.mem_No}">
 													<a href="#" onclick="updateComment(this);return false;">수정</a>
 													<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
-													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_No=${mento.board_no}&comm_No=${co.comm_No }'">삭제</a>
+													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
 												</c:if>
 												<span><i class="fas fa-exclamation-triangle"></i></span>
 											</div>
+											</c:if>
 										</div>
 									</div>
 								</c:if>
-								
+									
 								<!-- 대댓글일때 -->
 								<c:if test="${co.comm_Level ne 1}">
+								<c:if test="${sessionScope.member.gradeNo < 2}">
 									<div class="wrap-reply">
 										<div id="${co.comm_No }" class="wrap-comment comment-area">
-											<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq mento.mem_No }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
+											<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq board2.mem_No }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
 											<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content }</textarea></p>
 											<div class="wrap-info">
 											
@@ -308,7 +308,7 @@ p {
 													<c:if test="${member.memNo eq co.mem_No}">
 														<a href="#" onclick="updateComment(this);return false;">수정</a>
 														<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
-														<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_no=${mento.board_no}&comm_No=${co.comm_No }'">삭제</a>
+														<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
 													</c:if>
 													<span><i class="fas fa-exclamation-triangle"></i></span>
 												</div>
@@ -316,8 +316,8 @@ p {
 										</div>
 									</div>
 								</c:if>
+								</c:if>			
 								</c:forEach>
-								
 							</div>
 
 						</div>

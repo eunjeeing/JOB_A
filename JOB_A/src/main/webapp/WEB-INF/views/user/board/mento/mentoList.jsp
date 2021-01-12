@@ -165,12 +165,11 @@ p {
 	     	if (gradeNo == '2' || gradeNo=='3' || gradeNo == '5') {
 	     		alert("최우수 회원만 접근할 수 있습니다.");
 	     	} else {
-    			location.href = "${pageContext.request.contextPath}/selectOneInterview.bo?board_no="+ boardNo;
+    			location.href = "${pageContext.request.contextPath}/selectOneMento.bo?board_no="+ boardNo;
 			}
 		} else {
 			alert("로그인 후 이용가능합니다.");
 		}
-
 	}
 	
 	function goMentoForm() {

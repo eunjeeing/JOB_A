@@ -331,11 +331,11 @@ p {
 						"click",
 						function() {
 							if (comm_Content.value == ""
-									|| comm_content.value.length == 0) {
+									|| comm_Content.value.length == 0) {
 								alert("댓글을 입력해 주세요");
 								return false;
 							} else {
-								location.href = '${pageContext.request.contextPath}/insertComment.bo?board_No=${interview.board_no}&mem_No=${member.memNo}&comm_Content='
+								location.href = '${pageContext.request.contextPath}/comments2/insertComment.do?board_No=${interview.board_no}&mem_No=${member.memNo}&comm_Content='
 										+ comm_Content.value;
 							}
 						}, false);
@@ -350,7 +350,7 @@ p {
 		function updateConfirm(obj) {
 			var content = $(obj).parent().parent().parent().find('textarea').val();
 			var comm_No = $(obj).siblings('input').val();
-			location.href = "${pageContext.request.contextPath}/updateComment.bo?board_No=${interview.board_no}&comm_No=" + comm_no + "&comm_Content="
+			location.href = "${pageContext.request.contextPath}/comments2/updateComment.do?board_No=${interview.board_no}&comm_No=" + comm_No + "&comm_Content="
 				+ content;
 		}
 
@@ -453,7 +453,7 @@ p {
 						}
 				});
 			}
-		}	
+		}
 
 	</script>
 </body>

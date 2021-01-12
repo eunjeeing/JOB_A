@@ -242,7 +242,7 @@ p {
 								<div class="write_area">
 									<div id="btn_add_comment" style="display: flex;">
 										<div class="reply_area" style="width: 100%;">
-											<from id="commentForm" method="post">
+											<form id="commentForm" method="post">
 											<input type="hidden" id="mem_No" name="mem_No"
 												value="${sessionScope.mem_No }" /> 
 											<input type="hidden" name="comm_Ref" value="0" />
