@@ -23,6 +23,7 @@
 		<typeAlias type="com.kh.joba.admin.report.model.vo.Report" alias="Report"/>
 		<typeAlias type="com.kh.joba.common.typeHandler.IntegerTypeHandler" alias="intarrHandler"/>
 		<typeAlias type="com.kh.joba.admin.visitor.model.vo.VisitCount" alias="VisitCount" />
+		<typeAlias type="com.kh.joba.admin.index.model.vo.IndexVo" alias="IndexVo" />
 	</typeAliases>
 	
 	<typeHandlers>

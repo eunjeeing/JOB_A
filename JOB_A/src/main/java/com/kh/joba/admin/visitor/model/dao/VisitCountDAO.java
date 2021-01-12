@@ -2,14 +2,16 @@ package com.kh.joba.admin.visitor.model.dao;
 
 import java.sql.Connection;
 
-import javax.servlet.http.HttpSessionEvent;
+import org.mybatis.spring.SqlSessionTemplate;
+
+import com.kh.joba.admin.visitor.model.vo.VisitCount;
 
 
 public interface VisitCountDAO {
 	
-	int getVisitTodayCount(Connection con);
+	int getVisitTodayCount(SqlSessionTemplate sqlSession);
 
-	int getVisitTotalCount(Connection con);
+	int getVisitTotalCount(SqlSessionTemplate sqlSession);
 
-	int setVisitTotalCount(Connection con, HttpSessionEvent se);
+	int setVisitTotalCount(SqlSessionTemplate sqlSession, VisitCount vs);
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indexMapper">
+	
+	<resultMap type="IndexVo" id="IndexVo">
+		<id property="category_no" column="CATEGORY_NO"/>
+		<result property="mem_no" column="MEM_NO"/>
+	</resultMap>
+<!-- 랭킹 -->
+	<select id="selectAllCount" parameterType="_int">
+		select 
+			(select count(category_no) from wish_category where category_no = 1) as office,
+	        (select count(category_no) from wish_category where category_no = 2) as market,
+	        (select count(category_no) from wish_category where category_no = 3) as media,
+	        (select count(category_no) from wish_category where category_no = 4) as market,
+	        (select count(category_no) from wish_category where category_no = 5) as service,
+	        (select count(category_no) from wish_category where category_no = 6) as research,
+	        (select count(category_no) from wish_category where category_no = 7) as medicine,
+	        (select count(category_no) from wish_category where category_no = 8) as architecture,
+	        (select count(category_no) from wish_category where category_no = 9) as edu,
+	        (select count(category_no) from wish_category where category_no = 10) as production,
+	        (select count(category_no) from wish_category where category_no = 10) as trade
+		from dual
+	</select>
+
+</mapper>

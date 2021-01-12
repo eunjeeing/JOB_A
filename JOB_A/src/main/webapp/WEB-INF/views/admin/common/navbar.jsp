@@ -39,20 +39,13 @@
 	href="${pageContext.request.contextPath}/resources/admin/css/app-dark.css"
 	id="darkTheme" disabled>
 
-<style>
-	* {
-   font-family: 'Do Hyeon', sans-serif !important;
-	}
-</style>	
 </head>
 
 <nav class="topnav navbar navbar-light">
         <button type="button" class="navbar-toggler text-muted mt-2 p-0 mr-3 collapseSidebar">
           <i class="fe fe-menu navbar-toggler-icon"></i>
         </button>
-        <!-- <form class="form-inline mr-auto searchform text-muted">
-          <input class="form-control mr-sm-2 bg-transparent border-0 pl-4 text-muted" type="search" placeholder="Type something..." aria-label="Search">
-        </form> -->
+
         <ul class="nav">
           <li class="nav-item">
             <a class="nav-link text-muted my-2" href="#" id="modeSwitcher" data-mode="dark">
@@ -73,7 +66,7 @@
           </li> -->
           <div style="padding-top: 15px; padding-left: 10px;">
           	<a href="" style="text-decoration: none; ">
-          		${member.memNick}&nbsp;관리자님 오늘도 수고링~!
+          		${member.memNick}&nbsp;님 오늘도 수고링~!
           	</a>
           </div>
         </ul>
