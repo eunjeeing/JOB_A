@@ -85,7 +85,7 @@
 								<span class="ml-1 item-text">Member List</span></a>
 							</li>
 							<li class="nav-item"><a class="nav-link pl-3"
-								href="${pageContext.request.contextPath}/user/upGradeListView">
+								href="${pageContext.request.contextPath}/user/gradeListView">
 								<span class="ml-1 item-text">Member Grade</span></a>
 							</li>
 						</ul></li>

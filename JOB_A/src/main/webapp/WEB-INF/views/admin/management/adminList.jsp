@@ -56,7 +56,7 @@
 											</div>
 										</div> -->
 										<!-- table -->
-										<table class="table datatables" id="dataTable-1">
+										<table class="table table-hover datatables" id="dataTable-1">
 											<thead>
 												<tr>
 													<th>직급</th>

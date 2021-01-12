@@ -33,4 +33,10 @@ public interface AdminDAO {
 	List<Map<String, String>> selectReportCommentList(int memNo);
 
 	List<Map<String, String>> selectMember(int memNo);
+
+	List<Map<String, String>> selectGradeList();
+
+	int changeGrade(Member member);
+
+	int changeStatus(Member member);
 }

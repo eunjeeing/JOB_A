@@ -107,6 +107,17 @@
 		WHERE MEM_NO = #{memNo}
 	</select>
 	
+	<update id="changeGrade" parameterType="Member">
+	 	UPDATE MEMBER SET
+		GRADE_NO = #{gradeNo}
+		WHERE MEM_NO = #{memNo} 
+	</update>
+	
+	<update id="changeStatus" parameterType="Member">
+	 	UPDATE MEMBER SET
+		MEM_STATE = #{memState}
+		WHERE MEM_NO = #{memNo}
+	</update>
 	
 	
 </mapper> 
