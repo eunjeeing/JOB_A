@@ -18,17 +18,39 @@ public class Comments2Controller {
 	@Autowired
 	Comments2Service cs;
 	
-	// --------------------------- 블라블라 댓글 ---------------------------
+	// 댓글 추가
 	@RequestMapping("/comments2/insertComment.do")
 	public String insertComment(@RequestParam int board_No,
 								@RequestParam int mem_No,
 								@RequestParam String comm_Content,
+								@RequestParam int type_No,
 								Comments2 comment, Model model) {
 		
 		int result = cs.insertComment(comment);
 		
-		String loc = "/board2/blahView.do?board_No="+board_No;
 		String msg = "";
+		String loc = "";
+		
+		System.out.println("댓글 작성! 게시판 타입:" + type_No + " 게시글 번호:" + board_No + " 작성자:" + mem_No
+				+ " 댓글 내용:" + comm_Content);
+		
+		if(type_No == 2) {
+			loc = "/board2/jobSelectOne.do?board_No="+board_No;
+		} else if(type_No == 4) {
+			loc = "/board2/blahView.do?board_No="+board_No;
+		} else if (type_No == 5) {
+			loc = "/board2/blindSelectOne.do?board_No="+board_No;
+		} else if (type_No == 6) {
+			loc = "/selectOneTomorrow.bo?board_no="+board_No;
+		} else if (type_No == 7) {
+			loc = "/board2/qnaSelectOne.do?board_No="+board_No;
+		} else if (type_No == 8) {
+			loc = "/selectOneMento.bo?board_no="+board_No;
+		} else if (type_No == 9) {
+			loc = "/selectOneInterview.bo?board_no="+board_No;			
+		} else if (type_No == 10) {
+			loc = "/selectOneAccept.bo?board_no="+board_No;
+		}
 		
 		model.addAttribute("loc", loc);
 		
@@ -38,14 +60,32 @@ public class Comments2Controller {
 	@RequestMapping("/comments2/deleteComment.do")
 	public String deleteComment(@RequestParam int board_No,
 								@RequestParam int comm_No,
-								HttpSession session,
+								@RequestParam int type_No,
+								HttpSession session, 
 								Comments2 comment, Model model) {
 		
 		int result = cs.deleteComment(comment);
 		
-		String loc = "/board2/blahView.do?board_No="+board_No;
+		String loc = "";
 		String msg = "";
 		
+		if(type_No == 2) {
+			loc = "/board2/jobSelectOne.do?board_No="+board_No;
+		} else if(type_No == 4) {
+			loc = "/board2/blahView.do?board_No="+board_No;
+		} else if (type_No == 5) {
+			loc = "/board2/blindSelectOne.do?board_No="+board_No;
+		} else if (type_No == 6) {
+			loc = "/selectOneTomorrow.bo?board_no="+board_No;
+		} else if (type_No == 7) {
+			loc = "/board2/qnaSelectOne.do?board_No="+board_No;
+		} else if (type_No == 8) {
+			loc = "/selectOneMento.bo?board_no="+board_No;
+		} else if (type_No == 9) {
+			loc = "/selectOneInterview.bo?board_no="+board_No;			
+		} else if (type_No == 10) {
+			loc = "/selectOneAccept.bo?board_no="+board_No;
+		}
 		
 		model.addAttribute("loc", loc);
 		
@@ -56,183 +96,39 @@ public class Comments2Controller {
 	public String updateComment(@RequestParam int board_No,
 								@RequestParam int comm_No,
 								@RequestParam String comm_Content,
+								@RequestParam int type_No,
 								Comments2 comment, Model model) {
 		
 		int result = cs.updateComment(comment);
 
-		System.out.println("댓글 업데이트: " + comm_Content);
-		
-		String loc = "/board2/blahView.do?board_No="+board_No;
+		System.out.println("댓글 업데이트 게시판 타입:" + type_No + " 게시글 번호:" + board_No + " 댓글번호:" + comm_No
+				+ " 댓글 내용:" + comm_Content);
+			
+		String loc = "";
 		String msg = "";
 		
+		if(type_No == 2) {
+			loc = "/board2/jobSelectOne.do?board_No="+board_No;
+		} else if(type_No == 4) {
+			loc = "/board2/blahView.do?board_No="+board_No;
+		} else if (type_No == 5) {
+			loc = "/board2/blindSelectOne.do?board_No="+board_No;
+		} else if (type_No == 6) {
+			loc = "/selectOneTomorrow.bo?board_no="+board_No;
+		} else if (type_No == 7) {
+			loc = "/board2/qnaSelectOne.do?board_No="+board_No;
+		} else if (type_No == 8) {
+			loc = "/selectOneMento.bo?board_no="+board_No;
+		} else if (type_No == 9) {
+			loc = "/selectOneInterview.bo?board_no="+board_No;			
+		} else if (type_No == 10) {
+			loc = "/selectOneAccept.bo?board_no="+board_No;
+		}
 		
 		model.addAttribute("loc", loc);
 		
 		return "user/common/pageMove";
 	}
 	
-	// ------------------------------------------------------------------
-	
-	// --------------------------- 블라인드 댓글 ---------------------------
-	@RequestMapping("/comments2/blindInsertComment.do")
-	public String blindInsertComment(@RequestParam int board_No,
-								@RequestParam int mem_No,
-								@RequestParam String comm_Content,
-								Comments2 comment, Model model) {
-		
-		int result = cs.insertComment(comment);
-		
-		String loc = "/board2/blindSelectOne.do?board_No="+board_No;
-		String msg = "";
-		
-		model.addAttribute("loc", loc);
-		
-		return "user/common/pageMove";
-	}
-	
-	@RequestMapping("/comments2/blindDeleteComment.do")
-	public String blindDeleteComment(@RequestParam int board_No,
-								@RequestParam int comm_No,
-								HttpSession session,
-								Comments2 comment, Model model) {
-		
-		int result = cs.deleteComment(comment);
-		
-		String loc = "/board2/blindSelectOne.do?board_No="+board_No;
-		String msg = "";
-		
-		
-		model.addAttribute("loc", loc);
-		
-		return "user/common/pageMove";
-	}
-	
-	@RequestMapping("/comments2/blindUpdateComment.do")
-	public String blindUpdateComment(@RequestParam int board_No,
-								@RequestParam int comm_No,
-								@RequestParam String comm_Content,
-								Comments2 comment, Model model) {
-		
-		int result = cs.updateComment(comment);
 
-		System.out.println("댓글 업데이트: " + comm_Content);
-		
-		String loc = "/board2/blindSelectOne.do?board_No="+board_No;
-		String msg = "";
-		
-		
-		model.addAttribute("loc", loc);
-		
-		return "user/common/pageMove";
-	}
-	
-	// ------------------------------------------------------------------
-	
-	// --------------------------- QnA 댓글 ------------------------------
-	@RequestMapping("/comments2/qnaInsertComment.do")
-	public String qnaInsertComment(@RequestParam int board_No,
-								@RequestParam int mem_No,
-								@RequestParam String comm_Content,
-								Comments2 comment, Model model) {
-		
-		int result = cs.insertComment(comment);
-		
-		String loc = "/board2/qnaSelectOne.do?board_No="+board_No;
-		String msg = "";
-		
-		model.addAttribute("loc", loc);
-		
-		return "user/common/pageMove";
-	}
-	
-	@RequestMapping("/comments2/qnaDeleteComment.do")
-	public String qnaDeleteComment(@RequestParam int board_No,
-								@RequestParam int comm_No,
-								HttpSession session,
-								Comments2 comment, Model model) {
-		
-		int result = cs.deleteComment(comment);
-		
-		String loc = "/board2/qnaSelectOne.do?board_No="+board_No;
-		String msg = "";
-		
-		
-		model.addAttribute("loc", loc);
-		
-		return "user/common/pageMove";
-	}
-	
-	@RequestMapping("/comments2/qnaUpdateComment.do")
-	public String qnaUpdateComment(@RequestParam int board_No,
-								@RequestParam int comm_No,
-								@RequestParam String comm_Content,
-								Comments2 comment, Model model) {
-		
-		int result = cs.updateComment(comment);
-
-		System.out.println("댓글 업데이트: " + comm_Content);
-		
-		String loc = "/board2/qnaSelectOne.do?board_No="+board_No;
-		String msg = "";
-		
-		
-		model.addAttribute("loc", loc);
-		
-		return "user/common/pageMove";
-	}
-	
-	// ------------------------------------------------------------------
-	
-	// --------------------------- 채용공고 댓글 ----------------------------
-	@RequestMapping("/comments2/jobInsertComment.do")
-	public String jobInsertComment(@RequestParam int board_No,
-								@RequestParam int mem_No,
-								@RequestParam String comm_Content,
-								Comments2 comment, Model model) {
-		
-		int result = cs.insertComment(comment);
-		
-		String loc = "/board2/jobSelectOne.do?board_No="+board_No;
-		String msg = "";
-		
-		model.addAttribute("loc", loc);
-		
-		return "user/common/pageMove";
-	}
-	
-	@RequestMapping("/comments2/jobDeleteComment.do")
-	public String jobDeleteComment(@RequestParam int board_No,
-								@RequestParam int comm_No,
-								HttpSession session,
-								Comments2 comment, Model model) {
-		
-		int result = cs.deleteComment(comment);
-		
-		String loc = "/board2/jobSelectOne.do?board_No="+board_No;
-		String msg = "";
-		
-		
-		model.addAttribute("loc", loc);
-		
-		return "user/common/pageMove";
-	}
-	
-	@RequestMapping("/comments2/jobUpdateComment.do")
-	public String jobUpdateComment(@RequestParam int board_No,
-								@RequestParam int comm_No,
-								@RequestParam String comm_Content,
-								Comments2 comment, Model model) {
-		
-		int result = cs.updateComment(comment);
-
-		System.out.println("댓글 업데이트: " + comm_Content);
-		
-		String loc = "/board2/jobSelectOne.do?board_No="+board_No;
-		String msg = "";
-		
-		
-		model.addAttribute("loc", loc);
-		
-		return "user/common/pageMove";
-	}
 }

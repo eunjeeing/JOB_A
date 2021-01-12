@@ -121,22 +121,22 @@ p {
 												<i class="far fa-comment" style="margin-right: 0; margin-left: 14px;"></i> ${blah.comm_Count }
 												<div class="info_fnc">
 													<span class="date"> 
-													<i class="far fa-clock"></i>${blah.board_Date}
+													<i class="far fa-clock" style="margin:0;"></i>  ${blah.board_Date}
 													</span>
 													<c:if test="${!empty bookmarkList}">
 														<c:set var="bCnt" value="0"/>
 														<c:forEach items="${bookmarkList}" var="bookmark">
 															<c:if test="${bookmark.board_no == blah.board_No}">
-																<i class="fas fa-bookmark" id="bookmark"></i>
+																<i class="fas fa-bookmark" id="bookmark" style="margin-left:14px;"></i>
 																<c:set var="bCnt" value="${bCnt + 1}"/>
 															</c:if>
 														</c:forEach>
 														<c:if test="${bCnt eq 0}">
-															<i class="far fa-bookmark" id="bookmark"></i>
+															<i class="far fa-bookmark" id="bookmark" style="margin-left:14px;"></i>
 														</c:if>
 													</c:if>
 													<c:if test="${empty bookmarkList}">
-														<i class="far fa-bookmark" id="bookmark"></i>
+														<i class="far fa-bookmark" id="bookmark" style="margin-left:14px;"></i>
 													</c:if>
 												</div>
 											</div>
@@ -220,6 +220,12 @@ p {
     				location.href="${pageContext.request.contextPath}/board2/searchBlahList.do?keyword="+$('#search').val();
     			}
     		}
-	</script>			
+	</script>
+	    	<!-- Scripts -->
+    	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+    	<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+    	<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+    	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+    	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>		
 </body>
 </html>

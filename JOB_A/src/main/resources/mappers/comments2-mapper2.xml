@@ -22,7 +22,7 @@
 		<if test="comm_Ref == 0">1,</if>
 		<if test="comm_Ref != 0">#{comm_Ref},</if>
 		<if test="comm_Ref == 0">NULL,</if>
-		 DEFAULT, DEFAULT)
+		 DEFAULT, DEFAULT, DEFAULT)
 	</insert>
 	
 	<!-- 댓글 삭제 -->
