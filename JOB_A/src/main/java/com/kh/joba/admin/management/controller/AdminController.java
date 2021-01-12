@@ -89,7 +89,7 @@ public class AdminController {
 	public String adminUpdateView(int adminNo, Model model) {
 		System.out.println(adminNo);
 		Admin admin = adminService.selectAdmin(adminNo);
-		
+		System.out.println(admin);
 		model.addAttribute("admin", admin);
 		return "admin/management/adminUpdateView";
 	}
@@ -155,6 +155,7 @@ public class AdminController {
 	
 	@RequestMapping("user/selectBoardList")
 	public List<Map<String,String>> selectBoardList(int memNo) { 
+		System.out.println(memNo);
 		List<Map<String,String>> boardList = new ArrayList<Map<String,String>>();
 		boardList = adminService.selectBoardList(memNo);
 		System.out.println("boardList : " + boardList);

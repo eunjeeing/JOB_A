@@ -6,54 +6,83 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
-    <title>등업 리스트</title>
-    <!-- Simple bar CSS -->
-    <link rel="stylesheet" href="css/simplebar.css">
-    <!-- Fonts CSS -->
-    <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <!-- Icons CSS -->
-    <link rel="stylesheet" href="css/feather.css">
-    <!-- Date Range Picker CSS -->
-    <link rel="stylesheet" href="css/daterangepicker.css">
-    <!-- App CSS -->
-    <link rel="stylesheet" href="css/app-light.css" id="lightTheme" disabled>
-    <link rel="stylesheet" href="css/app-dark.css" id="darkTheme">
-  </head>
-  <body class="vertical  dark  ">
-    <div class="wrapper">
-      <!-- 헤더 -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="favicon.ico">
+<title>등업 리스트</title>
+</head>
+<body class="vertical  dark  ">
+	<div class="wrapper">
+		<!-- 헤더 -->
 		<c:import url="../common/navbar.jsp" />
 		<!-- 사이드 바 -->
 		<c:import url="../common/sidebar.jsp" />
-      <main role="main" class="main-content">
-        <div class="container-fluid">
-          <div class="row justify-content-center">
-            <div class="col-12">
-              <h2 class="page-title">등업 리스트</h2>
-              <div class="row">
-              
-              </div> <!-- end section -->
-            </div> <!-- .col-12 -->
-          </div> <!-- .row -->
-        </div> <!-- .container-fluid -->
-      </main> <!-- main -->
-    </div> <!-- .wrapper -->
+		<main role="main" class="main-content">
+			<div class="container-fluid">
+				<div class="row justify-content-center">
+					<div class="col-12">
+						<h2 class="page-title">등업 리스트</h2>
+						<div class="row">
+							<div class="col-md-12 my-4">
+								<div class="card shadow">
+									<div class="card-body">
 
-	<script src="${pageContext.request.contextPath}/resources/admin/js/apps.js"></script>
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async
-		src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+										<!-- table -->
+										<table class="table table-hover datatables" id="dataTable-1">
+											<thead>
+												<tr role="row">
+													<th>No.</th>
+													<th>제목</th>
+													<th>작성자</th>
+													<th>등록일</th>
+													<th>활동내역으로 이동</th>
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach items="${gradeList}" var="g">
+													<tr>
+														<td>${g.board_No}</td>
+														<td>${g.board_Title}</td>
+														<td>${g.mem_Nick}</td>
+														<td>${g.board_Date}</td>
+														<td>
+															<a class="dropdown-item" href="${pageContext.request.contextPath}/user/userDetail?memNo=${g.mem_No}">활동내역</a>
+														</td>
+													</tr>
+												</c:forEach>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<!-- simple table -->
+						</div>
+						<!-- end section -->
+					</div>
+					<!-- .col-12 -->
+				</div>
+				<!-- .row -->
+			</div>
+			<!-- .container-fluid -->
+		</main>
+		<!-- main -->
+	</div>
+	<!-- .wrapper -->
 
-	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/bootstrap.min.js"></script>
 
-	
 	<script>
+	$('#dataTable-1').DataTable(
+		      {
+		        autoWidth: true,
+		        "lengthMenu": [
+		          [16, 32, 64, -1],
+		          [16, 32, 64, "All"]
+		        ]
+		      });
+    
       window.dataLayer = window.dataLayer || [];
 
       function gtag()
@@ -63,5 +92,5 @@
       gtag('js', new Date());
       gtag('config', 'UA-56159088-1');
     </script>
-  </body>
+</body>
 </html>

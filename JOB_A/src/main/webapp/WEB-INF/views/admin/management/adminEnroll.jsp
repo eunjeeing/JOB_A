@@ -8,7 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 등록</title>
-<script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
 </head>
 <body>
 <body class="vertical  dark  ">
@@ -52,8 +51,7 @@
 											</div>
 											<fieldset class="form-group">
 												<div class="row">
-													<label for="adminPhone"
-														class="col-form-label col-sm-3 pt-0">연락처</label>
+													<label for="adminPhone" class="col-form-label col-sm-3 pt-0">연락처</label>
 													<div class="col-sm-6">
 														<input class="form-control input-phoneus" id="adminPhone" name="adminPhone" maxlength="14" required>
 													</div>
@@ -66,10 +64,20 @@
 														name="adminEmail" placeholder="사번이 아이디로 사용됩니다">
 												</div> @job-jo8a.com
 											</div>
-											<div>
-												<input type="hidden" name="gradeNo" value="1" />
+											<div class="form-group row">
+												<label for="gradeNo" class="col-form-label col-sm-3 pt-0">부서 선택</label>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<div class="custom-control custom-radio col-sm-3">
+													<input type="radio" id="gradeNo1" name="gradeNo" value="1" class="custom-control-input">
+													<label class="custom-control-label" for="gradeNo1">일반 관리자</label>
+												</div>
+												
+												<div class="custom-control custom-radio col-sm-3">
+													<input type="radio" id="gradeNo2" name="gradeNo" value="5" class="custom-control-input">
+													<label class="custom-control-label" for="gradeNo2">인사 담당자</label>
+												</div>
 											</div>
-											
+
 											<div class="form-group mb-2">
 												<button type="submit" class="btn btn-primary">등록</button>
 											</div>
