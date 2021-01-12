@@ -291,7 +291,7 @@ p {
 												<c:if test="${member.memNo eq co.mem_No}">
 													<a href="#" onclick="updateComment(this);return false;">수정</a>
 													<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
-													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
+													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?type_No=${board2.type_No}&board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
 												</c:if>
 												<span><i class="fas fa-exclamation-triangle"></i></span>
 											</div>
@@ -318,7 +318,7 @@ p {
 													<c:if test="${member.memNo eq co.mem_No}">
 														<a href="#" onclick="updateComment(this);return false;">수정</a>
 														<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
-														<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
+														<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?type_No=${board2.type_No}&board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
 													</c:if>
 													<span><i class="fas fa-exclamation-triangle"></i></span>
 												</div>
@@ -357,8 +357,9 @@ p {
 								alert("댓글을 입력해 주세요");
 								return false;
 							} else {
-								location.href = '${pageContext.request.contextPath}/comments2/insertComment.do?board_No=${board2.board_No}&mem_No=${member.memNo}&comm_Content='
+								location.href = '${pageContext.request.contextPath}/comments2/insertComment.do?type_No=${board2.type_No}&board_No=${board2.board_No}&mem_No=${member.memNo}&comm_Content='
 										+ comm_Content.value;
+								alert("댓글 작성 완료");
 							}
 						}, false);
 
@@ -383,7 +384,7 @@ p {
 
 			console.log(content);
 			
-			location.href = "${pageContext.request.contextPath}/comments2/updateComment.do?board_No=${board2.board_No}&comm_No=" + comm_No + "&comm_Content="
+			location.href = "${pageContext.request.contextPath}/comments2/updateComment.do?type_No=${board2.type_No}&board_No=${board2.board_No}&comm_No=" + comm_No + "&comm_Content="
 				+ content;
 		}
 
@@ -431,7 +432,7 @@ p {
 			var comm_Content = $(obj).prev().find('textarea').val();
 			console.log("댓글 내용 : " + comm_Content);
 
-			location.href="${pageContext.request.contextPath}/comments2/insertComment.do?board_No=${board2.board_No}&mem_No=${member.memNo}&comm_Content="
+			location.href="${pageContext.request.contextPath}/comments2/insertComment.do?type_No=${board2.type_No}&board_No=${board2.board_No}&mem_No=${member.memNo}&comm_Content="
 				+ comm_Content + "&comm_Ref=" + comm_Ref + "&comm_Level=" + comm_Level;
 	    }
 
