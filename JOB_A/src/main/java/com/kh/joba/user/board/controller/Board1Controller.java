@@ -43,13 +43,13 @@ public class Board1Controller {
 	public String noticeForm() {
 		return "user/board/notice/noticeInsertForm";
 	}
-	@RequestMapping("/commonWrite.bo")
-	public String commonForm() {
-		return "user/board/write/commonWrite";
-	}
 	@RequestMapping("/interviewWrite.bo")
 	public String interviewForm() {
 		return "user/board/review/interview/interviewInsertForm";
+	}
+	@RequestMapping("/acceptWrite.bo")
+	public String acceptForm() {
+		return "user/board/review/interview/acceptInsertForm";
 	}
 	@RequestMapping("/mentoWrite.bo")
 	public String mentoForm() {
