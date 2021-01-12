@@ -30,28 +30,43 @@
 										<!-- table -->
 										<table class="table table-bordered" id="dataTable-1">
 											<thead>
-												<tr role="row">
+												<tr role="row" >
 													<th>NO.</th>
-													<th>제목</th>
+													<th>게시글 제목</th>
 													<th>게시글 작성자</th> <!-- 피신고자 : memNo2 -->
-													<th>등록일</th>
+													<th>신고사유</th>
 													<th>신고자</th> <!-- memNo -->
+													<th>신고일</th>
 													<th>상태</th>
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${reportList}" var="m"> 
-													<tr>
+												<c:forEach items="${reportList}" var="m" varStatus="status"> 
+													<tr onclick="location.href='${pageContext.request.contextPath}/boardReportDetail.do?boardNo=${m.boardNo}&reportReason=${m.reportReason}&appendantMemNick=${appendantList[status.index].memNick}&reporterMemNick=${reporterList[status.index].memNick}';">
 														<td>${m.reportNo}</td>
-														<td>게시글 제목</td>
-														<td>${m.memNo2}</td>
+														<td>${boardList[status.index].board_Title }</td>
+														<td>${appendantList[status.index].memNick}</td>
+														<td>${m.reportReason }</td>
+														<td>${reporterList[status.index].memNick}</td>
 														<td>${m.reportDate}</td>
-														<td>${m.memNo}</td>
 														<td> <!-- 토글버튼 -->
+									
 															<div class="custom-control custom-switch">
-																<input type="checkbox" class="custom-control-input" id="${m.memNo}" onclick="toggle(this)">
-																<label class="custom-control-label" for="${m.memNo}"></label>
+														<c:if test="${boardList[status.index].board_Status eq 'Y'}">
+																<input type="checkbox" class="custom-control-input" 
+																		id="${boardList[status.index].board_No}" disabled="disabled" name="statusY" checked>
+																<label class="custom-control-label"
+																 for="${boardList[status.index].board_No}"></label>
+														</c:if>
+														
+														<c:if test="${boardList[status.index].board_Status eq 'N'}">
+															<input type="checkbox" class="custom-control-input" 
+																id="${boardList[status.index].board_No}" disabled="disabled" >
+															<label class="custom-control-label"
+																for="${boardList[status.index].board_No}"></label>
+															</c:if>	 															
 															</div>
+															
 														</td>
 													</tr>
 												</c:forEach>
@@ -100,12 +115,19 @@
 		gtag('js', new Date());
 		gtag('config', 'UA-56159088-1');
 
-
-      	function(toggle(e)) {
-			console.log(e.checked)
-      	}
+      	/*
+      	$(document).ready(function(){
+      	    $(".custom-control-input").change(function(){
+      	        if($(".custom-control-input").is(":checked")){
+      	            alert("체크박스 체크했음!");
+      	        }else{
+      	            alert("체크박스 체크 해제!");
+      	        }
+      	    });
+      	});
+      	*/
     </script>
-
+	
 <!-- 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	<script type="text/javascript">
 

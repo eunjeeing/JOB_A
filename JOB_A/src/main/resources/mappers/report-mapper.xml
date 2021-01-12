@@ -14,14 +14,56 @@
 		<result property="memNo2" column="MEM_NO2"/>
 	</resultMap>
 	
+	<resultMap id="resultMember" type="Member">
+		<id property="memNo" column="MEM_NO"/>
+		<result property="gradeNo" column="GRADE_NO"/>
+		<result property="memId" column="MEM_ID"/>
+		<result property="memPw" column="MEM_PW"/>
+		<result property="memNick" column="MEM_NICK"/>
+		<result property="memEmail" column="MEM_EMAIL"/>
+		<result property="memBirth" column="MEM_BIRTH"/>
+		<result property="memArea" column="MEM_AREA"/>
+		<result property="memState" column="MEM_STATE"/>
+		<result property="memDate" column="MEM_DATE"/>
+		<result property="memName" column="MEM_NAME"/>
+		<result property="memPhone" column="MEM_PHONE"/>
+	</resultMap>
+	
+	<!-- 게시글 신고 리스트 -->
 	<select id="selectReportList" resultMap="Report">
 		SELECT * FROM REPORT
-		ORDER BY MEM_NO DESC
+		ORDER BY REPORT_NO DESC
 	</select>
 	
+	<!-- 게시판 조회 -->
+	<select id="selectBoardList" resultType="Board">
+		SELECT * FROM BOARD
+		WHERE BOARD_NO = #{boardNo}
+	</select>
+	
+	<!-- 멤버 조회 -->
+	<select id="selectMember" resultMap="resultMember" parameterType="int">
+		SELECT MEM_NO, GRADE_NO, MEM_ID, MEM_PW, MEM_NICK, MEM_EMAIL, MEM_BIRTH, MEM_AREA, MEM_STATE, MEM_DATE, MEM_NAME, MEM_PHONE
+  		FROM MEMBER
+		WHERE MEM_NO = #{memNo}
+	</select>
+	
+	<!-- 게시판 타입 가지고 오기 -->
+	<select id="selectBoardType" resultType="String" parameterType="int">
+		SELECT TYPE_NAME FROM BOARDTYPE
+		WHERE TYPE_NO = #{type_No}
+	</select>
+	
+	<!-- 게시글 신고 -->
 	<insert id="insertReport" parameterType="Report">
 		INSERT INTO REPORT 
 		VALUES(REPORT_SEQ.NEXTVAL, #{memNo}, #{boardNo}, #{commNo}, #{reportReason}, DEFAULT, #{memNo2})
 	</insert>
 	
+	<!-- 게시글 비화성화, 활성화 -->
+	<update id="updateBoard" parameterType="Board">
+		UPDATE BOARD SET 
+		BOARD_STATUS = #{board_Status}
+		WHERE BOARD_NO = #{board_No}
+	</update>
 </mapper>
