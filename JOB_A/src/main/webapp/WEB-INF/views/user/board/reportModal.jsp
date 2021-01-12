@@ -91,13 +91,9 @@
 </style>
 </head>
 <body>
-  <!-- Trigger/Open The Modal -->
-  <button id="myBtn">Open Modal</button>
- 
+
       <!-- The Modal -->
       <div  id="myModal" class="modal">
-
-    
    
         <!-- Modal content-->
   
@@ -106,7 +102,7 @@
           <div class="modal-header">
   
             <span class="close">&times;</span>  
-            <h4 class="modal-title">신고 <h4> <!-- 사용자 지정 부분② : 타이틀 -->
+            <h4 class="modal-title">게시글 신고<h4> <!-- 사용자 지정 부분② : 타이틀 -->
   
           </div>
   
@@ -114,30 +110,30 @@
             <form id="form1" action="${pageContext.request.contextPath}/insertReport.do" method="post">
   
            <!-- radio, checkbox가 안먹힘 : 템플릿에 먹혀서 그런거 같아서 일단 구현하려고 임시로 버튼 해놓음 -->
-           <!-- <input type="hidden" class="reason1" name="reason" value=""/> -->
            <input type="hidden" class="modal_board" name="board2" value=""/>
            <input type="hidden" class="modal_board_no" name="board2_no" value=""/>
            <input type="hidden" class="modal_reporter" name="declare" value=""/>
-              <!-- <p>신고 사유를 선택해주세요.</p> --> <!-- 사용자 지정 부분③ : 텍스트 메시지 -->
+           
               <div class="form-group">
-               <label for="reportReason">신고 사유 선택</label>
+               <label for="reportReason"><h3>신고 사유를 선택해주세요.</h3></label> <!-- 사용자 지정 부분③ : 텍스트 메시지 -->
                <select class="form-control" name="reason" id="reportReason">
-                 <option class="reportConfirm" value="허위사실">허위 사실인 것 같아요!</option>
-                 <option class="reportConfirm" value="음란물">문란하다고 생각합니다!</option>
-                 <option class="reportConfirm" value="광고글">광고글인 것 같아요!</option>
-                 <option class="reportConfirm" value="기타">기타</option>
-            
+                 <option class="reportConfirm" value="허위사실">&nbsp;&nbsp;&nbsp;허위 사실인 것 같아요!</option>
+                 <option class="reportConfirm" value="욕설">&nbsp;&nbsp;&nbsp;욕설이 담겨져 있어요!</option>
+                 <option class="reportConfirm" value="음란물">&nbsp;&nbsp;&nbsp;문란하다고 생각합니다!</option>
+                 <option class="reportConfirm" value="광고글">&nbsp;&nbsp;&nbsp;광고글인 것 같아요!</option>
+                 <option class="reportConfirm" value="기타">&nbsp;&nbsp;&nbsp;기타</option>
                </select>
+               
                 <br />
                 <br />
-               <input type="submit" class="submitBtn" value="제출" />
+          		<input type="submit" class="submitBtn" value="제출" />
              </div>
-              <!-- <input type="button" class="reportBtn" value="허위사실">허위 사실인 것 같아요! <br>
-              <input type="button" class="reportBtn" value="음란물">문란하다고 생각합니다!<br>
-              <input type="button" class="reportBtn" value="광고글">광고글인 것 같아요!<br>
-              <input type="button" class="reportBtn" value="욕설">욕설이 담겨져 있어요!<br>
-              <input type="button" class="reportBtn" value="기타"/> -->
-      <!--         <input type="button" class="reportBtn" name="reason" value="">기타 <input type="text"><br> -->
+           <!-- <input type="button" class="reportBtn" value="허위사실">허위 사실인 것 같아요! <br>
+             	<input type="button" class="reportBtn" value="음란물">문란하다고 생각합니다!<br>
+              	<input type="button" class="reportBtn" value="광고글">광고글인 것 같아요!<br>
+              	<input type="button" class="reportBtn" value="욕설">욕설이 담겨져 있어요!<br>
+              	<input type="button" class="reportBtn" value="기타"/> 
+     		  	<input type="button" class="reportBtn" name="reason" value="">기타 <input type="text"><br> -->
               
             </form>
           </div>
