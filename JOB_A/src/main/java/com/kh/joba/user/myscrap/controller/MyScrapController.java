@@ -21,7 +21,7 @@ import com.kh.joba.user.myscrap.model.service.MyScrapService;
 @Controller
 public class MyScrapController {
 	
-	
+	/*
 	@Autowired
 	MyScrapService mss;
 	
@@ -77,7 +77,7 @@ public class MyScrapController {
 		
 	}
 	
-	/*
+	
 	@RequestMapping("/searchScrapList.bo")
 	public String searchMentoList(
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,

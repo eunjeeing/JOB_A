@@ -12,8 +12,10 @@ import com.kh.joba.user.myscrap.model.dao.MyScrapDAO;
 @Service
 public class MyScrapServiceImpl implements MyScrapService {
 	
+	/*
 	@Autowired
 	MyScrapDAO msDAO;
+	 * */
 
 	@Override
 	public List<Map<String, String>> selectMyScrapList(int cPage, int numPerPage, int mem_no) {
@@ -34,5 +36,6 @@ public class MyScrapServiceImpl implements MyScrapService {
 	public int sortMyScrapTotalContents(int mem_no) {
 		return 0;
 	}
+	 
 
 }

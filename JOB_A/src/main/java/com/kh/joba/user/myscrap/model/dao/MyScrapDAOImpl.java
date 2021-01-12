@@ -7,7 +7,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class MyScrapDAOImpl {
 	
+	/*
 	@Autowired
 	SqlSessionTemplate sqlSession;
+	 * */
 
 }
