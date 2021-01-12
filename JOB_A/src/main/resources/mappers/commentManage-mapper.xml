@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="commnetM-Mapper">
+<mapper namespace="commentM-Mapper">
 
 <!-- 댓글 관리 -->	
 	<select id="jobCommentList" resultType="Comments2">
@@ -9,32 +9,17 @@
 		WHERE TYPE_NO = 2 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD.BOARD_NO = COMMENTS.BOARD_NO
 		ORDER BY COMM_DATE DESC, COMM_NO DESC
 	</select>
-	
-	<select id="jobCommentTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM COMMENTS, BOARD
-		WHERE TYPE_NO = 2 AND BOARD.BOARD_NO = COMMENTS.BOARD_NO
-	</select>
-	
+
 	<select id="blahCommentList" resultType="Comments2">
 		SELECT * FROM COMMENTS, BOARD, MEMBER
 		WHERE TYPE_NO = 4 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD.BOARD_NO = COMMENTS.BOARD_NO
 		ORDER BY COMM_DATE DESC, COMM_NO DESC
 	</select>
-	
-	<select id="blahCommentTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM COMMENTS, BOARD
-		WHERE TYPE_NO = 4 AND BOARD.BOARD_NO = COMMENTS.BOARD_NO
-	</select>
-	
+
 	<select id="blindCommentList" resultType="Comments2">
 		SELECT * FROM COMMENTS, BOARD, MEMBER
 		WHERE TYPE_NO = 5 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD.BOARD_NO = COMMENTS.BOARD_NO
 		ORDER BY COMM_DATE DESC, COMM_NO DESC
-	</select>
-	
-	<select id="blindCommentTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM COMMENTS, BOARD
-		WHERE TYPE_NO = 5 AND BOARD.BOARD_NO = COMMENTS.BOARD_NO
 	</select>
 	
 	<select id="tomoCommentList" resultType="Comments2">
@@ -43,53 +28,42 @@
 		ORDER BY COMM_DATE DESC, COMM_NO DESC
 	</select>
 	
-	<select id="tomoCommentTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM COMMENTS, BOARD
-		WHERE TYPE_NO = 6 AND BOARD.BOARD_NO = COMMENTS.BOARD_NO
-	</select>
-	
 	<select id="qnaCommentList" resultType="Comments2">
 		SELECT * FROM COMMENTS, BOARD, MEMBER
 		WHERE TYPE_NO = 7 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD.BOARD_NO = COMMENTS.BOARD_NO
 		ORDER BY COMM_DATE DESC, COMM_NO DESC
 	</select>
-	
-	<select id="qnaCommentTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM COMMENTS, BOARD
-		WHERE TYPE_NO = 7 AND BOARD.BOARD_NO = COMMENTS.BOARD_NO
-	</select>
-	
+
 	<select id="acceptCommentList" resultType="Comments2">
 		SELECT * FROM COMMENTS, BOARD, MEMBER
 		WHERE TYPE_NO = 10 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD.BOARD_NO = COMMENTS.BOARD_NO
 		ORDER BY COMM_DATE DESC, COMM_NO DESC
 	</select>
-	
-	<select id="acceptCommentTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM COMMENTS, BOARD
-		WHERE TYPE_NO = 10 AND BOARD.BOARD_NO = COMMENTS.BOARD_NO
-	</select>
-	
+
 	<select id="interviewCommentList" resultType="Comments2">
 		SELECT * FROM COMMENTS, BOARD, MEMBER
 		WHERE TYPE_NO = 9 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD.BOARD_NO = COMMENTS.BOARD_NO
 		ORDER BY COMM_DATE DESC, COMM_NO DESC
 	</select>
-	
-	<select id="interviewCommentTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM COMMENTS, BOARD
-		WHERE TYPE_NO = 9 AND BOARD.BOARD_NO = COMMENTS.BOARD_NO
-	</select>
-	
+
 	<select id="mentoCommentList" resultType="Comments2">
 		SELECT * FROM COMMENTS, BOARD, MEMBER
 		WHERE TYPE_NO = 8 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD.BOARD_NO = COMMENTS.BOARD_NO
 		ORDER BY COMM_DATE DESC, COMM_NO DESC
 	</select>
 	
-	<select id="mentoCommentTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM COMMENTS, BOARD
-		WHERE TYPE_NO = 8 AND BOARD.BOARD_NO = COMMENTS.BOARD_NO
-	</select>
+	<!-- 블라인드 처리 -->
+	<update id="updateCommStatusB" parameterType="_int">
+		UPDATE COMMENTS
+		SET COMM_STATUS = 'B'
+		WHERE COMM_NO = #{comm_No}
+	</update>
+	
+	<!-- 활성화 처리 -->
+	<update id="updateCommStatusY" parameterType="_int">
+		UPDATE COMMENTS
+		SET COMM_STATUS = 'Y'
+		WHERE COMM_NO = #{comm_No}
+	</update>
 	
 </mapper>

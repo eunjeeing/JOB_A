@@ -21,169 +21,166 @@ public class CommentManageController {
 	// 댓글 리스트 출력
 	// 채용공고
 	@RequestMapping("/admin/jobCommentList.do")
-	public String jobCommentList(
-			@RequestParam( value="cPage", required=false, defaultValue="1") int cPage, Model model) {
-			
-		int numPerPage = 10; // 한 페이지 당 게시글 and 페이지 수
-		
-		List<Map<String, String>> list = cms.jobCommentList(cPage, numPerPage);
-		
-		int totalContents = cms.jobCommentTotalContents();
-		
-		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "jobCommentList.do");
-				
+	public String jobCommentList(Model model) {
+					
+		List<Map<String, String>> list = cms.jobCommentList();
+						
 		model.addAttribute("jobCommentList", list);
-		model.addAttribute("totalContents", totalContents);
-		model.addAttribute("numPerPage", numPerPage);
-		model.addAttribute("pageBar", pageBar);
 	
 		return "admin/commentManage/jobCommentList";
 	}
 	
 	// 블라블라
 	@RequestMapping("/admin/blahCommentList.do")
-	public String blahCommentList(
-			@RequestParam( value="cPage", required=false, defaultValue="1") int cPage, Model model) {
-			
-		int numPerPage = 10; // 한 페이지 당 게시글 and 페이지 수
-		
-		List<Map<String, String>> list = cms.blahCommentList(cPage, numPerPage);
-		
-		int totalContents = cms.blahCommentTotalContents();
-		
-		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "blahCommentList.do");
-				
+	public String blahCommentList(Model model) {
+					
+		List<Map<String, String>> list = cms.blahCommentList();
+								
 		model.addAttribute("blahCommentList", list);
-		model.addAttribute("totalContents", totalContents);
-		model.addAttribute("numPerPage", numPerPage);
-		model.addAttribute("pageBar", pageBar);
 	
 		return "admin/commentManage/blahCommentList";
 	}
 	
 	// 블라인드
 	@RequestMapping("/admin/blindCommentList.do")
-	public String blindCommentList(
-			@RequestParam( value="cPage", required=false, defaultValue="1") int cPage, Model model) {
-			
-		int numPerPage = 10; // 한 페이지 당 게시글 and 페이지 수
+	public String blindCommentList(Model model) {
+					
+		List<Map<String, String>> list = cms.blindCommentList();
 		
-		List<Map<String, String>> list = cms.blindCommentList(cPage, numPerPage);
-		
-		int totalContents = cms.blindCommentTotalContents();
-		
-		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "blindCommentList.do");
-				
 		model.addAttribute("blindCommentList", list);
-		model.addAttribute("totalContents", totalContents);
-		model.addAttribute("numPerPage", numPerPage);
-		model.addAttribute("pageBar", pageBar);
 	
 		return "admin/commentManage/blindCommentList";
 	}
 	
 	// 언틸투모로우
 	@RequestMapping("/admin/tomoCommentList.do")
-	public String tomoCommentList(
-			@RequestParam( value="cPage", required=false, defaultValue="1") int cPage, Model model) {
-			
-		int numPerPage = 10; // 한 페이지 당 게시글 and 페이지 수
-		
-		List<Map<String, String>> list = cms.tomoCommentList(cPage, numPerPage);
-		
-		int totalContents = cms.tomoCommentTotalContents();
-		
-		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "tomoCommentList.do");
-				
+	public String tomoCommentList(Model model) {
+					
+		List<Map<String, String>> list = cms.tomoCommentList();
+								
 		model.addAttribute("tomoCommentList", list);
-		model.addAttribute("totalContents", totalContents);
-		model.addAttribute("numPerPage", numPerPage);
-		model.addAttribute("pageBar", pageBar);
-	
+
 		return "admin/commentManage/tomoCommentList";
 	}
 	
 	// Q&A
 	@RequestMapping("/admin/qnaCommentList.do")
-	public String qnaCommentList(
-			@RequestParam( value="cPage", required=false, defaultValue="1") int cPage, Model model) {
-			
-		int numPerPage = 10; // 한 페이지 당 게시글 and 페이지 수
-		
-		List<Map<String, String>> list = cms.qnaCommentList(cPage, numPerPage);
-		
-		int totalContents = cms.qnaCommentTotalContents();
-		
-		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "qnaCommentList.do");
-				
+	public String qnaCommentList(Model model) {
+					
+		List<Map<String, String>> list = cms.qnaCommentList();
+								
 		model.addAttribute("qnaCommentList", list);
-		model.addAttribute("totalContents", totalContents);
-		model.addAttribute("numPerPage", numPerPage);
-		model.addAttribute("pageBar", pageBar);
 	
 		return "admin/commentManage/qnaCommentList";
 	}
 	
 	// 합격후기
 	@RequestMapping("/admin/acceptCommentList.do")
-	public String acceptCommentList(
-			@RequestParam( value="cPage", required=false, defaultValue="1") int cPage, Model model) {
-			
-		int numPerPage = 10; // 한 페이지 당 게시글 and 페이지 수
-		
-		List<Map<String, String>> list = cms.acceptCommentList(cPage, numPerPage);
-		
-		int totalContents = cms.acceptCommentTotalContents();
-		
-		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "acceptCommentList.do");
-				
-		model.addAttribute("acceptCommentList", list);
-		model.addAttribute("totalContents", totalContents);
-		model.addAttribute("numPerPage", numPerPage);
-		model.addAttribute("pageBar", pageBar);
+	public String acceptCommentList(Model model) {
+					
+		List<Map<String, String>> list = cms.acceptCommentList();
 	
+		model.addAttribute("acceptCommentList", list);
+		
 		return "admin/commentManage/acceptCommentList";
 	}
 	
 	// 면접후기
 	@RequestMapping("/admin/interviewCommentList.do")
-	public String interviewCommentList(
-			@RequestParam( value="cPage", required=false, defaultValue="1") int cPage, Model model) {
-			
-		int numPerPage = 10; // 한 페이지 당 게시글 and 페이지 수
-		
-		List<Map<String, String>> list = cms.interviewCommentList(cPage, numPerPage);
-		
-		int totalContents = cms.interviewCommentTotalContents();
-		
-		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "interviewCommentList.do");
-				
+	public String interviewCommentList( Model model) {
+					
+		List<Map<String, String>> list = cms.interviewCommentList();
+						
 		model.addAttribute("interviewCommentList", list);
-		model.addAttribute("totalContents", totalContents);
-		model.addAttribute("numPerPage", numPerPage);
-		model.addAttribute("pageBar", pageBar);
 	
 		return "admin/commentManage/interviewCommentList";
 	}
 	
 	// 멘토멘티
 	@RequestMapping("/admin/mentoCommentList.do")
-	public String mentoCommentList(
-			@RequestParam( value="cPage", required=false, defaultValue="1") int cPage, Model model) {
-			
-		int numPerPage = 10; // 한 페이지 당 게시글 and 페이지 수
-		
-		List<Map<String, String>> list = cms.mentoCommentList(cPage, numPerPage);
-		
-		int totalContents = cms.mentoCommentTotalContents();
-		
-		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "mentoCommentList.do");
-				
+	public String mentoCommentList(Model model) {
+					
+		List<Map<String, String>> list = cms.mentoCommentList();
+							
 		model.addAttribute("mentoCommentList", list);
-		model.addAttribute("totalContents", totalContents);
-		model.addAttribute("numPerPage", numPerPage);
-		model.addAttribute("pageBar", pageBar);
 	
 		return "admin/commentManage/mentoCommentList";
 	}
+	
+	@RequestMapping("/admin/updateCommStatusY.do")
+	public String updateCommStatusY(@RequestParam int comm_No, @RequestParam int type_No, Model model) {
+		
+		int result = cms.updateCommStatusY(comm_No, type_No);
+		
+		String msg = "";
+		String loc = "";
+		
+		if (type_No == 2) {
+			loc = "/admin/jobCommentList.do";
+		} else if(type_No == 4) {
+			loc = "/admin/blahCommentList.do";
+		} else if (type_No == 5) {
+			loc = "/admin/blindCommentList.do";
+		} else if (type_No == 6) {
+			loc = "/admin/tomoCommentList.do";
+		} else if (type_No == 7) {
+			loc = "/admin/qnaCommentList.do";
+		} else if (type_No == 8) {
+			loc = "/admin/mentoCommentList.do";
+		} else if (type_No == 9) {
+			loc = "/admin/interviewCommentList.do";
+		} else if (type_No == 10) {
+			loc = "/admin/acceptCommentList.do";
+		}
+
+		if (result > 0) {
+			msg = "활성화 처리 완료";
+
+		} else {
+			msg = "활성화 처리 실패";
+		}
+
+		model.addAttribute("msg", msg).addAttribute("loc", loc);
+		
+		return "user/common/msg";
+	}
+	
+	@RequestMapping("/admin/updateCommStatusB.do")
+	public String updateCommStatusB(@RequestParam int comm_No, @RequestParam int type_No, Model model) {
+		
+		int result = cms.updateCommStatusB(comm_No, type_No);
+		
+		String msg = "";
+		String loc = "";
+		
+		if (type_No == 2) {
+			loc = "/admin/jobCommentList.do";
+		} else if(type_No == 4) {
+			loc = "/admin/blahCommentList.do";
+		} else if (type_No == 5) {
+			loc = "/admin/blindCommentList.do";
+		} else if (type_No == 6) {
+			loc = "/admin/tomoCommentList.do";
+		} else if (type_No == 7) {
+			loc = "/admin/qnaCommentList.do";
+		} else if (type_No == 8) {
+			loc = "/admin/mentoCommentList.do";
+		} else if (type_No == 9) {
+			loc = "/admin/interviewCommentList.do";
+		} else if (type_No == 10) {
+			loc = "/admin/acceptCommentList.do";
+		}
+
+		if (result > 0) {
+			msg = "블라인드 처리 완료";
+
+		} else {
+			msg = "블라인드 처리 실패";
+		}
+
+		model.addAttribute("msg", msg).addAttribute("loc", loc);
+		
+		return "user/common/msg";
+	}
+
 }

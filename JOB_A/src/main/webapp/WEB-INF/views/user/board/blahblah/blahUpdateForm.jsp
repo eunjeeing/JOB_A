@@ -146,7 +146,7 @@ a {
 					<div class="wrapped" id="wrapped">
 						<div role="main" class="contents">
 					<form action="${pageContext.request.contextPath}/board2/updateBlah.do"
-						method="post" name="" onsubmit="return validate();">
+						method="post" onsubmit="return validate();">
 							<div class="acticle-view-head" id="head">
 								<div class="title-close" style="display: flex;">
 									<!-- 제목 -->

@@ -15,107 +15,55 @@ public class boardManageDAOImpl implements boardManageDAO {
 	SqlSessionTemplate sqlSession;
 	
 	@Override
-	public List<Map<String, String>> selectJobList(int cPage, int numPerPage) {
-		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
-		return sqlSession.selectList("boardM-Mapper.selectJobList", null, rows);
+	public List<Map<String, String>> selectJobList() {
+		return sqlSession.selectList("boardM-Mapper.selectJobList");
 	}
 
 	@Override
-	public int selectJobTotalContents() {
-		return sqlSession.selectOne("boardM-Mapper.selectJobTotalContents");
+	public List<Map<String, String>> selectBlahBlahList() {
+		return sqlSession.selectList("boardM-Mapper.selectBlahBlahList");
 	}
 
 	@Override
-	public List<Map<String, String>> selectBlahBlahList(int cPage, int numPerPage) {
-		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
-		return sqlSession.selectList("boardM-Mapper.selectBlahBlahList", null, rows);
+	public List<Map<String, String>> selnctBlindList() {
+		return sqlSession.selectList("boardM-Mapper.selectBlindList");
 	}
 
 	@Override
-	public int selectBlahBlahTotalContents() {
-		return sqlSession.selectOne("boardM-Mapper.selectBlahBlahTotalContents");
+	public List<Map<String, String>> selectQnAList() {
+		return sqlSession.selectList("boardM-Mapper.selectQnAList");
 	}
 
 	@Override
-	public List<Map<String, String>> selnctBlindList(int cPage, int numPerPage) {
-		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
-		return sqlSession.selectList("boardM-Mapper.selectBlindList", null, rows);
+	public List<Map<String, String>> selectAcceptList() {
+		return sqlSession.selectList("boardM-Mapper.selectAcceptList");
 	}
 
 	@Override
-	public int selectBlindTotalContents() {
-		return sqlSession.selectOne("boardM-Mapper.selectBlindTotalContents");
+	public List<Map<String, String>> selectInterviewList() {
+		return sqlSession.selectList("boardM-Mapper.selectInterviewList");
 	}
 
 	@Override
-	public List<Map<String, String>> selectQnAList(int cPage, int numPerPage) {
-		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
-		return sqlSession.selectList("boardM-Mapper.selectQnAList", null, rows);
+	public List<Map<String, String>> selectMentoList() {
+		return sqlSession.selectList("boardM-Mapper.selectMentoList");
 	}
 
 	@Override
-	public int selectQnATotalContents() {
-		return sqlSession.selectOne("boardM-Mapper.selectQnATotalContents");
+	public List<Map<String, String>> selectTomoList() {
+		return sqlSession.selectList("boardM-Mapper.selectTomoList");
 	}
 
 	@Override
-	public List<Map<String, String>> selectAcceptList(int cPage, int numPerPage) {
-		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
-		return sqlSession.selectList("boardM-Mapper.selectAcceptList", null, rows);
+	public int updateStatusY(int board_No, int type_No) {
+		return sqlSession.update("boardM-Mapper.updateStatusY", board_No);
+	}
+	
+	@Override
+	public int updateStatusB(int board_No, int type_No) {
+		return sqlSession.update("boardM-Mapper.updateStatusB", board_No);
 	}
 
-	@Override
-	public int selectAcceptTotalContents() {
-		return sqlSession.selectOne("boardM-Mapper.selectAcceptTotalContents");
-	}
 
-	@Override
-	public List<Map<String, String>> selectInterviewList(int cPage, int numPerPage) {
-		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
-		return sqlSession.selectList("boardM-Mapper.selectInterviewList", null, rows);
-	}
-
-	@Override
-	public int selectInterviewTotalContents() {
-		return sqlSession.selectOne("boardM-Mapper.selectInterviewTotalContents");
-	}
-
-	@Override
-	public List<Map<String, String>> selectMentoList(int cPage, int numPerPage) {
-		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
-		return sqlSession.selectList("boardM-Mapper.selectMentoList", null, rows);
-	}
-
-	@Override
-	public int selectMentoTotalContents() {
-		return sqlSession.selectOne("boardM-Mapper.selectMentoTotalContents");
-	}
-
-	@Override
-	public List<Map<String, String>> selectTomoList(int cPage, int numPerPage) {
-		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
-		return sqlSession.selectList("boardM-Mapper.selectTomoList", null, rows);
-	}
-
-	@Override
-	public int selectTomoTotalContents() {
-		return sqlSession.selectOne("boardM-Mapper.selectTomoTotalContents");
-	}
-
-	@Override
-	public List<Map<String, String>> searchJobList(int cPage, int numPerPage, String keyword) {
-		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
-		return sqlSession.selectList("boardM-Mapper.searchJobList", keyword, rows);
-	}
-
-	@Override
-	public int searchJobTotalContents(String keyword) {
-		return sqlSession.selectOne("boardM-Mapper.searchJobTotalContents");
-	}
-
-	@Override
-	public int updateJobStatus(int board_No) {
-		return sqlSession.update("boardM-Mapper.updateStatus", board_No);
-	}
 
 }

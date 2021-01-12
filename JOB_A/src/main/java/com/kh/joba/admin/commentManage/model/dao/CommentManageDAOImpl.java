@@ -15,91 +15,55 @@ public class CommentManageDAOImpl implements CommentManageDAO {
 	SqlSessionTemplate sqlSession;
 
 	@Override
-	public List<Map<String, String>> jobCommentList(int cPage, int numPerPage) {
-		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
-		return sqlSession.selectList("commnetM-Mapper.jobCommentList", null, rows);
+	public List<Map<String, String>> jobCommentList() {
+		return sqlSession.selectList("commentM-Mapper.jobCommentList");
 	}
 
 	@Override
-	public int jobCommentTotalContents() {
-		return sqlSession.selectOne("commnetM-Mapper.jobCommentTotalContents");
+	public List<Map<String, String>> blahCommentList() {
+		return sqlSession.selectList("commentM-Mapper.blahCommentList");
 	}
 
 	@Override
-	public List<Map<String, String>> blahCommentList(int cPage, int numPerPage) {
-		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
-		return sqlSession.selectList("commnetM-Mapper.blahCommentList", null, rows);
+	public List<Map<String, String>> blindCommentList() {
+		return sqlSession.selectList("commentM-Mapper.blindCommentList");
 	}
 
 	@Override
-	public int blahCommentTotalContents() {
-		return sqlSession.selectOne("commnetM-Mapper.blahCommentTotalContents");
+	public List<Map<String, String>> tomoCommentList() {
+		return sqlSession.selectList("commentM-Mapper.tomoCommentList");
 	}
 
 	@Override
-	public List<Map<String, String>> blindCommentList(int cPage, int numPerPage) {
-		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
-		return sqlSession.selectList("commnetM-Mapper.blindCommentList", null, rows);
+	public List<Map<String, String>> qnaCommentList() {
+		return sqlSession.selectList("commentM-Mapper.qnaCommentList");
 	}
 
 	@Override
-	public int blindCommentTotalContents() {
-		return sqlSession.selectOne("commnetM-Mapper.blindCommentTotalContents");
+	public List<Map<String, String>> acceptCommentList() {
+		return sqlSession.selectList("commentM-Mapper.acceptCommentList");
 	}
 
 	@Override
-	public List<Map<String, String>> tomoCommentList(int cPage, int numPerPage) {
-		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
-		return sqlSession.selectList("commnetM-Mapper.tomoCommentList", null, rows);
+	public List<Map<String, String>> interviewCommentList() {
+		return sqlSession.selectList("commentM-Mapper.interviewCommentList");
 	}
 
 	@Override
-	public int tomoCommentTotalContents() {
-		return sqlSession.selectOne("commnetM-Mapper.tomoCommentTotalContents");
+	public List<Map<String, String>> mentoCommentList() {
+		return sqlSession.selectList("commentM-Mapper.mentoCommentList");
 	}
 
 	@Override
-	public List<Map<String, String>> qnaCommentList(int cPage, int numPerPage) {
-		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
-		return sqlSession.selectList("commnetM-Mapper.qnaCommentList", null, rows);
+	public int updateCommStatusB(int comm_No, int type_No) {
+		return sqlSession.update("commentM-Mapper.updateCommStatusB", comm_No);
 	}
 
 	@Override
-	public int qnaCommentTotalContents() {
-		return sqlSession.selectOne("commnetM-Mapper.qnaCommentTotalContents");
+	public int updateCommStatusY(int comm_No, int type_No) {
+		return sqlSession.update("commentM-Mapper.updateCommStatusY", comm_No);
 	}
 
-	@Override
-	public List<Map<String, String>> acceptCommentList(int cPage, int numPerPage) {
-		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
-		return sqlSession.selectList("commnetM-Mapper.acceptCommentList", null, rows);
-	}
 
-	@Override
-	public int acceptCommentTotalContents() {
-		return sqlSession.selectOne("commnetM-Mapper.acceptCommentTotalContents");
-	}
-
-	@Override
-	public List<Map<String, String>> interviewCommentList(int cPage, int numPerPage) {
-		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
-		return sqlSession.selectList("commnetM-Mapper.interviewCommentList", null, rows);
-	}
-
-	@Override
-	public int interviewCommentTotalContents() {
-		return sqlSession.selectOne("commnetM-Mapper.interviewCommentTotalContents");
-	}
-
-	@Override
-	public List<Map<String, String>> mentoCommentList(int cPage, int numPerPage) {
-		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
-		return sqlSession.selectList("commnetM-Mapper.mentoCommentList", null, rows);
-	}
-
-	@Override
-	public int mentoCommentTotalContents() {
-		return sqlSession.selectOne("commnetM-Mapper.mentoCommentTotalContents");
-	}
 
 }

@@ -7,8 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시판 관리 | 멘토&멘티</title>
-
+<title>댓글 관리 | 블라블라</title>
 <style>
 	.tab {
 		display: inline-block;
@@ -29,17 +28,18 @@
 		padding: 20px 8px 5px 8px;
 	}
 	
-	#mento {
+	#blahblah {
 		font-weight:800;
 	}
 	
 	.goBoard:hover{
 		cursor:pointer;
 	}
-	
+		
 	.trtr:hover{
 		background: #EAEAEA;
 	}
+	
 	
 	
 </style>
@@ -55,7 +55,7 @@
 			<div class="container-fluid">
 				<div class="row justify-content-center">
 					<div class="col-12">
-						<h2 class="page-title">BOARD LIST</h2>
+						<h2 class="page-title">COMMENT LIST</h2>
 						<br />
 						
 						<!-- 탭 -->
@@ -83,39 +83,40 @@
 											<thead>
 												<tr align="center" role="row">
 													<th>No.</th>
-													<th width="40%">제목</th>
+													<th width="20%">제목</th>
+													<th width="35%">댓글내용</th>
 													<th>작성자</th>
 													<th>등록일</th>
-													<th width="8%">조회수</th>
 													<th>상태</th>
-													<th width="10%"></th>
+													<th width="15%"></th>
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${mentoList }" var="mento">
+												<c:forEach items="${blahCommentList }" var="blah">
 													<tr align="center" class="trtr">
-														<td>${mento.board_No}</td>
-														<td class="goBoard" id="${mento.board_No }">${mento.board_Title}</td>
-														<td>${mento.mem_Nick}</td>
-														<td>${mento.board_Date}</td>
-														<td>${mento.board_View}</td>
-														<td><c:if test="${mento.board_Status eq 'Y'}">
+														<td>${blah.comm_No}</td>
+														<td class="goBoard" id="${blah.board_No }">${blah.board_Title }</td>
+														<td class="goBoard" id="${blah.board_No }">${blah.comm_Content}</td>
+														<td>${blah.mem_Nick}</td>
+														<td><fmt:parseDate var="parsedDate" value="${blah.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
+														<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+														<td><c:if test="${blah.comm_Status eq 'Y'}">
 																<span class='badge badge-success'>정상</span>
-															</c:if> <c:if test="${mento.board_Status eq 'B'}">
+															</c:if> <c:if test="${blah.comm_Status eq 'B'}">
 																<span class='badge badge-danger'>블라인드</span>
-															</c:if>  <c:if test="${mento.board_Status eq 'N'}">
+															</c:if>  <c:if test="${blah.comm_Status eq 'N'}">
 																<span class='badge badge-secondary'>삭제</span>
 															</c:if> </td>
 														<td>
-																<c:if test="${mento.board_Status eq 'Y' }">
+																<c:if test="${blah.comm_Status eq 'Y' }">
 																	<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
-																		onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusB.do?board_No=${mento.board_No}&type_No=${mento.type_No }'">블라인드</button>
+																		onclick="location.href='${pageContext.request.contextPath}/admin/updateCommStatusB.do?comm_No=${blah.comm_No}&type_No=${blah.type_No }'">블라인드</button>
 																</c:if>
-																<c:if test="${mento.board_Status eq 'B' }">
+																<c:if test="${blah.comm_Status eq 'B' }">
 																	<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
-																		onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusY.do?board_No=${mento.board_No}&type_No=${mento.type_No }'">활성화</button>
+																		onclick="location.href='${pageContext.request.contextPath}/admin/updateCommStatusY.do?comm_No=${blah.comm_No}&type_No=${blah.type_No }'">활성화</button>
 																</c:if>
-																<c:if test="${mento.board_Status eq 'N'}">
+																<c:if test="${blah.comm_Status eq 'N'}">
 																	<button class="btn mb-2 btn-light" disabled="disabled">활성화</button>
 																</c:if>
 														</td>
@@ -124,6 +125,7 @@
 											</tbody>
 										</table>
 										<br>
+
 										
 									</div>
 								</div>
@@ -140,46 +142,46 @@
 	</div>
 	<!-- .wrapper -->
 <script>
-	$(function(){
-		
-		$("#job").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/jobList.do";
-		});
-		
-		$("#blahblah").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/blahList.do";
-		});
-
-		$("#blind").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/blindList.do";
-		});
-
-		$("#tomo").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/tomoList.do";
-		});
-
-		$("#qna").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/qnaList.do";
-		});
-
-		$("#accept").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/acceptList.do";
-		});
-
-		$("#interview").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/interviewList.do";
-		});
-
-		$("#mento").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/mentoList.do";
-		});
-		
+$(function(){
+	
+	$("#job").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/jobCommentList.do";
 	});
 	
+	$("#blahblah").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/blahCommentList.do";
+	});
+
+	$("#blind").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/blindCommentList.do";
+	});
+
+	$("#tomo").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/tomoCommentList.do";
+	});
+
+	$("#qna").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/qnaCommentList.do";
+	});
+
+	$("#accept").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/acceptCommentList.do";
+	});
+
+	$("#interview").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/interviewCommentList.do";
+	});
+
+	$("#mento").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/mentoCommentList.do";
+	});
+	
+});
+
 	$(function(){
 		$(".goBoard").on("click", function(){
 			var board_No = $(this).attr("id");
-			location.href = "${pageContext.request.contextPath}/mentoView.bo?board_no="+ board_No;
+			location.href = "${pageContext.request.contextPath}/board2/blahView.do?board_No="+ board_No;
 		});
 	});
 
