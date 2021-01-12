@@ -378,6 +378,13 @@
 		
 	</div>
 </body>
+			<!-- Scripts -->
+			<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+			
 						<!-- 선호지역 스크립트 -->
 						<script src="https://code.jquery.com/jquery-latest.min.js" type="application/javascript"></script>
 						<script type="application/javascript" src="https://zelkun.tistory.com/attachment/cfile8.uf@99BB7A3D5D45C065343307.js"></script>

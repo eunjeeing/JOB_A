@@ -10,6 +10,7 @@
 <title>JOB_A | 블라블라</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board.css" />
+
 <style>
 #topbanner {
 	background:
@@ -338,6 +339,13 @@ p {
 	</div>
 	<c:import url="../reportModal.jsp"/>	<!-- 신고 모달 창 -->
 	
+	<!-- Scripts -->
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	
 	<script>
 		document
 				.getElementById("insertComment")
@@ -427,14 +435,6 @@ p {
 				+ comm_Content + "&comm_Ref=" + comm_Ref + "&comm_Level=" + comm_Level;
 	    }
 
-	    $('.reportBtn').click(function(){
-		    var test = $('#board_info').val();
-		    
-			$('.modal_board').val($('#board_info').val());
-			$('.modal_reporter').val($('#board_reporter').val());
-			$('.modal_board_no').val($('#board_mem_no').val());
-	    });
-
 	    function bookmark(board_no, mem_no) {
 			var bookmarkClass = $('#bookmark').attr('class').substr(0,3);
 			if (bookmarkClass == 'far') {
@@ -487,8 +487,16 @@ p {
 				});
 			}
 		}	
-		
-	});
+
+	    // 신고모달 스크립트 by 은열
+	    $('.reportBtn').click(function(){
+		    var test = $('#board_info').val();
+		    
+			$('.modal_board').val($('#board_info').val());
+			$('.modal_reporter').val($('#board_reporter').val());
+			$('.modal_board_no').val($('#board_mem_no').val());
+	    });
+	
 	</script>
 </body>
 </html>
