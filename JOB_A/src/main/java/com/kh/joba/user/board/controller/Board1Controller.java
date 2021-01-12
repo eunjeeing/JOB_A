@@ -78,7 +78,7 @@ public class Board1Controller {
 		
 		// 조회확인용
 		System.out.println("list : " + list);
-		System.out.println("test");
+
 		
 		model.addAttribute("noticeList", list);
 		model.addAttribute("totalContents", totalContents);
