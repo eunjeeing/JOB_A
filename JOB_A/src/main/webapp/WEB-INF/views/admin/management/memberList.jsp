@@ -63,7 +63,7 @@
 																<span class='badge badge-danger'>블라인드</span></c:if>
 														</td>
 														<td>
-															<a class="dropdown-item" href="${pageContext.request.contextPath}/user/userDetail?memNo=${m.memNo}">활동내역</a>
+															<a class="" href="${pageContext.request.contextPath}/user/userDetail?memNo=${m.memNo}">활동내역</a>
 														</td>
 													</tr>
 												</c:forEach>
@@ -99,10 +99,6 @@
         ]
       });
     </script>
-	<script src="${pageContext.request.contextPath}/resources/admin/js/apps.js"></script>
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async
-		src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
 	<script>
       	window.dataLayer = window.dataLayer || [];
 

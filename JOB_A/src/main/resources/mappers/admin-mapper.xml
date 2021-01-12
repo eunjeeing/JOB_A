@@ -18,7 +18,7 @@
 	
 	<select id="selectAdminList" resultMap="Admin">
 		SELECT * FROM MEMBER
-		WHERE GRADE_NO = 1
+		WHERE GRADE_NO = 1 OR GRADE_NO = 5
 		ORDER BY MEM_NO DESC
 	</select>
 	
@@ -39,9 +39,9 @@
 		MEM_NO = #{adminNo} 
 	</delete>
 
-	<select id="selectAdmin" resultType="Admin">
+	<select id="selectAdmin" parameterType="_int" resultMap="Admin">
 		SELECT * FROM MEMBER
-		WHERE MEM_ID = #{adminId}
+		WHERE MEM_NO = #{adminNo}
 	</select>
 
 	<update id="updateAdmin" parameterType="Admin">

@@ -68,10 +68,16 @@
 					<span class="ml-3 item-text">MEMBER</span>
 			</a>
 				<ul class="collapse list-unstyled pl-4 w-100" id="member-elements">
+					<c:if test="${member.gradeNo eq 0 }">
 					<li class="nav-item"><a class="nav-link pl-3"
 						href="${pageContext.request.contextPath}/admin/adminEnrollView">
 							<span class="ml-1 item-text">Admin Register</span>
-					</a></li>
+					</a></li></c:if>
+					<c:if test="${member.gradeNo > 0 }">
+					<li class="nav-item"><a class="nav-link pl-3"
+						href="${pageContext.request.contextPath}/admin/adminUpdateView?adminNo=${member.memNo}">
+							<span class="ml-1 item-text">Admin Update</span>
+					</a></li></c:if>
 					<li class="nav-item"><a class="nav-link pl-3"
 						href="${pageContext.request.contextPath}/admin/adminList"> <span
 							class="ml-1 item-text">Admin List</span></a></li>
@@ -79,7 +85,7 @@
 						href="${pageContext.request.contextPath}/user/userList"> <span
 							class="ml-1 item-text">Member List</span></a></li>
 					<li class="nav-item"><a class="nav-link pl-3"
-						href="${pageContext.request.contextPath}/user/upGradeListView">
+						href="${pageContext.request.contextPath}/user/gradeListView">
 							<span class="ml-1 item-text">Member Grade</span>
 					</a></li>
 				</ul></li>
@@ -169,6 +175,10 @@
 	src="${pageContext.request.contextPath}/resources/admin/js/tinycolor-min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/admin/js/config.js"></script>
+<script 
+	src='${pageContext.request.contextPath}/resources/admin/js/jquery.dataTables.min.js'></script>
+<script 
+	src='${pageContext.request.contextPath}/resources/admin/js/dataTables.bootstrap4.min.js'></script>
 <script
 	src="${pageContext.request.contextPath}/resources/admin/js/d3.min.js"></script>
 <script

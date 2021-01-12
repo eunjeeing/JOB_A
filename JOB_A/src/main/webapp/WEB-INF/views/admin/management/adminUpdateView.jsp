@@ -8,7 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 수정</title>
-<script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
 </head>
 <body>
 <body class="vertical  dark  ">
@@ -60,11 +59,12 @@
 												<div class="col-sm-4">
 													<input class="form-control" id="adminNick" type="text"
 														name="adminNick" value="${admin.adminNick}">
+													<input type="hidden" class="checkAdminNick" value="${admin.adminNick}" />
 												</div>
 												<span class="guide ok">사용 가능</span>
-				            				<span class="guide error">사용 불가</span>
-				            				<span class="guide invalid">10글자 미만</span>
-				            				<input type="hidden" name="nickNameDuplicateCheck" id="nickNameDuplicateCheck" value="0"/>
+					            				<span class="guide error">사용 불가</span>
+					            				<span class="guide invalid">10글자 미만</span>
+					            				<input type="hidden" name="nickNameDuplicateCheck" id="nickNameDuplicateCheck" value="0"/>
 											</div>
 											<fieldset class="form-group">
 												<div class="row">
@@ -145,43 +145,56 @@
 	
 	$("#adminNick").on("keyup", function(){
         var memNick = $(this).val().trim();
+
+        var myNick = $(".checkAdminNick").val().trim();
+        console.log("memNick:"+memNick+"nickName:"+nickName);
         
-        if(memNick.length>10) {
+        if( memNick == myNick || memNick =="" || memNick == null){ // 내 닉네임과 수정할 닉네임 비교 시작
+        	console.log("같다");
+            $(".guide.ok").hide();
         	$(".guide.error").hide();
-        	$(".guide.ok").hide();
-        	$(".guide.invalid").show();
-        	return;
+            $(".guide.invalid").hide();
+            
+	        
+    	} else {
+        
+	        if(memNick.length>10) {
+	        	$(".guide.error").hide();
+	        	$(".guide.ok").hide();
+	        	$(".guide.invalid").show();
+	        	return;
+	        	
+	        } else {
         	
-        } else {
-        	
-	        $.ajax({
-	            url  : "${pageContext.request.contextPath}/member/checkNicknameDuplicate.do",
-	            data : {memNick:memNick},
-	            dataType: "json",
-	            success : function(data){
-	                // console.log(data);
-	                // if(data=="true") //stream 방식
-	                if(data.isUsable==true){ //viewName 방식
-	                    $(".guide.error").hide();
-	                    $(".guide.invalid").hide();
-	                    $(".guide.ok").show();
-	                    $("#nickNameDuplicateCheck").val(1);
-	                } else {
-	                    $(".guide.error").show();
-	                    $(".guide.invalid").hide();
-	                    $(".guide.ok").hide();
-	                    $("#nickNameDuplicateCheck").val(0);
-	                }
-	            }, error : function(jqxhr, textStatus, errorThrown){
-	                console.log("ajax 처리 실패");
-	                //에러로그
-	                console.log(jqxhr);
-	                console.log(textStatus);
-	                console.log(errorThrown);
-	            }
-        	});
-     	}
-     console.log(memNick);
+		        $.ajax({
+		            url  : "${pageContext.request.contextPath}/member/checkNicknameDuplicate.do",
+		            data : {memNick:memNick},
+		            dataType: "json",
+		            success : function(data){
+		                // console.log(data);
+		                // if(data=="true") //stream 방식
+		                if(data.isUsable==true){ //viewName 방식
+		                    $(".guide.error").hide();
+		                    $(".guide.invalid").hide();
+		                    $(".guide.ok").show();
+		                    $("#nickNameDuplicateCheck").val(1);
+		                } else {
+		                    $(".guide.error").show();
+		                    $(".guide.invalid").hide();
+		                    $(".guide.ok").hide();
+		                    $("#nickNameDuplicateCheck").val(0);
+		                }
+		            }, error : function(jqxhr, textStatus, errorThrown){
+		                console.log("ajax 처리 실패");
+		                //에러로그
+		                console.log(jqxhr);
+		                console.log(textStatus);
+		                console.log(errorThrown);
+		            }
+	        	});
+	     	}
+			console.log(memNick);
+		}
 	});
 
 		$('.input-phoneus').mask('000-0000-0000');

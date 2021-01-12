@@ -8,17 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 목록</title>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-	crossorigin="anonymous"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
@@ -76,6 +65,7 @@
 													<tr>
 														<td>
 															<c:if test="${a.gradeNo eq 1}">일반 관리자</c:if>
+															<c:if test="${a.gradeNo eq 5}">인사 담당자</c:if>
 														</td>
 														<td><span>${a.adminId}</span></td>
 														<th scope="col">${a.adminName}</th>
@@ -85,12 +75,21 @@
 														<td><span>${a.enrollDate}</span></td>
 														<c:if test="${member.gradeNo eq 0}">
 															<td>
+																<input type="hidden" id="adminListId" value="${a.adminId}">
+																<div class="dropdown">
+									                                <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									                                  <span class="text-muted sr-only">Action</span>
+									                                </button>
+									                                <div class="dropdown-menu dropdown-menu-right">
+									                                  <a class="dropdown-item" data-toggle="modal" data-target="#moveDe" href="#">부서 이동</a>
+																	  <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/adminDelete?adminNo=${a.adminNo}">관리자 삭제</a>
+									                                </div>
+									                              </div>
 																<button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 																	<span class="text-muted sr-only">Action</span>
 																</button>
 																<div class="dropdown-menu dropdown-menu-right">
 																	<a class="dropdown-item" href="#">Edit</a>
-																	<a class="dropdown-item" href="${pageContext.request.contextPath}/admin/adminDelete?adminNo=${a.adminNo}">Remove</a>
 																	<a class="dropdown-item" href="#">Assign</a>
 																</div>
 															</td>
@@ -103,7 +102,78 @@
 								</div>
 							</div>
 							<!-- simple table -->
+							
+							<div class="modal fade" id="moveDe" tabindex="-1" role="dialog"  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<!--Content-->
+							<div class="modal-content">
+								<div class="modal-header text-center">
+									<h5 class="modal-title w-100 font-weight-bold py-2">
+										<strong><span>부서 이동</span></strong>
+									</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+
+								<!--Body-->
+	   							<form id="changeGrade" action="${pageContext.request.contextPath}/admin/adminUpdate" method="post">
+									<div class="modal-body">
+										<div class="row">
+											<div class="col">
+												<select name="gradeNo" class="mdb-select md-form colorful-select dropdown-danger" >
+													<option value="" disabled selected>부서 선택</option>
+													<option value="1">일반 관리자</option>
+													<option value="5">인사 담당자</option>
+												</select>
+												<input type="hidden" name="adminId" value="">
+											</div>
+										</div>	
+									</div>
+									<div class="modal-footer">
+										<button type="submit" class="btn-save btn btn-primary btn-sm">변경</button>
+									</div>
+								</form>
+							</div>
 						</div>
+					</div>
+						</div>
+						
+						<div class="modal fade" id="grade" tabindex="-1" role="dialog"  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<!--Content-->
+							<div class="modal-content">
+								<div class="modal-header text-center">
+									<h5 class="modal-title w-100 font-weight-bold py-2">
+										<strong><span>등급 변경하기</span></strong>
+									</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+
+								<!--Body-->
+	   							<form id="changeGrade" action="${pageContext.request.contextPath }/user/changeGrade" method="post">
+									<div class="modal-body">
+										<div class="row">
+											<div class="col">
+												<select name="gradeNo" class="mdb-select md-form colorful-select dropdown-danger" >
+													<option value="" disabled selected>등급 선택</option>
+													<option value="2">일반 회원</option>
+													<option value="3">우수 회원</option>
+													<option value="4">최우수 회원</option>
+												</select>
+												<input type="hidden" name="memNo" value="${user[0].memNo }">
+											</div>
+										</div>	
+									</div>
+									<div class="modal-footer">
+										<button type="submit" class="btn-save btn btn-primary btn-sm">변경</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
 						<!-- end section -->
 					</div>
 					<!-- .col-12 -->
@@ -126,15 +196,7 @@
         ]
       });
     </script>
-	<script src="${pageContext.request.contextPath}/resources/admin/js/apps.js"></script>
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async
-		src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
 
-	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/bootstrap.min.js"></script>
-
-	
 	<script>
       window.dataLayer = window.dataLayer || [];
 

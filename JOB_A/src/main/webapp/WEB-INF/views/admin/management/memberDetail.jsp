@@ -12,17 +12,6 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
     <title>활동 내역</title>
-    <!-- Simple bar CSS -->
-    <link rel="stylesheet" href="css/simplebar.css">
-    <!-- Fonts CSS -->
-    <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <!-- Icons CSS -->
-    <link rel="stylesheet" href="css/feather.css">
-    <!-- Date Range Picker CSS -->
-    <link rel="stylesheet" href="css/daterangepicker.css">
-    <!-- App CSS -->
-    <link rel="stylesheet" href="css/app-light.css" id="lightTheme" disabled>
-    <link rel="stylesheet" href="css/app-dark.css" id="darkTheme">
   </head>
   <body class="vertical  dark  ">
     <div class="wrapper">
@@ -92,20 +81,20 @@
                     <div class="card-body">
                       <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist">
                         <li class="nav-item">
-                          <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">총 작성 글</a>
+                          <a class="nav-link active" id="pills-board-tab" data-toggle="pill" href="#pills-board" role="tab" aria-controls="pills-board" aria-selected="false">총 작성 글</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">총 작성 댓글</a>
+                          <a class="nav-link" id="pills-conmment-tab" data-toggle="pill" href="#pills-conmment" role="tab" aria-controls="pills-conmment" aria-selected="false">총 작성 댓글</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="pills-board-tab" data-toggle="pill" href="#pills-board" role="tab" aria-controls="pills-board" aria-selected="false">신고된 글</a>
+                          <a class="nav-link" id="pills-rBoard-tab" data-toggle="pill" href="#pills-rBoard" role="tab" aria-controls="pills-rBoard" aria-selected="false">신고된 글</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="pills-conmment-tab" data-toggle="pill" href="#pills-conmment" role="tab" aria-controls="pills-conmment" aria-selected="false">신고된 댓글</a>
+                          <a class="nav-link" id="pills-rConmment-tab" data-toggle="pill" href="#pills-rConmment" role="tab" aria-controls="pills-rConmment" aria-selected="false">신고된 댓글</a>
                         </li>
                       </ul>
                       <div class="tab-content mb-1" id="pills-tabContent">
-                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <div class="tab-pane fade show active" id="pills-board" role="tabpanel" aria-labelledby="pills-board-tab">
                         	<table class="table table-hover datatables" id="dataTable-1">
 								<thead>
 									<tr role="row">
@@ -119,7 +108,7 @@
 								</thead>
 							</table>
                         </div>
-                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div class="tab-pane fade" id="pills-comment" role="tabpanel" aria-labelledby="pills-conmment-tab">
                         	<table class="table table-hover datatables" id="dataTable-2">
 								<thead>
 									<tr role="row">
@@ -140,7 +129,7 @@
 								</tbody>
 							</table>
                         </div>
-                        <div class="tab-pane fade" id="pills-board" role="tabpanel" aria-labelledby="pills-board-tab">
+                        <div class="tab-pane fade" id="pills-rBoard" role="tabpanel" aria-labelledby="pills-rBoard-tab">
                         	<table class="table table-hover datatables" id="dataTable-3">
 								<thead>
 									<tr role="row">
@@ -152,21 +141,9 @@
 										<th>조회수</th>
 									</tr>
 								</thead>
-								<tbody>
-									<c:forEach items="${reportBoardList}" var="rb">
-										<tr>
-											<td>${rb.board_No}</td>
-											<td>${rb.type_Name}</td>
-											<td class="goBoard" id="${rb.board_No}">${rb.board_Title}</td>
-											<td>${rb.mem_Nick}</td>
-											<td>${rb.board_Date}</td>
-											<td>${rb.board_View}</td>
-										</tr>
-									</c:forEach>
-								</tbody>
 							</table>
                         </div>
-                        <div class="tab-pane fade" id="pills-conmment" role="tabpanel" aria-labelledby="pills-conmment-tab">
+                        <div class="tab-pane fade" id="pills-rConmment" role="tabpanel" aria-labelledby="pills-rConmment-tab">
                         	<table class="table table-hover datatables" id="dataTable-4">
 								<thead>
 									<tr role="row">
@@ -306,9 +283,8 @@
       });
     </script>
     <script type="text/javascript">
-    	$('#pills-home-tab').on('click', function () {
+    	$('#pills-board-tab').on('click', function () {
 			$.ajax({
-				type: "GET"
 				url: "${pageContext.request.contextPath}/user/selectBoardList",
 				data: {memNo :$('#memberNo').val()},
 				success: function (data) {
@@ -348,15 +324,133 @@
 			});
 		});
 
+
+    	$('#pills-conmment-tab').on('click', function () {
+			$.ajax({
+				url: "${pageContext.request.contextPath}/user/selectCommentList",
+				data: {memNo :$('#memberNo').val()},
+				success: function (data) {
+					console.log(data);
+					
+					var $tbody = $('<tbody>');
+					
+					for(var i = 0; i < data.commentList.length; i++) {
+						var commentList = data.commentList[i];
+						
+						var $tr = $('<tr>');
+						
+						var $board_No = $('<td>').text(commentList[i].board_No);
+						var $type_Name = $('<td>').text(commentList[i].type_Name);
+						var $board_Title = $('<td>').text(commentList[i].board_Title);
+						var $mem_Nick = $('<td>').text(commentList[i].mem_Nick);
+						var $board_Date = $('<td>').text(commentList[i].board_Date);
+						var $board_View = $('<td>').text(commentList[i].board_View);
+						
+						$tr.append($board_No);
+						$tr.append($type_Name);
+						$tr.append($board_Title);
+						$tr.append($mem_Nick);
+						$tr.append($board_Date);
+						$tr.append($board_View);
+						
+						$tbody.append($tr);
+					}
+					$('#dataTable-2>tbody').remove();
+					$('#dataTable-2').append($tbody);
+					
+					
+				}, error : function () {
+					alert("에러발생");
+				}
+				
+			});
+		});
+
+
+    	$('#pills-rBoard-tab').on('click', function () {
+			$.ajax({
+				url: "${pageContext.request.contextPath}/user/selectReportBoardList",
+				data: {memNo :$('#memberNo').val()},
+				success: function (data) {
+					console.log(data);
+					
+					var $tbody = $('<tbody>');
+					
+					for(var i = 0; i < data.reportBoardList.length; i++) {
+						var reportBoardList = data.reportBoardList[i];
+						
+						var $tr = $('<tr>');
+						
+						var $board_No = $('<td>').text(reportBoardList[i].board_No);
+						var $type_Name = $('<td>').text(reportBoardList[i].type_Name);
+						var $board_Title = $('<td>').text(reportBoardList[i].board_Title);
+						var $mem_Nick = $('<td>').text(reportBoardList[i].mem_Nick);
+						var $board_Date = $('<td>').text(reportBoardList[i].board_Date);
+						var $board_View = $('<td>').text(reportBoardList[i].board_View);
+						
+						$tr.append($board_No);
+						$tr.append($type_Name);
+						$tr.append($board_Title);
+						$tr.append($mem_Nick);
+						$tr.append($board_Date);
+						$tr.append($board_View);
+						
+						$tbody.append($tr);
+					}
+					$('#dataTable-3>tbody').remove();
+					$('#dataTable-3').append($tbody);
+					
+					
+				}, error : function () {
+					alert("에러발생");
+				}
+				
+			});
+		});
+
+
+    	$('#pills-rConmment-tab').on('click', function () {
+			$.ajax({
+				url: "${pageContext.request.contextPath}/user/selectReportCommentList",
+				data: {memNo :$('#memberNo').val()},
+				success: function (data) {
+					console.log(data);
+					
+					var $tbody = $('<tbody>');
+					
+					for(var i = 0; i < data.reportCommentList.length; i++) {
+						var reportCommentList = data.reportCommentList[i];
+						
+						var $tr = $('<tr>');
+						
+						var $board_No = $('<td>').text(reportCommentList[i].board_No);
+						var $type_Name = $('<td>').text(reportCommentList[i].type_Name);
+						var $board_Title = $('<td>').text(reportCommentList[i].board_Title);
+						var $mem_Nick = $('<td>').text(reportCommentList[i].mem_Nick);
+						var $board_Date = $('<td>').text(reportCommentList[i].board_Date);
+						var $board_View = $('<td>').text(reportCommentList[i].board_View);
+						
+						$tr.append($board_No);
+						$tr.append($type_Name);
+						$tr.append($board_Title);
+						$tr.append($mem_Nick);
+						$tr.append($board_Date);
+						$tr.append($board_View);
+						
+						$tbody.append($tr);
+					}
+					$('#dataTable-4>tbody').remove();
+					$('#dataTable-4').append($tbody);
+					
+					
+				}, error : function () {
+					alert("에러발생");
+				}
+				
+			});
+		});
     </script>
   
-	<script src="${pageContext.request.contextPath}/resources/admin/js/apps.js"></script>
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async
-		src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
-
-	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/bootstrap.min.js"></script>
 	<script>
 
     window.dataLayer = window.dataLayer || [];
