@@ -346,7 +346,7 @@ section>div>.sub_menu3 {
 								<dt>관심 직종 순위</dt>
 								<dd>
 									<ol>
-										<li><a href="#">&nbsp;1. test</a></li>
+										<li><a href="#">&nbsp;1. ${count}</a></li>
 										<li><a href="#">&nbsp;2. test<a></li>
 										<li><a href="#">&nbsp;3.<a></li>
 										<li><a href="#">&nbsp;4.<a></li>

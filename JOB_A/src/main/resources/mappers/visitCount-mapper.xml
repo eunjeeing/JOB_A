@@ -11,11 +11,11 @@
 	 	(VISITOR_SEQ.NEXTVAL,#{visit_ip},DEFAULT,#{visit_agent})
 	</insert> 
 	
-	<select id="selectAllVistor">
+	<select id="selectAllVistor" resultType="_int">
 		SELECT COUNT(*) FROM VISITOR
 	</select>
 	
-	<select id="selectTodayVisitor">
+	<select id="selectTodayVisitor" resultType="_int">
 		SELECT COUNT(*) FROM VISITOR
 		WHERE SUBSTR(TO_CHAR(VISIT_TIME),1,9)=TO_DATE(SYSDATE,'yy/MM/dd')
 	</select>
