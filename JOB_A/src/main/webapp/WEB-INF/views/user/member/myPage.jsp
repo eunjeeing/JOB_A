@@ -130,17 +130,17 @@
 	
 		
 					<div class="porm1" id="myPageandScrap">
-					<div class="click1">
+					<div class="click1" onclick="location.href='${pageContext.request.contextPath}/member/memberView.do?memId=${member.memId}&memNo=${member.memNo}'">
 						<c:if test="${!empty member}"/>
 						<c:if test="${member.gradeNo >= '2' && member.gradeNo <= '5'}"/>
 						
 						<div class="icon">
 							<i class="xi-user"></i>
 						</div>
-						<div class="next" id="update">
-							<a href="${pageContext.request.contextPath}/member/memberView.do?memId=${member.memId}&memNo=${member.memNo}" title="정보 수정" ><span>${member.memNick}&nbsp;님</span></a>
+						<div class="next" id="update" >
+							<a title="정보 수정" ><span>${member.memNick}&nbsp;님</span></a>
 							<br />
-							<span><a href="${pageContext.request.contextPath}/member/memberView.do" id="gradeNo" title=""><span></span></a></span>
+							<span><a href="${pageContext.request.contextPath}/member/memberView.do?memId=${member.memId}&memNo=${member.memNo}" id="gradeNo" title=""><span></span></a></span>
 						</div>
 					</div>
 				

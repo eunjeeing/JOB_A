@@ -240,7 +240,7 @@ public class MemberController {
         System.out.println("인증번호 : " + checkNum);
         
         /* 이메일 보내기 */
-        String setFrom = "eunjeeing@naver.com";
+        String setFrom = "yey95@naver.com";
         String toMail = email;
         String title = "회원가입 인증 이메일 입니다.";
         String content = 
@@ -311,7 +311,7 @@ public class MemberController {
     	memberService.deleteWishCategory(member.getMemNo());
     	memberService.insertWishCategory(member.getMemNo(),WishCategory.getCategory_No());
 
-    	String loc = "/";
+    	String loc = "/member/myPage.do";
     	String msg = "";
     	
     	if(result > 0) {

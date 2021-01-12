@@ -428,11 +428,12 @@ p {
 	    }
 
 	    $('.reportBtn').click(function(){
+		    var test = $('#board_info').val();
+		    
 			$('.modal_board').val($('#board_info').val());
 			$('.modal_reporter').val($('#board_reporter').val());
 			$('.modal_board_no').val($('#board_mem_no').val());
 			
-<<<<<<< HEAD
 	    function bookmark(board_no, mem_no) {
 			var bookmarkClass = $('#bookmark').attr('class').substr(0,3);
 			if (bookmarkClass == 'far') {
@@ -487,9 +488,7 @@ p {
 		}	
 				
 
-=======
 	    });
->>>>>>> refs/remotes/origin/feature_yeori
 	</script>
 </body>
 </html>
