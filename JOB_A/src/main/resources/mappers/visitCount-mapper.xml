@@ -8,7 +8,7 @@
 	 	INSERT INTO VISITOR
 	 	(VISIT_ID,VISIT_IP,VISIT_TIME,VISIT_AGENT)
 	 	VALUES
-	 	(VISITOR_SEQ.NEXTVAL,#{visit_ip},DEFAULT,#{visit_agent})
+	 	(VISITOR_SEQ.NEXTVAL,#{visit_ip},SYSDATE,#{visit_agent})
 	</insert> 
 	
 	<select id="selectAllVistor" resultType="_int">
@@ -19,5 +19,4 @@
 		SELECT COUNT(*) FROM VISITOR
 		WHERE SUBSTR(TO_CHAR(VISIT_TIME),1,9)=TO_DATE(SYSDATE,'yy/MM/dd')
 	</select>
-
 </mapper> 
