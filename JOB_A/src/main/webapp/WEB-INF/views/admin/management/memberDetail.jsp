@@ -83,13 +83,13 @@
                           <a class="nav-link active" onclick="boardTab()" id="pills-board-tab" data-toggle="pill" href="#pills-board" role="tab" aria-controls="pills-board" aria-selected="false">총 작성 글</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="pills-conmment-tab" data-toggle="pill" href="#pills-conmment" role="tab" aria-controls="pills-conmment" aria-selected="false">총 작성 댓글</a>
+                          <a class="nav-link" onclick="commentTab()" id="pills-comment-tab" data-toggle="pill" href="#pills-comment" role="tab" aria-controls="pills-comment" aria-selected="false">총 작성 댓글</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="pills-rBoard-tab" data-toggle="pill" href="#pills-rBoard" role="tab" aria-controls="pills-rBoard" aria-selected="false">신고된 글</a>
+                          <a class="nav-link" onclick="rBoardTab()" id="pills-rBoard-tab" data-toggle="pill" href="#pills-rBoard" role="tab" aria-controls="pills-rBoard" aria-selected="false">신고된 글</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="pills-rConmment-tab" data-toggle="pill" href="#pills-rConmment" role="tab" aria-controls="pills-rConmment" aria-selected="false">신고된 댓글</a>
+                          <a class="nav-link" onclick="rCommentTab()" id="pills-rComment-tab" data-toggle="pill" href="#pills-rComment" role="tab" aria-controls="pills-rComment" aria-selected="false">신고된 댓글</a>
                         </li>
                       </ul>
                       <div class="tab-content mb-1" id="pills-tabContent">
@@ -105,9 +105,11 @@
 										<th>조회수</th>
 									</tr>
 								</thead>
+								<tbody class="boardListTbody">
+								</tbody>
 							</table>
                         </div>
-                        <div class="tab-pane fade" id="pills-comment" role="tabpanel" aria-labelledby="pills-conmment-tab">
+                        <div class="tab-pane fade" id="pills-comment" role="tabpanel" aria-labelledby="pills-comment-tab">
                         	<table class="table table-hover datatables" id="dataTable-2">
 								<thead>
 									<tr role="row">
@@ -116,15 +118,7 @@
 										<th>등록일</th>
 									</tr>
 								</thead>
-								<tbody>
-									<c:forEach items="${commentList}" var="c">
-										<tr>
-											<td>${c.comm_No}</td>
-											<td>${c.comm_Content}</td>
-											<fmt:parseDate var="parsedDate" value="${rc.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
-											<td id="clock"><fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
-										</tr>
-									</c:forEach>
+								<tbody class="commentListTbody">
 								</tbody>
 							</table>
                         </div>
@@ -140,9 +134,11 @@
 										<th>조회수</th>
 									</tr>
 								</thead>
+								<tbody class=rBoardListTbody">
+								</tbody>
 							</table>
                         </div>
-                        <div class="tab-pane fade" id="pills-rConmment" role="tabpanel" aria-labelledby="pills-rConmment-tab">
+                        <div class="tab-pane fade" id="pills-rComment" role="tabpanel" aria-labelledby="pills-rComment-tab">
                         	<table class="table table-hover datatables" id="dataTable-4">
 								<thead>
 									<tr role="row">
@@ -151,15 +147,7 @@
 										<th>등록일</th>
 									</tr>
 								</thead>
-								<tbody>
-									<c:forEach items="${reportCommentList}" var="rc">
-										<tr>
-											<td>${rc.comm_No}</td>
-											<td>${rc.comm_Content}</td>
-											<fmt:parseDate var="parsedDate" value="${rc.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
-											<td id="clock"><fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
-										</tr>
-									</c:forEach>
+								<tbody class="rCommentListTbody">
 								</tbody>
 							</table>
                         </div>
@@ -245,44 +233,8 @@
         </div> <!-- .container-fluid -->
       </main> <!-- main -->
     </div> <!-- .wrapper -->
-
-		
-	<script>
-      $('#dataTable-1').DataTable(
-      {
-        autoWidth: true,
-        "lengthMenu": [
-          [16, 32, 64, -1],
-          [16, 32, 64, "All"]
-        ]
-      });
-      $('#dataTable-2').DataTable(
-      {
-        autoWidth: true,
-        "lengthMenu": [
-          [16, 32, 64, -1],
-          [16, 32, 64, "All"]
-        ]
-      });
-      $('#dataTable-3').DataTable(
-      {
-        autoWidth: true,
-        "lengthMenu": [
-          [16, 32, 64, -1],
-          [16, 32, 64, "All"]
-        ]
-      });
-      $('#dataTable-4').DataTable(
-      {
-        autoWidth: true,
-        "lengthMenu": [
-          [16, 32, 64, -1],
-          [16, 32, 64, "All"]
-        ]
-      });
-    </script>
-    <script type="text/javascript">
-    
+   
+    <script>
     	function boardTab(){
     		var memNo = $('.memNoVal').val();
     		/*
@@ -300,67 +252,150 @@
 			$.ajax({
 				url: "${pageContext.request.contextPath}/user/selectBoardList",
 				data :{memNo : memNo},
+				async: true,
+				dataType : "json",
 				success : function(data){
-					console.log(data);
 					var bList = data;
-					var $tbody = $('<tbody>');
+					$('.boardListTbody').empty();
 					for(var i in bList){
 						console.log(data[i]);
-
-						
+						listBody = 
+							'<tr>'
+								+'<td>'+ data[i].board_No +'</td>'
+								+'<td>'+ data[i].type_Name +'</td>'
+								+'<td class="goBoard" id="'+ data[i].board_No +'">'+ data[i].board_Title +'</td>'
+								+'<td>'+ data[i].mem_Nick +'</td>'
+								+'<td>'+ data[i].board_Date +'</td>'
+								+'<td>'+ data[i].board_View +'</td>'
+							+'</tr>'
+						$('.boardListTbody').append(listBody);
 					}
+					$('#dataTable-1').DataTable(
+						      {
+						        autoWidth: true,
+						        "lengthMenu": [
+						          [16, 32, 64, -1],
+						          [16, 32, 64, "All"]
+						        ]
+						      });
+					
+				}, error : function () {
+					alert("불러오기 실패");
+				}
+			});
+		};
+
+		
+		function commentTab(){
+			var memNo = $('.memNoVal').val();
+			$.ajax({
+				url: "${pageContext.request.contextPath}/user/selectCommentList",
+				data :{memNo : memNo},
+				async: true,
+				dataType : "json",
+				success : function(data){
+					var cList = data;
+					$('.commentListTbody').empty();
+					for(var i in cList){
+						console.log(data[i]);
+						listBody = 
+							'<tr>'
+								+'<td>'+ data[i].comm_No +'</td>'
+								+'<td>'+ data[i].comm_Content +'</td>'
+								+'<td>'+ data[i].comm_Date +'</td>'
+							+'</tr>'
+						$('.commentListTbody').append(listBody);
+					}
+					$('#dataTable-2').DataTable({
+				        autoWidth: true,
+				        "lengthMenu": [
+				          [16, 32, 64, -1],
+				          [16, 32, 64, "All"]
+				        ]
+			      	});
+					
+				}, error : function () {
+					alert("불러오기 실패");
+				}
+			});
+		};
+
+		function rBoardTab(){
+    		var memNo = $('.memNoVal').val();
+			$.ajax({
+				url: "${pageContext.request.contextPath}/user/selectReportBoardList",
+				data :{memNo : memNo},
+				async: true,
+				dataType : "json",
+				success : function(data){
+					var rbList = data;
+					$('.rBoardListTbody').empty();
+					for(var i in rbList){
+						console.log(data[i]);
+						listBody = 
+							'<tr>'
+								+'<td>'+ data[i].board_No +'</td>'
+								+'<td>'+ data[i].type_Name +'</td>'
+								+'<td class="goBoard" id="'+ data[i].board_No +'">'+ data[i].board_Title +'</td>'
+								+'<td>'+ data[i].mem_Nick +'</td>'
+								+'<td>'+ data[i].board_Date +'</td>'
+								+'<td>'+ data[i].board_View +'</td>'
+							+'</tr>'
+						$('.rBoardListTbody').append(listBody);
+					}
+					$('#dataTable-3').DataTable({
+				        autoWidth: true,
+				        "lengthMenu": [
+				          [16, 32, 64, -1],
+				          [16, 32, 64, "All"]
+				        ]
+			      	});
+					
+				}, error : function () {
+					alert("불러오기 실패");
+				}
+			});
+		};
+
+		function rCommentTab(){
+			var memNo = $('.memNoVal').val();
+			$.ajax({
+				url: "${pageContext.request.contextPath}/user/selectReportCommentList",
+				data :{memNo : memNo},
+				async: true,
+				dataType : "json",
+				success : function(data){
+					var rcList = data;
+					$('rCommentListTbody').empty();
+					for(var i in rcList){
+						console.log(data[i]);
+						listBody = 
+							'<tr>'
+								+'<td>'+ data[i].comm_No +'</td>'
+								+'<td>'+ data[i].comm_Content +'</td>'
+								+'<td>'+ data[i].comm_Date +'</td>'
+							+'</tr>'
+						$('.rCommentListTbody').append(listBody);
+					}
+					$('#dataTable-4').DataTable({
+				        autoWidth: true,
+				        "lengthMenu": [
+				          [16, 32, 64, -1],
+				          [16, 32, 64, "All"]
+				        ]
+			      	});
+					
+				}, error : function () {
+					alert("불러오기 실패");
 				}
 			});
 		};
 
 
-
-
-/*
 		
-    	$('#pills-conmment-tab').on('click', function () {
-    		
-			$.ajax({
-				url: "${pageContext.request.contextPath}/user/selectCommentList",
-				data: {memNo :$('#memberNo').val()},
-				success: function (data) {
-					console.log(data);
-					
-					var $tbody = $('<tbody>');
-					
-					for(var i = 0; i < data.commentList.length; i++) {
-						var commentList = data.commentList[i];
-						
-						var $tr = $('<tr>');
-						
-						var $board_No = $('<td>').text(commentList[i].board_No);
-						var $type_Name = $('<td>').text(commentList[i].type_Name);
-						var $board_Title = $('<td>').text(commentList[i].board_Title);
-						var $mem_Nick = $('<td>').text(commentList[i].mem_Nick);
-						var $board_Date = $('<td>').text(commentList[i].board_Date);
-						var $board_View = $('<td>').text(commentList[i].board_View);
-						
-						$tr.append($board_No);
-						$tr.append($type_Name);
-						$tr.append($board_Title);
-						$tr.append($mem_Nick);
-						$tr.append($board_Date);
-						$tr.append($board_View);
-						
-						$tbody.append($tr);
-					}
-					$('#dataTable-2>tbody').remove();
-					$('#dataTable-2').append($tbody);
-					
-					
-				}, error : function () {
-					alert("에러발생");
-				}
-				
-			});
-		});
-*/
-    </script>
+	</script>
+<%-- 	+'<fmt:parseDate var="parsedDate" value="'+ data[i].comm_Date +'" pattern="yyyy-MM-dd HH:mm:ss.S"/>'
+	+'<td><fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>' --%>
   
 	<script>
 
