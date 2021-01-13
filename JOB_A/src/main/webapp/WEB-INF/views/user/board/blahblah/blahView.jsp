@@ -308,9 +308,9 @@ p {
 												<c:if test="${member.memNo ne co.mem_No}">
 												<span class="reportBtn_comment" id="reportBtn_comment" style="vertical-align: middle;" ><i class="fas fa-exclamation-triangle"></i></span> 
 													<!-- ----------------------- 댓글신고정보 by 은열 ------------------------------ -->
-													<input type="hidden" id="board_comment_info" value="${co.comm_No }">
-													<input type="hidden" id="board_comment_mem_no" value="${co.mem_No }">
-													<input type="hidden" id="board_comment_reporter" value="${member }">
+													<input type="hidden" class="board_comment_info" value="${co.comm_No }">
+													<input type="hidden" class="board_comment_mem_no" value="${co.mem_No }">
+													<input type="hidden" class="board_comment_reporter" value="${member }">
 													<!-- ----------------------------------------------------- -->
 												</c:if>
 											</div>
@@ -343,9 +343,9 @@ p {
 							 						<c:if test="${member.memNo ne co.mem_No}">
 													<span class="reportBtn_cocomment" id="reportBtn_cocomment" style="vertical-align: middle;" ><i class="fas fa-exclamation-triangle"></i></span> 
 													<!-- ----------------------- 대댓글신고정보 by 은열 ------------------------------ -->
-													<input type="hidden" id="board_cocomment_info" value="${co.comm_No }">
-													<input type="hidden" id="board_cocomment_mem_no" value="${co.mem_No }">
-													<input type="hidden" id="board_cocomment_reporter" value="${member }">
+													<input type="hidden" class="board_cocomment_info" value="${co.comm_No }">
+													<input type="hidden" class="board_cocomment_mem_no" value="${co.mem_No }">
+													<input type="hidden" class="board_cocomment_reporter" value="${member }">
 													<!-- ----------------------------------------------------- -->
 													</c:if>
 												</div>
@@ -522,6 +522,7 @@ p {
 	    // 댓글 신고모달 스크립트 by 은열
 		var $comment = $('.reportBtn_comment').on('click', function(){
 				var idx = $comment.index(this);
+				console.log(idx)
 				var modal_board = $('.board_comment_info:eq('+idx+')').val();
 				console.log( "보드번호:"+modal_board );
 				var modal_reporter = $('.board_comment_reporter:eq('+idx+')').val();
