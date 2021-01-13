@@ -39,16 +39,22 @@
         var commentModal = document.getElementById('myModal');
         
         // Get the button that opens the modal
-        var commentBtn = document.getElementById("reportBtn_comment");
+        var commentBtn = document.getElementsByClassName("reportBtn_comment");  // 댓글
+        var commentBtn1 = document.getElementsByClassName("reportBtn_cocomment"); // 대댓글
         
         // Get the <span> element that closes the modal
           var commentSpan = document.getElementsByClassName("close")[0];                                          
           
           // When the user clicks on the button, open the modal 
           commentBtn.onclick = function() {
-            console.log("zzz");
+             console.log("댓글임zzz");
             commentModal.style.display = "block";
           }
+          
+          commentBtn1.onclick = function() {
+               console.log("대댓글임zzz");
+              commentModal.style.display = "block";
+            }
           
           // When the user clicks on <span> (x), close the modal
             commentSpan.onclick = function() {

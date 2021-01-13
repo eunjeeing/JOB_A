@@ -32,7 +32,6 @@
 											<thead>
 												<tr role="row" >
 													<th>NO.</th>
-													<th>댓글 내용</th>
 													<th>게시글 작성자</th> <!-- 피신고자 : memNo2 -->
 													<th>신고사유</th>
 													<th>신고자</th> <!-- memNo -->
@@ -45,7 +44,7 @@
 												<c:forEach items="${reportList}" var="m" varStatus="status"> 
 													<tr onclick="location.href='${pageContext.request.contextPath}/boardReportDetail.do?boardNo=${m.boardNo}&reportReason=${m.reportReason}&appendantMemNick=${appendantList[status.index].memNick}&reporterMemNick=${reporterList[status.index].memNick}';">
 														<td>${m.reportNo}</td>
-														<td>${commentList[status.index].comm_Content }</td>
+														
 														<td>${appendantList[status.index].memNick}</td>
 														<td>${m.reportReason }</td>
 														<td>${reporterList[status.index].memNick}</td>
@@ -71,9 +70,7 @@
 														</td>
 													</tr>
 													<tr>
-														<td colspan="7">
-															<input type="text" value="여기에 댓글 내용 적을지 아님 해당 화면으로 넘기게 할지 정하기!" style="width: 100%;">
-														</td>
+													<td colspan="6"  onclick="boardView(${board2List[status.index].type_No}, ${board2List[status.index].board_No})"> >&nbsp;&nbsp; ${commentList[status.index].comm_Content }</td>
 													</tr>
 												</c:forEach>
 											</tbody>
@@ -121,18 +118,50 @@
 		gtag('js', new Date());
 		gtag('config', 'UA-56159088-1');
 
-      	/*
-      	$(document).ready(function(){
-      	    $(".custom-control-input").change(function(){
-      	        if($(".custom-control-input").is(":checked")){
-      	            alert("체크박스 체크했음!");
-      	        }else{
-      	            alert("체크박스 체크 해제!");
-      	        }
-      	    });
-      	});
-      	*/
+		   // 해당 게시글로 이동
+			function boardView(boardType, boardNo){
+				console.log("boardType : " + boardType + ", boardNo:" + boardNo);
+
+			       switch(boardType) {
+			         case 1:
+			            location.href = "${pageContext.request.contextPath}/notice.bo?board_no="+ boardNo;
+			            break;
+
+			         case 2:
+			            location.href = "${pageContext.request.contextPath}/board2/jobSelectOne.do?board_No="+ boardNo;
+			            break;
+			               
+			         case 4:
+			            location.href = "${pageContext.request.contextPath}/board2/blahView.do?board_No="+ boardNo;
+			            break;
+			         
+			         case 5:
+			            location.href = "${pageContext.request.contextPath}/board2/blindSelectOne.do?board_No="+ boardNo;
+			            break;
+
+			         case 6:
+			            location.href = "${pageContext.request.contextPath}/selectOneTomorrow.bo?board_no="+ boardNo;
+			            break;
+
+			         case 7:
+			            location.href = "${pageContext.request.contextPath}/board2/qnaSelectOne.do?board_No="+ boardNo;
+			            break;   
+
+			         case 8:
+			            location.href = "${pageContext.request.contextPath}/selectOneMento.bo?board_no="+ boardNo;
+			            break;
+			            
+			         case 9:
+			            location.href = "${pageContext.request.contextPath}/selectOneInterview.bo?board_no="+ boardNo;
+			            break;
+
+			         case 10:
+			            location.href = "${pageContext.request.contextPath}/selectOneAccept.bo?board_no="+ boardNo;
+			            break;
+			         }
+				}
     </script>
+    
 	
 <!-- 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	<script type="text/javascript">
