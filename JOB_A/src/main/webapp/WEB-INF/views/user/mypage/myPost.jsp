@@ -147,11 +147,11 @@
 			case '1':
 				location.href = "${pageContext.request.contextPath}/notice.bo?board_no="+ board_No;
 				break;
-				
+
 			case '2':
 				location.href = "${pageContext.request.contextPath}/board2/jobSelectOne.do?board_No="+ board_No;
 				break;
-
+					
 			case '4':
 				location.href = "${pageContext.request.contextPath}/board2/blahView.do?board_No="+ board_No;
 				break;
@@ -160,9 +160,25 @@
 				location.href = "${pageContext.request.contextPath}/board2/blindSelectOne.do?board_No="+ board_No;
 				break;
 
+			case '6':
+				location.href = "${pageContext.request.contextPath}/selectOneTomorrow.bo?board_no="+ board_No;
+				break;
+
 			case '7':
 				location.href = "${pageContext.request.contextPath}/board2/qnaSelectOne.do?board_No="+ board_No;
 				break;	
+
+			case '8':
+				location.href = "${pageContext.request.contextPath}/selectOneMento.bo?board_no="+ board_No;
+				break;
+				
+			case '9':
+				location.href = "${pageContext.request.contextPath}/selectOneInterview.bo?board_no="+ board_No;
+				break;
+
+			case'10':
+				location.href = "${pageContext.request.contextPath}/selectOneAccept.bo?board_no="+ board_No;
+				break;
 			}
 		});
 	});
