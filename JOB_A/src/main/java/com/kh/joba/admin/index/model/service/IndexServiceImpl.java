@@ -17,7 +17,7 @@ public class IndexServiceImpl implements IndexService {
 
 	// 랭킹 서비스
 	@Override
-	public List<Board2> selectRank() {
+	public List<Map<String, String>> selectRank() {
 		return indexDAO.selectAllCount();
 	}
 

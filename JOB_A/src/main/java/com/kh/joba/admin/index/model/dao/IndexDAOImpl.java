@@ -18,8 +18,8 @@ public class IndexDAOImpl implements IndexDAO {
 	SqlSessionTemplate sqlSession;
 	
 	@Override
-	public List<Board2> selectAllCount() {
-		return sqlSession.selectOne("indexMapper.selectAllCount");
+	public List<Map<String, String>> selectAllCount() {
+		return sqlSession.selectList("indexMapper.selectAllCount");
 	}
 
 	@Override

@@ -121,20 +121,21 @@
 				</ul></li>
 
 			<!-- 신고 관리 -->
-			<li class="nav-item dropdown"><a href="#report"
-				data-toggle="collapse" aria-expanded="false"
-				class="dropdown-toggle nav-link"> <i
-					class="fe fe-alert-triangle fe-16"></i> <span
-					class="ml-3 item-text">REPORT</span>
-			</a>
-				<ul class="collapse list-unstyled pl-4 w-100" id="report">
-					<li class="nav-item"><a class="nav-link pl-3"
-						href="${pageContext.request.contextPath}/boardReportList.do"><span
-							class="ml-1 item-text">Board</span></a></li>
-					<li class="nav-item"><a class="nav-link pl-3" href="#"><span
-							class="ml-1 item-text">Comment</span></a></li>
+	         <li class="nav-item dropdown"><a href="#report"
+	            data-toggle="collapse" aria-expanded="false"
+	            class="dropdown-toggle nav-link"> <i
+	               class="fe fe-alert-triangle fe-16"></i> <span
+	               class="ml-3 item-text">REPORT</span>
+	         </a>
+	            <ul class="collapse list-unstyled pl-4 w-100" id="report">
+	               <li class="nav-item"><a class="nav-link pl-3"
+	                  href="${pageContext.request.contextPath}/boardReportList.do"><span
+	                     class="ml-1 item-text">Board</span></a></li>
+	               <li class="nav-item"><a class="nav-link pl-3" 
+	                  href="${pageContext.request.contextPath}/commentReportList.do"><span
+	                     class="ml-1 item-text">Comment</span></a></li>
 
-				</ul></li>
+            </ul></li>
 
 			<!-- 통계 관리 -->
 			<li class="nav-item dropdown"><a href="#static"

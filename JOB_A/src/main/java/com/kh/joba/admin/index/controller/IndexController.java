@@ -29,14 +29,15 @@ public class IndexController {
 		return "/adminIndex";
 	}
 	
-	@RequestMapping(value = "/rank.do")
+	@RequestMapping(value = "/rankList", method = RequestMethod.POST, produces="application/text;charset=utf-8")
 	@ResponseBody
 	public String rankList(Model model) {
 		
-		List<Board2> rankList =is.selectRank();
+		System.out.println("rankList() 기능 실행");
+		List<Map<String, String>> rankList =is.selectRank();
 		model.addAttribute("count", rankList);
 		
-		return null;
+		return new Gson().toJson(rankList);
 	}
 	
 	@RequestMapping(value="/carousel", method = RequestMethod.POST, produces="application/text;charset=utf-8")

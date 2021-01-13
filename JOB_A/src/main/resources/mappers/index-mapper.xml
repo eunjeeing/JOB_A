@@ -5,7 +5,7 @@
 <mapper namespace="indexMapper">
 	
 <!-- 랭킹 -->
-	<select id="selectAllCount" parameterType="_int">
+	<select id="selectAllCount" resultType="HashMap" parameterType="string">
 		select 
 			(select count(category_no) from wish_category where category_no = 1) as office,
 	        (select count(category_no) from wish_category where category_no = 2) as market,
@@ -22,10 +22,12 @@
 	</select>
 	
 	<select id="selectCarouselList" resultType="HashMap" parameterType="string">
-		SELECT B.*,T.*, M.MEM_NICK,(SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
-		FROM BOARD B, MEMBER M, BOARDTYPE T
-		WHERE BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO AND B.TYPE_NO = T.TYPE_NO AND ROWNUM &lt;11
-        ORDER BY BOARD_VIEW DESC
+		SELECT CL.BOARD_NO, CL.BOARD_TITLE, CL.BOARD_CONTENT, CL.BOARD_VIEW, CL.MEM_NICK, CL.TYPE_NAME, CL.COMM_COUNT, CL.BOARD_DATE
+        FROM (SELECT B.*, T.*, M.MEM_NICK, (SELECT COUNT(*) FROM COMMENTS C WHERE C.BOARD_NO = B.BOARD_NO AND C.COMM_STATUS = 'Y' ) COMM_COUNT
+                        FROM BOARD B, MEMBER M, BOARDTYPE T  
+                        WHERE B.BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO AND B.TYPE_NO = T.TYPE_NO 
+                        ORDER BY BOARD_VIEW DESC) CL
+      	WHERE ROWNUM &lt; 11
 	</select>
 	
 
