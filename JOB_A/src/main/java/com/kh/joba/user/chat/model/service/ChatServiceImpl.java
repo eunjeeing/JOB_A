@@ -1,5 +1,6 @@
 package com.kh.joba.user.chat.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.kh.joba.user.chat.model.dao.ChatDAO;
 import com.kh.joba.user.chat.model.vo.Chat;
-import com.kh.joba.user.common.exception.ChatException;
 
 @Service
 public class ChatServiceImpl implements ChatService {
@@ -17,32 +17,31 @@ public class ChatServiceImpl implements ChatService {
 	ChatDAO chatDAO;
 	
 	@Override
-	public List<Map<String, String>> selectChatList(int cPage, int numPerPage) {
+	public List<Map<String, String>> selectChatList() {
 		// TODO Auto-generated method stub
-		return chatDAO.selectChatList(cPage, numPerPage);
+		return chatDAO.selectChatList();
 	}
 	
 	@Override
-	public int selectChatTotalContents() {
-		// TODO Auto-generated method stub
-		return chatDAO.selectChatTotalContents();
-	}
-
-	@Override
-	public int insertChat(Chat chat) {
+	public Map<String, Integer> insertChat(Chat chat) {
 		// TODO Auto-generated method stub
 		int chatNo = chatDAO.selectChatSeq();
 		chat.setChatNo(chatNo);
 		
-		chatDAO.insertChat(chat);
+		int result = chatDAO.insertChat(chat);
+		Map<String, Integer> chatRoomNo = new HashMap<String, Integer>();
+		if(result > 0) {
+			chatRoomNo.put("chatNo", chatNo);
+		}
 		
-		return chatNo;
+		return chatRoomNo;
+		
 	}
 
 	@Override
-	public Map<String, Chat> selectChat(int chatNo) {
+	public Map<String, Chat> selectChatRoom(int chatNo) {
 		// TODO Auto-generated method stub
-		return chatDAO.selectChat(chatNo);
+		return chatDAO.selectChatRoom(chatNo);
 	}
 
 	@Override
@@ -50,6 +49,8 @@ public class ChatServiceImpl implements ChatService {
 		// TODO Auto-generated method stub
 		chatDAO.deleteChat(chatNo);
 	}
+
+	
 
 
 	

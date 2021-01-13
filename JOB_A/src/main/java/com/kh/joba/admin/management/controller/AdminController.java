@@ -1,16 +1,21 @@
 package com.kh.joba.admin.management.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.xml.stream.events.Comment;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.kh.joba.admin.management.model.service.AdminService;
 import com.kh.joba.admin.management.model.vo.Admin;
 import com.kh.joba.user.board2.blahblah.model.vo.Board2;
@@ -30,6 +35,7 @@ public class AdminController {
 		
 		List<Map<String,String>> list = adminService.selectAdminList();
 		
+		System.out.println("adminList : " + list);
 		model.addAttribute("adminList", list);
 		
 		return "admin/management/adminList";
@@ -67,8 +73,8 @@ public class AdminController {
 		return "redirect:adminList";
 	}
 	
-	@RequestMapping("admin/adminDelete")
-	public String adminDelete (int adminNo, Model model) {
+	@RequestMapping("admin/adminDelete/{adminNo}")
+	public String adminDelete (@PathVariable int adminNo, Model model) {
 		
 		System.out.println(adminNo);
 		int result = adminService.deleteAdmin(adminNo); // no로 조회하고 삭제
@@ -153,33 +159,56 @@ public class AdminController {
 		return "admin/management/memberDetail";
 	}
 	
-	@RequestMapping("user/selectBoardList")
-	public List<Map<String,String>> selectBoardList(int memNo) { 
+	@RequestMapping(value="user/selectBoardList", produces="application/text; charset=utf8")
+	@ResponseBody
+	public String selectBoardList(int memNo) { 
 		System.out.println(memNo);
-		List<Map<String,String>> boardList = new ArrayList<Map<String,String>>();
-		boardList = adminService.selectBoardList(memNo);
-		System.out.println("boardList : " + boardList);
-		return boardList;
+		List<Map<String,String>> bList = adminService.selectBoardList(memNo);
+		System.out.println("bList : " + bList);
+		// Map<String, Board2> boardList = new HashMap<String, Board2>();
+		
+		return new Gson().toJson(bList);
 	}
 	
-	@RequestMapping("user/selectCommentList")
-	public List<Map<String,String>> selectCommentList(int memNo) { 
-		List<Map<String,String>> commentList = adminService.selectCommentList(memNo);
-		System.out.println("commentList : " + commentList);
-		return commentList;
-	}
+//	
+//	@RequestMapping("user/selectCommentList")
+//	@ResponseBody
+//	public Map<String,Comment> selectCommentList(int memNo) { 
+//		List<Map<String,String>> cList = adminService.selectCommentList(memNo);
+//		System.out.println("cList : " + cList);
+//		Map<String,Comment> commentList = new HashMap<String, Comment>();
+//		
+//		int index = 0;
+//		for (Map<String, Object> map : cList) {
+//			  for (Map.Entry<String, Object> entry : map.entrySet()) {
+//		 	        String key = entry.getKey();
+//		 	        Object value = entry.getValue();
+//		 	       map.put(key,value);
+//		 	    }
+//		       index++;
+//		  }
+//
+//
+//		return commentList;
+//	}
 	
 	@RequestMapping("user/selectReportBoardList")
-	public List<Map<String,String>> selectReportBoardList(int memNo) { 
-		List<Map<String,String>> reportBoardList = adminService.selectReportBoardList(memNo);
-		System.out.println("reportBoardList : " + reportBoardList);
+	@ResponseBody
+	public Map<String,Board2> selectReportBoardList(int memNo) { 
+		List<Map<String,String>> rbList = adminService.selectReportBoardList(memNo);
+		System.out.println("rbList : " + rbList);
+		Map<String, Board2> reportBoardList = new HashMap<String, Board2>();
+		
 		return reportBoardList;
 	}
 	
 	@RequestMapping("user/selectReportCommentList")
-	public List<Map<String,String>> selectReportCommentList(int memNo) { 
-		List<Map<String,String>> reportCommentList = adminService.selectReportCommentList(memNo);
-		System.out.println("reportCommentList : " + reportCommentList);
+	@ResponseBody
+	public Map<String,Comment> selectReportCommentList(int memNo) { 
+		List<Map<String,String>> rcList = adminService.selectReportCommentList(memNo);
+		System.out.println("rcList : " + rcList);
+		Map<String,Comment> reportCommentList = new HashMap<String, Comment>();
+		
 		return reportCommentList;
 	}
 	

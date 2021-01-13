@@ -106,7 +106,7 @@
 	            alert("로그인 후 이용해 주세요");
 	            return false;
 	        } else {
-	            location.href = "${pageContext.request.contextPath}/chat/chatList/0";
+	            location.href = "${pageContext.request.contextPath}/chat/chatList";
 	        }
 	    }
          

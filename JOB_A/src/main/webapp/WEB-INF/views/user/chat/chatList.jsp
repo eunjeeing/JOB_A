@@ -9,15 +9,14 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
-	
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/css/dataTables.bootstrap4.css">
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-	
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-	
 	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+	<script src='${pageContext.request.contextPath}/resources/admin/js/jquery.dataTables.min.js'></script>
+    <script src='${pageContext.request.contextPath}/resources/admin/js/dataTables.bootstrap4.min.js'></script>
 	<style>
 		#banner {
 		float : flex;
@@ -63,7 +62,7 @@
 		    color: #f56a6a;
 		}
 		
-		.newChat {
+		.newChatBtn {
 			width: 400px; 
 			height: 150px !important; 
 			font-size: 40px !important;
@@ -103,53 +102,51 @@
 				<c:import url="../common/header.jsp"/>				
 				<section id="banner">					
 					<div class="left">
-						<table>
-							<c:forEach items="${chatList}" var="list">
-								<tr>
-									<td><b>${list.chatTitle}</b></td>
-									<td><button type="button" onclick="location.href='${pageContext.request.contextPath}/chat/chatList/${list.chatNo}'"> 입장</button></td>
+						<table class="datatables" id="dataTable-1">
+							<thead>
+								<tr role="row">
+									<th>방 번호</th>
+									<th>방 제목</th>
+									<th>입장</th>
 								</tr>
-							</c:forEach>
+							</thead>
+							<tbody>
+								<c:forEach items="${chatList}" var="list">
+									<tr>
+										<td><b>${list.chatNo}</b></td>
+										<td><b>${list.chatTitle}</b></td>
+										<td><button onclick="enterChatRoom(this)" value="${list.chatNo}" id="enterChatRoom"><i class="far fa-comments"></i></td>
+									</tr>
+								</c:forEach>
+							</tbody>
 						</table>
-						<c:out value="${pageBar}" escapeXml="false"/>
 					</div>
 				
 					<div class="right">
-						<c:if test="${chatNo eq 0}">
-							<button type="button" class="button newChat" data-toggle="modal" data-target="#exampleModalCenter">새로운 채팅</button>
-						</c:if>
-						<c:if test="${chatNo ne 0}">
-							<div class="chat-right-aside">
-								<div class="chat-main-header">
-									<div class="border-bottom">
-										<h3>${chat.CHAT_TITLE} &nbsp;&nbsp;&nbsp;
-											<c:if test="${chat.CHAT_CREATOR.equals(member.memId) == false}">
-												<a href="javascript:void(0)" id="exitChat"><i class="fas fa-door-open"></i></a>
-											</c:if>
-											<c:if test="${chat.CHAT_CREATOR.equals(member.memId) == true}">
-												<a href="javascript:void(0)" id="deleteChat"><i class="fas fa-door-open"></i></a>
-											</c:if>
-											<input type="hidden" id="chatNo" value="${chat.CHAT_NO}" />
-										</h3>
+						<div class="chat-right-aside">
+							<div class="chat-main-header">
+								<div>
+									<h2 id="chatTitle"><button type="button" class="button newChatBtn" data-toggle="modal" data-target="#exampleModalCenter">새로운 채팅</button></h2>
+									<!-- <div id="chatNo"></div>
+									<div id="chatCreator"></div> -->
+								</div>
+							</div>
+							<div class="chat-list">
+								<ul id="chatdata" class="chat-list p-5" style="height: 500px; overflow: auto;"></ul>
+							</div>
+							<div class="card-body border-top">
+								<div class="row">
+									<div class="col-9">
+										<textarea placeholder="메세지를 입력하세요" class=" b-0" id="message"></textarea>
 									</div>
-								</div>
-								<div class="chat-list">
-									<ul id="chatdata" class="chat-list p-5" style="height: 550px; overflow: auto;"></ul>
-								</div>
-								<div class="card-body border-top">
-									<div class="row">
-										<div class="col-9">
-											<textarea placeholder="메세지를 입력하세요" class=" b-0" id="message"></textarea>
-										</div>
-										<div class="col-3 text-right">
-											<button type="button" class="btn btn-lg" id="sendChat">
-												<i class="fa fa-paper-plane"></i>
-											</button>
-										</div>
+									<div class="col-3 text-right">
+										<button type="button" class="btn btn-lg" id="sendChat">
+											<i class="fa fa-paper-plane"></i>
+										</button>
 									</div>
 								</div>
 							</div>
-						</c:if>
+						</div>
 					</div>
 				</section>
 				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -161,14 +158,14 @@
        								<span aria-hidden="true">&times;</span>
      							</button>
    							</div>
-   							<form id="newChatForm" action="${pageContext.request.contextPath }/chat/insertChat" method="post">
+   							<form id="newChatForm" action="javascript:void(0)" method="post">
     							<div class="modal-body">
     								<h3 for="exampleInputTitle">채팅방 이름</h3>
-    								<input type="text" class="form-control" name="chatTitle" id="exampleInputPassword1" placeholder="30자 내외 입력" required>
-    								<input type="hidden" name="memId" value="${member.memId}">
+    								<input type="text" class="form-control" name="chatTitle" id="newChatTitle" placeholder="30자 내외 입력" required>
+    								<input type="hidden" name="memId" id="newChatMemId" value="${member.memId}">
     							</div>
     							<div class="modal-footer">
-					        		<button type="submit" class="button">채팅 시작</button>
+					        		<input type="button" onclick="newChat()" class="button" value="채팅 시작">
    								</div>
 							</form>
 						</div>
@@ -199,7 +196,125 @@
 	           	// Trigger resize (sidebar lock).
 	            $window.triggerHandler('resize.sidebar-lock');
 	        });
-		}); 
+		});
+		</script>
+		
+		
+		<script>
+		$(document).ready( function () {
+		    $('#dataTable-1').DataTable();
+		} );
+		
+      </script>
+			
+		<script type="text/javascript">
+		
+			function enterChatRoom(obj){
+				var chatNo = $(obj).val();
+				$.post(
+					"${pageContext.request.contextPath}/chat/chatRoom/"+ chatNo,
+					{chatNo : chatNo},
+					function (data) {
+						var chatNo = data.CHAT_NO;
+						var chatTitle = data.CHAT_TITLE;
+						var chatCreator = data.CHAT_CREATOR;
+						
+						$('#chatNo').text(chatNo);
+						$('#chatTitle').text(chatTitle);
+						$('#chatCreator').text(chatCreator);
+
+						if (chatCreator == '${member.memId}') {
+							$('#chatTitle').append("&nbsp;&nbsp;&nbsp; <a href='javascript:void(0)' id='deleteChat'><i class='fas fa-times-circle'></i></a>");
+						}else {
+							$('#chatTitle').append("&nbsp;&nbsp;&nbsp; <a href='javascript:void(0)' id='exitChat'><i class='fas fa-times-circle'></i></a>");
+						}
+					},
+					'json'
+				);
+			};
+
+			function newChat(){
+				var chatTitle = $('#newChatTitle').val();
+				var memId = $('#newChatMemId').val();
+				$.ajax({
+					url: "${pageContext.request.contextPath }/chat/insertChat",
+					type: "POST",
+					dataType: "json",
+					data: {	chatTitle : chatTitle, memId : memId },
+					success: function (data) {
+						var roomNo = data.chatNo;
+						
+						$.post(
+							"${pageContext.request.contextPath}/chat/chatRoom/"+ roomNo,
+							{chatNo : roomNo},
+							function (data) {
+								var chatNo = data.CHAT_NO;
+								var chatTitle = data.CHAT_TITLE;
+								var chatCreator = data.CHAT_CREATOR;
+								
+								$('#chatNo').text(chatNo);
+								$('#chatTitle').text(chatTitle);
+								$('#chatCreator').text(chatCreator);
+
+								if (chatCreator == '${member.memId}') {
+									$('#chatTitle').append("&nbsp;&nbsp;&nbsp; <a href='javascript:void(0)' id='deleteChat'><i class='fas fa-times-circle'></i></a>");
+								}else {
+									$('#chatTitle').append("&nbsp;&nbsp;&nbsp; <a href='javascript:void(0)' id='exitChat'><i class='fas fa-times-circle'></i></a>");
+								}
+							},
+							'json'
+						);
+						$('#exampleModalCenter').empty();
+					}
+				});
+			};
+			
+		</script>
+		
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+		<script type="text/javascript">
+			// exitConfirm
+			$("#exitChat").click(function () {
+				Swal.fire({
+	                title: '🚰·̫🚰',
+	                text: "채팅방을 나가시겠습니까?",
+	                showCancelButton: true,
+	                confirmButtonColor: '#fff',
+	                cancelButtonColor: '#fff',
+	                confirmButtonText: '가차없이 나가겠어!',
+	                cancelButtonText: '쵸큼만 더 있어볼까..?'
+				}).then((result) => {
+	                if (result.value) {
+	                	sock.onclose();
+	                    location.href="${pageContext.request.contextPath}/chat/exitChat";
+	                }
+	            })
+	        });
+
+			// exitConfirm
+			$("#deleteChat").click(function () {
+				Swal.fire({
+	                title: '⁽⁽(´༎ຶД༎ຶ`)⁾⁾',
+	                text: "채팅방을 삭제하시겠습니까?",
+	                showCancelButton: true,
+	                confirmButtonColor: '#fff',
+	                cancelButtonColor: '#fff',
+	                confirmButtonText: '이 방은 폭파시키겠어! 콰과광쾀ㅇ콰콰가왐ㄹ광쾅쾅랄ㅇ쾅',
+	                cancelButtonText: '아직까진 흥미진진 하구만..!'
+				}).then((result) => {
+	                if (result.value) {
+	                	sock.onclose();
+	                   	location.href="${pageContext.request.contextPath}/chat/deleteChat/" + "${chat.CHAT_NO}";
+	                }
+	            })
+			});	
+		</script>
+		
+		
+		
+		
+		
+		<script type="text/javascript">
 
 		var sock = new SockJS("<c:url value='/chatting'/>");
 
@@ -294,41 +409,7 @@
 	        }
 	    };
 	
-     // exitConfirm
-		$("#exitChat").click(function () {
-			Swal.fire({
-                title: '🚰·̫🚰',
-                text: "채팅방을 나가시겠습니까?",
-                showCancelButton: true,
-                confirmButtonColor: '#fff',
-                cancelButtonColor: '#fff',
-                confirmButtonText: '가차없이 나가겠어!',
-                cancelButtonText: '쵸큼만 더 있어볼까..?'
-			}).then((result) => {
-                if (result.value) {
-                	sock.onclose();
-                    location.href="${pageContext.request.contextPath}/chat/exitChat";
-                }
-            })
-        });
-
-		// exitConfirm
-		$("#deleteChat").click(function () {
-			Swal.fire({
-                title: '⁽⁽(´༎ຶД༎ຶ`)⁾⁾',
-                text: "채팅방을 삭제하시겠습니까?",
-                showCancelButton: true,
-                confirmButtonColor: '#fff',
-                cancelButtonColor: '#fff',
-                confirmButtonText: '이 방은 폭파시키겠어! 콰과광쾀ㅇ콰콰가왐ㄹ광쾅쾅랄ㅇ쾅',
-                cancelButtonText: '아직까진 흥미진진 하구만..!'
-			}).then((result) => {
-                if (result.value) {
-                	sock.onclose();
-                   	location.href="${pageContext.request.contextPath}/chat/deleteChat/" + "${chat.CHAT_NO}";
-                }
-            })
-		});	
+     
 
 		function pageDown() {
 			$('#chatdata').animate({

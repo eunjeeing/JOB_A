@@ -30,7 +30,7 @@
 												<label for="adminId" class="col-sm-3 col-form-label">사번</label>
 												<div class="col-sm-6">
 													<input type="text" class="form-control userInputId" id="adminId"
-														name="adminId" onkeyup="enroll(this.value)">
+														name="adminId" onkeyup="enroll(this.value)" required>
 												</div>
 												<!-- 아이디 중복검사 --> &nbsp;
 											<button type="button" class="btn btn-primary duplicateCheck" name="idDuplicateCheck" id="idDuplicateCheck">중복확인</button>
@@ -45,8 +45,7 @@
 											<div class="form-group row">
 												<label for="adminName" class="col-sm-3 col-form-label">이름</label>
 												<div class="col-sm-6">
-													<input class="form-control" id="adminName" type="text"
-														name="adminName">
+													<input class="form-control" id="adminName" type="text" name="adminName" required>
 												</div>
 											</div>
 											<fieldset class="form-group">
@@ -65,15 +64,15 @@
 												</div> @job-jo8a.com
 											</div>
 											<div class="form-group row">
-												<label for="gradeNo" class="col-form-label col-sm-3 pt-0">부서 선택</label>
+												<label for="gradeNo" class="col-form-label col-sm-3 pt-0">직급 선택</label>
 												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<div class="custom-control custom-radio col-sm-3">
-													<input type="radio" id="gradeNo1" name="gradeNo" value="1" class="custom-control-input">
+												<div class="custom-control custom-radio col-sm-3" >
+													<input type="radio" id="gradeNo1" name="gradeNo" value="1" class="custom-control-input" required>
 													<label class="custom-control-label" for="gradeNo1">일반 관리자</label>
 												</div>
 												
 												<div class="custom-control custom-radio col-sm-3">
-													<input type="radio" id="gradeNo2" name="gradeNo" value="5" class="custom-control-input">
+													<input type="radio" id="gradeNo2" name="gradeNo" value="5" class="custom-control-input" required>
 													<label class="custom-control-label" for="gradeNo2">인사 담당자</label>
 												</div>
 											</div>

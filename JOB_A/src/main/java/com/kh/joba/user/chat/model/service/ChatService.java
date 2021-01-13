@@ -8,14 +8,13 @@ import com.kh.joba.user.common.exception.ChatException;
 
 public interface ChatService {
 
-	List<Map<String, String>> selectChatList(int cPage, int numPerPage);
+	List<Map<String, String>> selectChatList();
+	
+	Map<String, Integer> insertChat(Chat chat);
 
-	int selectChatTotalContents();
-
-	int insertChat(Chat chat);
-
-	Map<String, Chat> selectChat(int chatNo);
+	Map<String, Chat> selectChatRoom(int chatNo);
 
 	void deleteChat(int chatNo);
+
 
 }

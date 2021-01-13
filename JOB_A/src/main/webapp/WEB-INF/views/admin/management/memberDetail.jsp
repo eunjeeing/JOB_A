@@ -42,7 +42,6 @@
                         <tbody>
                         	<c:forEach items="${user}" var="m">
                           <tr>
-                          	<input type="hidden" id="memberNo" value="${m.memNo}"/>
                             <td>${m.memNo}</td>
                             <td>${m.memId}</td>
 							<td>${m.memNick}</td>
@@ -81,7 +80,7 @@
                     <div class="card-body">
                       <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist">
                         <li class="nav-item">
-                          <a class="nav-link active" id="pills-board-tab" data-toggle="pill" href="#pills-board" role="tab" aria-controls="pills-board" aria-selected="false">총 작성 글</a>
+                          <a class="nav-link active" onclick="boardTab()" id="pills-board-tab" data-toggle="pill" href="#pills-board" role="tab" aria-controls="pills-board" aria-selected="false">총 작성 글</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" id="pills-conmment-tab" data-toggle="pill" href="#pills-conmment" role="tab" aria-controls="pills-conmment" aria-selected="false">총 작성 댓글</a>
@@ -187,13 +186,13 @@
 									<div class="modal-body">
 										<div class="row">
 											<div class="col">
-												<select name="gradeNo" class="mdb-select md-form colorful-select dropdown-danger" >
+												<select name="gradeNo" class="form-control select2" >
 													<option value="" disabled selected>등급 선택</option>
 													<option value="2">일반 회원</option>
 													<option value="3">우수 회원</option>
 													<option value="4">최우수 회원</option>
 												</select>
-												<input type="hidden" name="memNo" value="${user[0].memNo }">
+												<input type="hidden" class="memNoVal" name="memNo" value="${user[0].memNo }">
 											</div>
 										</div>	
 									</div>
@@ -223,7 +222,7 @@
 									<div class="modal-body">
 										<div class="row">
 											<div class="col">
-												<select name="memState" class="mdb-select md-form colorful-select dropdown-danger" >
+												<select name="memState" class="form-control select2" >
 													<option value="" disabled selected>상태 변경</option>
 													<option value="0">클린 회원</option>
 													<option value="1">블랙리스트</option>
@@ -283,49 +282,44 @@
       });
     </script>
     <script type="text/javascript">
-    	$('#pills-board-tab').on('click', function () {
+    
+    	function boardTab(){
+    		var memNo = $('.memNoVal').val();
+    		/*
+    		$.post(
+				"${pageContext.request.contextPath}/user/selectBoardList",
+				{memNo : memNo},
+				function (data) {
+					console.log(data);
+					console.log(JSON.parse(data));
+					
+					
+				}, "text"
+			);
+			*/
 			$.ajax({
 				url: "${pageContext.request.contextPath}/user/selectBoardList",
-				data: {memNo :$('#memberNo').val()},
-				success: function (data) {
+				data :{memNo : memNo},
+				success : function(data){
 					console.log(data);
-					
+					var bList = data;
 					var $tbody = $('<tbody>');
-					
-					for(var i = 0; i < data.boardList.length; i++) {
-						var boardList = data.boardList[i];
+					for(var i in bList){
+						console.log(data[i]);
+
 						
-						var $tr = $('<tr>');
-						
-						var $board_No = $('<td>').text(boardList[i].board_No);
-						var $type_Name = $('<td>').text(boardList[i].type_Name);
-						var $board_Title = $('<td>').text(boardList[i].board_Title);
-						var $mem_Nick = $('<td>').text(boardList[i].mem_Nick);
-						var $board_Date = $('<td>').text(boardList[i].board_Date);
-						var $board_View = $('<td>').text(boardList[i].board_View);
-						
-						$tr.append($board_No);
-						$tr.append($type_Name);
-						$tr.append($board_Title);
-						$tr.append($mem_Nick);
-						$tr.append($board_Date);
-						$tr.append($board_View);
-						
-						$tbody.append($tr);
 					}
-					$('#dataTable-1>tbody').remove();
-					$('#dataTable-1').append($tbody);
-					
-					
-				}, error : function () {
-					alert("에러발생");
 				}
-				
 			});
-		});
+		};
 
 
+
+
+/*
+		
     	$('#pills-conmment-tab').on('click', function () {
+    		
 			$.ajax({
 				url: "${pageContext.request.contextPath}/user/selectCommentList",
 				data: {memNo :$('#memberNo').val()},
@@ -365,90 +359,7 @@
 				
 			});
 		});
-
-
-    	$('#pills-rBoard-tab').on('click', function () {
-			$.ajax({
-				url: "${pageContext.request.contextPath}/user/selectReportBoardList",
-				data: {memNo :$('#memberNo').val()},
-				success: function (data) {
-					console.log(data);
-					
-					var $tbody = $('<tbody>');
-					
-					for(var i = 0; i < data.reportBoardList.length; i++) {
-						var reportBoardList = data.reportBoardList[i];
-						
-						var $tr = $('<tr>');
-						
-						var $board_No = $('<td>').text(reportBoardList[i].board_No);
-						var $type_Name = $('<td>').text(reportBoardList[i].type_Name);
-						var $board_Title = $('<td>').text(reportBoardList[i].board_Title);
-						var $mem_Nick = $('<td>').text(reportBoardList[i].mem_Nick);
-						var $board_Date = $('<td>').text(reportBoardList[i].board_Date);
-						var $board_View = $('<td>').text(reportBoardList[i].board_View);
-						
-						$tr.append($board_No);
-						$tr.append($type_Name);
-						$tr.append($board_Title);
-						$tr.append($mem_Nick);
-						$tr.append($board_Date);
-						$tr.append($board_View);
-						
-						$tbody.append($tr);
-					}
-					$('#dataTable-3>tbody').remove();
-					$('#dataTable-3').append($tbody);
-					
-					
-				}, error : function () {
-					alert("에러발생");
-				}
-				
-			});
-		});
-
-
-    	$('#pills-rConmment-tab').on('click', function () {
-			$.ajax({
-				url: "${pageContext.request.contextPath}/user/selectReportCommentList",
-				data: {memNo :$('#memberNo').val()},
-				success: function (data) {
-					console.log(data);
-					
-					var $tbody = $('<tbody>');
-					
-					for(var i = 0; i < data.reportCommentList.length; i++) {
-						var reportCommentList = data.reportCommentList[i];
-						
-						var $tr = $('<tr>');
-						
-						var $board_No = $('<td>').text(reportCommentList[i].board_No);
-						var $type_Name = $('<td>').text(reportCommentList[i].type_Name);
-						var $board_Title = $('<td>').text(reportCommentList[i].board_Title);
-						var $mem_Nick = $('<td>').text(reportCommentList[i].mem_Nick);
-						var $board_Date = $('<td>').text(reportCommentList[i].board_Date);
-						var $board_View = $('<td>').text(reportCommentList[i].board_View);
-						
-						$tr.append($board_No);
-						$tr.append($type_Name);
-						$tr.append($board_Title);
-						$tr.append($mem_Nick);
-						$tr.append($board_Date);
-						$tr.append($board_View);
-						
-						$tbody.append($tr);
-					}
-					$('#dataTable-4>tbody').remove();
-					$('#dataTable-4').append($tbody);
-					
-					
-				}, error : function () {
-					alert("에러발생");
-				}
-				
-			});
-		});
+*/
     </script>
   
 	<script>
