@@ -183,6 +183,12 @@ p {
 			<div class="inner">
 
 				<c:import url="../../common/header.jsp" />
+								<!-- Top Banner Area -->
+				<div id="topbanner">
+					<div id="topbanner-textarea">
+						<h3 id="topbanner-text">투모로우</h3>
+					</div>
+				</div>
 
 				<!-- 게시글 -->
 				<section class="container">

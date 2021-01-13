@@ -178,6 +178,15 @@ public class Board1Controller {
 		return "redirect:notice.bo";
 	}
 	
+	@RequestMapping("/selectNoticeFromIndex.bo")
+	public String selectNoticeFromIndex () {
+		
+		String keyword = "사이트 이용 방법";
+		int board_no = bs.selectNoticeFromIndex(keyword);
+		
+		return "redirect:selectOneNotice.bo?board_no=" + board_no;
+	}
+	
 	
 
 	// *******************************************************************************************
@@ -210,7 +219,7 @@ public class Board1Controller {
 		Board1 mento = bs.selectOneMento(board_no);
 		List<Comments2> commentList = cs.selectComment(board_no);
 		Member mem = (Member)session.getAttribute("member");
-		Bookmark isBookmark = new Bookmark(board_no, mem.getMemNo(), 0);
+		Bookmark isBookmark = new Bookmark(board_no, mem.getMemNo(), 0, null);
 		Bookmark bookmark = ms.selectOneBookmark(isBookmark);
 		
 		model.addAttribute("bookmark", bookmark);
@@ -320,7 +329,7 @@ public class Board1Controller {
 		Board1 tomorrow = bs.selectOneTomorrow(board_no);
 		List<Comments2> commentList = cs.selectComment(board_no);
 		Member mem = (Member)session.getAttribute("member");
-		Bookmark isBookmark = new Bookmark(board_no, mem.getMemNo(), 0);
+		Bookmark isBookmark = new Bookmark(board_no, mem.getMemNo(), 0, null);
 		Bookmark bookmark = ms.selectOneBookmark(isBookmark);
 		
 		model.addAttribute("bookmark", bookmark);
@@ -431,7 +440,7 @@ public class Board1Controller {
 		List<Comments2> commentList = cs.selectComment(board_no);
 		
 		Member mem = (Member)session.getAttribute("member");
-		Bookmark isBookmark = new Bookmark(board_no, mem.getMemNo(), 0);
+		Bookmark isBookmark = new Bookmark(board_no, mem.getMemNo(), 0, null);
 		Bookmark bookmark = ms.selectOneBookmark(isBookmark);
 		
 		model.addAttribute("bookmark", bookmark);
@@ -552,7 +561,7 @@ public class Board1Controller {
 		List<Comments2> commentList = cs.selectComment(board_no);
 		
 		Member mem = (Member)session.getAttribute("member");
-		Bookmark isBookmark = new Bookmark(board_no, mem.getMemNo(), 0);
+		Bookmark isBookmark = new Bookmark(board_no, mem.getMemNo(), 0, null);
 		Bookmark bookmark = ms.selectOneBookmark(isBookmark);
 		
 		model.addAttribute("bookmark", bookmark);	

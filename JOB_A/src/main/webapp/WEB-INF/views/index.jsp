@@ -279,11 +279,13 @@ section>div>.sub_menu3 {
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
-<link rel="stylesheet"
+
+ <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/main.css" />
 <link
 	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
 	rel="stylesheet">
+
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.min.js"></script>
 
@@ -298,6 +300,7 @@ section>div>.sub_menu3 {
 			<div class="inner">
 
 				<c:import url="user/common/header.jsp" />
+
 				
 				<div class="adminBtn">
 				<button id="Btn" onclick="goAdmin();" style="">관리자 페이지로 이동</button>
@@ -398,8 +401,8 @@ section>div>.sub_menu3 {
 
 			</div>
 		</div>
-
 		<c:import url="user/common/sideBar.jsp" />
+
 
 	</div>
 
@@ -439,7 +442,7 @@ section>div>.sub_menu3 {
 				
 				/* 이용안내로 이동 */
 				function goInfo(){
-					location.href = '${pageContext.request.contextPath}/#';
+					location.href = '${pageContext.request.contextPath}/selectNoticeFromIndex.bo';
 				}	
 
 				function goAdmin(){

@@ -13,7 +13,11 @@ public interface MyScrapService {
 
 	List<Map<String, String>> sortMyScrapList(int cPage, int numPerPage, Bookmark book);
 
-	int sortMyScrapTotalContents(int mem_no);
+	int sortMyScrapTotalContents(Bookmark book);
+
+	List<Map<String, String>> searchScrapList(int cPage, int numPerPage, Bookmark book);
+
+	int searchMyScrapTotalContents(Bookmark book);
 	
 	
 }

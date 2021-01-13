@@ -78,7 +78,7 @@ p {
 				<!-- Top Banner Area -->
 				<div id="topbanner">
 					<div id="topbanner-textarea">
-						<h3 id="topbanner-text">멘토링</h3>
+						<h3 id="topbanner-text">투모로우</h3>
 					</div>
 				</div>
 

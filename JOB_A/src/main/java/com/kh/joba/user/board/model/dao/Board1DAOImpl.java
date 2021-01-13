@@ -62,9 +62,11 @@ public class Board1DAOImpl implements Board1DAO {
 	public int insertNotice(Board1 notice) {
 		return sqlSession.insert("board1Mapper.insertNotice", notice);
 	}
-	
-	
-// *******************************************************************************************
+	@Override
+	public int selectNoticeFromIndex(String keyword) {
+		return sqlSession.selectOne("board1Mapper.selectNoticeFromIndex", keyword);
+	}
+	// *******************************************************************************************
 // 							Mentoring DAO Area
 // *******************************************************************************************
 	@Override

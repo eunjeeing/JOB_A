@@ -43,6 +43,9 @@
 		INSERT INTO BOARD(BOARD_NO, TYPE_NO, MEM_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_DATE)
 		VALUES (BOARD_SEQ.NEXTVAL, 1, #{mem_no}, #{board_title}, #{board_content}, default)
 	</insert>
+	<select id="selectNoticeFromIndex" parameterType="string" resultType="_int">
+		SELECT BOARD_NO FROM BOARD WHERE BOARD_TITLE LIKE '%' || #{keyword} || '%' AND BOARD_STATUS = 'Y'
+	</select>
 	
 	
 <!-- Mentoring -->
@@ -220,5 +223,9 @@
 		SELECT * FROM ATTACHMENT
 		WHERE BOARD_NO = #{board_no} 
 	</select> -->	
+	
+<!-- myScrap Mapper -->
+	<select id="">
+	</select>
 	
 </mapper>

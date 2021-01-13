@@ -26,7 +26,7 @@ public class BookmarkController {
 	public Map<String, Object> insertBookmark(@RequestParam int board_no,
 									@RequestParam int mem_no) {
 		
-		Bookmark bookmark = new Bookmark(board_no, mem_no, 0);
+		Bookmark bookmark = new Bookmark(board_no, mem_no, 0, null);
 		Map<String, Object> map = new HashMap<String, Object>();
 		boolean result = bs.insertBookmark(bookmark) == 0 ? false : true;
 		map.put("isSuccess", result);
@@ -39,7 +39,7 @@ public class BookmarkController {
 	public Map<String, Object> deleteBookmark(@RequestParam int board_no,
 								@RequestParam int mem_no)	{
 	
-		Bookmark bookmark = new Bookmark(board_no, mem_no, 0);
+		Bookmark bookmark = new Bookmark(board_no, mem_no, 0, null);
 		Map<String, Object> map = new HashMap<String, Object>();
 		boolean result = bs.deleteBookmark(bookmark) == 0 ? false : true;
 		map.put("isSuccess", result);

@@ -60,8 +60,11 @@ public class Board1ServiceImpl implements Board1Service {
 	public int insertNotice(Board1 notice) {
 		return board1DAO.insertNotice(notice);
 	}
-	
-// *******************************************************************************************
+	@Override
+	public int selectNoticeFromIndex(String keyword) {
+		return board1DAO.selectNoticeFromIndex(keyword);
+	}
+	// *******************************************************************************************
 // 							Mentoring Service Area
 // *******************************************************************************************
 	@Override
