@@ -48,7 +48,8 @@
 	 	UPDATE MEMBER SET
 	 	MEM_PW = #{adminPw},
 		MEM_NICK = #{adminNick},
-		MEM_PHONE = #{adminPhone}
+		MEM_PHONE = #{adminPhone},
+		GRADE_NO =#{gradeNo}
 		WHERE MEM_ID = #{adminId} 
 	</update>
 	

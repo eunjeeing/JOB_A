@@ -84,7 +84,7 @@
 												</div>
 											</div>
 											<div>
-												<input type="hidden" name="gradeNo" value="1" />
+												<input type="hidden" name="gradeNo" value="${admin.gradeNo}" />
 											</div>
 											
 											<div class="form-group mb-2">

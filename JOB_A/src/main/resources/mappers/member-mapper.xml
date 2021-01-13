@@ -98,7 +98,7 @@
 	<!--=========================================================================-->
 	<select id="selectMemberList" resultMap="resultMember">
 		SELECT * FROM MEMBER
-		WHERE GRADE_NO > 1
+		WHERE GRADE_NO = 2 OR GRADE_NO = 3 OR GRADE_NO = 4
 		ORDER BY MEM_NO DESC
 	</select>
 	

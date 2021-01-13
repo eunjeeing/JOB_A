@@ -1,5 +1,6 @@
 package com.kh.joba.user.board2.blahblah.model.vo;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Board2 {
+public class Board2 implements Serializable{
 	
 	private int board_No;
 	private int type_No;

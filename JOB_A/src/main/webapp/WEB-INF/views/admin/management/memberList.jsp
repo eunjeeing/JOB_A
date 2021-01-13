@@ -39,7 +39,7 @@
 													<th>생년월일</th>
 													<th>가입일</th>
 													<th>상태</th>
-													<th>Action</th>
+													<th>활동 내역</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -63,7 +63,7 @@
 																<span class='badge badge-danger'>블라인드</span></c:if>
 														</td>
 														<td>
-															<a class="" href="${pageContext.request.contextPath}/user/userDetail?memNo=${m.memNo}">활동내역</a>
+															<a style="text-decoration: none;" href="${pageContext.request.contextPath}/user/userDetail?memNo=${m.memNo}">&nbsp;<span style="color: #6c757d" class="fe fe-file-text fe-24 mr-2"></span></a>
 														</td>
 													</tr>
 												</c:forEach>
