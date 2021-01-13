@@ -28,5 +28,10 @@ public class IndexVo {
 	private String board_url;
 	private int comm_count;
 	private String board_mainTitle;
-	
+
+	private String category_Name;
+	private int comm_Count;
+	private String mem_Nick;
+	private int file_Count;
+	private String type_Name;
 }
