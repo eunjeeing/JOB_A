@@ -138,7 +138,7 @@ a {
 				<!-- Top Banner Area -->
 				<div id="topbanner">
 					<div id="topbanner-textarea">
-						<h3 id="topbanner-text">QnA</h3>
+						<h3 id="topbanner-text">레벨업</h3>
 					</div>
 				</div>
 				

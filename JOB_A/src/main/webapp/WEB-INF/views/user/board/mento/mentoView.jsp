@@ -173,6 +173,15 @@ p {
 }
 
 
+.rebo:hover {
+	cursor:pointer;
+}
+.fa-exclamation-triangle:hover {
+	cursor:pointer;
+	color:black;
+}
+
+
 </style>
 </head>
 <body class="is-preload">
@@ -209,6 +218,8 @@ p {
 											${mento.comm_count }
 									</span>
 									<div class="info_fnc">
+									
+										<c:if test="${member.memNo ne mento.mem_no}">
 										<!-- 신고 inline css by 은열 -->
 										<span class="rebo" style="margin-right:-4px;"> 
 											<i class="fas fa-exclamation-triangle" id="report" style="padding:2px;"></i>
@@ -218,12 +229,14 @@ p {
 											<input type="hidden" id="board_mem_no" value="${mento.mem_no }">
 											<input type="hidden" id="board_reporter" value="${member}">
 										<!---------------------------------------------------------------------------> 
+										</c:if>
+										
 										<span class="rebo" onclick="bookmark(${mento.board_no}, ${member.memNo})">
 											<c:if test="${!empty bookmark}">
-												<i class="fas fa-bookmark" id="bookmark"></i>스크랩
+												<i class="fas fa-bookmark" id="bookmark"></i> 스크랩
 											</c:if>
 											<c:if test="${empty bookmark}">
-												<i class="far fa-bookmark" id="bookmark"></i>스크랩
+												<i class="far fa-bookmark" id="bookmark"></i> 스크랩
 											</c:if>
 										</span>
 									</div>
@@ -265,7 +278,7 @@ p {
 												placeholder="댓글을 남겨주세요." style="resize: none;"></textarea>
 										</div>
 										<button id="insertComment"
-											style="height: 75px; font-weight: 300; font-size: 20px;">작성</button>
+											style="font-weight: 300; font-size: 20px;">작성</button>
 										</form>
 									</div>
 								</div>
@@ -292,10 +305,17 @@ p {
 												<c:if test="${member.memNo eq co.mem_No}">
 													<a href="#" onclick="updateComment(this);return false;">수정</a>
 													<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
-													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
+													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?type_No=${mento.type_no}&board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
 												</c:if>
-												<span><i class="fas fa-exclamation-triangle"></i></span>
-											</div>
+												<c:if test="${member.memNo ne co.mem_No}">
+												<span class="reportBtn_comment" id="reportBtn_comment" style="vertical-align: middle;" ><i class="fas fa-exclamation-triangle"></i></span> 
+													<!-- ----------------------- 댓글신고정보 by 은열 ------------------------------ -->
+													<input type="hidden" id="board_comment_info" value="${co.comm_No }">
+													<input type="hidden" id="board_comment_mem_no" value="${co.mem_No }">
+													<input type="hidden" id="board_comment_reporter" value="${member }">
+													<!-- ----------------------------------------------------- -->
+												</c:if>
+												</div>
 											</c:if>
 										</div>
 									</div>
@@ -321,10 +341,17 @@ p {
 													<c:if test="${member.memNo eq co.mem_No}">
 														<a href="#" onclick="updateComment(this);return false;">수정</a>
 														<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
-														<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
+														<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?type_No=${mento.type_no}&board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
 													</c:if>
-													<span><i class="fas fa-exclamation-triangle"></i></span>
-												</div>
+													<c:if test="${member.memNo ne co.mem_No}">
+													<span class="reportBtn_cocomment" id="reportBtn_cocomment" style="vertical-align: middle;" ><i class="fas fa-exclamation-triangle"></i></span> 
+													<!-- ----------------------- 대댓글신고정보 by 은열 ------------------------------ -->
+													<input type="hidden" id="board_cocomment_info" value="${co.comm_No }">
+													<input type="hidden" id="board_cocomment_mem_no" value="${co.mem_No }">
+													<input type="hidden" id="board_cocomment_reporter" value="${member }">
+													<!-- ----------------------------------------------------- -->
+													</c:if>	
+													</div>
 											</div>
 										</div>
 									</div>
@@ -361,7 +388,7 @@ p {
 								alert("댓글을 입력해 주세요");
 								return false;
 							} else {
-								location.href = '${pageContext.request.contextPath}/comments2/insertComment.do?board_No=${mento.board_no}&mem_No=${member.memNo}&comm_Content='
+								location.href = '${pageContext.request.contextPath}/comments2/insertComment.do?type_No=${mento.type_no}&board_No=${mento.board_no}&mem_No=${member.memNo}&comm_Content='
 										+ comm_Content.value;
 							}
 						}, false);
@@ -387,7 +414,7 @@ p {
 
 			console.log(content);
 			
-			location.href = "${pageContext.request.contextPath}/comments2/updateComment.do?board_No=${mento.board_no}&comm_No=" + comm_No + "&comm_Content="
+			location.href = "${pageContext.request.contextPath}/comments2/updateComment.do?type_No=${mento.type_no}&board_No=${mento.board_no}&comm_No=" + comm_No + "&comm_Content="
 				+ content;
 		}
 
@@ -415,7 +442,7 @@ p {
 					"<textarea id='comm_Content' name='comm_Content' placeholder='댓글을 남겨주세요.' style='resize: none;'>" +
 					"</textarea>" +
 				"</div>" +
-				"<button onclick='reConfirm(this); return false;' style='height: 75px; font-weight: 300; font-size: 20px;'> 작성</button>" +
+				"<button onclick='reConfirm(this); return false;' style='font-weight: 300; font-size: 20px;'> 작성</button>" +
 				"</form>" +
 			"</div>" +
 			"</div>";
@@ -435,7 +462,7 @@ p {
 			var comm_Content = $(obj).prev().find('textarea').val();
 			console.log("댓글 내용 : " + comm_Content);
 
-			location.href="${pageContext.request.contextPath}/comments2/insertComment.do?board_No=${mento.board_no}&mem_No=${member.memNo}&comm_Content="
+			location.href="${pageContext.request.contextPath}/comments2/insertComment.do?type_No=${mento.type_no}&board_No=${mento.board_no}&mem_No=${member.memNo}&comm_Content="
 				+ comm_Content + "&comm_Ref=" + comm_Ref + "&comm_Level=" + comm_Level;
 	    }
 
@@ -492,16 +519,54 @@ p {
 			}
 		}
 		
-	    // 신고모달 스크립트 by 은열
+	    // 게시글신고모달 스크립트 by 은열
 	    $('.reportBtn').click(function(){
 		    var test = $('#board_info').val();
 		    
 			$('.modal_board').val($('#board_info').val());
 			$('.modal_reporter').val($('#board_reporter').val());
 			$('.modal_board_no').val($('#board_mem_no').val());
-	    });		
+			$('.modal_separate').val(1);
+	    });
 
+        var commentModal = document.getElementById('myModal');
+	    
+	    // 댓글 신고모달 스크립트 by 은열
+		var $comment = $('.reportBtn_comment').on('click', function(){
+				var idx = $comment.index(this);
+				var modal_board = $('.board_comment_info:eq('+idx+')').val();
+				console.log( "보드번호:"+modal_board );
+				var modal_reporter = $('.board_comment_reporter:eq('+idx+')').val();
+				console.log( "신고자넘버:"+modal_reporter );
+				var modal_board_no = $('.board_comment_mem_no:eq('+idx+')').val();
+				console.log( "게시글작성자번호:"+modal_board_no );
 				
+				$('.modal_separate').val(2);	
+				$('.modal_board').val(modal_board);
+				$('.modal_reporter').val(modal_reporter);
+				$('.modal_board_no').val(modal_board_no);
+	              commentModal.style.display = "block";
+					
+			});
+
+
+	    // 대댓글 신고모달 스크립트 by 은열
+		var $cocoment = $('.reportBtn_cocomment').on('click', function(){
+				var idx = $cocoment.index(this);
+				var modal_board = $('.board_cocomment_info:eq('+idx+')').val();
+				console.log( "보드번호:"+modal_board );
+				var modal_reporter = $('.board_cocomment_reporter:eq('+idx+')').val();
+				console.log( "신고자넘버:"+modal_reporter );
+				var modal_board_no = $('.board_cocomment_mem_no:eq('+idx+')').val();
+				console.log( "게시글작성자번호:"+modal_board_no );
+				
+				$('.modal_separate').val(2);	
+				$('.modal_board').val(modal_board);
+				$('.modal_reporter').val(modal_reporter);
+				$('.modal_board_no').val(modal_board_no);
+	              commentModal.style.display = "block";
+					
+			});		
 
 	</script>
 </body>

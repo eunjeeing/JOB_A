@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>JOB_A | QnA</title>
+<title>JOB_A | 레벨업</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -137,7 +137,7 @@ a {
 				<!-- Top Banner Area -->
 				<div id="topbanner">
 					<div id="topbanner-textarea">
-						<h3 id="topbanner-text">QnA</h3>
+						<h3 id="topbanner-text">레벨업</h3>
 					</div>
 				</div>
 				

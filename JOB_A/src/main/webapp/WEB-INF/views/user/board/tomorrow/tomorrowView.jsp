@@ -175,6 +175,11 @@ p {
 	cursor:pointer;
 }
 
+.fa-exclamation-triangle:hover {
+	cursor:pointer;
+	color:black;
+}
+
 </style>
 </head>
 <body class="is-preload">
@@ -212,10 +217,10 @@ p {
 									<div class="info_fnc">
 										<span class="rebo" onclick="bookmark(${tomorrow.board_no}, ${member.memNo})">
 											<c:if test="${!empty bookmark}">
-												<i class="fas fa-bookmark" id="bookmark"></i>스크랩
+												<i class="fas fa-bookmark" id="bookmark"></i> 스크랩
 											</c:if>
 											<c:if test="${empty bookmark}">
-												<i class="far fa-bookmark" id="bookmark"></i>스크랩
+												<i class="far fa-bookmark" id="bookmark"></i> 스크랩
 											</c:if>
 										</span>
 									</div>
@@ -284,9 +289,8 @@ p {
 												<c:if test="${member.memNo eq co.mem_No}">
 													<a href="#" onclick="updateComment(this);return false;">수정</a>
 													<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
-													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_no=${tomorrow.board_no}&comm_No=${co.comm_No }'">삭제</a>
+													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?type_No=${tomorrow.type_no}&board_no=${tomorrow.board_no}&comm_No=${co.comm_No }'">삭제</a>
 												</c:if>
-												<span><i class="fas fa-exclamation-triangle"></i></span>
 											</div>
 										</div>
 									</div>
@@ -311,9 +315,8 @@ p {
 													<c:if test="${member.memNo eq co.mem_No}">
 														<a href="#" onclick="updateComment(this);return false;">수정</a>
 														<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
-														<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?board_no=${tomorrow.board_no}&comm_No=${co.comm_No }'">삭제</a>
+														<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?type_No=${tomorrow.type_no}&board_no=${tomorrow.board_no}&comm_No=${co.comm_No }'">삭제</a>
 													</c:if>
-													<span><i class="fas fa-exclamation-triangle"></i></span>
 												</div>
 											</div>
 										</div>
@@ -350,7 +353,7 @@ p {
 								alert("댓글을 입력해 주세요");
 								return false;
 							} else {
-								location.href = '${pageContext.request.contextPath}/comments2/insertComment.do?board_No=${tomorrow.board_no}&mem_No=${member.memNo}&comm_Content='
+								location.href = '${pageContext.request.contextPath}/comments2/insertComment.do?type_No=${tomorrow.type_no}&board_No=${tomorrow.board_no}&mem_No=${member.memNo}&comm_Content='
 										+ comm_Content.value;
 							}
 						}, false);
@@ -376,7 +379,7 @@ p {
 
 			console.log(content);
 			
-			location.href = "${pageContext.request.contextPath}/comments2/updateComment.do?board_No=${tomorrow.board_no}&comm_No=" + comm_No + "&comm_Content="
+			location.href = "${pageContext.request.contextPath}/comments2/updateComment.do?type_No=${tomorrow.type_no}&board_No=${tomorrow.board_no}&comm_No=" + comm_No + "&comm_Content="
 				+ content;
 		}
 
@@ -424,7 +427,7 @@ p {
 			var comm_Content = $(obj).prev().find('textarea').val();
 			console.log("댓글 내용 : " + comm_Content);
 
-			location.href="${pageContext.request.contextPath}/comments2/insertComment.do?board_No=${tomorrow.board_no}&mem_No=${member.memNo}&comm_Content="
+			location.href="${pageContext.request.contextPath}/comments2/insertComment.do?type_No=${tomorrow.type_no}&board_No=${tomorrow.board_no}&mem_No=${member.memNo}&comm_Content="
 				+ comm_Content + "&comm_Ref=" + comm_Ref + "&comm_Level=" + comm_Level;
 	    }
 
