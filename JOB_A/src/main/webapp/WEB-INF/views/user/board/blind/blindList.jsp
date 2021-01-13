@@ -118,49 +118,27 @@ p {
 												<i class="far fa-comment" style="margin-right: 0; margin-left: 14px;"></i> ${blind.comm_Count }
 												<div class="info_fnc">
 													<span class="date"> 
-														<i class="far fa-clock"></i> ${blind.board_Date}
+														<i class="far fa-clock" style="margin:0;"></i>  ${blind.board_Date}
 													</span>
 													<c:if test="${!empty bookmarkList}">
 														<c:set var="bCnt" value="0"/>
 														<c:forEach items="${bookmarkList}" var="bookmark">
 															<c:if test="${bookmark.board_no == blind.board_No}">
-																<i class="fas fa-bookmark" id="bookmark"></i>
+																<i class="fas fa-bookmark" id="bookmark" style="margin-left:10px;"></i>
 																<c:set var="bCnt" value="${bCnt + 1}"/>
 															</c:if>
 														</c:forEach>
 														<c:if test="${bCnt eq 0}">
-															<i class="far fa-bookmark" id="bookmark"></i>
+															<i class="far fa-bookmark" id="bookmark" style="margin-left:10px;"></i>
 														</c:if>
 													</c:if>
 													<c:if test="${empty bookmarkList}">
-														<i class="far fa-bookmark" id="bookmark"></i>
+														<i class="far fa-bookmark" id="bookmark" style="margin-left:10px;"></i>
 													</c:if>
 												</div>
 											</div>
 										</div>
 									</div>
-<%-- 									<c:if test="{b.fileCount>0}">
-										<div class="article-list-pre attach-img-pre">
-											<div class="tit" id="${blind.board_No}">
-												<p style="display: none;">${blind.board_No }</p>
-												<h3 class="hh">${blind.board_Title}</h3>
-												<div class="pre-txt">${blind.board_Content}</div>
-												<span class="attach-img"> <img src="#">
-												</span>
-											</div>
-											<div class="sub">
-												<p class="name">익명</p>
-												<div class="wrap-info">
-													<i class="far fa-eye"> ${blind.board_View }</i> <i
-														class="far fa-comment"> ${blind.comm_Count }</i>
-													<div class="info_fnc">
-														${blind.board_Date} <i class="far fa-bookmark"
-															id="bookmark"></i>
-													</div>
-												</div>
-											</div>
-										</div>
-									</c:if> --%>
 								</c:forEach>
 							</div>
 						</div>
@@ -230,11 +208,6 @@ p {
     			}
     		}
 	</script>
-	    	<!-- Scripts -->
-    	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-    	<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
-    	<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
-    	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
-    	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+
 </body>
 </html>

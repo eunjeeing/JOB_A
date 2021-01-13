@@ -40,14 +40,19 @@
 		width : 750px;
         padding-top: 300px;
 		margin: 0 auto;
-	
+		display: flex;
+		justify-content: center;
+		align-content: center;
 	}
     
     .porm2{
         width: 750px;
         margin: 0 auto;
-
+        display: flex;
+		justify-content: center;
+		align-content: center;
     }
+    
 	.click1, .click2, .click3, .click4{
         float: left;
         width: 250px;
@@ -116,6 +121,10 @@
 		font-size : 60px;
 	}
 	
+	a{
+		text-decoration:none !important;
+	}
+	
 </style>
 </head>
 <body>
@@ -138,7 +147,7 @@
 							<i class="xi-user"></i>
 						</div>
 						<div class="next" id="update" >
-							<a title="정보 수정" ><span>${member.memNick}&nbsp;님</span></a>
+							<a title="정보 수정" class="noHover"><span>${member.memNick}&nbsp;님</span></a>
 							<br />
 							<span><a href="${pageContext.request.contextPath}/member/memberView.do?memId=${member.memId}&memNo=${member.memNo}" id="gradeNo" title=""><span></span></a></span>
 						</div>
@@ -166,7 +175,7 @@
 						<a href="#" title="내가 작성한 게시글"> <i class="xi-pen"></i></a>
 						</div>
 						<div class="next" id="writeboard">
-							<p class="number">15</p><!-- 내가 작성한 게시글 갯수 삽입 코드 -->
+							<p class="number">${myPostTotalContents}</p><!-- 내가 작성한 게시글 갯수 삽입 코드 -->
 						</div>
 					</div>
 				
@@ -178,7 +187,7 @@
 							<a href="#" title="내가 작성한 댓글"> <i class="xi-forum"></i></a>
 						</div>
 						<div class="next" id="writecomment">
-							<p class="number">20</p><!-- 내가 작성한 댓글 갯수 삽입 코드  -->
+							<p class="number">${myCommentTotalContents }</p><!-- 내가 작성한 댓글 갯수 삽입 코드  -->
 						</div>
 					</div>
 				</div>

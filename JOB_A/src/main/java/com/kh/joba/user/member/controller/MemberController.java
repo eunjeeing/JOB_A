@@ -27,6 +27,7 @@ import com.kh.joba.user.category.model.vo.WishCategory;
 import com.kh.joba.user.common.exception.MemberException;
 import com.kh.joba.user.member.model.service.MemberService;
 import com.kh.joba.user.member.model.vo.Member;
+import com.kh.joba.user.mypage.model.service.MypageService;
 
 
 @SessionAttributes(value= {"member"})
@@ -41,6 +42,9 @@ public class MemberController {
 	private MemberService memberService;
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	MypageService ms;
 	
 	// 이메일 인증 
 	@Autowired
@@ -174,6 +178,12 @@ public class MemberController {
 		
 		System.out.println("마이페이지 접속 ok");
 		System.out.println("member : " + member);
+
+		int myPostTotalContents = ms.selectMyPostTotalContents(member.getMemNo());
+		int myCommentTotalContents = ms.selectMyCommentTotalContents(member.getMemNo());
+		
+		model.addAttribute("myPostTotalContents", myPostTotalContents);
+		model.addAttribute("myCommentTotalContents", myCommentTotalContents);
 		
 		if(member.getGradeNo()== 0 || member.getGradeNo()==1) {
 			

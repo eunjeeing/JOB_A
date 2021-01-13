@@ -245,6 +245,5 @@ function validate(){
   <!-- include summernote -->
   <script src="${pageContext.request.contextPath}/resources/summernote/summernote-lite.js"></script>
   <script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
-
 </body>
 </html>
