@@ -88,21 +88,29 @@ p {
 .carou_title {
 	height: 30px;
 	width: 95%;
-	margin: 85px auto 0 13px;
+	margin: 85px auto 10px 13px;
 }
 
 .carousel-container {
-	width: 95%;
+	width: 96%;
+	height: 280px;
 	margin: auto auto 30px 13px;
 	border: 0px solid #000;
-	overflow: hidden;
 	position: relative;
+	overflow: hidden;
 }
-
 .carousel-slide {
-	display: flex;
-	width: 100%;
-	height: 300px;
+	margin : 0px;
+	height: 280px;
+	padding-left: 7em;
+	padding-top: 3.5em;
+}
+.carousel-slide:hover{
+	cursor: pointer;
+	background-color: rgba(222, 225, 226, 0.75);
+}
+.carousel-slide{
+	width: 400em;
 }
 
 #prevBtn {
@@ -114,6 +122,17 @@ p {
 	box-shadow: none;
 	border: 3px solid #f56a6a;
 	border-right: none;
+}
+#nextBtn {
+	position: absolute;
+	top: 50%;
+	right: 0;
+	transform: translate(0%, -50%);
+	height: 280px;
+	width: 13px;
+	box-shadow: none;
+	border: 3px solid #f56a6a;
+	border-left: none;
 }
 
 #prevBtn>img {
@@ -130,17 +149,8 @@ p {
 	bottom: 132px;
 }
 
-#nextBtn {
-	position: absolute;
-	top: 50%;
-	right: 0;
-	transform: translate(0%, -50%);
-	height: 280px;
-	width: 13px;
-	box-shadow: none;
-	border: 3px solid #f56a6a;
-	border-left: none;
-}
+
+
 /* 사이트 홍보 배너 */
 .site_title {
 	height: 125px;
@@ -281,6 +291,7 @@ section>div>.sub_menu3 {
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 <script>
 $(document).ready(function(){
 
@@ -291,28 +302,28 @@ $(document).ready(function(){
 		type:"POST",
 		dataType : "json",
 		async: true,
+
 		success : function(data){
 			var list = data;
 			for(var i in list){
 				console.log(data[i]);
-				div = '<div class="article-list-pre">' + 
-				'<div class="tit" id="' + data[i].BOARD_NO + '">' +
-				'<p > "' + data[i].TYPE_NO + '" 게시판</p>' +
-				'<h3 class="hh">"' + data[i].BOARD_TITLE + '"</h3>' +
-				'<div class="pre-txt">"' + data[i].BOARD_CONTENT + '"</div>' +
-			'</div>' +
-			'<div class="sub">' +
-				'<p class="name" style="padding-top: 2em;">"' + data[i].MEM_NICK + '"</p>' +
-				'<div class="wrap-info">' +
-					'<i class="far fa-eye">"' + data[i].BOARD_VIEW + '"</i>' +
-						'<i class="far fa-comment""' + data[i].COMM_COUNT + '"</i>' +
-					'<div class="info_fnc">' +
-						'${carousel.board_Date} <i class="far fa-bookmark" id="bookmark"></i>' +
+				div = 
+				'<div class="carousel-slide" id="goBoard">'+
+					'<div class="tit" id=' + data[i].board_No + '>' +
+						'<p >' + data[i].TYPE_NAME + ' 게시판</p>' +
+						'<h3 class="hh" style="font-size:23px;">"' + data[i].BOARD_TITLE + '"</h3>' +
+						'<div class="pre-txt">' + data[i].BOARD_CONTENT + '</div>' +
+					'</div>' +
+				'<div class="sub" style="margin-top : 0.7em;">' +
+					'<p class="name" style="padding-top: 3em;">' + data[i].MEM_NICK + '</p>' +
+					'<div class="wrap-info">' +
+						'<i class="far fa-eye" style="margin-right : 0.5em;">' + data[i].BOARD_VIEW + '</i>' +
+							'<i class="far fa-comment">' + data[i].COMM_COUNT + '</i>' +
+						'<div class="info_fnc">' + data[i].BOARD_DATE + '</div>' +
 					'</div>' +
 				'</div>' +
-			'</div>' +
-		'</div>'
-				$('#article-list').append(div);
+			'</div>'
+				$('.carousel-container').append(div);
 			}
 		},
 		error : function(){
@@ -321,7 +332,19 @@ $(document).ready(function(){
 	            console.log(error.status);
 			}
 		});
-	});
+
+	$.ajax({
+		url:"${pageContext.request.contextPath}/rankList",
+		type:"POST",
+		dataType : "json",
+		async: true,
+		success : function(data){
+
+			var list = data;
+				console.log(data);
+	}
+	})
+});
 </script>
 </head>
 <body class="is-preload">
@@ -332,9 +355,7 @@ $(document).ready(function(){
 		<!-- Main -->
 		<div id="main">
 			<div class="inner">
-
 				<c:import url="user/common/header.jsp" />
-
 
 				<div class="adminBtn">
 				<button id="Btn" onclick="goAdmin();" style="">관리자 페이지로 이동</button>
@@ -355,21 +376,40 @@ $(document).ready(function(){
 								style="font-size: 22px; color: #f56a6a; margin-left: 5px;"></i>
 							<p style="font-size: 17px;">&nbsp;토픽 베스트</p>
 						</div>
-						<div class="carousel-container">
-							<div class="carousel-slide">
-								<div class="article-list" onclick="clickEvent()">
-									
-								</div>
-							</div>
-							<button id="prevBtn">
-								<img alt="prev"
-									src="${pageContext.request.contextPath}/resources/images/left-arrow.png">
-							</button>
-							<button id="nextBtn">
-								<img alt="next"
-									src="${pageContext.request.contextPath}/resources/images/right-arrow.png">
-							</button>
+						
+						<div class="carousel-container" id="goBoard">
+						
+						<button id="prevBtn" onclick="plusSlides(-1)">
+							<img alt="prev"
+								src="${pageContext.request.contextPath}/resources/images/left-arrow.png">
+						</button>
+						<button id="nextBtn" onclick="plusSlides(1)">
+							<img alt="next"
+								src="${pageContext.request.contextPath}/resources/images/right-arrow.png">
+						</button>
 						</div>
+							<!-- 캐러셀 함수 -->
+							<script>
+								var slideIndex = 1;		
+								showSlides(slideIndex);
+
+								function plusSlides(n){
+									showSlides(slideIndex+=n);
+									}
+
+								function showSlides(n) {
+									var i;
+									var slides=
+										document.getElementsByClassName("crousel-slide");
+									if(n>slides.length){slideIndex = 1}
+									if(n<1) {slideIndex = slides.length}
+									for(i=0; i<slides.lenght; i++){
+											slides[i].style.display = "none";
+										}
+									slides[slidIndex-1].style.display = "block"; 
+								}
+							</script>
+						
 						
 						<!-- 홍보 배너 -->
 						<div class="site_title">
@@ -467,7 +507,7 @@ $(document).ready(function(){
 	<c:if test="${ empty member }">
 	<script>
 			$(function() {
-			$("div[class=tit]")
+			$("div[class=carousel-slide]")
 					.on(
 							"click",function() {
 								window.alert("로그인 후 이용해주세요");
@@ -475,12 +515,63 @@ $(document).ready(function(){
 			});
 	</script>
 	</c:if>
+	
 	<c:if test="${ !empty member }" >
 	
 	<script>/* 채팅으로 이동 */
 	function goChat(){
             location.href = '${pageContext.request.contextPath}/chat/chatList/0';
         }
+
+    /* 게시물로 이동 */
+       // 해당 게시글로 이동
+   $(function (){
+      $("#goBoard").on("click", function(){
+         var board_No = $(this).attr("id");
+         var tno = $(this).siblings('.tno').val();
+
+         console.log(board_No);
+         console.log(tno);
+         
+         switch(tno) {
+         case '1':
+            location.href = "${pageContext.request.contextPath}/notice.bo?board_no="+ board_No;
+            break;
+
+         case '2':
+            location.href = "${pageContext.request.contextPath}/board2/jobSelectOne.do?board_No="+ board_No;
+            break;
+               
+         case '4':
+            location.href = "${pageContext.request.contextPath}/board2/blahView.do?board_No="+ board_No;
+            break;
+         
+         case '5':
+            location.href = "${pageContext.request.contextPath}/board2/blindSelectOne.do?board_No="+ board_No;
+            break;
+
+         case '6':
+            location.href = "${pageContext.request.contextPath}/selectOneTomorrow.bo?board_no="+ board_No;
+            break;
+
+         case '7':
+            location.href = "${pageContext.request.contextPath}/board2/qnaSelectOne.do?board_No="+ board_No;
+            break;   
+
+         case '8':
+            location.href = "${pageContext.request.contextPath}/selectOneMento.bo?board_no="+ board_No;
+            break;
+            
+         case '9':
+            location.href = "${pageContext.request.contextPath}/selectOneAccept.bo?board_no="+ board_No;
+            break;
+
+         case'10':
+            location.href = "${pageContext.request.contextPath}/selectOneInterview.bo?board_no="+ board_No;
+            break;
+         }
+      });
+   });
 	</script>
 	</c:if>
 	<c:if test="${ empty member }">
@@ -511,7 +602,8 @@ $(document).ready(function(){
 				function goAdmin(){
 					location.href = '${pageContext.request.contextPath}/adminIndex.do';
 					}
-			</script>
+	</script>
+	
 
 </body>
 </html>
