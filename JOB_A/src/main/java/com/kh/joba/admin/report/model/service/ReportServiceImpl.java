@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.joba.admin.report.model.dao.ReportDAO;
 import com.kh.joba.admin.report.model.vo.Report;
 import com.kh.joba.user.board2.blahblah.model.vo.Board2;
+import com.kh.joba.user.comments2.model.vo.Comments2;
 import com.kh.joba.user.member.model.vo.Member;
 
 @Service
@@ -17,7 +18,7 @@ public class ReportServiceImpl implements ReportService {
 	@Autowired
 	ReportDAO reportDAO;
 	
-	// 게시글 신고 리스트 페이지 접속
+	// 게시글 신고 리스트 페이지 접속 + 조회
 	@Override
 	public List<Report> selectReportList() {
 		
@@ -26,9 +27,9 @@ public class ReportServiceImpl implements ReportService {
 
 	// 게시글 신고
 	@Override
-	public int insertReport(String reason, int board2, int board2_no, int memNo) {
+	public int insertReport(Report report) {
 
-		return reportDAO.insertReport(reason, board2, board2_no, memNo);
+		return reportDAO.insertReport(report);
 	}
 
 	// 게시글 정보 가지고 오기
@@ -57,6 +58,20 @@ public class ReportServiceImpl implements ReportService {
 	public int updateBoard(int boardNo, String boardStatus) {
 		
 		return reportDAO.updateBoard(boardNo, boardStatus);
+	}
+
+	// 댓글 신고 리스트 접속 + 조회
+	@Override
+	public List<Report> selectCommentList() {
+		
+		return reportDAO.selectCommentList();
+	}
+
+	// 댓글번호로 댓글 정보 가지고 오기
+	@Override
+	public Comments2 selectComment(int commNo) {
+		
+		return reportDAO.selectComment(commNo);
 	}
 
 }

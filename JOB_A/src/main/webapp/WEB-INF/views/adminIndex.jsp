@@ -63,9 +63,9 @@
 						<div class="card-body">
 							<div class="row align-items-center">
 								<div class="col">
-									<span class="h2 mb-0">${totalCount}</span>
-									<p class="small text-muted mb-0">VISITOR</p>
-									<span class="badge badge-pill badge-success">누적 방문자</span>
+									<span class="h2 mb-0">Today ${todayCount}</span>
+									<p class="small text-muted mb-0">total ${totalCount}</p>
+									<span class="badge badge-pill badge-success">방문자 집계</span>
 								</div>
 								<div class="col-auto">
 									<span class="fe fe-32 fe-shopping-bag text-muted mb-0"></span>

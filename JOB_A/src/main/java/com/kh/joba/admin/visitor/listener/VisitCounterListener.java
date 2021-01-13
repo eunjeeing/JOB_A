@@ -1,7 +1,5 @@
 package com.kh.joba.admin.visitor.listener;
 
-import java.sql.Connection;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;

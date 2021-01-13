@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import com.kh.joba.admin.report.model.service.ReportService;
 import com.kh.joba.admin.report.model.service.ReportServiceImpl;
 import com.kh.joba.admin.report.model.vo.Report;
 import com.kh.joba.user.board2.blahblah.model.vo.Board2;
+import com.kh.joba.user.comments2.model.vo.Comments2;
 import com.kh.joba.user.member.model.vo.Member;
 
 
@@ -67,21 +70,58 @@ public class ReportController {
 		return "admin/report/boardReportList";
 	}
 	
-	// 게시글 신고 
+	// 댓글, 게시글 신고 
 	@RequestMapping("insertReport.do")
-	public String insertReport(String reason, int board2, int board2_no, Member member) {
+	public String insertReport(HttpServletRequest request, String reason, int board2, int board2_no, int modal_separate,  Member member) {
 		
-				
 		System.out.println("게시글 신고 리스트 페이지 접속 ok");
 		System.out.println("사유"+reason);
 		System.out.println("게시글"+board2);
 		System.out.println("신고자"+member);
 		System.out.println("게시글작성자"+board2_no);
+		System.out.println("댓글 게시글 구분(1이면 게시글 2이면 댓글) : " + modal_separate);
 		
-		int res = reportService.insertReport(reason, board2, board2_no, member.getMemNo());
-		System.out.println("res :" +res);
+		String referer = request.getHeader("Referer");
 		
-		return "user/board/blahblah/blahView";
+		if(modal_separate == 1) {
+			//게시글일때
+			Report report = new Report( member.getMemNo(), board2, reason, board2_no);
+			
+			int res = reportService.insertReport(report);
+			System.out.println("res :" +res);
+			
+			if(res>0) {
+				System.out.println("여기 들어오면 게시글 신고됨");
+				
+				return "redirect:"+ referer;
+				
+			} else {
+				System.out.println("여기 들어오면 게시글 신고 안됨");
+				
+				return "redirect:"+ referer;
+			}
+			
+		}else if(modal_separate == 2){
+				//댓글일때
+			Report report = new Report( member.getMemNo(), 0, board2, reason, board2_no);
+
+			int res = reportService.insertReport(report);
+			System.out.println("res :" +res);
+						
+			if(res>0) {
+				System.out.println("여기 들어오면 댓글 신고됨");
+				
+				return "redirect:"+ referer;
+				
+			} else {
+				System.out.println("여기 들어오면 댓글 신고 안됨");
+				
+				return "redirect:"+ referer;
+			}
+
+		}
+		return "redirect:"+ referer;
+		
 	}
 
 	// 신고 게시글 상세 페이지 접속
@@ -125,8 +165,44 @@ public class ReportController {
 		}
 		
 	}
+		
+	// 댓글 신고 리스트 페이지 접속
+	@RequestMapping("commentReportList.do")
+	public String commentReportList(Model model) {
 
-	
-	
+		System.out.println("댓글 신고 리스트");
+		
+		List<Report> list = reportService.selectCommentList(); 	// 신고된 댓글 조회
+		
+		List<Comments2> commentList = new ArrayList<Comments2>(); // 댓글 내용 가져 올 경로.
+		List<Member> reporterList = new ArrayList<Member>(); 	// 신고자 ID 가지고 오기
+		List<Member> appendantList = new ArrayList<Member>(); 	// 피신고자 ID 가지고 오기
+		
+		for(Report report : list) {
+			
+			Comments2 comments2 = reportService.selectComment(report.getCommNo());
+
+			Member reporter = reportService.selectMember(report.getMemNo());
+			Member appendant = reportService.selectMember(report.getMemNo2());
+
+			System.out.println("board2 : " + comments2.toString());
+			System.out.println("reporter : " + reporter.toString());
+			System.out.println("appendant : " + appendant.toString());
+			
+			commentList.add(comments2);
+			reporterList.add(reporter);
+			appendantList.add(appendant);
+		}
+			
+		
+		model.addAttribute("reportList", list);
+		model.addAttribute("commentList", commentList);
+		model.addAttribute("reporterList", reporterList);
+		model.addAttribute("appendantList", appendantList);
+		
+		
+		return "admin/report/commentReportList";
+				
+	}
 	
 }
