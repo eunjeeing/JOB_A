@@ -19,34 +19,34 @@ public class MyScrapDAOImpl implements MyScrapDAO{
 	@Override
 	public List<Map<String, String>> selectMyScrapList(int cPage, int numPerPage, int mem_no) {
 		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
-		return sqlSession.selectList("board1Mapper.", mem_no, rows);
+		return sqlSession.selectList("board1Mapper.selectMyScrapList", mem_no, rows);
 	}
 
 	@Override
 	public int selectMyScrapTotalContents(int mem_no) {
-		return sqlSession.selectOne("board1Mapper.", mem_no);
+		return sqlSession.selectOne("board1Mapper.selectMyScrapTotalContents", mem_no);
 	}
 
 	@Override
 	public List<Map<String, String>> sortMyScrapList(int cPage, int numPerPage, Bookmark book) {
 		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
-		return sqlSession.selectList("board1Mapper.", book, rows);
+		return sqlSession.selectList("board1Mapper.sortMyScrapList", book, rows);
 	}
 
 	@Override
 	public int sortMyScrapTotalContents(Bookmark book) {
-		return 0;
+		return sqlSession.selectOne("board1Mapper.sortMyScrapTotalContents", book);
 	}
 
 	@Override
 	public List<Map<String, String>> searchScrapList(int cPage, int numPerPage, Bookmark book) {
 		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
-		return null;
+		return sqlSession.selectList("board1Mapper.searchScrapList", book, rows);
 	}
 
 	@Override
 	public int searchScrapTotalContents(Bookmark book) {
-		return 0;
+		return sqlSession.selectOne("board1Mapper.searchScrapTotalContents", book);
 	}
 	
 	

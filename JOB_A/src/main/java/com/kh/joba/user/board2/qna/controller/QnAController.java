@@ -75,7 +75,7 @@ public class QnAController {
 		model.addAttribute("selectComment", selectComment);
 		
 		Member mem = (Member)session.getAttribute("member");
-		Bookmark isBookmark = new Bookmark(board_No, mem.getMemNo(), 0);
+		Bookmark isBookmark = new Bookmark(board_No, mem.getMemNo(), 0, null);
 		Bookmark bookmark = ms.selectOneBookmark(isBookmark);
 		
 		model.addAttribute("bookmark", bookmark);

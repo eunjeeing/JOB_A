@@ -43,6 +43,7 @@
 		height : 50px;
 		margin-top : 50px;
 		float:right;
+		margin-bottom : 20px;
 	}
 	
 	#searchBox {
@@ -128,12 +129,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
 	</head>
 	<body class="is-preload">
-		<!-- 사용 스크립트 선언 -->
-		<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+
  
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -156,7 +152,7 @@
 									<option value="2"> 채용공고</option>
 									<option value="4"> 자유</option>
 									<option value="5"> 익명</option>
-									<option value="6"> 투모로우</option>
+									<option value="6"> 24</option>
 									<option value="8"> 멘토멘티</option>
 									<option value="9"> 면접후기</option>
 									<option value="10"> 합격후기</option>
@@ -165,39 +161,31 @@
 							</form>
 						</div>
 						
+						<br />
 						<!-- list Area -->
 						<c:if test="${!empty myScrapList}">
+							
 						<div id="listArea">
 							<table id="noticeList">
 								<thead>
 									<th><center>No.</center></th>
+									<th><center>게시판</center></th>
 									<th><center>제목</center></th>
 									<th><center>작성자</center></th>
 									<th><center>등록일</center></th>
 									<th><center>조회수</center></th>
-									<th><center>스크랩</center></th>
 								</thead>
 								<tbody>
-									<c:forEach items="${myScrap}" var="scrap">
+									<c:forEach items="${myScrapList}" var="scrap">
 									<!--  onclick="selectOne();" -->
-									<tr id="${scrap.board_no}" onclick="selectOne(${scrap.board_no});">
+									<tr id="${scrap.board_no}" onclick="selectOne(${scrap.board_no}, ${scrap.type_no});">
 										<td>${scrap.board_no}</td>		<!-- 숫자 카운팅으로 변경 -->
+										<td>${scrap.type_name }</td>
 										<td>${scrap.board_title}</td>
 										<td>${scrap.mem_nick}</td>
 										<td>${scrap.board_date}</td>
 										<td>${scrap.board_view}</td>
 										<td>
-										<c:if test="${empty bookmarkList}">
-											<img class="bookmarkIcon" src="${pageContext.request.contextPath}/resources/images/bookmark-disabled.png" alt="스크랩"></button>
-										</c:if>
-										<c:if test="${!empty bookmarkList}">
-											<c:forEach items="${bookmarkList}" var = "bookmarkList">
-												<c:if test="${bookmarkList.board_no == scrap.board_no}">
-													<img class="bookmarkIcon" src="${pageContext.request.contextPath}/resources/images/bookmark-abled.png" alt="스크랩"></button>
-												</c:if>
-											</c:forEach>
-										</c:if>
-										</td>
 									</tr>
 									</c:forEach>
 								</tbody>
@@ -221,20 +209,39 @@
 			</div>				<!-- wrapper -->
 
 		<!-- Scripts -->
+		<script
+		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
  			<script>
-					function selectOne(boardNo) {
-						var gradeNo = '${sessionScope.member.gradeNo}';
-						console.log("gradeNo : " + gradeNo);
-						if (gradeNo.length != 0) {
-					     	if (gradeNo == '2' || gradeNo == '5') {
-					     		alert("우수, 최우수 회원만 접근할 수 있습니다.");
-					     	} else {
-				    			location.href = "${pageContext.request.contextPath}/selectOneInterview.bo?board_no="+ boardNo;
-							}
-						} else {
-							alert("로그인 후 이용가능합니다.");
+					function selectOne(board_no, type_no) {
+						switch(type_no) {
+							case 2 :
+								location.href = "${pageContext.request.contextPath}/board2/jobSelectOne.do?board_No=" + board_no;
+								break;
+							case 4 :
+								location.href = "${pageContext.request.contextPath}/board2/blahView.do?board_No=" + board_no;
+								break;
+							case 5 :
+								location.href = "${pageContext.request.contextPath}/board2/blindSelectOne.do?board_No=" + board_no;
+								break;
+							case 6 :
+								location.href = "${pageContext.request.contextPath}//selectOneTomorrow.bo?board_no=" + board_no;
+								break;
+							case 8 :
+								location.href = "${pageContext.request.contextPath}/selectOneMento.bo?board_no=" + board_no;
+								break;
+							case 9 :
+								location.href = "${pageContext.request.contextPath}/selectOneInterview.bo?board_no=" + board_no;
+								break;
+							case 10 :
+								location.href = "${pageContext.request.contextPath}/selectOneAccept.bo?board_no=" + board_no;
+								break;
 						}
-
 					}
 					
 			    	

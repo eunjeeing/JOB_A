@@ -75,6 +75,7 @@ public interface Board1DAO {
 	int acceptDelete(int board_no);
 	int acceptInsert(Board1 accept);
 	int selectNoticeFromIndex(String keyword);
+	int updateTomorrowOutDate();
 	
 	
 

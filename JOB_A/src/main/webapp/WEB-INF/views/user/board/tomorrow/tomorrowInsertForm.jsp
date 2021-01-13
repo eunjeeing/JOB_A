@@ -151,7 +151,7 @@ a {
 									<input type="text" class="form-control" placeholder="제목"
 									name="board_title" id="board_Title" required>
 								 <input type="hidden" id="mem_No" name="mem_no" value="${member.memNo }" /> 
-								 <input type="hidden" id="type_No" name="type_no" value="8">
+								 <input type="hidden" id="type_No" name="type_no" value="6">
 								 
 							</div>
 							
@@ -173,6 +173,14 @@ a {
   				 <c:import url="../../common/sideBar.jsp" /> 
 		
 	</div>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 <script>
 $(document).ready(function(){
 	

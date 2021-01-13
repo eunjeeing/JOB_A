@@ -178,7 +178,7 @@ p {
 		}
 
 	}
-		function gotomorrowForm() {
+		function goTomorrowForm() {
 			location.href = "${pageContext.request.contextPath}/tomorrowWrite.bo";
 		}
 

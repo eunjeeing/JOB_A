@@ -145,13 +145,10 @@ a {
 									<!-- 제목 -->
 									<input type="hidden" name="mem_nick" value="${member.memNick}"/>
 									<input type="hidden" name="mem_no" value="${member.memNo}"/>
-									<h2>면접후기 글쓰기</h2>									
 									<i class="far fa-window-close" id="close-icon" style="font-size: 30px; color: #f56a6a; margin-left:auto; margin-right: 0;"
 								  	 onclick="window.history.back();"></i>
 								 	</div>
-								 	<hr />
-
-								 	<h4>제목</h4>
+									<br />
 								 	<input type="text" name="board_mainTitle" placeholder="회사명" required/>
 									<input type="text" class="form-control" 
 									name="board_title" id="board_Title" placeholder="상세제목" required>
@@ -160,7 +157,6 @@ a {
 
 							
 							<div class="article-view-contents">
-							<h4>본문</h4>
 								<textarea class="summernote" name="board_content"
 								placeholder="내용" required>
 								</textarea>
@@ -177,6 +173,14 @@ a {
 		  				 <c:import url="../../../common/sideBar.jsp" /> 
 		
 	</div>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 <script>
 $(document).ready(function(){
 	

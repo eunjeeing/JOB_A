@@ -111,7 +111,7 @@
 				M.MEM_NICK, TO_CHAR(B.BOARD_DATE, 'YYYY-MM-DD HH24:MI:SS') AS BOARD_DATE, B.BOARD_STATUS, B.BOARD_VIEW
 		FROM BOARD B, MEMBER M
 		WHERE B.TYPE_NO = 6 AND B.BOARD_NO = #{board_no} AND B.MEM_NO = M.MEM_NO AND 
-		(SYSDATE - BOARD.BOARD_DATE) < 1
+		(SYSDATE - B.BOARD_DATE) < 1
 	]]>
 	</select>
 	<select id="searchTomorrowList" resultType="Board1" parameterType="string">
@@ -141,6 +141,11 @@
 		INSERT INTO BOARD (BOARD_NO,TYPE_NO, MEM_NO, BOARD_TITLE, BOARD_CONTENT)
 		VALUES (BOARD_SEQ.NEXTVAL, #{type_no}, #{mem_no} ,#{board_title}, #{board_content})
 	</insert>
+	<update id="updateTomorrowOutDate">
+		UPDATE BOARD
+		SET BOARD_STATUS = 'N'
+		WHERE (SYSDATE - BOARD_DATE) <![CDATA[>]]> 1 AND BOARD_TYPE = 6
+	</update>
 	
 	
 	
@@ -225,7 +230,52 @@
 	</select> -->	
 	
 <!-- myScrap Mapper -->
-	<select id="">
+	<select id="selectMyScrapList" resultType="Board1">
+		SELECT b.*, bt.type_name
+		FROM scrap s
+		RIGHT OUTER JOIN board b ON s.board_no = b.board_no
+		RIGHT OUTER JOIN boardtype bt ON b.type_no = bt.type_no
+		WHERE s.mem_no = #{mem_no} and b.board_reportnum <![CDATA[ <]]> 4
+	</select>
+	<select id="selectMyScrapTotalContents" resultType="_int">
+		select count(*) 
+		from scrap s
+		right outer join board b on s.board_no = b.board_no
+		right outer join boardtype bt on b.type_no = bt.type_no
+		where s.mem_no = #{mem_no} and b.board_reportnum <![CDATA[ <]]> 4
+</select><select id="sortMyScrapList" resultType="Board1">
+		SELECT b.*, bt.type_name
+		FROM scrap s
+		RIGHT OUTER JOIN board b ON s.board_no = b.board_no
+		RIGHT OUTER JOIN boardtype bt ON b.type_no = bt.type_no
+		WHERE s.mem_no = #{mem_no} and b.board_reportnum <![CDATA[ <]]> 4 
+		<if test="type_no != 0">
+		and b.type_no = #{type_no}		
+		</if>
+	</select>
+	<select id="sortMyScrapTotalContents" resultType="_int">
+		SELECT count(*)
+		FROM scrap s
+		RIGHT OUTER JOIN board b ON s.board_no = b.board_no
+		RIGHT OUTER JOIN boardtype bt ON b.type_no = bt.type_no
+		WHERE s.mem_no = #{mem_no} and b.board_reportnum <![CDATA[ <]]> 4 
+		<if test="type_no != 0">
+		and b.type_no = #{type_no}		
+		</if>	
+	</select>
+	<select id="searchScrapList" resultType="Board1">
+		SELECT b.*, bt.type_name
+		FROM scrap s
+		RIGHT OUTER JOIN board b ON s.board_no = b.board_no
+		RIGHT OUTER JOIN boardtype bt ON b.type_no = bt.type_no
+		WHERE s.mem_no = #{mem_no} and b.board_reportnum <![CDATA[ <]]> 4 and b.board_title like '%' || #{keyword} || '%'
+	</select>
+	<select id="searchScrapTotalContents" resultType="_int">
+		SELECT count(*)
+		FROM scrap s
+		RIGHT OUTER JOIN board b ON s.board_no = b.board_no
+		RIGHT OUTER JOIN boardtype bt ON b.type_no = bt.type_no
+		WHERE s.mem_no = #{mem_no} and b.board_reportnum <![CDATA[ <]]> 4 and b.board_title like '%' || #{keyword} || '%'
 	</select>
 	
 </mapper>

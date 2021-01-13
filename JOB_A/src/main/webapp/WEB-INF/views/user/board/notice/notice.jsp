@@ -109,12 +109,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
 	</head>
 	<body class="is-preload">
-		<!-- 사용 스크립트 선언 -->
-		<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+
  
 		<!-- Wrapper -->
 			<div id="wrapper">

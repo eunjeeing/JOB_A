@@ -281,12 +281,6 @@ section>div>.sub_menu3 {
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-<!-- Scripts -->
-<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 <script>
 $(document).ready(function(){
 
@@ -447,7 +441,14 @@ $(document).ready(function(){
 
 
 	</div>
-	
+	<script
+		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<!-- 캐러셀 클릭 이벤트 -->
 	<c:if test="${ !empty member }" >
 	<script>

@@ -339,6 +339,14 @@ p {
 	</div>
 	<c:import url="../reportModal.jsp"/>	<!-- 신고 모달 창 -->
 
+	 	<script
+		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<script>
 		document
 				.getElementById("insertComment")

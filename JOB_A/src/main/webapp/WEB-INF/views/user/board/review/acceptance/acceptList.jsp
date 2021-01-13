@@ -116,12 +116,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
 	</head>
 	<body class="is-preload">
-		<!-- 사용 스크립트 선언 -->
-		<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+		
  
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -147,7 +142,7 @@
 							</button>
 							<button type="button" id="cancelSearchBtn" onclick="toList();">목록으로</button>
 							<c:if test="${member.gradeNo != 2 || member.gradeNo != 5}">
-								<button id="writeBtn" onclick="fn_goBoardForm();">글쓰기
+								<button id="writeBtn" onclick="goAcceptForm();">글쓰기
 								</button>
 							</c:if>
 						</div>
@@ -247,7 +242,7 @@
 			    			}
 			    		}
 
-			    	function fn_goBoardForm(){
+			    	function goAcceptForm(){
 			    		location.href = "${pageContext.request.contextPath}/acceptWrite.bo";
 			    	}
 

@@ -112,6 +112,7 @@ public class Board1ServiceImpl implements Board1Service {
 // *******************************************************************************************
 	@Override
 	public List<Map<String, String>> selectTomorrowList(int cPage, int numPerPage) {
+		int result = board1DAO.updateTomorrowOutDate();
 		return board1DAO.selectTomorrowList(cPage, numPerPage);
 	}
 	@Override
@@ -126,6 +127,7 @@ public class Board1ServiceImpl implements Board1Service {
 	}
 	@Override
 	public List<Map<String, String>> searchTomorrowList(int cPage, int numPerPage, String keyword) {
+		int result = board1DAO.updateTomorrowOutDate();
 		return board1DAO.searchTomorrowList(cPage, numPerPage, keyword);
 	}
 	@Override

@@ -143,9 +143,10 @@ public class Board1DAOImpl implements Board1DAO {
 	public int insertTomorrow(Board1 tomorrow) {
 		return sqlSession.insert("board1Mapper.insertTomorrow", tomorrow);
 	}
-	
-	
-	
+	@Override
+	public int updateTomorrowOutDate() {
+		return sqlSession.update("board1Mapper.updateTomorrowOutDate");
+	}
 	// *******************************************************************************************
 // 								Interview DAO Area
 // *******************************************************************************************

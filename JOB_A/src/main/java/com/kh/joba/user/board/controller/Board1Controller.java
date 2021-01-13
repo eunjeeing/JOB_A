@@ -49,7 +49,7 @@ public class Board1Controller {
 	}
 	@RequestMapping("/acceptWrite.bo")
 	public String acceptForm() {
-		return "user/board/review/interview/acceptInsertForm";
+		return "user/board/review/acceptance/acceptInsertForm";
 	}
 	@RequestMapping("/mentoWrite.bo")
 	public String mentoForm() {
@@ -400,6 +400,7 @@ public class Board1Controller {
 	
 	@RequestMapping("/tomorrowInsert.bo")
 	public String tomorrowInsert(Board1 tomorrow, Model model) {
+		System.out.println(tomorrow);
 		int result = bs.tomorrowInsert(tomorrow);
 		return "redirect:tomorrowList.bo";
 	}
