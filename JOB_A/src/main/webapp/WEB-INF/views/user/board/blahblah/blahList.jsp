@@ -127,16 +127,16 @@ p {
 														<c:set var="bCnt" value="0"/>
 														<c:forEach items="${bookmarkList}" var="bookmark">
 															<c:if test="${bookmark.board_no == blah.board_No}">
-																<i class="fas fa-bookmark" id="bookmark" style="margin-left:14px;"></i>
+																<i class="fas fa-bookmark" id="bookmark" style="margin-left:10px;"></i>
 																<c:set var="bCnt" value="${bCnt + 1}"/>
 															</c:if>
 														</c:forEach>
 														<c:if test="${bCnt eq 0}">
-															<i class="far fa-bookmark" id="bookmark" style="margin-left:14px;"></i>
+															<i class="far fa-bookmark" id="bookmark" style="margin-left:10px;"></i>
 														</c:if>
 													</c:if>
 													<c:if test="${empty bookmarkList}">
-														<i class="far fa-bookmark" id="bookmark" style="margin-left:14px;"></i>
+														<i class="far fa-bookmark" id="bookmark" style="margin-left:10px;"></i>
 													</c:if>
 												</div>
 											</div>
@@ -221,11 +221,5 @@ p {
     			}
     		}
 	</script>
-	    	<!-- Scripts -->
-    	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-    	<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
-    	<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
-    	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
-    	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>		
 </body>
 </html>

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>JOB_A | QnA</title>
+<title>JOB_A | 레벨업</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board.css" />
 <style>
@@ -21,51 +21,41 @@
 	display: flex;
 }
 
-.tit:hover {
-	cursor: pointer;
-}
-
-p {
-	padding-right: 20px !important;
-	margin: 0 !important;
-}
-
-.wrap-info {
-	position: relative;
-	margin-top: 8px;
-	font-size: 15px;
-	color: gray;
-}
-
-.article-list .article-list-pre .pre-txt {
-	display: -webkit-box;
-	overflow: hidden;
-	line-height: 1.33em;
-	text-overflow: ellipsis;
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
-	word-wrap: break-word;
-	box-sizing: border-box;
-	max-height: 40px;
-	font-size: 17px;
-	line-height: 1.43em;
-	word-break: break-word;
-}
-
-.article-list .article-list-pre.attach-img-pre h3 {
-	padding-right: 130px !important;
-}
-
-.article-list .article-list-pre.attach-img-pre .pre-txt {
-	padding-right: 130px !important;
-}
-
-.attach-img {
-	position: relative;
-	display: inline-block;
-	margin-top: 54px;
-	margin-right: 24px;
-}
+	#writeBtn {
+		float: right;
+	}
+	
+	#listArea {
+		/*border: 1px solid blue;*/
+		width : 100%;
+		height : auto;
+		margin: 40px auto auto auto;
+	}
+	
+	.pagination {
+		text-align: center;
+		margin-top : 20px;
+		margin-bottom : 100px;
+	}
+	
+	#noticeList{
+		text-align : center;
+		margin: auto;
+	}
+	
+	tbody>tr:hover {
+		cursor: pointer;
+		
+	}
+	
+	tr>td{
+		background : white;
+	}
+	
+	tbody>tr:hover{
+		background : black;
+		opacity: 0.3;
+	}
 </style>
 </head>
 <body class="is-preload">
@@ -78,7 +68,7 @@ p {
 				<!-- Top Banner Area -->
 				<div id="topbanner">
 					<div id="topbanner-textarea">
-						<h3 id="topbanner-text">QnA</h3>
+						<h3 id="topbanner-text">레벨업</h3>
 					</div>
 				</div>
 
@@ -94,114 +84,43 @@ p {
 					<button type="button" onclick="location.href='${pageContext.request.contextPath}/board2/selectQnAList.do'"
 					style="width: 50px;"><i class="fas fa-redo" style="margin: -9px;"></i></button>
 					
-					<c:if test="${ member.gradeNo == 0 || member.gradeNo == 1 || member.gradeNo == 3 || member.gradeNo == 4 }" >
+					<c:if test="${ !empty member}" >
 						<button id="writeBtn" onclick="goQnAForm();">글쓰기</button>
 					</c:if>
 				</div>
-
-				<section class="container">
-					<div class="wrapped">
-						<div role="main" class="contents">
-
-							<div class="article-list">
-								<c:forEach items="${selectQnAList}" var="qna">
-									<div class="article-list-pre">
-										<div class="tit" id="${qna.board_No}">
-											<p style="display: none;">${qna.board_No }</p>
-											<h3 class="hh">${qna.board_Title}</h3>
-											<div class="pre-txt">${qna.board_Content}</div>
-										</div>
-										<div class="sub">
-											<p class="name" style="padding-top: 2em;">${qna.mem_Nick }</p>
-											<div class="wrap-info">
-												<i class="far fa-eye" style="margin-right: 0;"></i> ${qna.board_View }
-												<i class="far fa-comment" style="margin-right: 0; margin-left: 14px;"></i> ${qna.comm_Count }
-												<div class="info_fnc">
-													<span class="date"> 
-														<i class="far fa-clock"></i> ${qna.board_Date}
-													</span>
-													<c:if test="${!empty bookmarkList}">
-														<c:set var="bCnt" value="0"/>
-														<c:forEach items="${bookmarkList}" var="bookmark">
-															<c:if test="${bookmark.board_no == qna.board_No}">
-																<i class="fas fa-bookmark" id="bookmark"></i>
-																<c:set var="bCnt" value="${bCnt + 1}"/>
-															</c:if>
-														</c:forEach>
-														<c:if test="${bCnt eq 0}">
-															<i class="far fa-bookmark" id="bookmark"></i>
-														</c:if>
-													</c:if>
-													<c:if test="${empty bookmarkList}">
-														<i class="far fa-bookmark" id="bookmark"></i>
-													</c:if>
-												</div>
-											</div>
-										</div>
-									</div>
-<%-- 									<c:if test="{b.fileCount>0}">
-										<div class="article-list-pre attach-img-pre">
-											<div class="tit" id="${qna.board_No}">
-												<p style="display: none;">${qna.board_No }</p>
-												<h3 class="hh">${qna.board_Title}</h3>
-												<div class="pre-txt">${qna.board_Content}</div>
-												<span class="attach-img"> <img src="#">
-												</span>
-											</div>
-											<div class="sub">
-												<p class="name">${qna.mem_Nick}</p>
-												<div class="wrap-info">
-													<i class="far fa-eye"> ${qna.board_View }</i> <i
-														class="far fa-comment"> ${qna.comm_Count }</i>
-													<div class="info_fnc">
-														${qna.board_Date} <i class="far fa-bookmark"
-															id="bookmark"></i>
-													</div>
-												</div>
-											</div>
-										</div>
-									</c:if> --%>
-								</c:forEach>
-							</div>
-						</div>
-					</div>
-					<br /> <br />
-					<center>
-						<c:out value="${pageBar}" escapeXml="false" />
-					</center>
-
-				</section>
+						<div id="listArea">
+							<table id="noticeList">
+								<thead>
+									<th><center>No.</center></th>
+									<th><center>제목</center></th>
+									<th><center>작성자</center></th>
+									<th><center>등록일</center></th>
+									<th><center>조회수</center></th>
+								</thead>
+								<tbody>
+									<c:forEach items="${ selectQnAList }" var="qna">
+									<!--  onclick="selectOne();" -->
+									<tr id="${qna.board_No}">
+										<td>${qna.board_No}</td>
+										<td width="60%">${qna.board_Title}</td>
+										<td>${qna.mem_Nick}</td>
+										<td>${qna.board_Date}</td>
+										<td>${qna.board_View}</td>
+									</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>	<!-- #listArea -->
+						<c:out value="${pageBar}" escapeXml="false"/>
+		
 			</div>
 		</div>
 		<c:import url="../../common/sideBar.jsp" />
 	</div>
-	<c:choose>
-		<c:when test="${ empty member }">
-		<script>
-				$(function() {
-				$("div[class=tit]")
-						.on(
-								"click",function() {
-									window.alert("로그인 후 이용해주세요");
-								});
-				});
-		</script>
-		</c:when>
-		<c:when test="${ member.gradeNo == 2 || member.gradeNo == 5 }">
-		<script>
-				$(function() {
-				$("div[class=tit]")
-						.on(
-								"click",function() {
-									window.alert("우수회원 이상 이용 가능합니다.");
-								});
-				});
-		</script>
-		</c:when>
-		<c:otherwise>
-		<script>
+	<c:if test="${!empty member }">
+	<script>
 			$(function() {
-				$("div[class=tit]")
+				$("tr[id]")
 						.on(
 								"click",
 								function() {
@@ -211,9 +130,19 @@ p {
 											+ board_No;
 								});
 			});
-		</script>
-		</c:otherwise>
-	</c:choose>
+	</script>
+	</c:if>
+	<c:if test="${empty member }">
+	<script>
+		$(function() {
+				$("tr[id]")
+						.on(
+								"click",function() {
+									window.alert("로그인 후 이용해주세요");
+								});
+				});
+	</script>
+	</c:if>
 	<script>
 		function goQnAForm() {
 			location.href = "${pageContext.request.contextPath}/board2/qnaForm.do";

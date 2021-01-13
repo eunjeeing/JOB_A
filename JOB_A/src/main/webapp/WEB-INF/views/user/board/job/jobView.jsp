@@ -228,15 +228,22 @@ p {
 											${board2.comm_Count }
 									</span>
 									<div class="info_fnc">
-										<span class="rebo"> <i
-											class="fas fa-exclamation-triangle" id="report"></i> 신고
-										</span> 
+										<!-- 신고 inline css by 은열 -->
+										<span class="rebo" style="margin-right:-4px;"> 
+											<i class="fas fa-exclamation-triangle" id="report" style="padding:2px;"></i>
+											<a class="reportBtn" style="color:black; vertical-align: middle;" id="myBtn"> 신고</a> 
+										</span>
+											<input type="hidden" id="board_info" value="${board2.board_No }">
+											<input type="hidden" id="board_mem_no" value="${board2.mem_No }">
+											<input type="hidden" id="board_reporter" value="${member }">
+										<!---------------------------------------------------------------------------> 
+											
 										<span class="rebo"><span class="rebo" onclick="bookmark(${board2.board_No}, ${member.memNo})">
 											<c:if test="${!empty bookmark}">
-												<i class="fas fa-bookmark" id="bookmark"></i>스크랩
+												<i class="fas fa-bookmark" id="bookmark"></i> 스크랩
 											</c:if>
 											<c:if test="${empty bookmark}">
-												<i class="far fa-bookmark" id="bookmark"></i>스크랩
+												<i class="far fa-bookmark" id="bookmark"></i> 스크랩
 											</c:if>
 										</span>
 									</div>
@@ -274,8 +281,8 @@ p {
 											<textarea id="comm_Content" name="comm_Content"
 												placeholder="댓글을 남겨주세요." style="resize: none;"></textarea>
 										</div>
-										<button id="insertComment"
-											style="height: 75px; font-weight: 300; font-size: 20px;">작성</button>
+										<button id="insertComment" type="button"
+											style="font-weight: 300; font-size: 20px;">작성</button>
 											</form>
 									</div>
 								</div>
@@ -350,6 +357,7 @@ p {
 		</div>
 		<c:import url="../../common/sideBar.jsp" />
 	</div>
+	<c:import url="../reportModal.jsp"/>	<!-- 신고 모달 창 -->
 
 	<script>
 		document
@@ -416,7 +424,7 @@ p {
 					"<textarea id='comm_Content' name='comm_Content' placeholder='댓글을 남겨주세요.' style='resize: none;'>" +
 					"</textarea>" +
 				"</div>" +
-				"<button onclick='reConfirm(this); return false;' style='height: 75px; font-weight: 300; font-size: 20px;'> 작성</button>" +
+				"<button onclick='reConfirm(this); return false;' style='font-weight: 300; font-size: 20px;'> 작성</button>" +
 				"</form>" +
 			"</div>" +
 			"</div>";
@@ -493,6 +501,14 @@ p {
 			}
 		}				
 
+	    // 신고모달 스크립트 by 은열
+	    $('.reportBtn').click(function(){
+		    var test = $('#board_info').val();
+		    
+			$('.modal_board').val($('#board_info').val());
+			$('.modal_reporter').val($('#board_reporter').val());
+			$('.modal_board_no').val($('#board_mem_no').val());
+	    });
 	</script>
 </body>
 </html>

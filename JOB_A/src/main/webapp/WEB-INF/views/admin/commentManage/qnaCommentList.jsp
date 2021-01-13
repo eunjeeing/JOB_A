@@ -7,8 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시판 관리 | 채용공고</title>
-
+<title>댓글 관리 | 레벨업</title>
 <style>
 	.tab {
 		display: inline-block;
@@ -29,22 +28,8 @@
 		padding: 20px 8px 5px 8px;
 	}
 	
-	#job {
+	#qna {
 		font-weight:800;
-	}
-	
-	#utilBox {
-		width : 100%;
-		height : 50px;
-		margin-top : 20px;
-		margin-bottom: 10px;
-	}
-	
-	#searchBox {
-		width : 35%;
-		height : 100%;
-		float : left;
-		margin-right : 10px;
 	}
 	
 	.goBoard:hover{
@@ -70,7 +55,7 @@
 			<div class="container-fluid">
 				<div class="row justify-content-center">
 					<div class="col-12">
-						<h2 class="page-title">BOARD LIST</h2>
+						<h2 class="page-title">COMMENT LIST</h2>
 						<br />
 						
 						<!-- 탭 -->
@@ -91,17 +76,6 @@
 							<div class="col-md-12">
 								<div class="card shadow">
 									<div class="card-body">
-										<!-- 검색 -->
-<%-- 					  					<div id="utilBox">
-											<div id="searchBox">
-												<input type="search" class="form-control" id="search" placeholder="검색내용을 입력해주세요."
-													style="height:37px;" onKeyDown="enterKey();" />
-											</div>
-											<button type="button" class="btn mb-2 btn-light" id="searchBtn" onclick="search()"
-											style="width: 50px;"><span class="fe fe-24 fe-search" style="margin: -9px; font-size: 20px;"></span></button>
-											<button type="button" class="btn mb-2 btn-light" onclick="location.href='${pageContext.request.contextPath}/admin/jobList.do'"
-											style="width: 50px;"><span class="fe fe-24 fe-rotate-cw" style="margin: -9px; font-size: 20px;"></span></button>
-										</div> --%>
 											
 										<!-- 테이블 -->
 										<table class="table table-hover"
@@ -109,41 +83,40 @@
 											<thead>
 												<tr align="center" role="row">
 													<th>No.</th>
-													<th>직무</th>
-													<th width="40%">제목</th>
+													<th width="20%">제목</th>
+													<th width="35%">댓글내용</th>
 													<th>작성자</th>
 													<th>등록일</th>
-													<th width="8%">조회수</th>
 													<th>상태</th>
-													<th width="10%"></th>
+													<th width="15%"></th>
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${jobList }" var="job">
+												<c:forEach items="${qnaCommentList }" var="qna">
 													<tr align="center" class="trtr">
-														<td>${job.board_No}</td>
-														<td>${job.category_Name }</td>
-														<td class="goBoard" id="${job.board_No }">${job.board_Title}</td>
-														<td>${job.mem_Nick}</td>
-														<td>${job.board_Date}</td>
-														<td>${job.board_View}</td>
-														<td><c:if test="${job.board_Status eq 'Y'}">
+														<td>${qna.comm_No}</td>
+														<td class="goBoard" id="${qna.board_No }">${qna.board_Title }</td>
+														<td class="goBoard" id="${qna.board_No }">${qna.comm_Content}</td>
+														<td>${qna.mem_Nick}</td>
+														<td><fmt:parseDate var="parsedDate" value="${qna.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
+														<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+														<td><c:if test="${qna.comm_Status eq 'Y'}">
 																<span class='badge badge-success'>정상</span>
-															</c:if> <c:if test="${job.board_Status eq 'B'}">
+															</c:if> <c:if test="${qna.comm_Status eq 'B'}">
 																<span class='badge badge-danger'>블라인드</span>
-															</c:if>  <c:if test="${job.board_Status eq 'N'}">
+															</c:if>  <c:if test="${qna.comm_Status eq 'N'}">
 																<span class='badge badge-secondary'>삭제</span>
 															</c:if> </td>
 														<td>
-																<c:if test="${job.board_Status eq 'Y' }">
+																<c:if test="${qna.comm_Status eq 'Y' }">
 																	<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
-																		onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusB.do?board_No=${job.board_No}&type_No=${job.type_No }'">블라인드</button>
+																		onclick="location.href='${pageContext.request.contextPath}/admin/updateCommStatusB.do?comm_No=${qna.comm_No}&type_No=${qna.type_No }'">블라인드</button>
 																</c:if>
-																<c:if test="${job.board_Status eq 'B' }">
+																<c:if test="${qna.comm_Status eq 'B' }">
 																	<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
-																		onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusY.do?board_No=${job.board_No}&type_No=${job.type_No }'">활성화</button>
+																		onclick="location.href='${pageContext.request.contextPath}/admin/updateCommStatusY.do?comm_No=${qna.comm_No}&type_No=${qna.type_No }'">활성화</button>
 																</c:if>
-																<c:if test="${job.board_Status eq 'N'}">
+																<c:if test="${qna.comm_Status eq 'N'}">
 																	<button class="btn mb-2 btn-light" disabled="disabled">활성화</button>
 																</c:if>
 														</td>
@@ -152,11 +125,7 @@
 											</tbody>
 										</table>
 										<br>
-										
-<%-- 										<!-- 페이징처리 -->
-										<div align="center">
-											<c:out value="${pageBar}" escapeXml="false" />
-										</div> --%>
+
 										
 									</div>
 								</div>
@@ -173,58 +142,46 @@
 	</div>
 	<!-- .wrapper -->
 <script>
-	$(function(){
-		
-		$("#job").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/jobList.do";
-		});
-		
-		$("#blahblah").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/blahList.do";
-		});
-
-		$("#blind").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/blindList.do";
-		});
-
-		$("#tomo").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/tomoList.do";
-		});
-
-		$("#qna").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/qnaList.do";
-		});
-
-		$("#accept").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/acceptList.do";
-		});
-
-		$("#interview").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/interviewList.do";
-		});
-
-		$("#mento").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/mentoList.do";
-		});
-		
+$(function(){
+	
+	$("#job").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/jobCommentList.do";
 	});
-/* 
- 	function search() {
-		location.href="${pageContext.request.contextPath}/admin/searchJobList.do?keyword="+$('#search').val();
+	
+	$("#blahblah").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/blahCommentList.do";
+	});
 
-	}
+	$("#blind").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/blindCommentList.do";
+	});
+
+	$("#tomo").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/tomoCommentList.do";
+	});
+
+	$("#qna").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/qnaCommentList.do";
+	});
+
+	$("#accept").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/acceptCommentList.do";
+	});
+
+	$("#interview").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/interviewCommentList.do";
+	});
+
+	$("#mento").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/mentoCommentList.do";
+	});
 	
-	function enterKey() {
-			if (event.keyCode==13){
-				location.href="${pageContext.request.contextPath}/admin/searchJobList.do?keyword="+$('#search').val();
-			}
-		
-		} */
-	
+});
+
 	$(function(){
 		$(".goBoard").on("click", function(){
 			var board_No = $(this).attr("id");
-			location.href = "${pageContext.request.contextPath}/board2/jobSelectOne.do?board_No="+ board_No;
+			location.href = "${pageContext.request.contextPath}/board2/qnaSelectOne.do?board_No="+ board_No;
 		});
 	});
 

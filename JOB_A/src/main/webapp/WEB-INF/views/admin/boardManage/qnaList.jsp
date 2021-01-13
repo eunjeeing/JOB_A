@@ -64,7 +64,7 @@
 							<div class="tab"><p id="blahblah">블라블라</p></div>
 							<div class="tab"><p id="blind">블라인드</p></div>
 							<div class="tab"><p id="tomo">언틸 투모로우</p></div>
-							<div class="tab"><p id="qna">Q&A</p></div>
+							<div class="tab"><p id="qna">레벨업</p></div>
 							<div class="tab"><p id="accept">합격후기</p></div>
 							<div class="tab"><p id="interview">면접후기</p></div>
 							<div class="tab"><p id="mento">멘토&멘티</p></div>
@@ -179,7 +179,7 @@
 	$(function(){
 		$(".goBoard").on("click", function(){
 			var board_No = $(this).attr("id");
-			location.href = "${pageContext.request.contextPath}/board2/selectQnAList.do?board_No="+ board_No;
+			location.href = "${pageContext.request.contextPath}/board2/qnaSelectOne.do?board_No="+ board_No;
 		});
 	});
 
