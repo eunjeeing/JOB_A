@@ -277,18 +277,58 @@ section>div>.sub_menu3 {
 <head>
 <title>JOB_A</title>
 <meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, user-scalable=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!-- Scripts -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+<script>
+$(document).ready(function(){
 
- <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/main.css" />
-<link
-	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
-	rel="stylesheet">
-
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-latest.min.js"></script>
-
+	var date = {};
+	
+	$.ajax({
+		url:"${pageContext.request.contextPath}/carousel",
+		type:"POST",
+		dataType : "json",
+		async: true,
+		success : function(data){
+			var list = data;
+			for(var i in list){
+				console.log(data[i]);
+				div = '<div class="article-list-pre">' + 
+				'<div class="tit" id="' + data[i].BOARD_NO + '">' +
+				'<p > "' + data[i].TYPE_NO + '" 게시판</p>' +
+				'<h3 class="hh">"' + data[i].BOARD_TITLE + '"</h3>' +
+				'<div class="pre-txt">"' + data[i].BOARD_CONTENT + '"</div>' +
+			'</div>' +
+			'<div class="sub">' +
+				'<p class="name" style="padding-top: 2em;">"' + data[i].MEM_NICK + '"</p>' +
+				'<div class="wrap-info">' +
+					'<i class="far fa-eye">"' + data[i].BOARD_VIEW + '"</i>' +
+						'<i class="far fa-comment""' + data[i].COMM_COUNT + '"</i>' +
+					'<div class="info_fnc">' +
+						'${carousel.board_Date} <i class="far fa-bookmark" id="bookmark"></i>' +
+					'</div>' +
+				'</div>' +
+			'</div>' +
+		'</div>'
+				$('#article-list').append(div);
+			}
+		},
+		error : function(){
+				alert("ajax 오류!");
+				console.log(error);
+	            console.log(error.status);
+			}
+		});
+	});
+</script>
 </head>
 <body class="is-preload">
 
@@ -301,11 +341,10 @@ section>div>.sub_menu3 {
 
 				<c:import url="user/common/header.jsp" />
 
-				
+
 				<div class="adminBtn">
 				<button id="Btn" onclick="goAdmin();" style="">관리자 페이지로 이동</button>
 				</div>
-				
 				<!-- Banner -->
 				<section id="banner">
 					<!-- 왼쪽 구역 -->
@@ -324,7 +363,9 @@ section>div>.sub_menu3 {
 						</div>
 						<div class="carousel-container">
 							<div class="carousel-slide">
-								<!-- 나중에 리스트 불러오기 -->
+								<div class="article-list" onclick="clickEvent()">
+									
+								</div>
 							</div>
 							<button id="prevBtn">
 								<img alt="prev"
@@ -335,6 +376,7 @@ section>div>.sub_menu3 {
 									src="${pageContext.request.contextPath}/resources/images/right-arrow.png">
 							</button>
 						</div>
+						
 						<!-- 홍보 배너 -->
 						<div class="site_title">
 							<p>
@@ -349,7 +391,7 @@ section>div>.sub_menu3 {
 								<dt>관심 직종 순위</dt>
 								<dd>
 									<ol>
-										<li><a href="#">&nbsp;1. ${count}</a></li>
+										<li><a href="#">&nbsp;1. </a></li>
 										<li><a href="#">&nbsp;2. test<a></li>
 										<li><a href="#">&nbsp;3.<a></li>
 										<li><a href="#">&nbsp;4.<a></li>
@@ -405,15 +447,35 @@ section>div>.sub_menu3 {
 
 
 	</div>
-
-	<!-- Scripts -->
-	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	
+	<!-- 캐러셀 클릭 이벤트 -->
 	<c:if test="${ !empty member }" >
+	<script>
+		$(function() {
+			$("div[class=tit]")
+					.on("click",
+							function() {
+								var board_No = $(this).attr("id");
+								console.log("board_No=" + board_No);
+								location.href = "${pageContext.request.contextPath}/board2/blahView.do?board_No="
+										+ board_No;
+							});
+		});
+	</script>
+	</c:if>
+	<c:if test="${ empty member }">
+	<script>
+			$(function() {
+			$("div[class=tit]")
+					.on(
+							"click",function() {
+								window.alert("로그인 후 이용해주세요");
+							});
+			});
+	</script>
+	</c:if>
+	<c:if test="${ !empty member }" >
+	
 	<script>/* 채팅으로 이동 */
 	function goChat(){
             location.href = '${pageContext.request.contextPath}/chat/chatList/0';
