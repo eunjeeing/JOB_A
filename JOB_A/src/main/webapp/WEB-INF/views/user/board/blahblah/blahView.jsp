@@ -214,10 +214,17 @@ p {
 											${board2.comm_Count }
 									</span>
 									<div class="info_fnc">
-
-										<span class="rebo"> 
-											<i class="fas fa-exclamation-triangle" id="report"></i><a class="reportBtn" id="myBtn">신고</a> 
-										</span> 
+									
+										<!-- 신고 inline css by 은열 -->
+										<span class="rebo" style="margin-right:-4px;"> 
+											<i class="fas fa-exclamation-triangle" id="report" style="padding:2px;"></i>
+											<a class="reportBtn" style="color:black; vertical-align: middle; " id="myBtn"> 신고</a> 
+										</span>
+											<input type="hidden" id="board_info" value="${board2.board_No }">
+											<input type="hidden" id="board_mem_no" value="${board2.mem_No }">
+											<input type="hidden" id="board_reporter" value="${member }">
+										<!---------------------------------------------------------------------------> 
+										
 										<span class="rebo" onclick="bookmark(${board2.board_No}, ${member.memNo})">
 											<c:if test="${!empty bookmark}">
 												<i class="fas fa-bookmark" id="bookmark"></i>스크랩
@@ -225,9 +232,7 @@ p {
 											<c:if test="${empty bookmark}">
 												<i class="far fa-bookmark" id="bookmark"></i>스크랩
 											</c:if>
-											<input type="hidden" id="board_info" value="${board2.board_No }">
-											<input type="hidden" id="board_mem_no" value="${board2.mem_No }">
-											<input type="hidden" id="board_reporter" value="${member }">
+
 										</span>
 									</div>
 								</div>
@@ -293,7 +298,12 @@ p {
 													<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
 													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?type_No=${board2.type_No}&board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
 												</c:if>
-												<span><i class="fas fa-exclamation-triangle"></i></span>
+												<span class="reportBtn_comment" id="reportBtn_comment" style="color:black; vertical-align: middle;" ><i class="fas fa-exclamation-triangle"></i></span> 
+													<!-- ----------------------- 댓글신고정보 by 은열 ------------------------------ -->
+													<input type="hidden" id="board_comment_info" value="${co.comm_No }">
+													<input type="hidden" id="board_comment_mem_no" value="${co.mem_No }">
+													<input type="hidden" id="board_comment_reporter" value="${member }">
+													<!-- ----------------------------------------------------- -->
 											</div>
 										</div>
 									</div>
@@ -489,14 +499,25 @@ p {
 			}
 		}	
 
-	    // 신고모달 스크립트 by 은열
+	    // 게시글신고모달 스크립트 by 은열
 	    $('.reportBtn').click(function(){
 		    var test = $('#board_info').val();
 		    
 			$('.modal_board').val($('#board_info').val());
 			$('.modal_reporter').val($('#board_reporter').val());
 			$('.modal_board_no').val($('#board_mem_no').val());
+			$('.modal_separate').val(1);
 	    });
+
+	    // 댓글신고모달 스크립트 by 은열
+	    $('.reportBtn_comment').click(function(){
+			$('.modal_board').val($('#board_comment_info').val());
+			$('.modal_reporter').val($('#board_comment_reporter').val());
+			$('.modal_board_no').val($('#board_comment_mem_no').val());
+			$('.modal_separate').val(2);
+			
+			  alert("zz");
+		    });
 	
 	</script>
 </body>

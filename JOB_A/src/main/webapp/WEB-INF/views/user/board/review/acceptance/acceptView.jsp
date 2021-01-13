@@ -210,9 +210,15 @@ p {
 											${accept.comm_count }</i>
 									</span>
 									<div class="info_fnc">
-										<span class="rebo"> 
-										<i class="fas fa-exclamation-triangle" id="report"></i> 신고
-										</span> 
+										<!-- 신고 inline css by 은열 -->
+										<span class="rebo" style="margin-right:-4px;"> 
+											<i class="fas fa-exclamation-triangle" id="report" style="padding:2px;"></i>
+											<a class="reportBtn" style="color:black; vertical-align: middle; " id="myBtn"> 신고</a> 
+										</span>
+											<input type="hidden" id="board_info" value="${accept.board_no}">
+											<input type="hidden" id="board_mem_no" value="${accept.mem_no }">
+											<input type="hidden" id="board_reporter" value="${member}">
+										<!---------------------------------------------------------------------------> 
 										<span class="rebo"><span class="rebo" onclick="bookmark(${accept.board_no}, ${member.memNo})">
 											<c:if test="${!empty bookmark}">
 												<i class="fas fa-bookmark" id="bookmark"></i>스크랩
@@ -323,7 +329,15 @@ p {
 		</div>
 		<c:import url="../../../common/sideBar.jsp" />
 	</div>
-
+	<c:import url="../../reportModal.jsp"/>	<!-- 신고 모달 창 -->
+	
+	<!-- Scripts -->
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	
 	<script>
 	document
 	.getElementById("insertComment")
@@ -465,7 +479,15 @@ p {
 				});
 			}
 		}	
-				
+		
+	    // 신고모달 스크립트 by 은열
+	    $('.reportBtn').click(function(){
+		    var test = $('#board_info').val();
+		    
+			$('.modal_board').val($('#board_info').val());
+			$('.modal_reporter').val($('#board_reporter').val());
+			$('.modal_board_no').val($('#board_mem_no').val());
+	    });	
 				
 
 	</script>

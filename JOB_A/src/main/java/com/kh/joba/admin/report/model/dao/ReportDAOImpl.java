@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.joba.admin.report.model.vo.Report;
 import com.kh.joba.user.board2.blahblah.model.vo.Board2;
+import com.kh.joba.user.comments2.model.vo.Comments2;
 import com.kh.joba.user.member.model.vo.Member;
 
 @Repository
@@ -24,18 +25,17 @@ public class ReportDAOImpl implements ReportDAO {
 	}
 
 	@Override
-	public int insertReport(String reason, int board2, int board2_no, int memNo) {
-		
-		Report report = new Report(memNo, board2, reason, board2_no);
-		
+	public int insertReport(Report report) {
+				
 		System.out.println("임플에서 report" + report);
+		
 		return sqlSession.insert("reportMapper.insertReport", report);
 	}
 
 	// 게시글 정보 가져오기
 	@Override
 	public Board2 selectBoardList(int boardNo) {
-
+			System.out.println("다오임플"+boardNo);
 		return sqlSession.selectOne("reportMapper.selectBoardList", boardNo);
 	}
 
@@ -62,6 +62,20 @@ public class ReportDAOImpl implements ReportDAO {
 		Board2 board2 = new Board2(boardNo, boardStatus);
 		
 		return sqlSession.update("reportMapper.updateBoard", board2);
+	}
+
+	// 댓글 신고 리스트 접속 + 조회
+	@Override
+	public List<Report> selectCommentList() {
+	
+		return sqlSession.selectList("reportMapper.selectCommentList");
+	}
+
+	// 댓글번호로 댓글 정보 가지고 오기
+	@Override
+	public Comments2 selectComment(int commNo) {
+		
+		return sqlSession.selectOne("reportMapper.selectComment", commNo);
 	}
 
 

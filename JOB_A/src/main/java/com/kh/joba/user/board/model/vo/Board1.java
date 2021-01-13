@@ -30,4 +30,6 @@ public class Board1 {
 	private Attachment1 attachment;
 	private int comm_count;
 	private String board_mainTitle;
+	
+	
 }

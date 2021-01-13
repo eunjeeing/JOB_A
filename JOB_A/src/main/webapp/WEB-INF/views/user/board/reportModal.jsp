@@ -6,7 +6,7 @@
  <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script type="text/javascript">
       $(function(){
-
+	/* 여기는 게시글 신고 */
         var modal = document.getElementById('myModal');
         
         // Get the button that opens the modal
@@ -32,7 +32,40 @@
                 modal.style.display = "none";
               }
             }
+  	/* 여기는 게시글 신고 */
+  	
+  	/* 여기는 댓글 신고 */
+
+        var commentModal = document.getElementById('myModal');
+        
+        // Get the button that opens the modal
+        var commentBtn = document.getElementById("reportBtn_comment");
+        
+        // Get the <span> element that closes the modal
+          var commentSpan = document.getElementsByClassName("close")[0];                                          
+          
+          // When the user clicks on the button, open the modal 
+          commentBtn.onclick = function() {
+            console.log("zzz");
+            commentModal.style.display = "block";
+          }
+          
+          // When the user clicks on <span> (x), close the modal
+            commentSpan.onclick = function() {
+            	commentModal.style.display = "none";
+            }
+            
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+              if (event.target == commentModal) {
+            	  commentModal.style.display = "none";
+              }
+            }
+          	/* 여기는 댓글 신고 */
+
+          	
           }); 
+
       
       function test(obj){
           console.log(obj.value);
@@ -61,8 +94,8 @@
             top: 0;
             width: 100%; /* Full width */
             height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
+            /* overflow: auto; */ /* Enable scroll if needed */
+	        background-color: rgb(0,0,0); /* Fallback color */
             background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
         }
     
@@ -72,18 +105,29 @@
             margin: 15% auto; /* 15% from the top and centered */
             padding: 20px;
             border: 1px solid #888;
-            width: 50%; /* Could be more or less, depending on screen size */                          
+            width: 450px; /* Could be more or less, depending on screen size */                          
+            height:300px;
+            letter-spacing: 0.075em;
         }
+        .modal-body{
+            text-align: center;
+            padding-top:40px;
+        }
+
         /* The Close Button */
         .close {
-            color: #aaa;
+            color: #f56a6a  !important;
+            cursor: pointer;
+            border-radius: 0.375em;
             float: right;
             font-size: 28px;
             font-weight: bold;
+            margin-top: -10px;
+     
         }
         .close:hover,
         .close:focus {
-            color: black;
+            color: #f56a6a ;
             text-decoration: none;
             cursor: pointer;
         }
@@ -102,7 +146,7 @@
           <div class="modal-header">
   
             <span class="close">&times;</span>  
-            <h4 class="modal-title">게시글 신고<h4> <!-- 사용자 지정 부분② : 타이틀 -->
+            <h4 class="modal-title"> 신고<h4> <!-- 사용자 지정 부분② : 타이틀 -->
   
           </div>
   
@@ -110,13 +154,16 @@
             <form id="form1" action="${pageContext.request.contextPath}/insertReport.do" method="post">
   
            <!-- radio, checkbox가 안먹힘 : 템플릿에 먹혀서 그런거 같아서 일단 구현하려고 임시로 버튼 해놓음 -->
-           <input type="hidden" class="modal_board" name="board2" value=""/>
-           <input type="hidden" class="modal_board_no" name="board2_no" value=""/>
-           <input type="hidden" class="modal_reporter" name="declare" value=""/>
+           <input type="hidden" class="modal_board" name="board2" value=""/>  				<!-- 게시글, 댓글 번호 -->
+           <input type="hidden" class="modal_board_no" name="board2_no" value=""/>  		<!-- 게시글, 댓글 작성자 번호 -->
+           <input type="hidden" class="modal_reporter" name="declare" value=""/>			<!-- 게시글, 댓글 신고자 번호 -->
+           <input type="hidden" class="modal_separate" name="modal_separate" value=""> 		<!-- 댓글 게시글 구분 -->
+           <!-- 여긴 댓글 -->
+
            
               <div class="form-group">
                <label for="reportReason"><h3>신고 사유를 선택해주세요.</h3></label> <!-- 사용자 지정 부분③ : 텍스트 메시지 -->
-               <select class="form-control" name="reason" id="reportReason">
+               <select class="form-control" name="reason" id="reportReason">		
                  <option class="reportConfirm" value="허위사실">&nbsp;&nbsp;&nbsp;허위 사실인 것 같아요!</option>
                  <option class="reportConfirm" value="욕설">&nbsp;&nbsp;&nbsp;욕설이 담겨져 있어요!</option>
                  <option class="reportConfirm" value="음란물">&nbsp;&nbsp;&nbsp;문란하다고 생각합니다!</option>
