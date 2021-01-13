@@ -299,9 +299,9 @@ p {
 												<c:if test="${member.memNo ne co.mem_No}">
 												<span class="reportBtn_comment" id="reportBtn_comment" style="vertical-align: middle;" ><i class="fas fa-exclamation-triangle"></i></span> 
 													<!-- ----------------------- 댓글신고정보 by 은열 ------------------------------ -->
-													<input type="hidden" id="board_comment_info" value="${co.comm_No }">
-													<input type="hidden" id="board_comment_mem_no" value="${co.mem_No }">
-													<input type="hidden" id="board_comment_reporter" value="${member }">
+													<input type="hidden" class="board_comment_info" value="${co.comm_No }">
+													<input type="hidden" class="board_comment_mem_no" value="${co.mem_No }">
+													<input type="hidden" class="board_comment_reporter" value="${member }">
 													<!-- ----------------------------------------------------- -->
 												</c:if>
 											</div>
@@ -334,9 +334,9 @@ p {
 													<c:if test="${member.memNo ne co.mem_No}">
 													<span class="reportBtn_cocomment" id="reportBtn_cocomment" style="vertical-align: middle;" ><i class="fas fa-exclamation-triangle"></i></span> 
 													<!-- ----------------------- 대댓글신고정보 by 은열 ------------------------------ -->
-													<input type="hidden" id="board_cocomment_info" value="${co.comm_No }">
-													<input type="hidden" id="board_cocomment_mem_no" value="${co.mem_No }">
-													<input type="hidden" id="board_cocomment_reporter" value="${member }">
+													<input type="hidden" class="board_cocomment_info" value="${co.comm_No }">
+													<input type="hidden" class="board_cocomment_mem_no" value="${co.mem_No }">
+													<input type="hidden" class="board_cocomment_reporter" value="${member }">
 													<!-- ----------------------------------------------------- -->
 													</c:if>
 												</div>
