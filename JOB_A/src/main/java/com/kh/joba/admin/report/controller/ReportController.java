@@ -177,21 +177,27 @@ public class ReportController {
 		List<Comments2> commentList = new ArrayList<Comments2>(); // 댓글 내용 가져 올 경로.
 		List<Member> reporterList = new ArrayList<Member>(); 	// 신고자 ID 가지고 오기
 		List<Member> appendantList = new ArrayList<Member>(); 	// 피신고자 ID 가지고 오기
+		List<Board2> board2List = new ArrayList<Board2>(); 		// 게시글 정보 조회
 		
 		for(Report report : list) {
 			
-			Comments2 comments2 = reportService.selectComment(report.getCommNo());
-
+			Comments2 comments2 = reportService.selectComment(report.getCommNo()); // 해당 댓글 정보 조회
+			
+			Board2 board2 = reportService.selectBoardList(comments2.getBoard_No()); // 해당 게시글 정보 조회
+			
 			Member reporter = reportService.selectMember(report.getMemNo());
 			Member appendant = reportService.selectMember(report.getMemNo2());
 
-			System.out.println("board2 : " + comments2.toString());
+			System.out.println("comments2 : " + comments2.toString());
 			System.out.println("reporter : " + reporter.toString());
 			System.out.println("appendant : " + appendant.toString());
+			System.out.println("board2 : " + board2.toString());
 			
 			commentList.add(comments2);
 			reporterList.add(reporter);
 			appendantList.add(appendant);
+			board2List.add(board2);
+			
 		}
 			
 		
@@ -199,10 +205,10 @@ public class ReportController {
 		model.addAttribute("commentList", commentList);
 		model.addAttribute("reporterList", reporterList);
 		model.addAttribute("appendantList", appendantList);
-		
+		model.addAttribute("board2List", board2List);
 		
 		return "admin/report/commentReportList";
 				
 	}
-	
+
 }
