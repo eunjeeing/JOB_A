@@ -3,6 +3,8 @@ package com.kh.joba.user.board2.job.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.joba.user.attachment.model.vo.Attachment;
 import com.kh.joba.user.board2.blahblah.model.vo.Board2;
 import com.kh.joba.user.board2.job.model.service.JobService;
-import com.kh.joba.user.board2.qna.model.service.QnAService;
+import com.kh.joba.user.bookmark.model.service.BookmarkService;
+import com.kh.joba.user.bookmark.model.vo.Bookmark;
 import com.kh.joba.user.comments2.model.service.Comments2Service;
 import com.kh.joba.user.comments2.model.vo.Comments2;
 import com.kh.joba.user.common.util.UtilsBoard1;
+import com.kh.joba.user.member.model.vo.Member;
 
 @Controller
 public class JobController {
@@ -25,6 +29,9 @@ public class JobController {
 	
 	@Autowired
 	Comments2Service cs;
+	
+	@Autowired
+	BookmarkService ms;
 	
 	@RequestMapping("/board2/selectJobList.do")
 	public String selectJobList(
@@ -49,7 +56,7 @@ public class JobController {
 	}
 	
 	@RequestMapping("/board2/jobSelectOne.do")
-	public String jobSelectOne(@RequestParam int board_No, Model model) {
+	public String jobSelectOne(@RequestParam int board_No, Model model, HttpSession session) {
 		
 		Board2 board = js.jobSelectOne(board_No);
 		List<Attachment> attachmentList = js.selectAttachmentList(board_No);
@@ -59,6 +66,12 @@ public class JobController {
 		
 		List<Comments2> selectComment = cs.selectComment(board_No);
 		model.addAttribute("selectComment", selectComment);
+		
+		Member mem = (Member)session.getAttribute("member");
+		Bookmark isBookmark = new Bookmark(board_No, mem.getMemNo(), 0, null);
+		Bookmark bookmark = ms.selectOneBookmark(isBookmark);
+		
+		model.addAttribute("bookmark", bookmark);
 		
 		return "user/board/job/jobView";
 	}
