@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="board1Mapper">
-	
+<mapper namespace="adminBoard">
+
+	<select id="noticeList" resultType="Board1">
+		SELECT B.*, M.MEM_NICK
+		FROM BOARD B, MEMBER M
+		WHERE TYPE_NO = 1 AND M.MEM_NO = B.MEM_NO
+		ORDER BY BOARD_NO DESC, BOARD_DATE DESC
+	</select>
 </mapper>

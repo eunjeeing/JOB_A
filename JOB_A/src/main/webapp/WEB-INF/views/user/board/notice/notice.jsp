@@ -12,12 +12,14 @@
 	}
 	
 	#topbanner {
-		background-image: url(${pageContext.request.contextPath}/resources/images/pic01.jpg);
+		background-image: url(${pageContext.request.contextPath}/resources/images/notice.jpg);
 		background-size: 100% 100%;
 		margin-top: 10px;
 		border: 1px solid black;
-		height: 300px;
+		height: 400px;
 		display: flex;
+		opacity : 0.8;
+		background-size: cover;
 	}
 	
 	#topbanner-textarea {

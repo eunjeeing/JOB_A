@@ -144,7 +144,7 @@
 	<update id="updateTomorrowOutDate">
 		UPDATE BOARD
 		SET BOARD_STATUS = 'N'
-		WHERE (SYSDATE - BOARD_DATE) <![CDATA[>]]> 1 AND BOARD_TYPE = 6
+		WHERE (SYSDATE - BOARD_DATE) <![CDATA[>]]> 1 AND TYPE_NO = 6
 	</update>
 	
 	

@@ -13,13 +13,15 @@
 <style>
 #topbanner {
 	background:
-		url(${pageContext.request.contextPath}/resources/images/com.jpg)
+		url(${pageContext.request.contextPath}/resources/images/mento.jpg)
 		no-repeat;
 	background-position: center center;
 	margin-top: 10px;
 	height: 400px;
 	display: flex;
+	background-size : cover;
 }
+
 
 #title {
 	margin: 0 0 0 0 !important;

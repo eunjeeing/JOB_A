@@ -96,9 +96,9 @@
 					class="fe fe-file-text fe-16"></i> <span class="ml-3 item-text">NOTICE</span>
 			</a>
 				<ul class="collapse list-unstyled pl-4 w-100" id="notice">
-					<li class="nav-item"><a class="nav-link pl-3" href="#"> <span
+					<li class="nav-item"><a class="nav-link pl-3" href="${pageContext.request.contextPath}/admin/noticeList.bo"> <span
 							class="ml-1 item-text">Notice List</span></a></li>
-					<li class="nav-item"><a class="nav-link pl-3" href="#"> <span
+					<li class="nav-item"><a class="nav-link pl-3" href="${pageContext.request.contextPath}/admin/noticeWrite.bo"> <span
 							class="ml-1 item-text">Write Notice</span></a></li>
 				</ul></li>
 

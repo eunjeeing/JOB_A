@@ -11,15 +11,39 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board.css" />
 <style>
-#topbanner {
-	background:
-		url(${pageContext.request.contextPath}/resources/images/com.jpg)
-		no-repeat;
-	background-position: center center;
-	margin-top: 10px;
-	height: 400px;
-	display: flex;
-}
+	#banner{
+		float : flex;
+		height: 600px;
+	}
+	
+	#topbanner {
+		background-image: url(${pageContext.request.contextPath}/resources/images/notice.jpg);
+		background-size: 100% 100%;
+		margin-top: 10px;
+		border: 1px solid black;
+		height: 400px;
+		display: flex;
+		opacity : 0.8;
+		background-size: cover;
+	}
+	
+	#topbanner-textarea {
+		width: 40%;
+		height: 50%;
+		margin: auto;
+		padding: auto;
+		border : 1px solid black;
+		display: flex;
+		background : black;
+		opacity : 0.4;
+	}
+	
+	#topbanner-text {
+		font-size: 40px;
+		font-weight: 500;
+		margin: auto;
+		color: white;
+	}
 
 #title {
 	margin: 0 0 0 0 !important;
