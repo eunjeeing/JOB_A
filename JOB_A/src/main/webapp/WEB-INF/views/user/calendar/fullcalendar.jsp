@@ -8,25 +8,15 @@
 <head>
 <title>Calendar</title>
 <meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, user-scalable=no" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/main.css" />
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-latest.min.js"></script>
-<link
-	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
-	rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <!-- 풀캘린더 스타일 -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/fullcalendar.css" />
-
-<script
-	src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-<script
-	src='${pageContext.request.contextPath}/resources/js/moment.min.js'></script>
-<script
-	src='${pageContext.request.contextPath}/resources/js/fullcalendar.js'></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fullcalendar.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+<script src='${pageContext.request.contextPath}/resources/js/fullcalendar.js'></script>
 
 <style type="text/css">
 .fc-header-toolbar {
@@ -701,41 +691,6 @@ html, body {
 			$("#teachermale").on("change", function(){
 			    $("#calendar").fullCalendar("refetchEvents");
 			});
-			// 캘린더 옵션
-			$("#calendar").fullCalendar({
-				windowResize:  function (view) {
-					if ($(window).width() <  514) {
-						$('#calendar').fullCalendar('changeView', 'basicDay');
-					} else {
-						$('#calendar').fullCalendar('changeView', 'month');
-					}
-				}
-				});
-				
-	          // Menu.sidebar 오류때문에 넣음
-	            var $menu = $('#menu'),
-	               $menu_openers = $menu.children('ul').find('.opener');
-	      
-	            // Openers.
-	               $menu_openers.each(function() {
-	      
-	                  var $this = $(this);
-	      
-	                  $this.on('click', function(event) {
-	      
-	                     // Prevent default.
-	                        event.preventDefault();
-	      
-	                     // Toggle.
-	                        $menu_openers.not($this).removeClass('active');
-	                        $this.toggleClass('active');
-	      
-	                     // Trigger resize (sidebar lock).
-	                        $window.triggerHandler('resize.sidebar-lock');
-	      
-	                  });
-	      
-	               });
 		</script>
 </body>
 </html>

@@ -100,17 +100,13 @@ p {
 	overflow: hidden;
 }
 .carousel-slide {
-	margin : 0px;
+	width : 1000%;
 	height: 280px;
-	padding-left: 7em;
-	padding-top: 3.5em;
+	display : flex;
 }
 .carousel-slide:hover{
 	cursor: pointer;
 	background-color: rgba(222, 225, 226, 0.75);
-}
-.carousel-slide{
-	width: 400em;
 }
 
 #prevBtn {
@@ -153,16 +149,17 @@ p {
 
 /* 사이트 홍보 배너 */
 .site_title {
-	height: 125px;
-	width: 95%;
-	margin-left: 13px;
-	margin-top: 35px;
-	padding: 20px;
-	background-color: black;
+    height: 11em;
+    width: 93%;
+    margin-left: 3%;
+    margin-top: 0px;
+    padding-left: 4em;
+    padding-top: 2.5em;
+    background-color: black;
 }
 
 .site_title>p {
-	font-size: 22px;
+	font-size: 24px;
 	font-weight: bold;
 	color: white;
 }
@@ -174,8 +171,10 @@ p {
 	margin-bottom: 20px;
 }
 .right>div {
-	background-color: rgba(222, 225, 226, 0.75);
-	
+	/* background-color: rgba(222, 225, 226, 0.75); */
+	background-image: url(${pageContext.request.contextPath}/resources/images/back4.jpg);
+	background-size: 100% 100%;
+    background-position: center;
 }
 /* 랭킹 스타일 */
 .ranking {
@@ -195,8 +194,8 @@ p {
 
 #rank-list {
 	overflow: hidden;
-	width: 90%;
-	height: 300px;
+	width: 100%;
+	height: 320px;
 	margin: 0;
 }
 
@@ -204,8 +203,8 @@ p {
 	font-size: 18px;
 	font-weight: bold;
 	color: black;
-	margin-top: 15px;
-	margin-left: 25px;
+	margin-top: 25px;
+	margin-left: 30px;
 	margin-bottom: 5px;
 }
 
@@ -216,14 +215,14 @@ p {
 #rank-list ol {
 	position: absolute;
 	top: 0;
-	left: 0;
+	left: 9px;
 	margin: 0;
 	padding: 0;
 	list-style-type: none;
 }
 
 #rank-list li {
-	margin-top: 5px;
+	margin-top: 3px;
 	line-height: 20px;
 	transform: scale(1);
 	-webkit-transform: scale(1);
@@ -308,7 +307,7 @@ $(document).ready(function(){
 			for(var i in list){
 				console.log(data[i]);
 				div = 
-				'<div class="carousel-slide" id="goBoard">'+
+					'<div style="width:430px;">'+
 					'<div class="tit" id=' + data[i].board_No + '>' +
 						'<p >' + data[i].TYPE_NAME + ' 게시판</p>' +
 						'<h3 class="hh" style="font-size:23px;">"' + data[i].BOARD_TITLE + '"</h3>' +
@@ -321,9 +320,9 @@ $(document).ready(function(){
 							'<i class="far fa-comment">' + data[i].COMM_COUNT + '</i>' +
 						'<div class="info_fnc">' + data[i].BOARD_DATE + '</div>' +
 					'</div>' +
-				'</div>' +
-			'</div>'
-				$('.carousel-container').append(div);
+				'</div>'+
+				'</div>'
+				$('.carousel-slide').append(div);
 			}
 		},
 		error : function(){
@@ -377,8 +376,9 @@ $(document).ready(function(){
 							<p style="font-size: 17px;">&nbsp;토픽 베스트</p>
 						</div>
 						
-						<div class="carousel-container" id="goBoard">
-						
+						<div class="carousel-container">
+							<div class="carousel-slide" id="goBoard";">
+							</div>
 						<button id="prevBtn" onclick="plusSlides(-1)">
 							<img alt="prev"
 								src="${pageContext.request.contextPath}/resources/images/left-arrow.png">
@@ -396,6 +396,9 @@ $(document).ready(function(){
 								function plusSlides(n){
 									showSlides(slideIndex+=n);
 									}
+								function currentSlide(n) {
+									  showSlides(slideIndex = n);
+									}
 
 								function showSlides(n) {
 									var i;
@@ -403,7 +406,7 @@ $(document).ready(function(){
 										document.getElementsByClassName("crousel-slide");
 									if(n>slides.length){slideIndex = 1}
 									if(n<1) {slideIndex = slides.length}
-									for(i=0; i<slides.lenght; i++){
+									for(i=0; i<slides.length; i++){
 											slides[i].style.display = "none";
 										}
 									slides[slidIndex-1].style.display = "block"; 
@@ -414,7 +417,7 @@ $(document).ready(function(){
 						<!-- 홍보 배너 -->
 						<div class="site_title">
 							<p>
-								취준생의,&nbsp;취준생에 의한,&nbsp;취준생을 위한<br> JOB_A로 다 잡아!
+								취준생의,&nbsp;취준생에 의한,&nbsp;취준생을 위한&nbsp;🙌<br> JOB_A로 다 잡아!
 							</p>
 						</div>
 					</div>
@@ -422,7 +425,7 @@ $(document).ready(function(){
 					<div class="right">
 						<div class="ranking">
 							<dl id="rank-list">
-								<dt>관심 직종 순위</dt>
+								<dt>//&nbsp;Wanted JOB</dt>
 								<dd>
 									<ol>
 										<li><a href="#">&nbsp;1. </a></li>
