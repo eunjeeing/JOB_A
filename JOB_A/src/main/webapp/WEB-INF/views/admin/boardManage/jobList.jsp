@@ -15,23 +15,8 @@
 		padding-right: 10px;
 	}
 	
-	
 	#job {
 		font-weight:800;
-	}
-	
-	#utilBox {
-		width : 100%;
-		height : 50px;
-		margin-top : 20px;
-		margin-bottom: 10px;
-	}
-	
-	#searchBox {
-		width : 35%;
-		height : 100%;
-		float : left;
-		margin-right : 10px;
 	}
 	
 	.goBoard:hover{
@@ -41,8 +26,6 @@
 	.trtr:hover{
 		background: #EAEAEA;
 	}
-	
-	
 	
 </style>
 </head>
@@ -63,13 +46,13 @@
 						<!-- 탭 -->
 						<div class="tab-div">
 							<div class="tab"><p id="job" class="btn mb-2 btn-primary">채용공고</p></div>
-							<div class="tab"><p id="blahblah" class="btn mb-2 btn-primary">블라블라</p></div>
-							<div class="tab"><p id="blind" class="btn mb-2 btn-primary">블라인드</p></div>
-							<div class="tab"><p id="tomo" class="btn mb-2 btn-primary">언틸 투모로우</p></div>
-							<div class="tab"><p id="qna" class="btn mb-2 btn-primary">레벨업</p></div>
-							<div class="tab"><p id="accept" class="btn mb-2 btn-primary">합격후기</p></div>
-							<div class="tab"><p id="interview" class="btn mb-2 btn-primary">면접후기</p></div>
-							<div class="tab"><p id="mento" class="btn mb-2 btn-primary">멘토&멘티</p></div>
+							<div class="tab"><p id="blahblah" class="btn mb-2 btn-outline-primary">블라블라</p></div>
+							<div class="tab"><p id="blind" class="btn mb-2 btn-outline-primary">블라인드</p></div>
+							<div class="tab"><p id="tomo" class="btn mb-2 btn-outline-primary">언틸 투모로우</p></div>
+							<div class="tab"><p id="qna" class="btn mb-2 btn-outline-primary">레벨업</p></div>
+							<div class="tab"><p id="accept" class="btn mb-2 btn-outline-primary">합격후기</p></div>
+							<div class="tab"><p id="interview" class="btn mb-2 btn-outline-primary">면접후기</p></div>
+							<div class="tab"><p id="mento" class="btn mb-2 btn-outline-primary">멘토&멘티</p></div>
 						</div>
 						
 
@@ -78,17 +61,6 @@
 							<div class="col-md-12">
 								<div class="card shadow">
 									<div class="card-body">
-										<!-- 검색 -->
-<%-- 					  					<div id="utilBox">
-											<div id="searchBox">
-												<input type="search" class="form-control" id="search" placeholder="검색내용을 입력해주세요."
-													style="height:37px;" onKeyDown="enterKey();" />
-											</div>
-											<button type="button" class="btn mb-2 btn-light" id="searchBtn" onclick="search()"
-											style="width: 50px;"><span class="fe fe-24 fe-search" style="margin: -9px; font-size: 20px;"></span></button>
-											<button type="button" class="btn mb-2 btn-light" onclick="location.href='${pageContext.request.contextPath}/admin/jobList.do'"
-											style="width: 50px;"><span class="fe fe-24 fe-rotate-cw" style="margin: -9px; font-size: 20px;"></span></button>
-										</div> --%>
 											
 										<!-- 테이블 -->
 										<table class="table table-hover"
@@ -226,7 +198,6 @@
         ]
       });
     </script>
-	<script src="${pageContext.request.contextPath}/resources/admin/js/apps.js"></script>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async
 		src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>

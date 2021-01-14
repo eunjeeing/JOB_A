@@ -166,7 +166,7 @@
 				break;
 
 			case '6':
-				location.href = "${pageContext.request.contextPath}//selectOneTomorrow.bo?board_no="+ board_No;
+				location.href = "${pageContext.request.contextPath}/selectOneTomorrow.bo?board_no="+ board_No;
 				break;
 
 			case '7':

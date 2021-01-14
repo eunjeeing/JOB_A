@@ -271,11 +271,11 @@ p {
 											<input type="hidden" name="comm_Level" value="1" />
 											<textarea id="comm_Content" name="comm_Content"
 												placeholder="댓글을 남겨주세요." style="resize: none;"></textarea>
+											</form>
 										</div>
 										<div class="reply_button" style="height:100%;">
 											<button id="insertComment" type="button" 
 											style="font-weight: 300; font-size: 20px;">작성</button>
-											</form>
 										</div>
 									</div>
 								</div>

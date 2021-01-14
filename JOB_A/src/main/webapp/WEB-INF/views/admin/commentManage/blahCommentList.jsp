@@ -14,20 +14,6 @@
 		padding-right: 10px;
 	}
 	
-	p {
-		background: #80808026;
-	    padding: 5px 8px 5px 8px;
-	    color: black;
-	    border-radius: 5px;
-	}
-	
-	p:hover {
-		background: black;
-		color: white;
-		cursor: pointer;
-		padding: 20px 8px 5px 8px;
-	}
-	
 	#blahblah {
 		font-weight:800;
 	}
@@ -60,14 +46,14 @@
 						
 						<!-- 탭 -->
 						<div class="tab-div">
-							<div class="tab"><p id="job">채용공고</p></div>
-							<div class="tab"><p id="blahblah">블라블라</p></div>
-							<div class="tab"><p id="blind">블라인드</p></div>
-							<div class="tab"><p id="tomo">언틸 투모로우</p></div>
-							<div class="tab"><p id="qna">레벨업</p></div>
-							<div class="tab"><p id="accept">합격후기</p></div>
-							<div class="tab"><p id="interview">면접후기</p></div>
-							<div class="tab"><p id="mento">멘토&멘티</p></div>
+							<div class="tab"><p id="job" class="btn mb-2 btn-outline-primary">채용공고</p></div>
+							<div class="tab"><p id="blahblah" class="btn mb-2 btn-primary">블라블라</p></div>
+							<div class="tab"><p id="blind" class="btn mb-2 btn-outline-primary">블라인드</p></div>
+							<div class="tab"><p id="tomo" class="btn mb-2 btn-outline-primary">언틸 투모로우</p></div>
+							<div class="tab"><p id="qna" class="btn mb-2 btn-outline-primary">레벨업</p></div>
+							<div class="tab"><p id="accept" class="btn mb-2 btn-outline-primary">합격후기</p></div>
+							<div class="tab"><p id="interview" class="btn mb-2 btn-outline-primary">면접후기</p></div>
+							<div class="tab"><p id="mento" class="btn mb-2 btn-outline-primary">멘토&멘티</p></div>
 						</div>
 						
 
@@ -196,7 +182,7 @@ $(function(){
         ]
       });
     </script>
-	<script src="${pageContext.request.contextPath}/resources/admin/js/apps.js"></script>
+
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async
 		src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
