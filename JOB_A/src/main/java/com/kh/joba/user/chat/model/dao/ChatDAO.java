@@ -16,6 +16,12 @@ public interface ChatDAO {
 	Map<String, Chat> selectChatRoom(int chatNo);
 
 	Object deleteChat(int chatNo);
+	
+	
+	
+	List<Map<String, String>> selectChatList(int cPage, int numPerPage);
+
+	int selectChatTotalContents();
 
 
 }

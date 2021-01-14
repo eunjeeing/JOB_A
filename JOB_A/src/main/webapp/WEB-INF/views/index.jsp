@@ -520,7 +520,7 @@ $(document).ready(function(){
 	
 	<script>/* 채팅으로 이동 */
 	function goChat(){
-            location.href = '${pageContext.request.contextPath}/chat/chatList/0';
+            location.href = '${pageContext.request.contextPath}/chat/chatList';
         }
 
     /* 게시물로 이동 */

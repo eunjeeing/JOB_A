@@ -8,7 +8,6 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/css/dataTables.bootstrap4.css">
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -17,10 +16,11 @@
 	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 	<script src='${pageContext.request.contextPath}/resources/admin/js/jquery.dataTables.min.js'></script>
     <script src='${pageContext.request.contextPath}/resources/admin/js/dataTables.bootstrap4.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	<style>
 		#banner {
 		float : flex;
-		height: 710px;
+		height: 750px;
 		}
 		
 		.left {
@@ -102,9 +102,9 @@
 				<c:import url="../common/header.jsp"/>				
 				<section id="banner">					
 					<div class="left">
-						<table class="datatables" id="dataTable-1">
+						<table id="dataTable-1">
 							<thead>
-								<tr role="row">
+								<tr>
 									<th>방 번호</th>
 									<th>방 제목</th>
 									<th>입장</th>
@@ -120,8 +120,19 @@
 								</c:forEach>
 							</tbody>
 						</table>
+						<c:out value="${pageBar}" escapeXml="false"/>
+							<%-- <tbody>
+								<c:forEach items="${chatList}" var="list">
+									<tr>
+										<td><b>${list.chatNo}</b></td>
+										<td><b>${list.chatTitle}</b></td>
+										<td><button onclick="enterChatRoom(this)" value="${list.chatNo}" id="enterChatRoom"><i class="far fa-comments"></i></td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+						<c:out value="${pageBar}" escapeXml="false"/> --%>
 					</div>
-				
 					<div class="right">
 						<div class="chat-right-aside">
 							<div class="chat-main-header">
@@ -132,7 +143,7 @@
 								</div>
 							</div>
 							<div class="chat-list">
-								<ul id="chatdata" class="chat-list p-5" style="height: 500px; overflow: auto;"></ul>
+								<ul id="chatdata" class="chat-list p-5" style="height: 535px; overflow: auto;"></ul>
 							</div>
 							<div class="card-body border-top">
 								<div class="row">
@@ -199,13 +210,15 @@
 		});
 		</script>
 		
-		
-		<script>
-		$(document).ready( function () {
-		    $('#dataTable-1').DataTable();
-		} );
-		
-      </script>
+	<script>
+	$('#dataTable-1').DataTable({
+		autoWidth: true,
+		"lengthMenu": [
+			[16, 32, 64, -1],
+			[16, 32, 64, "All"]
+		]
+   	});
+	</script>
 			
 		<script type="text/javascript">
 		
@@ -228,6 +241,41 @@
 						}else {
 							$('#chatTitle').append("&nbsp;&nbsp;&nbsp; <a href='javascript:void(0)' id='exitChat'><i class='fas fa-times-circle'></i></a>");
 						}
+
+						// exitConfirm
+						$("#exitChat").click(function () {
+							Swal.fire({
+				                title: '🚰·̫🚰',
+				                text: "채팅방을 나가시겠습니까?",
+				                showCancelButton: true,
+				                confirmButtonColor: '#fff',
+				                cancelButtonColor: '#fff',
+				                confirmButtonText: '가차없이 나가겠어!',
+				                cancelButtonText: '쵸큼만 더 있어볼까..?'
+							}).then((result) => {
+				                if (result.value) {
+				                	sock.onclose();
+				                    location.href="${pageContext.request.contextPath}/chat/exitChat";
+				                }
+				            })
+				        });
+						
+						$("#deleteChat").click(function () {
+							Swal.fire({
+				                title: '⁽⁽(´༎ຶД༎ຶ`)⁾⁾',
+				                text: "채팅방을 삭제하시겠습니까?",
+				                showCancelButton: true,
+				                confirmButtonColor: '#fff',
+				                cancelButtonColor: '#fff',
+				                confirmButtonText: '이 방은 폭파시키겠어! 콰과광쾀ㅇ콰콰가왐ㄹ광쾅쾅랄ㅇ쾅',
+				                cancelButtonText: '아직까진 흥미진진 하구만..!'
+							}).then((result) => {
+				                if (result.value) {
+				                	sock.onclose();
+				                   	location.href="${pageContext.request.contextPath}/chat/deleteChat/" + chatNo;
+				                }
+				            })
+						});	
 					},
 					'json'
 				);
@@ -271,44 +319,8 @@
 			
 		</script>
 		
-		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-		<script type="text/javascript">
-			// exitConfirm
-			$("#exitChat").click(function () {
-				Swal.fire({
-	                title: '🚰·̫🚰',
-	                text: "채팅방을 나가시겠습니까?",
-	                showCancelButton: true,
-	                confirmButtonColor: '#fff',
-	                cancelButtonColor: '#fff',
-	                confirmButtonText: '가차없이 나가겠어!',
-	                cancelButtonText: '쵸큼만 더 있어볼까..?'
-				}).then((result) => {
-	                if (result.value) {
-	                	sock.onclose();
-	                    location.href="${pageContext.request.contextPath}/chat/exitChat";
-	                }
-	            })
-	        });
-
-			// exitConfirm
-			$("#deleteChat").click(function () {
-				Swal.fire({
-	                title: '⁽⁽(´༎ຶД༎ຶ`)⁾⁾',
-	                text: "채팅방을 삭제하시겠습니까?",
-	                showCancelButton: true,
-	                confirmButtonColor: '#fff',
-	                cancelButtonColor: '#fff',
-	                confirmButtonText: '이 방은 폭파시키겠어! 콰과광쾀ㅇ콰콰가왐ㄹ광쾅쾅랄ㅇ쾅',
-	                cancelButtonText: '아직까진 흥미진진 하구만..!'
-				}).then((result) => {
-	                if (result.value) {
-	                	sock.onclose();
-	                   	location.href="${pageContext.request.contextPath}/chat/deleteChat/" + "${chat.CHAT_NO}";
-	                }
-	            })
-			});	
-		</script>
+		
+	
 		
 		
 		

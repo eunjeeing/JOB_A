@@ -17,6 +17,10 @@
 		ORDER BY CHAT_NO DESC
 	</select>
 	
+	<select id="selectChatTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM CHAT
+	</select>
+	
 	<insert id="insertChat" parameterType="Chat">
 		INSERT INTO CHAT
 		VALUES (#{chatNo}, #{chatTitle}, #{memId})

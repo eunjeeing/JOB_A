@@ -68,8 +68,8 @@ public class AdminController {
 		return "redirect:adminList";
 	}
 	
-	@RequestMapping("admin/adminDelete/{adminNo}")
-	public String adminDelete (@PathVariable int adminNo, Model model) {
+	@RequestMapping("admin/adminDelete")
+	public String adminDelete (int adminNo, Model model) {
 		
 		System.out.println(adminNo);
 		int result = adminService.deleteAdmin(adminNo); // no로 조회하고 삭제
