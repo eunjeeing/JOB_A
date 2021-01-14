@@ -68,6 +68,12 @@
 		WHERE COMM_NO = #{commNo}
 	</select>
 	
+	<!-- 중복 신고 체크 -->
+	<select id="selectReportCheck" parameterType="Report" resultMap="Report">
+		SELECT * FROM REPORT
+		WHERE BOARD_NO = #{boardNo} AND MEM_NO = #{memNo} 
+	</select>
+	
 	<!-- 게시글 댓글 신고 -->
 	<insert id="insertReport" parameterType="Report">
 		INSERT INTO REPORT 
@@ -80,4 +86,20 @@
 		BOARD_STATUS = #{board_Status}
 		WHERE BOARD_NO = #{board_No}
 	</update>
+	
+	<!-- 게시글 신고 횟수 업데이트 -->
+	<update id="updateBoardReportNum" parameterType="int">
+		UPDATE BOARD SET
+		BOARD_REPORTNUM = BOARD_REPORTNUM + 1
+		WHERE BOARD_NO = #{board2}
+	</update>
+		
+	<!-- 댓글 신고 횟수 업데이트 -->
+	<update id="updateCommentReportNum" parameterType="int">
+		UPDATE COMMENTS SET
+		COMM_REPORTNUM = COMM_REPORTNUM + 1
+		WHERE COMM_NO = #{board2}
+	</update>
+	
+	
 </mapper>

@@ -74,4 +74,30 @@ public class ReportServiceImpl implements ReportService {
 		return reportDAO.selectComment(commNo);
 	}
 
+	// 신고 횟수 업데이트
+	@Override
+	public void updateBoardReportNum(int board2) {
+
+	
+		int res = reportDAO.updateBoardReportNum(board2);
+		
+		System.out.println("게시글 신고 횟수 업데이트 되면 1이 들어와야 함: " +res);
+	}
+
+	// 댓글 신고 횟수 업데이트
+	@Override
+	public void updateCommentReportNum(int board2) {
+	
+		int res = reportDAO.updateCommentReportNum(board2);
+		
+		System.out.println("댓글 신고 횟수 업데이트 되면 1이 들어와야 함: " +res);
+	}
+
+	// 중복 신고 체크
+	@Override
+	public Report selectReportCheck(Report reportCheck) {
+		
+		return reportDAO.selectReportCheck(reportCheck);
+	}
+
 }

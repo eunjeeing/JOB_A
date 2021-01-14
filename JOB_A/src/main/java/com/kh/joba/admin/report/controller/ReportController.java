@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.joba.admin.report.model.service.ReportService;
 import com.kh.joba.admin.report.model.service.ReportServiceImpl;
@@ -72,7 +73,7 @@ public class ReportController {
 	
 	// 댓글, 게시글 신고 
 	@RequestMapping("insertReport.do")
-	public String insertReport(HttpServletRequest request, String reason, int board2, int board2_no, int modal_separate,  Member member) {
+	public String insertReport(HttpServletRequest request, RedirectAttributes redirectAttributes, String reason, int board2, int board2_no, int modal_separate,  Member member) {
 		
 		System.out.println("게시글 신고 리스트 페이지 접속 ok");
 		System.out.println("사유"+reason);
@@ -81,45 +82,57 @@ public class ReportController {
 		System.out.println("게시글작성자"+board2_no);
 		System.out.println("댓글 게시글 구분(1이면 게시글 2이면 댓글) : " + modal_separate);
 		
-		String referer = request.getHeader("Referer");
+		String referer = request.getHeader("Referer"); // 이전 페이지 돌아가기
 		
-		if(modal_separate == 1) {
-			//게시글일때
-			Report report = new Report( member.getMemNo(), board2, reason, board2_no);
-			
-			int res = reportService.insertReport(report);
-			System.out.println("res :" +res);
-			
-			if(res>0) {
-				System.out.println("여기 들어오면 게시글 신고됨");
+		// 중복 신고 체크
+		Report reportCheck = new Report(member.getMemNo(),board2) ;	
+		
+		Report rp = reportService.selectReportCheck(reportCheck); 
+		
+		System.out.println(" 중복 신고 체크 중 신고내용 :"+ rp);
 				
-				return "redirect:"+ referer;
+			if(modal_separate == 1 && rp == null) {
+				//게시글일때
+				Report report = new Report( member.getMemNo(), board2, reason, board2_no);
 				
-			} else {
-				System.out.println("여기 들어오면 게시글 신고 안됨");
+				int res = reportService.insertReport(report);
+				System.out.println("res :" +res);
 				
-				return "redirect:"+ referer;
-			}
-			
-		}else if(modal_separate == 2){
+				if(res>0) {
+					System.out.println("여기 들어오면 게시글 신고됨");
+					
+					reportService.updateBoardReportNum(board2); // 신고 횟수 업데이트 
+					
+					 redirectAttributes.addFlashAttribute("check", "true"); // check 데이터 안담김
+					 return "redirect:"+ referer;
+				} else {
+					System.out.println("여기 들어오면 게시글 신고 안됨");
+					redirectAttributes.addFlashAttribute("check", "false");
+					return "redirect:"+ referer;
+				}
+				
+			}else if(modal_separate == 2 && rp == null) {
 				//댓글일때
-			Report report = new Report( member.getMemNo(), 0, board2, reason, board2_no);
-
-			int res = reportService.insertReport(report);
-			System.out.println("res :" +res);
-						
-			if(res>0) {
-				System.out.println("여기 들어오면 댓글 신고됨");
-				
-				return "redirect:"+ referer;
-				
-			} else {
-				System.out.println("여기 들어오면 댓글 신고 안됨");
-				
-				return "redirect:"+ referer;
+				Report report = new Report( member.getMemNo(), 0, board2, reason, board2_no);
+	
+				int res = reportService.insertReport(report);
+				System.out.println("res :" +res);
+							
+				if(res>0) {
+					System.out.println("여기 들어오면 댓글 신고됨");
+					
+					reportService.updateCommentReportNum(board2); // 신고 횟수 업데이트 
+					redirectAttributes.addFlashAttribute("check", "true");
+					return "redirect:"+ referer;
+					
+				} else {
+					System.out.println("여기 들어오면 댓글 신고 안됨");
+					redirectAttributes.addFlashAttribute("check", "false");
+					return "redirect:"+ referer;
+				}
+	
 			}
 
-		}
 		return "redirect:"+ referer;
 		
 	}
