@@ -10,8 +10,8 @@
 		font-size: 18px;
 	}
 </style>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/main.css" />
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
 	
 <!-- Sidebar -->
 <div id="sidebar">
@@ -33,7 +33,7 @@
 						<li><a href="${pageContext.request.contextPath}/tomorrowList.bo">언틸 투모로우</a></li>
 					</ul>
 				</li>
-				<li><a href="${pageContext.request.contextPath}/board2/selectQnAList.do">Q & A</a></li>
+				<li><a href="${pageContext.request.contextPath}/board2/selectQnAList.do">레벨 업</a></li>
 				<li><a href=javascript:void(0);" onclick="chat();">실시간 채팅</a></li>
 				<li><a href="${pageContext.request.contextPath}/mentoList.bo">멘토 멘티</a></li>
 				<li><span class="opener">꿀팁 후기</span>
@@ -69,7 +69,6 @@
 			</p>
 		</footer>
 		<!-- Scripts -->
-		<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 		<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
 		<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
 		<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
