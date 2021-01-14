@@ -83,8 +83,9 @@ public class MemberController {
             msg = "회원가입 해주셨나요? 존재하지 않는 아이디입니다 ㅠ_ㅠ";
          } else {
             if(bcryptPasswordEncoder.matches(memPw, m.getMemPw()) && m.getMemState() != 2){
-               msg = "로그인 성공 >_<!";
+               // msg = "로그인 성공 >_<!";
                model.addAttribute("member", m);
+               return "redirect:/";
                
             } else {
                msg = "로그인 실패 ㅠ_ㅠ";

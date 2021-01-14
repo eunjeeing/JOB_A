@@ -78,6 +78,29 @@ public class ReportDAOImpl implements ReportDAO {
 		return sqlSession.selectOne("reportMapper.selectComment", commNo);
 	}
 
+	// 게시글 신고 횟수 업데이트
+	@Override
+	public int updateBoardReportNum(int board2) {
+		
+		
+		
+		return sqlSession.update("reportMapper.updateBoardReportNum", board2);
+	}
+
+	// 댓글 신고 횟수 업데이트
+	@Override
+	public int updateCommentReportNum(int board2) {
+		
+		return sqlSession.update("reportMapper.updateCommentReportNum", board2);
+	}
+
+	// 중복 신고 체크
+	@Override
+	public Report selectReportCheck(Report reportCheck) {
+		
+		return sqlSession.selectOne("reportMapper.selectReportCheck", reportCheck);
+	}
+
 
 
 }

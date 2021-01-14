@@ -33,6 +33,15 @@ public interface ReportService {
 
 	// 댓글번호로 댓글 정보 가지고 오기
 	Comments2 selectComment(int commNo);
+
+	// 게시글 신고 횟수 업데이트
+	void updateBoardReportNum(int board2);
+
+	// 댓글 신고 횟수 업데이트
+	void updateCommentReportNum(int board2);
+
+	// 중복 신고 체크
+	Report selectReportCheck(Report reportCheck);
 	
 	
 }
