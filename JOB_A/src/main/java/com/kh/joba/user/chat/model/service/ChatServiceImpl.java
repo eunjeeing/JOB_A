@@ -51,6 +51,23 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	
+	
+	
+	
+	
+	
+	@Override
+	public List<Map<String, String>> selectChatList(int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return chatDAO.selectChatList(cPage, numPerPage);
+	}
+	
+	@Override
+	public int selectChatTotalContents() {
+		// TODO Auto-generated method stub
+		return chatDAO.selectChatTotalContents();
+	}
+	
 
 
 	

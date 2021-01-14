@@ -103,6 +103,7 @@
 										<th>작성자</th>
 										<th>등록일</th>
 										<th>조회수</th>
+										<th>게시물 상태</th>
 									</tr>
 								</thead>
 								<tbody class="boardListTbody">
@@ -114,7 +115,9 @@
 								<thead>
 									<tr role="row">
 										<th>No.</th>
-										<th>댓글 내용</th>
+										<th colspan="3">댓글 내용</th>
+										<th> </th>
+										<th> </th>
 										<th>등록일</th>
 									</tr>
 								</thead>
@@ -134,7 +137,7 @@
 										<th>조회수</th>
 									</tr>
 								</thead>
-								<tbody class=rBoardListTbody">
+								<tbody class="rBoardListTbody">
 								</tbody>
 							</table>
                         </div>
@@ -143,7 +146,11 @@
 								<thead>
 									<tr role="row">
 										<th>No.</th>
-										<th>댓글 내용</th>
+										<th colspan="5">댓글 내용</th>
+										<th> </th>
+										<th> </th>
+										<th> </th>
+										<th> </th>
 										<th>등록일</th>
 									</tr>
 								</thead>
@@ -263,21 +270,32 @@
 							'<tr>'
 								+'<td>'+ data[i].board_No +'</td>'
 								+'<td>'+ data[i].type_Name +'</td>'
-								+'<td class="goBoard" id="'+ data[i].board_No +'">'+ data[i].board_Title +'</td>'
+								+'<td class="'+ data[i].board_No +'">'
+									+'<div id="accordion'+ i +'">'
+										+'<a href="#collapse'+ i +'" data-toggle="collapse" data-target="#collapse'+ i +'" aria-expanded="false" aria-controls="collapse'+ i +'">'+ data[i].board_Title +'</a>'
+									+'</div>'
+		                        +'</td>'
 								+'<td>'+ data[i].mem_Nick +'</td>'
 								+'<td>'+ data[i].board_Date +'</td>'
 								+'<td>'+ data[i].board_View +'</td>'
+								+'<td>'+ data[i].board_Status +'</td>'
+							+'</tr>'
+							+'<tr>'
+								+'<td colspan="7">'
+									+'<div id="collapse'+ i +'" class="collapse" aria-labelledby="heading" data-parent="#accordion'+ i +'">'
+	                					+'<div class="card-body">'+ data[i].board_Content +'</div>'
+	              					+'</div>'
+	              				+'</td>'
 							+'</tr>'
 						$('.boardListTbody').append(listBody);
 					}
-					$('#dataTable-1').DataTable(
-						      {
-						        autoWidth: true,
-						        "lengthMenu": [
-						          [16, 32, 64, -1],
-						          [16, 32, 64, "All"]
-						        ]
-						      });
+					$('#dataTable-1').DataTable({
+						autoWidth: true,
+				        "lengthMenu": [
+				          [16, 32, 64, -1],
+				          [16, 32, 64, "All"]
+				        ]
+			      	});
 					
 				}, error : function () {
 					alert("불러오기 실패");
@@ -301,7 +319,9 @@
 						listBody = 
 							'<tr>'
 								+'<td>'+ data[i].comm_No +'</td>'
-								+'<td>'+ data[i].comm_Content +'</td>'
+								+'<td colspan="3">'+ data[i].comm_Content +'</td>'
+								+'<td></td>'
+								+'<td></td>'
 								+'<td>'+ data[i].comm_Date +'</td>'
 							+'</tr>'
 						$('.commentListTbody').append(listBody);
@@ -336,13 +356,25 @@
 							'<tr>'
 								+'<td>'+ data[i].board_No +'</td>'
 								+'<td>'+ data[i].type_Name +'</td>'
-								+'<td class="goBoard" id="'+ data[i].board_No +'">'+ data[i].board_Title +'</td>'
+								+'<td class="'+ data[i].board_No +'">'
+									+'<div id="accordion'+ i +'">'
+										+'<a href="#collapse'+ i +'" data-toggle="collapse" data-target="#collapse'+ i +'" aria-expanded="false" aria-controls="collapse'+ i +'">'+ data[i].board_Title +'</a>'
+									+'</div>'
+								+'</td>'
 								+'<td>'+ data[i].mem_Nick +'</td>'
 								+'<td>'+ data[i].board_Date +'</td>'
 								+'<td>'+ data[i].board_View +'</td>'
 							+'</tr>'
+							+'<tr>'
+								+'<td colspan="6">'
+									+'<div id="collapse'+ i +'" class="collapse" aria-labelledby="heading" data-parent="#accordion'+ i +'">'
+	                					+'<div class="card-body">'+ data[i].board_Content +'</div>'
+	              					+'</div>'
+	              				+'</td>'
+							+'</tr>'
 						$('.rBoardListTbody').append(listBody);
 					}
+					
 					$('#dataTable-3').DataTable({
 				        autoWidth: true,
 				        "lengthMenu": [
@@ -372,7 +404,11 @@
 						listBody = 
 							'<tr>'
 								+'<td>'+ data[i].comm_No +'</td>'
-								+'<td>'+ data[i].comm_Content +'</td>'
+								+'<td colspan="5">'+ data[i].comm_Content +'</td>'
+								+'<td></td>'
+								+'<td></td>'
+								+'<td></td>'
+								+'<td></td>'
 								+'<td>'+ data[i].comm_Date +'</td>'
 							+'</tr>'
 						$('.rCommentListTbody').append(listBody);
@@ -391,11 +427,19 @@
 			});
 		};
 
-
 		
 	</script>
 <%-- 	+'<fmt:parseDate var="parsedDate" value="'+ data[i].comm_Date +'" pattern="yyyy-MM-dd HH:mm:ss.S"/>'
 	+'<td><fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>' --%>
+	
+<%-- 	+'<td>'
+		+'<c:if test="'+ data[i].board_Status +'eq Y}">'
+			+'<span class="badge badge-success">활성화</span></c:if>'
+		+'<c:if test="'+ data[i].board_Status +'eq N}">'
+			+'<span class="badge badge-secondary">삭제</span></c:if> 
+		+'<c:if test="'+ data[i].board_Status +'eq B}">'
+			+'<span class="badge badge-danger">블라인드</span></c:if> 
+	+'</td>' --%>
   
 	<script>
 

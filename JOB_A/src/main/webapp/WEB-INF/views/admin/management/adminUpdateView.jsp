@@ -64,7 +64,7 @@
 												<span class="guide ok">사용 가능</span>
 					            				<span class="guide error">사용 불가</span>
 					            				<span class="guide invalid">10글자 미만</span>
-					            				<input type="hidden" name="nickNameDuplicateCheck" id="nickNameDuplicateCheck" value="0"/>
+					            				<input type="hidden" name="nickNameDuplicateCheck" id="nickNameDuplicateCheck" value="1"/>
 											</div>
 											<fieldset class="form-group">
 												<div class="row">
@@ -142,7 +142,7 @@
 
 
 	
-	
+	/* 닉네임 중복검사 */
 	$("#adminNick").on("keyup", function(){
         var memNick = $(this).val().trim();
 

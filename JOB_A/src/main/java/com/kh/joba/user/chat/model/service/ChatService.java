@@ -16,5 +16,11 @@ public interface ChatService {
 
 	void deleteChat(int chatNo);
 
+	
+	
+	List<Map<String, String>> selectChatList(int cPage, int numPerPage);
+
+	int selectChatTotalContents();
+
 
 }

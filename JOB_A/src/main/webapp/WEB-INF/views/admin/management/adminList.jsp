@@ -123,12 +123,12 @@
 																		</div>
 										
 																		<!--Body-->
-											   							<form id="changeGrade" action="${pageContext.request.contextPath}/admin/adminUpdate" method="post">
+											   							<form id="changeGrade" action="${pageContext.request.contextPath}/admin/adminDelete" method="post">
 																			<div class="modal-body">
 																				<div class="row">
 																					<div class="col">
 																						 ${a.adminName} 사원을 관리자 목록에서 삭제하시겠습니까?
-																						<input type="hidden" name="adminId" value="${a.adminNo}">
+																						<input type="hidden" name="adminNo" value="${a.adminNo}">
 																					</div>
 																				</div>	
 																			</div>
