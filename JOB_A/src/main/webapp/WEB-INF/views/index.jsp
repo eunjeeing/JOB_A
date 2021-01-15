@@ -100,17 +100,31 @@ p {
 	overflow: hidden;
 }
 .carousel-slide {
-	width : 1000%;
 	height: 280px;
 	display : flex;
+	padding-left: 5vw;
+	padding-right: 5vw;
+}
+.carou-card{
+	height:100%;
+	z-index: 0;
+	opacity: 0;
+	position: absolute;
+}
+.active {
+	z-index: 1;
+	opacity: 1;
+	transform : none;
+	transition : all .7s ease-in-out !important;
 }
 .carousel-slide:hover{
 	cursor: pointer;
 	background-color: rgba(222, 225, 226, 0.75);
+	transition : all .4s ease-in-out !important;
 }
 
 #prevBtn {
-	position: absolute;
+	position: absolute !important;
 	top: 50%;
 	transform: translate(0%, -50%);
 	height: 280px;
@@ -120,7 +134,7 @@ p {
 	border-right: none;
 }
 #nextBtn {
-	position: absolute;
+	position: absolute !important;
 	top: 50%;
 	right: 0;
 	transform: translate(0%, -50%);
@@ -144,8 +158,6 @@ p {
 	right: 10px;
 	bottom: 132px;
 }
-
-
 
 /* 사이트 홍보 배너 */
 .site_title {
@@ -281,6 +293,20 @@ section>div>.sub_menu3 {
 	vertical-align: middle;
 	padding-top: 15px;
 }
+.pre-txt{
+	display: -webkit-box;
+   overflow: hidden;
+   line-height: 1.5em;
+   text-overflow: ellipsis;
+   -webkit-line-clamp: 2;
+   -webkit-box-orient: vertical;
+   word-wrap: break-word;
+   box-sizing: border-box;
+   max-height: 43px;
+   font-size: 17px;
+   line-height: 1.12em;
+   word-break: break-word;
+}
 </style>
 <html>
 <head>
@@ -290,19 +316,14 @@ section>div>.sub_menu3 {
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+
+<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
 <script>
 $(document).ready(function(){
 
 	var date = {};
-	
 	$.ajax({
 		url:"${pageContext.request.contextPath}/carousel",
 		type:"POST",
@@ -313,15 +334,17 @@ $(document).ready(function(){
 			var list = data;
 			for(var i in list){
 				console.log(data[i]);
+				if(i == 0){
 				div = 
-					'<div style="width:430px;">'+
-					'<div class="tit" id=' + data[i].board_No + '>' +
+					'<div class="carou-card active" id="' + data[i].board_No + '" style="width:30vw; padding-top:2em;padding-left:2.7vw;">'+
+					'<div class="tit">' +
+						'<input class="tno" type="hidden" value="' + data[i].type_No + '" />'+
 						'<p >' + data[i].TYPE_NAME + ' 게시판</p>' +
 						'<h3 class="hh" style="font-size:23px;">"' + data[i].BOARD_TITLE + '"</h3>' +
 						'<div class="pre-txt">' + data[i].BOARD_CONTENT + '</div>' +
 					'</div>' +
 				'<div class="sub" style="margin-top : 0.7em;">' +
-					'<p class="name" style="padding-top: 3em;">' + data[i].MEM_NICK + '</p>' +
+					'<p class="name" style="padding-top: 1.5em;">' + data[i].MEM_NICK + '</p>' +
 					'<div class="wrap-info">' +
 						'<i class="far fa-eye" style="margin-right : 0.5em;">' + data[i].BOARD_VIEW + '</i>' +
 							'<i class="far fa-comment">' + data[i].COMM_COUNT + '</i>' +
@@ -329,7 +352,77 @@ $(document).ready(function(){
 					'</div>' +
 				'</div>'+
 				'</div>'
+				} else {
+				div =
+					'<div class="carou-card " id="' + data[i].board_No + '" style="width:30vw; padding-top:2em;padding-left: 2.7vw;">'+
+					'<div class="tit">' +
+					'<input class="tno" type="hidden" value="'+ data[i].type_No +'" />'+
+						'<p >' + data[i].TYPE_NAME + ' 게시판</p>' +
+						'<h3 class="hh" style="font-size:23px;">"' + data[i].BOARD_TITLE + '"</h3>' +
+						'<div class="pre-txt">' + data[i].BOARD_CONTENT + '</div>' +
+					'</div>' +
+				'<div class="sub" style="margin-top : 0.7em;">' +
+					'<p class="name" style="padding-top: 1.5em;">' + data[i].MEM_NICK + '</p>' +
+					'<div class="wrap-info">' +
+						'<i class="far fa-eye" style="margin-right : 0.5em;">' + data[i].BOARD_VIEW + '</i>' +
+							'<i class="far fa-comment">' + data[i].COMM_COUNT + '</i>' +
+						'<div class="info_fnc">' + data[i].BOARD_DATE + '</div>' +
+					'</div>' +
+				'</div>'+
+				'</div>'
+				};
 				$('.carousel-slide').append(div);
+				init_test();
+				
+				firstBox = document.querySelector(".carou-card:first-child");
+				lastBox = document.querySelector(".carou-card:last-child");
+
+				$("div[class=carou-card]")
+				.on("click",function() {
+			         var board_No = $(this).attr("id");
+			         var tno = $(this).siblings('.tno').val();
+			
+			         console.log(board_No);
+			         console.log(tno);
+			         
+			         switch(tno) {
+			         case '1':
+			            location.href = "${pageContext.request.contextPath}/notice.bo?board_no="+ board_No;
+			            break;
+			
+			         case '2':
+			            location.href = "${pageContext.request.contextPath}/board2/jobSelectOne.do?board_No="+ board_No;
+			            break;
+			               
+			         case '4':
+			            location.href = "${pageContext.request.contextPath}/board2/blahView.do?board_No="+ board_No;
+			            break;
+			         
+			         case '5':
+			            location.href = "${pageContext.request.contextPath}/board2/blindSelectOne.do?board_No="+ board_No;
+			            break;
+			
+			         case '6':
+			            location.href = "${pageContext.request.contextPath}/selectOneTomorrow.bo?board_no="+ board_No;
+			            break;
+			
+			         case '7':
+			            location.href = "${pageContext.request.contextPath}/board2/qnaSelectOne.do?board_No="+ board_No;
+			            break;   
+			
+			         case '8':
+			            location.href = "${pageContext.request.contextPath}/selectOneMento.bo?board_no="+ board_No;
+			            break;
+			            
+			         case '9':
+			            location.href = "${pageContext.request.contextPath}/selectOneInterview.bo?board_no="+ board_No;
+			            break;
+			
+			         case'10':
+			            location.href = "${pageContext.request.contextPath}/selectOneAccept.bo?board_no="+ board_No;
+			            break;
+			         }
+		      });
 			}
 		},
 		error : function(){
@@ -345,10 +438,10 @@ $(document).ready(function(){
 		dataType : "json",
 		async: true,
 		success : function(data){
-
 			var list = data;
 				console.log(data);
-	}
+			// 어레이 리스트 sort하기	
+		}
 	})
 });
 </script>
@@ -384,45 +477,78 @@ $(document).ready(function(){
 						</div>
 						
 						<div class="carousel-container">
-							<div class="carousel-slide" id="goBoard";">
+							<div class="carousel-slide">
 							</div>
-						<button id="prevBtn" onclick="plusSlides(-1)">
+						<button id="prevBtn">
 							<img alt="prev"
 								src="${pageContext.request.contextPath}/resources/images/left-arrow.png">
 						</button>
-						<button id="nextBtn" onclick="plusSlides(1)">
+						<button id="nextBtn">
 							<img alt="next"
 								src="${pageContext.request.contextPath}/resources/images/right-arrow.png">
 						</button>
 						</div>
 							<!-- 캐러셀 함수 -->
-							<!-- 
 							<script>
-								var slideIndex = 1;		
-								showSlides(slideIndex);
+								var active = "active";
+								
+								var firstBox = document.querySelector(".carou-card:first-child");
+								var lastBox = document.querySelector(".carou-card:last-child");
+								var leftBtn = document.querySelector("#prevBtn");
+								var rightBtn = document.querySelector("#nextBtn");
 
-								function plusSlides(n){
-									showSlides(slideIndex+=n);
-									}
-								function currentSlide(n) {
-									  showSlides(slideIndex = n);
-									}
-
-								function showSlides(n) {
-									var i;
-									var slides=
-										document.getElementsByClassName("crousel-slide");
-									if(n>slides.length){slideIndex = 1}
-									if(n<1) {slideIndex = slides.length}
-									for(i=0; i<slides.length; i++){
-											slides[i].style.display = "none";
-										}
-									slides[slideIndex-1].style.display = "block"; 
+								var moveLeft = function(){
+								var current = document.querySelector(".active");
+									if(current){
+										current.classList.remove(active);
+										var prev = current.previousElementSibling;
+											if(prev){
+												prev.classList.add(active);
+											}else{
+												lastBox.classList.add(active);
+											};
+									}else{
+										firstBox.classList.add(active);
+									};
+								};
+								var moveRight = function(){
+								    var current = document.querySelector(".active");
+								    if(current){
+								        var next = current.nextElementSibling;
+								        current.classList.remove(active);
+								        if(next){
+								            next.classList.add(active);
+								        }else{
+								            firstBox.classList.add(active);
+								        }
+								    }else{
+								        firstBox.classList.add(active);
+								    }
 								}
+								leftBtn.addEventListener("click", moveLeft);
+								rightBtn.addEventListener("click", moveRight);
+
+								function init_test(){
+									var firstBox = document.querySelector(".carou-card:first-child");
+								    firstBox.classList.add(active);
+								}
+								// 자동으로 넘어가게 하는 함수
+								/* function slide() {
+								    var currentslide = document.querySelector(".active");
+								    if(currentslide) {
+								        currentslide.classList.remove(active);
+								        var nextslide = currentslide.nextElementSibling;
+								        if(nextslide) {
+								            nextslide.classList.add(active);
+								        } else {
+								            firstslide.classList.add(active);
+								        };
+								    } else {
+								        firstslide.classList.add(active);
+								    };
+								};  */
+								
 							</script>
-							 -->
-						
-						
 						<!-- 홍보 배너 -->
 						<div class="site_title">
 							<p>
@@ -497,24 +623,14 @@ $(document).ready(function(){
 	<!-- 캐러셀 클릭 이벤트 -->
 	<c:if test="${ !empty member }" >
 	<script>
-		$(function() {
-			$("div[class=tit]")
-					.on("click",
-							function() {
-								var board_No = $(this).attr("id");
-								console.log("board_No=" + board_No);
-								location.href = "${pageContext.request.contextPath}/board2/blahView.do?board_No="
-										+ board_No;
-							});
-		});
+
 	</script>
 	</c:if>
 	<c:if test="${ empty member }">
 	<script>
 			$(function() {
 			$("div[class=carousel-slide]")
-					.on(
-							"click",function() {
+				.on("click",function() {
 								window.alert("로그인 후 이용해주세요");
 							});
 			});
@@ -527,56 +643,6 @@ $(document).ready(function(){
 	function goChat(){
             location.href = '${pageContext.request.contextPath}/chat/chatList';
         }
-
-    /* 게시물로 이동 */
-       // 해당 게시글로 이동
-   $(function (){
-      $("#goBoard").on("click", function(){
-         var board_No = $(this).attr("id");
-         var tno = $(this).siblings('.tno').val();
-
-         console.log(board_No);
-         console.log(tno);
-         
-         switch(tno) {
-         case '1':
-            location.href = "${pageContext.request.contextPath}/notice.bo?board_no="+ board_No;
-            break;
-
-         case '2':
-            location.href = "${pageContext.request.contextPath}/board2/jobSelectOne.do?board_No="+ board_No;
-            break;
-               
-         case '4':
-            location.href = "${pageContext.request.contextPath}/board2/blahView.do?board_No="+ board_No;
-            break;
-         
-         case '5':
-            location.href = "${pageContext.request.contextPath}/board2/blindSelectOne.do?board_No="+ board_No;
-            break;
-
-         case '6':
-            location.href = "${pageContext.request.contextPath}/selectOneTomorrow.bo?board_no="+ board_No;
-            break;
-
-         case '7':
-            location.href = "${pageContext.request.contextPath}/board2/qnaSelectOne.do?board_No="+ board_No;
-            break;   
-
-         case '8':
-            location.href = "${pageContext.request.contextPath}/selectOneMento.bo?board_no="+ board_No;
-            break;
-            
-         case '9':
-            location.href = "${pageContext.request.contextPath}/selectOneAccept.bo?board_no="+ board_No;
-            break;
-
-         case'10':
-            location.href = "${pageContext.request.contextPath}/selectOneInterview.bo?board_no="+ board_No;
-            break;
-         }
-      });
-   });
 	</script>
 	</c:if>
 	<c:if test="${ empty member }">
@@ -593,17 +659,14 @@ $(document).ready(function(){
 	    				location.href="${pageContext.request.contextPath}/search/searchList.do?keyword="+$('#search').val();
 	    			}
 	    		}
-			
 				/* 캘린더로 이동 */
 				function goCal(){
 			            location.href = '${pageContext.request.contextPath}/calendar.do';
 				}
-				
 				/* 이용안내로 이동 */
 				function goInfo(){
 					location.href = '${pageContext.request.contextPath}/selectNoticeFromIndex.bo';
 				}	
-
 				function goAdmin(){
 					location.href = '${pageContext.request.contextPath}/adminIndex.do';
 					}

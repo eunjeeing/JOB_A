@@ -34,4 +34,16 @@ public class IndexVo {
 	private String mem_Nick;
 	private int file_Count;
 	private String type_Name;
-}
+	
+	private int OFFICE;
+    private int MARKETING;
+	private int MEDIA;
+	private int MARKET;
+	private int SERVICE;
+	private int RESEARCH;
+	private int MEDICINE;
+	private int ARCHITECTURE;
+	private int EDU;
+	private int PRODUCTION;
+	private int TRADE;
+}           

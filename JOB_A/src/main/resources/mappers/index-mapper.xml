@@ -5,10 +5,11 @@
 <mapper namespace="indexMapper">
 	
 <!-- 랭킹 -->
-	<select id="selectAllCount" resultType="HashMap" parameterType="string">
+
+	<select id="selectAllCount" resultType="_int">
 		select 
 			(select count(category_no) from wish_category where category_no = 1) as office,
-	        (select count(category_no) from wish_category where category_no = 2) as market,
+	        (select count(category_no) from wish_category where category_no = 2) as marketing,
 	        (select count(category_no) from wish_category where category_no = 3) as media,
 	        (select count(category_no) from wish_category where category_no = 4) as market,
 	        (select count(category_no) from wish_category where category_no = 5) as service,
@@ -17,7 +18,7 @@
 	        (select count(category_no) from wish_category where category_no = 8) as architecture,
 	        (select count(category_no) from wish_category where category_no = 9) as edu,
 	        (select count(category_no) from wish_category where category_no = 10) as production,
-	        (select count(category_no) from wish_category where category_no = 10) as trade
+	        (select count(category_no) from wish_category where category_no = 11) as trade
 		from dual
 	</select>
 	
