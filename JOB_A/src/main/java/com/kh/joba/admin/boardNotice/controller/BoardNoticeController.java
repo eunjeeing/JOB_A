@@ -22,7 +22,7 @@ public class BoardNoticeController {
 	public String noticeList(Model model) {
 		
 		List<Map<String, String>> list = bns.noticeList();
-		System.out.println(list);
+		System.out.println(list + "1");
 		model.addAttribute("noticeList", list);
 		
 		
