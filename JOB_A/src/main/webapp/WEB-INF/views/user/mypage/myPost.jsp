@@ -87,7 +87,7 @@
 										<div><input type="checkbox" id="checkAll">
 										<label for="checkAll"></label></div>
 									</center></th>
-									<th><center>번호</center></th>									
+									<th><center>No.</center></th>									
 									<th><center>게시판</center></th>
 									<th width="50%"><center>제목</center></th>
 									<th><center>작성자</center></th>

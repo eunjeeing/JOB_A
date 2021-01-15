@@ -90,6 +90,7 @@
 										<div><input type="checkbox" id="checkAll">
 										<label for="checkAll"></label></div>
 									</center></th>
+									<th width="5%"><center>No.</center></th>
 									<th><center>댓글내용</center></th>
 									<th width="20%"><center>등록일</center></th>
 									</tr>
@@ -102,6 +103,7 @@
 											<div><input type="checkbox" class="chk" id="${mc.comm_No }" data-cno="${mc.comm_No }">
 											<label for="${mc.comm_No }"></label></div>
 										</td>
+										<td width="">${mc.comm_No }</td>
 										<td class="goBoard" id="${mc.board_No}">${mc.comm_Content}</td>
 										<fmt:parseDate var="parsedDate" value="${mc.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
 										<td id="clock"><fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>

@@ -197,6 +197,9 @@ p {
 	cursor:pointer;
 	color:black;
 }
+form {
+	margin: 0 !important;
+}
 </style>
 </head>
 <body class="is-preload">
@@ -280,17 +283,26 @@ p {
 								<div class="write_area">
 									<div id="btn_add_comment" style="display: flex;">
 										<div class="reply_area" style="width: 100%;">
-											<from id="commentForm" method="post">
+											<form id="commentForm" method="post">
 											<input type="hidden" id="mem_No" name="mem_No"
 												value="${sessionScope.mem_No }" /> 
 											<input type="hidden" name="comm_Ref" value="0" />
 											<input type="hidden" name="comm_Level" value="1" />
-											<textarea id="comm_Content" name="comm_Content"
+											<textarea id="comm_Content" name="comm_Content" maxlength="500"
 												placeholder="댓글을 남겨주세요." style="resize: none;"></textarea>
-										</div>
-										<button id="insertComment" type="button"
-											style="font-weight: 300; font-size: 20px;">작성</button>
 											</form>
+											
+											<!-- 댓글 수 -->
+											<div class="byte" style="float:right; font-size:12px; color:darkgray;">
+												<text id="commentByte">0</text><text id="slash"> / </text><text id="maxByte">500</text>
+											</div>
+
+											
+										</div>
+										<div class="reply_button" style="height:100%;">
+											<button id="insertComment" type="button" 
+											style="font-weight: 300; font-size: 20px;">작성</button>
+										</div>
 									</div>
 								</div>
 								
@@ -300,7 +312,7 @@ p {
 								<c:forEach items="${selectComment}" var="co">
 								<c:if test="${co.comm_Level eq 1}">
 									<div id="${co.comm_No }" class="wrap-comment comment-area">
-										<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq board2.mem_No }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
+										<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq board2.mem_No }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">글쓴이</text></c:if></p>
 										<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content }</textarea></p>
 										<div class="wrap-info">
 										
@@ -336,7 +348,7 @@ p {
 								<c:if test="${co.comm_Level ne 1}">
 									<div class="wrap-reply">
 										<div id="${co.comm_No }" class="wrap-comment comment-area">
-											<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq board2.mem_No }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
+											<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq board2.mem_No }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">글쓴이</text></c:if></p>
 											<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content }</textarea></p>
 											<div class="wrap-info">
 											
@@ -447,19 +459,44 @@ p {
 				"<text>   대댓글</text>" + 
 				"<div id='btn_add_comment' style='display: flex;'>" + 
 				"<div class='reply_area' style='width: 100%;'>" +
-					"<from id='commentForm' method='post'>" +
+					"<form id='commentForm' method='post'>" +
 					"<input type='hidden' id='mem_No' name='mem_No' value='${sessionScope.mem_No }' />" +
 					"<input type='hidden' name='comm_Ref' value=" + comm_Ref + " />" +
 					"<input type='hidden' name='comm_Level' value='1' />" +
-					"<textarea id='comm_Content' name='comm_Content' placeholder='댓글을 남겨주세요.' style='resize: none;'>" +
+					"<textarea id='comm_Content2' name='comm_Content' placeholder='댓글을 남겨주세요.' style='resize: none;' maxlength='500'>" +
 					"</textarea>" +
+					"</form>" +
+		               "<div class='byte' style='float:right; font-size:12px; color:darkgray;'>" +
+		                  "<text id='commentByte2'>0</text><text id='slash2'> / </text><text id='maxByte2'>500</text>" +
+		               "</div>" +
 				"</div>" +
 				"<button onclick='reConfirm(this); return false;' style='font-weight: 300; font-size: 20px;'> 작성</button>" +
-				"</form>" +
 			"</div>" +
 			"</div>";
 
 			commentDiv.append(reCommentCode);
+
+	        $('#comm_Content2').on('keyup', function(){
+	            var inputLength = $(this).val().length; // 입력된 글자 수
+	            var remain = 500 - inputLength;         // 남은 글자 수
+
+	            $('#commentByte2').html(inputLength);
+	            $('#maxByte2').html(remain);
+
+	            if(inputLength == 500) {
+	            	$('#commentByte2').empty();
+	            	$('#slash2').empty();
+	            	$('#maxByte2').html("입력 가능한 글자 수를 초과하였습니다.");
+	            	$('#maxByte2').css('color', '#fa1302');
+	            	
+	            } else if(inputLength < 500) {
+	            	$('#commentByte2').html(inputLength);
+	                $('#maxByte2').html(remain);
+	                $('#slash2').html(' / ');
+	                $('#maxByte2').css('color', 'darkgray');
+	            }
+
+	        });
 
 		}
 
@@ -579,6 +616,29 @@ p {
 	              commentModal.style.display = "block";
 					
 			});
+
+	    // 댓글 글자수 세기
+        $('#comm_Content').on('keyup', function(){
+            var inputLength = $(this).val().length; // 입력된 글자 수
+            var remain = 500 - inputLength;         // 남은 글자 수
+
+            $('#commentByte').html(inputLength);
+            $('#maxByte').html(remain);
+
+            if(inputLength == 500) {
+            	$('#commentByte').empty();
+            	$('#slash').empty();
+            	$('#maxByte').html("입력 가능한 글자 수를 초과하였습니다.");
+            	$('#maxByte').css('color', '#fa1302');
+            	
+            } else if(inputLength < 500) {
+            	$('#commentByte').html(inputLength);
+                $('#maxByte').html(remain);
+                $('#slash').html(' / ');
+                $('#maxByte').css('color', 'darkgray');
+            }
+
+        });
 
 	</script>
 </body>

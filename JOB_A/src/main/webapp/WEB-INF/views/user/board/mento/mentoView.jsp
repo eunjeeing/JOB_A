@@ -379,7 +379,6 @@ p {
 	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<script>
-	<script>
 		document
 				.getElementById("insertComment")
 				.addEventListener(

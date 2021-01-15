@@ -11,11 +11,6 @@
 		WHERE TYPE_NO = 2 AND M.MEM_NO = B.MEM_NO AND C.CATEGORY_NO = B.CATEGORY_NO
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 	</select>
-
-	<!-- 채용공고 게시글 수 -->
-	<select id="selectJobTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 2
-	</select>
 	
 	<!-- 블라블라 리스트 -->
 	<select id="selectBlahBlahList" resultType="Board">
@@ -23,11 +18,6 @@
 		FROM BOARD B, MEMBER M
 		WHERE TYPE_NO = 4 AND M.MEM_NO = B.MEM_NO
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
-	</select>
-	
-	<!-- 블라블라 게시글 수 -->
-	<select id="selectBlahBlahTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 4
 	</select>
 	
 	<!-- 블라인드 리스트 -->
@@ -38,22 +28,12 @@
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 	</select>
 
-	<!-- 블라인드 게시글 수 -->
-	<select id="selectBlindTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 5
-	</select>
-	
 	<!-- QnA 리스트 -->
 	<select id="selectQnAList" resultType="Board">
 		SELECT B.*, M.MEM_NICK
 		FROM BOARD B, MEMBER M
 		WHERE TYPE_NO = 7 AND M.MEM_NO = B.MEM_NO
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
-	</select>
-
-	<!-- QnA 게시글 수 -->
-	<select id="selectQnATotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 7 
 	</select>
 	
 	<!-- 합격후기 리스트 -->
@@ -63,21 +43,11 @@
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 	</select>
 	
-	<!-- 합격후기 게시글 수  -->
-	<select id="selectAcceptTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 10
-	</select>
-	
 	<!-- 면접후기 리스트 -->
 	<select id="selectInterviewList" resultType="Board">
 		SELECT * FROM BOARD, MEMBER
 		WHERE TYPE_NO = 9 AND MEMBER.MEM_NO = BOARD.MEM_NO
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
-	</select>
-	
-	<!-- 면접후기 게시글 수 -->
-	<select id="selectInterviewTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 9
 	</select>
 	
 	<!-- 멘토멘티 리스트 -->
@@ -86,22 +56,13 @@
 		WHERE TYPE_NO = 8 AND MEMBER.MEM_NO = BOARD.MEM_NO
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 	</select>
-	
-	<select id="selectMentoTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 8
-	</select>
-	
+
 	<!-- 언틸투모로우 리스트 -->
 	<select id="selectTomoList" resultType="Board">
 		SELECT * FROM BOARD, MEMBER
 		WHERE TYPE_NO = 6 AND MEMBER.MEM_NO = BOARD.MEM_NO
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 	</select>
-	
-	<select id="selectTomoTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 6
-	</select>	
-	
 	
 	<!-- 블라인드 처리 -->
 	<update id="updateStatusB" parameterType="_int">
