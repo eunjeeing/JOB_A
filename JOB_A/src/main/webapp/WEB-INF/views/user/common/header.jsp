@@ -38,6 +38,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com"> 
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
 <header id="header">
+	
 	<div class="icons" >
 		<!-- <div id="leftIcons"> -->
 			<a href="${pageContext.request.contextPath}" class="logo"><strong style="font-size: 30px;">JOB-A</strong></a>
@@ -45,6 +46,7 @@
 		<div id="rightIcons">
 			<a href="#">관리자 페이지로 이동</a>
 		</div> -->
+		<a href="${pageContext.request.contextPath}" class="logo"><strong style="font-size: 30px; margin-bottom: 10px">JOB-A</strong></a>
 	</div>
 	<div class="icons" >
 		<c:if test="${empty member}">

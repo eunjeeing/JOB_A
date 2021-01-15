@@ -402,9 +402,7 @@ $(document).ready(function(){
 			<div class="inner">
 				<c:import url="user/common/header.jsp" />
 
-				<div class="adminBtn">
-				<button id="Btn" onclick="goAdmin();" style="">관리자 페이지로 이동</button>
-				</div>
+				
 				<!-- Banner -->
 				<section id="banner">
 					<!-- 왼쪽 구역 -->
@@ -665,9 +663,7 @@ $(document).ready(function(){
 				function goInfo(){
 					location.href = '${pageContext.request.contextPath}/selectNoticeFromIndex.bo';
 				}	
-				function goAdmin(){
-					location.href = '${pageContext.request.contextPath}/adminIndex.do';
-					}
+				
 	</script>
 	
 

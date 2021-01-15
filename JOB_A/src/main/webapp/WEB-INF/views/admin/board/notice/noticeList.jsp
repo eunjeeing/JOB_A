@@ -100,7 +100,8 @@
 																<span class='badge badge-danger'>블라인드</span>
 															</c:if>  <c:if test="${notice.board_status eq 'N'}">
 																<span class='badge badge-secondary'>삭제</span>
-															</c:if> </td>
+															</c:if> 
+														</td>
 														<td>
 																<c:if test="${notice.board_status eq 'Y' }">
 																	<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"

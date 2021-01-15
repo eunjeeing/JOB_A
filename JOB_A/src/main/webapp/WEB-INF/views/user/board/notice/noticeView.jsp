@@ -20,7 +20,7 @@
 		background-image: url(${pageContext.request.contextPath}/resources/images/notice.jpg);
 		background-size: 100% 100%;
 		margin-top: 10px;
-		border: 1px solid black;
+		/* border: 1px solid black; */
 		height: 400px;
 		display: flex;
 		opacity : 0.8;
@@ -32,10 +32,10 @@
 		height: 50%;
 		margin: auto;
 		padding: auto;
-		border : 1px solid black;
+		/* border : 1px solid black; */
 		display: flex;
 		background : black;
-		opacity : 0.4;
+		opacity : 0.75;
 	}
 	
 	#topbanner-text {
