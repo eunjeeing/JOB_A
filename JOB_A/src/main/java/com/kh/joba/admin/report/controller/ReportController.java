@@ -73,7 +73,7 @@ public class ReportController {
 	
 	// 댓글, 게시글 신고 
 	@RequestMapping("insertReport.do")
-	public String insertReport(HttpServletRequest request, RedirectAttributes redirectAttributes, String reason, int board2, int board2_no, int modal_separate,  Member member) {
+	public String insertReport(HttpServletRequest request, Model model, String reason, int board2, int board2_no, int modal_separate,  Member member) {
 		
 		System.out.println("게시글 신고 리스트 페이지 접속 ok");
 		System.out.println("사유"+reason);
@@ -82,58 +82,204 @@ public class ReportController {
 		System.out.println("게시글작성자"+board2_no);
 		System.out.println("댓글 게시글 구분(1이면 게시글 2이면 댓글) : " + modal_separate);
 		
-		String referer = request.getHeader("Referer"); // 이전 페이지 돌아가기
 		
 		// 중복 신고 체크
-		Report reportCheck = new Report(member.getMemNo(),board2) ;	
+		//Report reportCheck = new Report(member.getMemNo(),board2);	
 		
-		Report rp = reportService.selectReportCheck(reportCheck); 
+		//Report rp = reportService.selectReportCheck(reportCheck); 
 		
-		System.out.println(" 중복 신고 체크 중 신고내용 :"+ rp);
-				
-			if(modal_separate == 1 && rp == null) {
-				//게시글일때
-				Report report = new Report( member.getMemNo(), board2, reason, board2_no);
-				
-				int res = reportService.insertReport(report);
-				System.out.println("res :" +res);
-				
-				if(res>0) {
-					System.out.println("여기 들어오면 게시글 신고됨");
-					
-					reportService.updateBoardReportNum(board2); // 신고 횟수 업데이트 
-					
-					 redirectAttributes.addFlashAttribute("check", "true"); // check 데이터 안담김
-					 return "redirect:"+ referer;
-				} else {
-					System.out.println("여기 들어오면 게시글 신고 안됨");
-					redirectAttributes.addFlashAttribute("check", "false");
-					return "redirect:"+ referer;
-				}
-				
-			}else if(modal_separate == 2 && rp == null) {
-				//댓글일때
-				Report report = new Report( member.getMemNo(), 0, board2, reason, board2_no);
-	
-				int res = reportService.insertReport(report);
-				System.out.println("res :" +res);
-							
-				if(res>0) {
-					System.out.println("여기 들어오면 댓글 신고됨");
-					
-					reportService.updateCommentReportNum(board2); // 신고 횟수 업데이트 
-					redirectAttributes.addFlashAttribute("check", "true");
-					return "redirect:"+ referer;
-					
-				} else {
-					System.out.println("여기 들어오면 댓글 신고 안됨");
-					redirectAttributes.addFlashAttribute("check", "false");
-					return "redirect:"+ referer;
-				}
-	
-			}
+		
+		//인서트 결과
+		String result = "X";
+		//게시글 타입
+		int boardType = 0;
+		//페이지이동
+        String loc = "/login.do";
+        String msg = "";
+        //게시글 번호
+        int boardNo = 0;
 
-		return "redirect:"+ referer;
+        	if(modal_separate == 1) {
+        		
+        		// 중복 신고 체크
+        		Report reportCheck = new Report(member.getMemNo(),board2);	
+        		
+        		Report rp = reportService.selectReportCheck(reportCheck);
+        		System.out.println(" 중복 신고 체크 중 신고내용 :"+ rp);
+
+        		//게시글일때
+        		if(rp == null) {
+        			
+        			//신고가 없을 때
+        			Report report = new Report( member.getMemNo(), board2, reason, board2_no);
+    				
+    				boardType = reportService.selectBoardTypeNo(board2); 
+    				System.out.println("게시판 타입"+boardType);
+    				
+    				int res = reportService.insertReport(report);
+    				System.out.println("res :" +res);
+    				
+    				if(res>0) {
+    					System.out.println("여기 들어오면 게시글 신고됨");
+    					
+    					reportService.updateBoardReportNum(board2); // 신고 횟수 업데이트 
+    					
+    					result = "Y";
+    					boardNo = board2;
+    				}
+    				
+        		}else {
+    				boardType = reportService.selectBoardTypeNo(board2); 
+    				boardNo = board2;
+    				
+    				}	
+        	}else {
+        		
+        		// 중복 신고 체크
+        		Report reportCheck = new Report(member.getMemNo(),0, board2);	
+        		
+        		Report rp = reportService.selectCommentReportCheck(reportCheck);
+        		System.out.println(" 중복 신고 체크 중 신고내용 :"+ rp);
+        		
+        		//댓글일때
+        		if(rp == null) {
+        			
+        			//신고가 없을 때
+    				Report report = new Report( member.getMemNo(), 0, board2, reason, board2_no);
+    				
+    				int bno = reportService.selectBoardNo(board2); // 댓글번호로 게시글번호 가져오기
+    				System.out.println("댓글번호로 게시글 번호 가져오기 : " + bno );
+    				
+    				boardType = reportService.selectBoardTypeNo(bno); 
+
+    				int res = reportService.insertReport(report);
+    				System.out.println("res :" +res);
+    							
+    				if(res>0) {
+    					System.out.println("여기 들어오면 댓글 신고됨");
+    					
+    					reportService.updateCommentReportNum(board2); // 신고 횟수 업데이트 
+    					result = "Y";
+        				boardNo = bno;
+
+    				} 
+    				
+        		}else {
+    				
+    				int bno = reportService.selectBoardNo(board2); // 댓글번호로 게시글번호 가져오기
+    				System.out.println("댓글번호로 게시글 번호 가져오기 : " + bno );
+    				
+    				boardType = reportService.selectBoardTypeNo(bno); 
+
+    				boardNo = bno;
+    				}	
+        	}
+        
+			System.out.println("컨트롤러 보드넘버"+boardNo);
+			System.out.println("컨트롤러 타입넘버"+boardType);
+			if(result == "Y") {
+
+				switch(boardType) {
+		         case 1:
+		        	 loc = "/notice.bo?board_no="+ boardNo;
+		        	 msg = "성공";
+		            break;
+	
+		         case 2:
+		        	 loc = "/board2/jobSelectOne.do?board_No="+ boardNo;
+		        	 msg = "성공";
+		            break;
+		               
+		         case 4:
+		        	 loc = "/board2/blahView.do?board_No="+ boardNo;
+		        	 msg = "성공";
+		            break;
+		         
+		         case 5:
+		        	 loc = "/board2/blindSelectOne.do?board_No="+ boardNo;
+		        	 msg = "성공";
+		            break;
+	
+		         case 6:
+		        	 loc = "/selectOneTomorrow.bo?board_no="+ boardNo;
+		        	 msg = "성공";
+		            break;
+	
+		         case 7:
+		        	loc = "/board2/qnaSelectOne.do?board_No="+ boardNo;
+		        	msg = "성공";
+		            break;   
+	
+		         case 8:
+		        	 loc = "/selectOneMento.bo?board_no="+ boardNo;
+		        	 msg = "성공";
+		            break;
+		            
+		         case 9:
+		        	 loc = "/selectOneInterview.bo?board_no="+ boardNo;
+		        	 msg = "성공";
+		            break;
+	
+		         case 10:
+		        	 loc = "/selectOneAccept.bo?board_no="+ boardNo;
+		        	 msg = "성공";
+		            break;
+		         }
+				
+			}else {
+				
+				switch(boardType) {
+		         case 1:
+		        	 loc = "/notice.bo?board_no="+ boardNo;
+		        	 msg = "중복신고는 안되요~ㅠㅠ";
+		            break;
+	
+		         case 2:
+		        	 loc = "/board2/jobSelectOne.do?board_No="+ boardNo;
+		        	 msg = "중복신고는 안되요~ㅠㅠ";
+		            break;
+		               
+		         case 4:
+		        	 loc = "/board2/blahView.do?board_No="+ boardNo;
+		        	 msg = "중복신고는 안되요~ㅠㅠ";
+		            break;
+		         
+		         case 5:
+		        	 loc = "/board2/blindSelectOne.do?board_No="+ boardNo;
+		        	 msg = "중복신고는 안되요~ㅠㅠ";
+		            break;
+	
+		         case 6:
+		        	 loc = "/selectOneTomorrow.bo?board_no="+ boardNo;
+		        	 msg = "중복신고는 안되요~ㅠㅠ";
+		            break;
+	
+		         case 7:
+		        	loc = "/board2/qnaSelectOne.do?board_No="+ boardNo;
+		        	 msg = "중복신고는 안되요~ㅠㅠ";
+		            break;   
+	
+		         case 8:
+		        	 loc = "/selectOneMento.bo?board_no="+ boardNo;
+		        	 msg = "중복신고는 안되요~ㅠㅠ";
+		            break;
+		            
+		         case 9:
+		        	 loc = "/selectOneInterview.bo?board_no="+ boardNo;
+		        	 msg = "중복신고는 안되요~ㅠㅠ";
+		            break;
+	
+		         case 10:
+		        	 loc = "/selectOneAccept.bo?board_no="+ boardNo;
+		        	 msg = "중복신고는 안되요~ㅠㅠ";
+		            break;
+		         }
+			}
+	         
+	         model.addAttribute("msg", msg);
+	         model.addAttribute("loc", loc);
+	      
+	      return "user/common/msg";
 		
 	}
 
@@ -177,6 +323,25 @@ public class ReportController {
 			
 		}
 		
+	}
+	
+	// 신고 댓글 업데이트
+	@RequestMapping("commentReportUpdate.do")
+	public String commentReportUpdate(Model model, int commentNo, String commentStatus ) {
+		
+		System.out.println("게시글업데이트 commentNo:"+commentNo);
+		System.out.println("게시글업데이트 commentStatus:"+commentStatus);
+		
+		int res = reportService.updateComment(commentNo, commentStatus);
+		
+		if(res > 0) { // 업데이트 성공시
+			return "redirect:commentReportList.do";
+			
+		}else { // 업데이트 실패시
+			
+			return "redirect:commentReportList.do"; 
+		}
+			
 	}
 		
 	// 댓글 신고 리스트 페이지 접속

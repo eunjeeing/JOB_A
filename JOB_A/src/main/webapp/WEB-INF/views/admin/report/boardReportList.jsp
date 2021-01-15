@@ -8,6 +8,12 @@
 <head>
 <meta charset="utf-8">
 <title>신고 게시글 리스트</title>
+<style>
+	.goDetail:hover{
+		cursor: pointer;
+		background: #EAEAEA;
+	}
+</style>
 </head>
 <body class="vertical  dark  ">
 	<div class="wrapper">
@@ -28,9 +34,9 @@
 									<div class="card-body">
 										
 										<!-- table -->
-										<table class="table table-bordered" id="dataTable-1">
+										<table class="table table-bordered" align="center" id="dataTable-1">
 											<thead>
-												<tr role="row" >
+												<tr align="center" role="row" >
 													<th>NO.</th>
 													<th>게시글 제목</th>
 													<th>게시글 작성자</th> <!-- 피신고자 : memNo2 -->
@@ -42,7 +48,7 @@
 											</thead>
 											<tbody>
 												<c:forEach items="${reportList}" var="m" varStatus="status"> 
-													<tr onclick="location.href='${pageContext.request.contextPath}/boardReportDetail.do?boardNo=${m.boardNo}&reportReason=${m.reportReason}&appendantMemNick=${appendantList[status.index].memNick}&reporterMemNick=${reporterList[status.index].memNick}';">
+													<tr align="center" class="goDetail" onclick="location.href='${pageContext.request.contextPath}/boardReportDetail.do?boardNo=${m.boardNo}&reportReason=${m.reportReason}&appendantMemNick=${appendantList[status.index].memNick}&reporterMemNick=${reporterList[status.index].memNick}';">
 														<td>${m.reportNo}</td>
 														<td>${boardList[status.index].board_Title }</td>
 														<td>${appendantList[status.index].memNick}</td>
@@ -115,17 +121,6 @@
 		gtag('js', new Date());
 		gtag('config', 'UA-56159088-1');
 
-      	/*
-      	$(document).ready(function(){
-      	    $(".custom-control-input").change(function(){
-      	        if($(".custom-control-input").is(":checked")){
-      	            alert("체크박스 체크했음!");
-      	        }else{
-      	            alert("체크박스 체크 해제!");
-      	        }
-      	    });
-      	});
-      	*/
     </script>
 	
 <!-- 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

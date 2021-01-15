@@ -40,8 +40,21 @@ public interface ReportDAO {
 	// 댓글 신고 횟수 업데이트
 	int updateCommentReportNum(int board2);
 
-	// 중복 신고 체크
+	// 게시글 중복 신고 체크
 	Report selectReportCheck(Report reportCheck);
+
+	// 댓글 중복 체크
+	Report selectCommentReportCheck(Report reportCheck);
+	
+	// 게시글 번호 조회
+	int selectBoardTypeNo(int boardNo);
+
+	// 댓글번호로 게시글번호 가져오기
+	int selectBoardNo(int board2);
+
+	// 댓글 비활성화/상태 여부
+	int updateComment(int commentNo, String commentStatus);
+
 
 
 }

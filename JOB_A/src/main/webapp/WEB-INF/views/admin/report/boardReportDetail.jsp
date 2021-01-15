@@ -137,8 +137,8 @@
 		}
 		gtag('js', new Date());
 		gtag('config', 'UA-56159088-1');
-// 활성화 ture 비활성화 false
-
+		
+		// 활성화 ture 비활성화 false
 		$(".custom-control-input").click(function(){
 				var status = "${boardList.board_Status}";
 				console.log("status"+ status);
