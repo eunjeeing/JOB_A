@@ -203,7 +203,7 @@ input[type="date"]:focus {
 								 	<br />
 									<input type="text" class="form-control" placeholder="제목"
 									name="board_Title" id="board_Title" required>
-									<input type="text" class="form-control" placeholder="URL ex) http://www.naver.com"
+									<input type="text" class="form-control" placeholder="URL ex) www.naver.com"
 									name="board_Url" required>
 									<div style="color: #7f888f; display: inline-flex;" >
 										<text style="line-height: 40px;">시작일  </text> 

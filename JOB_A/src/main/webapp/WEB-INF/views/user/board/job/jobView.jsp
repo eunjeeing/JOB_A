@@ -260,9 +260,9 @@ form {
 								</div>
 							</div>
 							<div class="article-view-contents">
-								 <input type="hidden" value="링크 : ${board2.board_Url }">
-								 <input type="hidden" value="접수기간 :  ${board2.board_Start } ~ ${board2.board_End }">
-								 <input type="hidden" value="합격자 발표 : ${board2.board_Announce }">
+								<text><i class="far fa-calendar-alt"></i> 접수기간 : ${board2.board_Start } ~ ${board2.board_End }</text><br>
+								<text><i class="far fa-calendar-alt"></i> 합격자 발표일 : ${board2.board_Announce }</text><br>
+								<text><i class="fas fa-link"></i> 링크 : <a href="http://${board2.board_Url }">${board2.board_Url }</a></text>
 
 								<div id="contentArea" class="contents-txt">
 									${board2.board_Content }</div>
