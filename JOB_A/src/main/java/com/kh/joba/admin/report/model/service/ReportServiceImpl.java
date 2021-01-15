@@ -93,11 +93,39 @@ public class ReportServiceImpl implements ReportService {
 		System.out.println("댓글 신고 횟수 업데이트 되면 1이 들어와야 함: " +res);
 	}
 
-	// 중복 신고 체크
+	// 게시글 중복 신고 체크
 	@Override
 	public Report selectReportCheck(Report reportCheck) {
 		
 		return reportDAO.selectReportCheck(reportCheck);
+	}
+	
+	// 댓글 중복 신고 체크
+	@Override
+	public Report selectCommentReportCheck(Report reportCheck) {
+		
+		return reportDAO.selectCommentReportCheck(reportCheck);
+	}
+
+	// 게시글 번호로 게시글 타입번호 가져오기
+	@Override
+	public int selectBoardTypeNo(int boardNo) {
+		
+		return reportDAO.selectBoardTypeNo(boardNo);
+	}
+	
+	// 댓글번호로 게시글번호 가져오기
+	@Override
+	public int selectBoardNo(int board2) {
+		
+		return reportDAO.selectBoardNo(board2);
+	}
+
+	// 댓글 비활성화/상태 여부  
+	@Override
+	public int updateComment(int commentNo, String commentStatus) {
+		
+		return reportDAO.updateComment(commentNo, commentStatus);
 	}
 
 }

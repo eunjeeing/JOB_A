@@ -74,6 +74,24 @@
 		WHERE BOARD_NO = #{boardNo} AND MEM_NO = #{memNo} 
 	</select>
 	
+		<!-- 중복 신고 체크 -->
+	<select id="selectCommentReportCheck" parameterType="Report" resultMap="Report">
+		SELECT * FROM REPORT
+		WHERE COMM_NO = #{commNo} AND MEM_NO = #{memNo} 
+	</select>
+	
+	<!-- 게시글 타입번호 가져오기 -->
+	<select id="selectBoardTypeNo" parameterType="int" resultType="int" >
+		SELECT TYPE_NO FROM BOARD 
+		WHERE BOARD_NO = #{boardNo}
+	</select>
+	
+	<!-- 댓글번호로 게시글번호 가져오기 -->
+	<select id="selectBoardNo" parameterType="int" resultType="int">
+		SELECT BOARD_NO FROM COMMENTS
+		WHERE COMM_NO = #{board2}
+	</select>
+	
 	<!-- 게시글 댓글 신고 -->
 	<insert id="insertReport" parameterType="Report">
 		INSERT INTO REPORT 
@@ -101,5 +119,11 @@
 		WHERE COMM_NO = #{board2}
 	</update>
 	
+	<!-- 댓글 비활성화/상태 여부 -->
+	<update id="updateComment" parameterType="Comments2">
+		UPDATE COMMENTS SET
+		COMM_STATUS = #{comm_Status}
+		WHERE COMM_NO = #{comm_No}
+	</update>
 	
 </mapper>

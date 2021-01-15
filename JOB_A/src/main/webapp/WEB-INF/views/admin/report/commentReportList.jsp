@@ -8,6 +8,12 @@
 <head>
 <meta charset="utf-8">
 <title>신고 댓글 리스트</title>
+<style>
+	.comentContent:hover{
+		cursor: pointer;
+		background: #EAEAEA;
+	}
+</style>
 </head>
 <body class="vertical  dark  ">
 	<div class="wrapper">
@@ -28,9 +34,9 @@
 									<div class="card-body">
 										
 										<!-- table -->
-										<table class="table table-bordered" id="dataTable-1">
+										<table class="table table-bordered" align="center" id="dataTable-1">
 											<thead>
-												<tr role="row" >
+												<tr align="center" role="row" >
 													<th>NO.</th>
 													<th>게시글 작성자</th> <!-- 피신고자 : memNo2 -->
 													<th>신고사유</th>
@@ -42,7 +48,7 @@
 											</thead>
 											<tbody>
 												<c:forEach items="${reportList}" var="m" varStatus="status"> 
-													<tr onclick="location.href='${pageContext.request.contextPath}/boardReportDetail.do?boardNo=${m.boardNo}&reportReason=${m.reportReason}&appendantMemNick=${appendantList[status.index].memNick}&reporterMemNick=${reporterList[status.index].memNick}';">
+													<tr align="center">
 														<td>${m.reportNo}</td>
 														
 														<td>${appendantList[status.index].memNick}</td>
@@ -54,14 +60,16 @@
 															<div class="custom-control custom-switch">
 														<c:if test="${commentList[status.index].comm_Status eq 'Y'}">
 																<input type="checkbox" class="custom-control-input" 
-																		id="${commentList[status.index].comm_No}" disabled="disabled" name="statusY" checked>
+																		id="${commentList[status.index].comm_No}" name="statusY" checked>
 																<label class="custom-control-label"
 																 for="${commentList[status.index].comm_No}"></label>
 														</c:if>
+																 <input type="hidden" class="checkStatus" value="${commentList[status.index].comm_Status }">
+																 <input type="hidden" class="commentNo" value="${commentList[status.index].comm_No}">
 														
 														<c:if test="${commentList[status.index].comm_Status eq 'N'}">
 															<input type="checkbox" class="custom-control-input" 
-																id="${commentList[status.index].comm_No}" disabled="disabled" >
+																id="${commentList[status.index].comm_No}" >
 															<label class="custom-control-label"
 																for="${commentList[status.index].comm_No}"></label>
 															</c:if>	 															
@@ -70,7 +78,7 @@
 														</td>
 													</tr>
 													<tr>
-													<td colspan="6"  onclick="boardView(${board2List[status.index].type_No}, ${board2List[status.index].board_No})"> >&nbsp;&nbsp; ${commentList[status.index].comm_Content }</td>
+													<td colspan="6" class="comentContent" onclick="boardView(${board2List[status.index].type_No}, ${board2List[status.index].board_No})"> >&nbsp;&nbsp; ${commentList[status.index].comm_Content }</td>
 													</tr>
 												</c:forEach>
 											</tbody>
@@ -117,10 +125,44 @@
 		}
 		gtag('js', new Date());
 		gtag('config', 'UA-56159088-1');
+	</script>
+	
+	<script>
+
+		// 활성화 true 비활성화 false
+			var $comment = $(".custom-control-input").on('click', function(){
+				
+			var idx = $comment.index(this);
+			console.log(idx);
+			
+			var status = $('.checkStatus:eq('+idx+')').val();
+			console.log("status 상태는 ?"+ status);
+			var commentNo = $('.commentNo:eq('+idx+')').val();
+			console.log("commentNo:"+commentNo);
+			var test = $(".custom-control-input:eq("+idx+")").is(":checked");
+			console.log("test:"+test);
+			
+			if(status == "Y" ){
+					console.log("트루임");
+					//비활성화(n)로 바꿔야함
+					location.href="${pageContext.request.contextPath}/commentReportUpdate.do?commentStatus=N&commentNo="+commentNo; 
+					
+				}else if(status == "N" ){
+					console.log("여기는 비활>활성화로");
+					//활성화(Y)로 해야함
+					location.href="${pageContext.request.contextPath}/commentReportUpdate.do?commentStatus=Y&commentNo="+commentNo; 
+					}
+		});
+
 
 		   // 해당 게시글로 이동
 			function boardView(boardType, boardNo){
+				// 해당 게시글로 넘어갈 때 컨펌창 
+				var result = confirm("해당 게시글로 넘어가시겠습니까?");
+				
 				console.log("boardType : " + boardType + ", boardNo:" + boardNo);
+				
+				if(result){
 
 			       switch(boardType) {
 			         case 1:
@@ -159,6 +201,10 @@
 			            location.href = "${pageContext.request.contextPath}/selectOneAccept.bo?board_no="+ boardNo;
 			            break;
 			         }
+					} else{
+				
+						}
+
 				}
     </script>
     

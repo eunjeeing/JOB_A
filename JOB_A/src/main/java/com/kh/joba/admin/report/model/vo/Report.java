@@ -49,6 +49,13 @@ public class Report {
 		this.boardNo = boardNo;
 	}
 
+	public Report(int memNo, int boardNo, int commNo) {
+		super();
+		this.memNo = memNo;
+		this.boardNo = boardNo;
+		this.commNo = commNo;
+	}
+
 
 
 	

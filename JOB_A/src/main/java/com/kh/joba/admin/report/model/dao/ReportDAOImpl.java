@@ -94,11 +94,40 @@ public class ReportDAOImpl implements ReportDAO {
 		return sqlSession.update("reportMapper.updateCommentReportNum", board2);
 	}
 
-	// 중복 신고 체크
+	// 게시글 중복 신고 체크
 	@Override
 	public Report selectReportCheck(Report reportCheck) {
 		
 		return sqlSession.selectOne("reportMapper.selectReportCheck", reportCheck);
+	}
+
+	// 댓글 중복 신고 체크
+	@Override
+	public Report selectCommentReportCheck(Report reportCheck) {
+		return sqlSession.selectOne("reportMapper.selectCommentReportCheck", reportCheck);
+	}
+
+	//게시글 타입번호 가져오기
+	@Override
+	public int selectBoardTypeNo(int boardNo) {
+		
+		return sqlSession.selectOne("reportMapper.selectBoardTypeNo", boardNo);
+	}
+
+	// 댓글번호로 게시글번호 가져오기
+	@Override
+	public int selectBoardNo(int board2) {
+
+		return sqlSession.selectOne("reportMapper.selectBoardNo", board2);
+	}
+
+	// 댓글 비활성화/상태 여부
+	@Override
+	public int updateComment(int commentNo, String commentStatus) {
+		
+		Comments2 comments = new Comments2(commentNo, commentStatus);
+		
+		return sqlSession.update("reportMapper.updateComment", comments);
 	}
 
 
