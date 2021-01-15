@@ -20,7 +20,7 @@
 	<style>
 		#banner {
 		float : flex;
-		height: 750px;
+		height: 640px;
 		}
 		
 		.left {
@@ -63,7 +63,7 @@
 		}
 		
 		.newChatBtn {
-			width: 400px; 
+			width: 350px; 
 			height: 150px !important; 
 			font-size: 40px !important;
 			margin: 200px 0 0 180px;
@@ -106,7 +106,7 @@
 							<thead>
 								<tr>
 									<th>방 번호</th>
-									<th>방 제목</th>
+									<th style="width: 280px;">방 제목</th>
 									<th>입장</th>
 								</tr>
 							</thead>
@@ -121,44 +121,13 @@
 							</tbody>
 						</table>
 						<c:out value="${pageBar}" escapeXml="false"/>
-							<%-- <tbody>
-								<c:forEach items="${chatList}" var="list">
-									<tr>
-										<td><b>${list.chatNo}</b></td>
-										<td><b>${list.chatTitle}</b></td>
-										<td><button onclick="enterChatRoom(this)" value="${list.chatNo}" id="enterChatRoom"><i class="far fa-comments"></i></td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-						<c:out value="${pageBar}" escapeXml="false"/> --%>
 					</div>
+					
+					
 					<div class="right">
-						<div class="chat-right-aside">
-							<div class="chat-main-header">
-								<div>
-									<h2 id="chatTitle"><button type="button" class="button newChatBtn" data-toggle="modal" data-target="#exampleModalCenter">새로운 채팅</button></h2>
-									<!-- <div id="chatNo"></div>
-									<div id="chatCreator"></div> -->
-								</div>
-							</div>
-							<div class="chat-list">
-								<ul id="chatdata" class="chat-list p-5" style="height: 535px; overflow: auto;"></ul>
-							</div>
-							<div class="card-body border-top">
-								<div class="row">
-									<div class="col-9">
-										<textarea placeholder="메세지를 입력하세요" class=" b-0" id="message"></textarea>
-									</div>
-									<div class="col-3 text-right">
-										<button type="button" class="btn btn-lg" id="sendChat">
-											<i class="fa fa-paper-plane"></i>
-										</button>
-									</div>
-								</div>
-							</div>
-						</div>
+						<button type="button" class="button newChatBtn" data-toggle="modal" data-target="#exampleModalCenter">새로운 채팅</button>
 					</div>
+				
 				</section>
 				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered" role="document">
@@ -169,14 +138,14 @@
        								<span aria-hidden="true">&times;</span>
      							</button>
    							</div>
-   							<form id="newChatForm" action="javascript:void(0)" method="post">
+   							<form id="newChatForm" action="${pageContext.request.contextPath }/chat/insertChat" method="post">
     							<div class="modal-body">
     								<h3 for="exampleInputTitle">채팅방 이름</h3>
     								<input type="text" class="form-control" name="chatTitle" id="newChatTitle" placeholder="30자 내외 입력" required>
-    								<input type="hidden" name="memId" id="newChatMemId" value="${member.memId}">
+    								<input type="hidden" name="creatorId" id="creatorId" value="${member.memId}">
     							</div>
     							<div class="modal-footer">
-					        		<input type="button" onclick="newChat()" class="button" value="채팅 시작">
+					        		<input type="submit" class="button" value="채팅 시작">
    								</div>
 							</form>
 						</div>
@@ -209,227 +178,14 @@
 	        });
 		});
 		</script>
-		
-	<script>
-	$('#dataTable-1').DataTable({
-		autoWidth: true,
-		"lengthMenu": [
-			[16, 32, 64, -1],
-			[16, 32, 64, "All"]
-		]
-   	});
-	</script>
 			
 		<script type="text/javascript">
 		
 			function enterChatRoom(obj){
-				var chatNo = $(obj).val();
-				$.post(
-					"${pageContext.request.contextPath}/chat/chatRoom/"+ chatNo,
-					{chatNo : chatNo},
-					function (data) {
-						var chatNo = data.CHAT_NO;
-						var chatTitle = data.CHAT_TITLE;
-						var chatCreator = data.CHAT_CREATOR;
-						
-						$('#chatNo').text(chatNo);
-						$('#chatTitle').text(chatTitle);
-						$('#chatCreator').text(chatCreator);
-
-						if (chatCreator == '${member.memId}') {
-							$('#chatTitle').append("&nbsp;&nbsp;&nbsp; <a href='javascript:void(0)' id='deleteChat'><i class='fas fa-times-circle'></i></a>");
-						}else {
-							$('#chatTitle').append("&nbsp;&nbsp;&nbsp; <a href='javascript:void(0)' id='exitChat'><i class='fas fa-times-circle'></i></a>");
-						}
-
-						// exitConfirm
-						$("#exitChat").click(function () {
-							Swal.fire({
-				                title: '🚰·̫🚰',
-				                text: "채팅방을 나가시겠습니까?",
-				                showCancelButton: true,
-				                confirmButtonColor: '#fff',
-				                cancelButtonColor: '#fff',
-				                confirmButtonText: '가차없이 나가겠어!',
-				                cancelButtonText: '쵸큼만 더 있어볼까..?'
-							}).then((result) => {
-				                if (result.value) {
-				                	sock.onclose();
-				                    location.href="${pageContext.request.contextPath}/chat/exitChat";
-				                }
-				            })
-				        });
-						
-						$("#deleteChat").click(function () {
-							Swal.fire({
-				                title: '⁽⁽(´༎ຶД༎ຶ`)⁾⁾',
-				                text: "채팅방을 삭제하시겠습니까?",
-				                showCancelButton: true,
-				                confirmButtonColor: '#fff',
-				                cancelButtonColor: '#fff',
-				                confirmButtonText: '이 방은 폭파시키겠어! 콰과광쾀ㅇ콰콰가왐ㄹ광쾅쾅랄ㅇ쾅',
-				                cancelButtonText: '아직까진 흥미진진 하구만..!'
-							}).then((result) => {
-				                if (result.value) {
-				                	sock.onclose();
-				                   	location.href="${pageContext.request.contextPath}/chat/deleteChat/" + chatNo;
-				                }
-				            })
-						});	
-					},
-					'json'
-				);
+				var chatRoomNo = $(obj).val();
+				location.href="${pageContext.request.contextPath}/chat/chatRoom/" + chatRoomNo;
 			};
-
-			function newChat(){
-				var chatTitle = $('#newChatTitle').val();
-				var memId = $('#newChatMemId').val();
-				$.ajax({
-					url: "${pageContext.request.contextPath }/chat/insertChat",
-					type: "POST",
-					dataType: "json",
-					data: {	chatTitle : chatTitle, memId : memId },
-					success: function (data) {
-						var roomNo = data.chatNo;
-						
-						$.post(
-							"${pageContext.request.contextPath}/chat/chatRoom/"+ roomNo,
-							{chatNo : roomNo},
-							function (data) {
-								var chatNo = data.CHAT_NO;
-								var chatTitle = data.CHAT_TITLE;
-								var chatCreator = data.CHAT_CREATOR;
-								
-								$('#chatNo').text(chatNo);
-								$('#chatTitle').text(chatTitle);
-								$('#chatCreator').text(chatCreator);
-
-								if (chatCreator == '${member.memId}') {
-									$('#chatTitle').append("&nbsp;&nbsp;&nbsp; <a href='javascript:void(0)' id='deleteChat'><i class='fas fa-times-circle'></i></a>");
-								}else {
-									$('#chatTitle').append("&nbsp;&nbsp;&nbsp; <a href='javascript:void(0)' id='exitChat'><i class='fas fa-times-circle'></i></a>");
-								}
-							},
-							'json'
-						);
-						$('#exampleModalCenter').empty();
-					}
-				});
-			};
-			
 		</script>
-		
-		
-	
-		
-		
-		
-		
-		
-		<script type="text/javascript">
-
-		var sock = new SockJS("<c:url value='/chatting'/>");
-
-		sock.onclose=onClose;
-		function onClose(){
-	        self.close();
-	    };
-
-	    // click & enter
-		$(function(){
-	        $("#sendChat").click(function(){
-	            sendMessage(); // 작성 메세지 전송
-	            $("#message").val(''); // 전송 후 작성창 초기화
-				$('#message').focus();
-	        });
-	        
-	        $('#message').keypress(function(e) {
-				if (e.which == 13 && !e.shiftKey) {
-					sendMessage();
-					event.preventDefault();
-					$("#message").val('');
-					$('#message').focus();
-				}
-			});
-		});
-		
-		
-		function sendMessage() {
-     		if ($('#message').val() != "") {
-         		sock.send($("#message").val());
-         		pageDown(); // scroll
-     		} else {
-				alert("메세지를 입력하세요!");
-			};
-        };
-	    
-	    
-		var today=null;
-		// 메세지 전송	    
-		sock.onmessage = function(evt) {
-			var data = evt.data; // new text객체로 보내준 값을 받아옴
-	        var host = null; // 메세지를 보낸 사용자 ip저장
-	        var strArray = data.split("|"); // 데이터 파싱처리하기
-	        var userName = null; // 대화명 저장
-	        
-	        // 전송된 데이터 출력
-	        for(var i=0;i<strArray.length;i++) {
-	            console.log('str['+i+'] :' + strArray[i]);	 		
-	        }
-	        
-	        if(strArray.length>1) {
-	            sessionId=strArray[0];
-	            message=strArray[1];
-	            host=strArray[2].substr(1,strArray[2].indexOf(":")-1);
-	            userName=strArray[3];
-	            today=new Date();
-	            printDate=today.getFullYear()+"/"+today.getMonth()+"/"+today.getDate()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
-	            
-	            console.log(today);
-	            var ck_host='${host}';
-	     
-	            console.log(sessionId);
-	            console.log(message);
-	            console.log('host : '+host);
-	            console.log('ck_host : '+ck_host);
-	            /* 서버에서 데이터를 전송할경우 분기 처리 */
-	            if(host==ck_host||(host==0&&ck_host.includes('0:0:'))) {
-	                var printHTML="<div class='alert alert-danger' style='margin-left: 30%;'>";
-	                printHTML+="<sub>"+printDate+"</sub><br/>";
-	                printHTML+="["+userName+"] : "+message;
-	                printHTML+="</div>";
-	                $('#chatdata').append(printHTML);
-	            } else {
-	                var printHTML="<div class='alert alert-warning' style='margin-left: -5%;margin-right:30%;'>";
-	                printHTML+="<sub>"+printDate+"</sub><br/>";
-	                printHTML+="["+userName+"] : "+message;
-	                printHTML+="</div>";
-	                $('#chatdata').append(printHTML);
-	            }
-	            //console.log('chatting data : '+data);
-	        } else {
-	            today=new Date();
-	            printDate=today.getFullYear()+"/"+today.getMonth()+"/"+today.getDate()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
-	            message=strArray[0];
-	            var printHTML="<div class='well'  style='margin-left30%:'>";
-	            printHTML+="<div class='alert'>";
-	            printHTML+="<sub>"+printDate+"</sub><br/>";
-	            printHTML+= message;
-	            printHTML+="</div>";
-	            printHTML+="</div>";
-	            $('#chatdata').append(printHTML);	
-	        }
-	    };
-	
-     
-
-		function pageDown() {
-			$('#chatdata').animate({
-				scrollTop : $('#chatdata').get(0).scrollHeight
-			}, 10);
-		}
-		
-	</script>
 
 
 </body>

@@ -13,7 +13,7 @@ public interface ChatDAO {
 
 	int selectChatSeq();
 
-	Map<String, Chat> selectChatRoom(int chatNo);
+	Map<String, String> selectChatRoom(int chatNo);
 
 	Object deleteChat(int chatNo);
 	

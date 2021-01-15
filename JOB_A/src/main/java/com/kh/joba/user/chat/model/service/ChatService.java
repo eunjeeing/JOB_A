@@ -10,9 +10,9 @@ public interface ChatService {
 
 	List<Map<String, String>> selectChatList();
 	
-	Map<String, Integer> insertChat(Chat chat);
+	int insertChat(Chat chat);
 
-	Map<String, Chat> selectChatRoom(int chatNo);
+	Map<String, String> selectChatRoom(int chatNo);
 
 	void deleteChat(int chatNo);
 

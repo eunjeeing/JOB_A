@@ -23,23 +23,19 @@ public class ChatServiceImpl implements ChatService {
 	}
 	
 	@Override
-	public Map<String, Integer> insertChat(Chat chat) {
+	public int insertChat(Chat chat) {
 		// TODO Auto-generated method stub
 		int chatNo = chatDAO.selectChatSeq();
 		chat.setChatNo(chatNo);
 		
-		int result = chatDAO.insertChat(chat);
-		Map<String, Integer> chatRoomNo = new HashMap<String, Integer>();
-		if(result > 0) {
-			chatRoomNo.put("chatNo", chatNo);
-		}
+		chatDAO.insertChat(chat);
 		
-		return chatRoomNo;
+		return chatNo;
 		
 	}
 
 	@Override
-	public Map<String, Chat> selectChatRoom(int chatNo) {
+	public Map<String, String> selectChatRoom(int chatNo) {
 		// TODO Auto-generated method stub
 		return chatDAO.selectChatRoom(chatNo);
 	}
@@ -50,11 +46,6 @@ public class ChatServiceImpl implements ChatService {
 		chatDAO.deleteChat(chatNo);
 	}
 
-	
-	
-	
-	
-	
 	
 	@Override
 	public List<Map<String, String>> selectChatList(int cPage, int numPerPage) {

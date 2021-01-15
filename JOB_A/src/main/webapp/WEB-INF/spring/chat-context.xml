@@ -8,7 +8,7 @@
 	<bean id="chatHandler" class="com.kh.joba.user.chat.controller.ChatHandler" />
 
 	<websocket:handlers>
-		<websocket:mapping handler="chatHandler" path="/chatting"/>
+		<websocket:mapping handler="chatHandler" path="/chatting/{chatNo}"/>
 
 		<websocket:handshake-interceptors>
 			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
