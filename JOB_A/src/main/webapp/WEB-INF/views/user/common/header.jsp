@@ -12,25 +12,12 @@
 
 
 	* {
-   font-family: 'Do Hyeon', sans-serif !important;
+   		font-family: 'Do Hyeon', sans-serif !important;
 	}
 	
 	i {
-	      font-family: 'Font Awesome 5 Free' !important;
-	}  
-	
-	/* .icons>#leftIcons{
-		width : 50%;
-		float:right;
+		font-family: 'Font Awesome 5 Free' !important;
 	}
-	.icons>#rightIcons{
-		width : 50%;
-		position : -100%
-	}
-	.icons>#rightIcons>a {
-		width : 50%;
-		float : left;
-	} */
 </style>
 <meta charset="UTF-8">
 <link rel="stylesheet"
@@ -40,12 +27,6 @@
 <header id="header">
 	
 	<div class="icons" >
-		<!-- <div id="leftIcons"> -->
-			<a href="${pageContext.request.contextPath}" class="logo"><strong style="font-size: 30px;">JOB-A</strong></a>
-		<!-- </div>
-		<div id="rightIcons">
-			<a href="#">관리자 페이지로 이동</a>
-		</div> -->
 		<a href="${pageContext.request.contextPath}" class="logo"><strong style="font-size: 30px; margin-bottom: 10px">JOB-A</strong></a>
 	</div>
 	<div class="icons" >
@@ -55,12 +36,16 @@
 		<c:if test="${member.gradeNo le 1}">
 			<span>관리자 <a href="${pageContext.request.contextPath}/member/myPage.do?member=${member}">${member.memNick}</a>님, 오늘도 즐거운 노동~!</span>&nbsp;
 			<a href="${pageContext.request.contextPath}/member/memberLogout.do"><i class="fas fa-sign-out-alt"></i><span>로그아웃</span></a>
+			<div style="cursor: pointer;">
+				<a onclick="goAdmin();" >관리자 페이지로 이동</a>
+			</div>
 		</c:if>
 		<c:if test="${member.gradeNo gt 1}">
 			<span><a href="${pageContext.request.contextPath}/member/myPage.do?member=${member}">${member.memNick}</a> 님, 취뽀 화이팅</span>&nbsp;
 			<a href="${pageContext.request.contextPath}/member/memberLogout.do"><i class="fas fa-sign-out-alt"></i><span>로그아웃</span></a>
 		</c:if>
 	</div>
+	
 </header>
 
 
