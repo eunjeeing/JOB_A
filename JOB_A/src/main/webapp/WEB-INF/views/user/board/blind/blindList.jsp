@@ -8,8 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>JOB_A | 블라인드</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/board.css" />
+ 	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" />
 <style>
 #topbanner {
 	background:
@@ -153,12 +153,9 @@ p {
 		</div>
 		<c:import url="../../common/sideBar.jsp" />
 	</div>
-		 	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+		 	
+	<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<c:choose>

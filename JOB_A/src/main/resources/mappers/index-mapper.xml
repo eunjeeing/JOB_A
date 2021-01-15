@@ -6,7 +6,7 @@
 	
 <!-- 랭킹 -->
 
-	<select id="selectAllCount" resultType="_int">
+	<select id="selectAllCount" resultType="hashmap">
 		select 
 			(select count(category_no) from wish_category where category_no = 1) as office,
 	        (select count(category_no) from wish_category where category_no = 2) as marketing,
@@ -23,12 +23,14 @@
 	</select>
 	
 	<select id="selectCarouselList" resultType="HashMap" parameterType="string">
-		SELECT CL.BOARD_NO, CL.BOARD_TITLE, CL.BOARD_CONTENT, CL.BOARD_VIEW, CL.MEM_NICK, CL.TYPE_NAME, CL.COMM_COUNT, CL.BOARD_DATE
-        FROM (SELECT B.*, T.*, M.MEM_NICK, (SELECT COUNT(*) FROM COMMENTS C WHERE C.BOARD_NO = B.BOARD_NO AND C.COMM_STATUS = 'Y' ) COMM_COUNT
+		SELECT CL.BOARD_NO, CL.BOARD_TITLE, CL.BOARD_CONTENT, CL.BOARD_VIEW, CL.MEM_NICK, CL.TYPE_NAME, CL.TYPE_NO, CL.COMM_COUNT, CL.BOARD_DATE
+        FROM (SELECT B.BOARD_NO, B.BOARD_DATE, B.BOARD_TITLE, B.BOARD_CONTENT, B.BOARD_VIEW, T.*, M.MEM_NICK, (SELECT COUNT(*) FROM COMMENTS C WHERE C.BOARD_NO = B.BOARD_NO AND C.COMM_STATUS = 'Y' ) COMM_COUNT
                         FROM BOARD B, MEMBER M, BOARDTYPE T  
                         WHERE B.BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO AND B.TYPE_NO = T.TYPE_NO 
                         ORDER BY BOARD_VIEW DESC) CL
-      	WHERE ROWNUM &lt; 11
+        <![CDATA[
+      	WHERE ROWNUM < 11
+      	]]>
 	</select>
 	
 

@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fullcalendar.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
 <script src='${pageContext.request.contextPath}/resources/js/fullcalendar.js'></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 
 <style type="text/css">
 .fc-header-toolbar {
@@ -676,7 +677,10 @@ html, body {
 		<c:import url="../common/sideBar.jsp" />
 
 		<!-- Script -->
- 
+ 		<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 		<script>
 			document.addEventListener('DOMContentLoaded', function() {
 				var calendarEl = document.getElementById('calendar');

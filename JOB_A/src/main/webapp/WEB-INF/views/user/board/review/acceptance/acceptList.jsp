@@ -109,11 +109,12 @@
 	
 </style>
 <html>
-	<head>
-		<title>JOBA | 합격후기</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
+<head>
+<title>JOBA | 합격후기</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
 	</head>
 	<body class="is-preload">
 		
@@ -203,14 +204,10 @@
 			</div>				<!-- wrapper -->
 
 		<!-- Scripts -->
-		<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
  			<script>
 					function selectOne(boardNo) {
 						var gradeNo = '${sessionScope.member.gradeNo}';

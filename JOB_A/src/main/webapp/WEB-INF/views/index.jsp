@@ -313,13 +313,9 @@ section>div>.sub_menu3 {
 <title>JOB_A</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-
-<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
 
@@ -329,16 +325,15 @@ $(document).ready(function(){
 		type:"POST",
 		dataType : "json",
 		async: true,
-
 		success : function(data){
 			var list = data;
 			for(var i in list){
 				console.log(data[i]);
 				if(i == 0){
 				div = 
-					'<div class="carou-card active" id="' + data[i].board_No + '" style="width:30vw; padding-top:2em;padding-left:2.7vw;">'+
+					'<div class="carou-card active" id="' + data[i].BOARD_NO + '" style="width:30vw; padding-top:2em;padding-left:2.7vw;">'+
 					'<div class="tit">' +
-						'<input class="tno" type="hidden" value="' + data[i].type_No + '" />'+
+						'<input class="tno" type="hidden" value="' + data[i].TYPE_NO + '" />'+
 						'<p >' + data[i].TYPE_NAME + ' 게시판</p>' +
 						'<h3 class="hh" style="font-size:23px;">"' + data[i].BOARD_TITLE + '"</h3>' +
 						'<div class="pre-txt">' + data[i].BOARD_CONTENT + '</div>' +
@@ -354,9 +349,9 @@ $(document).ready(function(){
 				'</div>'
 				} else {
 				div =
-					'<div class="carou-card " id="' + data[i].board_No + '" style="width:30vw; padding-top:2em;padding-left: 2.7vw;">'+
+					'<div class="carou-card " id="' + data[i].BOARD_NO + '" style="width:30vw; padding-top:2em;padding-left: 2.7vw;">'+
 					'<div class="tit">' +
-					'<input class="tno" type="hidden" value="'+ data[i].type_No +'" />'+
+					'<input class="tno" type="hidden" value="'+ data[i].TYPE_NO +'" />'+
 						'<p >' + data[i].TYPE_NAME + ' 게시판</p>' +
 						'<h3 class="hh" style="font-size:23px;">"' + data[i].BOARD_TITLE + '"</h3>' +
 						'<div class="pre-txt">' + data[i].BOARD_CONTENT + '</div>' +
@@ -371,59 +366,10 @@ $(document).ready(function(){
 				'</div>'+
 				'</div>'
 				};
-				$('.carousel-slide').append(div);
-				init_test();
-				
-				firstBox = document.querySelector(".carou-card:first-child");
-				lastBox = document.querySelector(".carou-card:last-child");
-
-				$("div[class=carou-card]")
-				.on("click",function() {
-			         var board_No = $(this).attr("id");
-			         var tno = $(this).siblings('.tno').val();
+			$('.carousel-slide').append(div);
+			init_test();
+			}; /* for문 끝 */
 			
-			         console.log(board_No);
-			         console.log(tno);
-			         
-			         switch(tno) {
-			         case '1':
-			            location.href = "${pageContext.request.contextPath}/notice.bo?board_no="+ board_No;
-			            break;
-			
-			         case '2':
-			            location.href = "${pageContext.request.contextPath}/board2/jobSelectOne.do?board_No="+ board_No;
-			            break;
-			               
-			         case '4':
-			            location.href = "${pageContext.request.contextPath}/board2/blahView.do?board_No="+ board_No;
-			            break;
-			         
-			         case '5':
-			            location.href = "${pageContext.request.contextPath}/board2/blindSelectOne.do?board_No="+ board_No;
-			            break;
-			
-			         case '6':
-			            location.href = "${pageContext.request.contextPath}/selectOneTomorrow.bo?board_no="+ board_No;
-			            break;
-			
-			         case '7':
-			            location.href = "${pageContext.request.contextPath}/board2/qnaSelectOne.do?board_No="+ board_No;
-			            break;   
-			
-			         case '8':
-			            location.href = "${pageContext.request.contextPath}/selectOneMento.bo?board_no="+ board_No;
-			            break;
-			            
-			         case '9':
-			            location.href = "${pageContext.request.contextPath}/selectOneInterview.bo?board_no="+ board_No;
-			            break;
-			
-			         case'10':
-			            location.href = "${pageContext.request.contextPath}/selectOneAccept.bo?board_no="+ board_No;
-			            break;
-			         }
-		      });
-			}
 		},
 		error : function(){
 				alert("ajax 오류!");
@@ -442,7 +388,7 @@ $(document).ready(function(){
 				console.log(data);
 			// 어레이 리스트 sort하기	
 		}
-	})
+	});
 });
 </script>
 </head>
@@ -529,8 +475,54 @@ $(document).ready(function(){
 								rightBtn.addEventListener("click", moveRight);
 
 								function init_test(){
-									var firstBox = document.querySelector(".carou-card:first-child");
+									firstBox = document.querySelector(".carou-card:first-child");
 								    firstBox.classList.add(active);
+
+									lastBox = document.querySelector(".carou-card:last-child");
+
+									$(".carou-card").on("click",function() {
+								         var board_No = $(this).attr("id");
+										 var tno = $(this).find('.tno').val();
+								         console.log(board_No + "/" + tno);
+								         
+								         switch(tno) {
+								         case '1':
+								            location.href = "${pageContext.request.contextPath}/notice.bo?board_no="+ board_No;
+								            break;
+								
+								         case '2':
+								            location.href = "${pageContext.request.contextPath}/board2/jobSelectOne.do?board_No="+ board_No;
+								            break;
+								               
+								         case '4':
+								            location.href = "${pageContext.request.contextPath}/board2/blahView.do?board_No="+ board_No;
+								            break;
+								         
+								         case '5':
+								            location.href = "${pageContext.request.contextPath}/board2/blindSelectOne.do?board_No="+ board_No;
+								            break;
+								
+								         case '6':
+								            location.href = "${pageContext.request.contextPath}/selectOneTomorrow.bo?board_no="+ board_No;
+								            break;
+								
+								         case '7':
+								            location.href = "${pageContext.request.contextPath}/board2/qnaSelectOne.do?board_No="+ board_No;
+								            break;   
+								
+								         case '8':
+								            location.href = "${pageContext.request.contextPath}/selectOneMento.bo?board_no="+ board_No;
+								            break;
+								            
+								         case '9':
+								            location.href = "${pageContext.request.contextPath}/selectOneInterview.bo?board_no="+ board_No;
+								            break;
+								
+								         case'10':
+								            location.href = "${pageContext.request.contextPath}/selectOneAccept.bo?board_no="+ board_No;
+								            break;
+								         }
+							      });
 								}
 								// 자동으로 넘어가게 하는 함수
 								/* function slide() {
@@ -620,6 +612,12 @@ $(document).ready(function(){
 
 	</div>
 
+	<script
+		src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<!-- 캐러셀 클릭 이벤트 -->
 	<c:if test="${ !empty member }" >
 	<script>

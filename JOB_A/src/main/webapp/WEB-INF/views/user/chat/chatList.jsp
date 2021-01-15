@@ -156,29 +156,11 @@
 		<c:import url="../common/sideBar.jsp"/>
 	</div>
 	
-	
-	<script>
-		// Menu.
-	    var $menu = $('#menu'),
-	    	$menu_openers = $menu.children('ul').find('.opener');
-	
-	    // Openers.
-	    $menu_openers.each(function() {
-			var $this = $(this);
-	        $this.on('click', function(event) {
-	            // Prevent default.
-	            event.preventDefault();
-	    
-	            // Toggle.
-	            $menu_openers.not($this).removeClass('active');
-	           	$this.toggleClass('active');
-	    
-	           	// Trigger resize (sidebar lock).
-	            $window.triggerHandler('resize.sidebar-lock');
-	        });
-		});
-		</script>
-			
+	<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+		
 		<script type="text/javascript">
 		
 			function enterChatRoom(obj){
