@@ -15,11 +15,12 @@
 		background-image: url(${pageContext.request.contextPath}/resources/images/notice.jpg);
 		background-size: 100% 100%;
 		margin-top: 10px;
-		border: 1px solid black;
+		/* border: 1px solid black; */
 		height: 400px;
 		display: flex;
 		opacity : 0.8;
 		background-size: cover;
+		
 	}
 	
 	#topbanner-textarea {
@@ -27,10 +28,10 @@
 		height: 50%;
 		margin: auto;
 		padding: auto;
-		border : 1px solid black;
+		/* border : 1px solid black; */
 		display: flex;
 		background : black;
-		opacity : 0.4;
+		opacity : 0.75;
 	}
 	
 	#topbanner-text {
@@ -103,11 +104,14 @@
 	}
 	
 </style>
+<script
+		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <html>
 	<head>
 		<title>공지사항</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
 	</head>
 	<body class="is-preload">
@@ -184,11 +188,13 @@
 			</div>				<!-- wrapper -->
 
 		<!-- Scripts -->
+
 		<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 		<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
 		<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
 		<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
 		<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+
  			<script>
  				// Menu Controller 
 			      // Menu.
