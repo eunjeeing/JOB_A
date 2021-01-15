@@ -19,8 +19,18 @@
 	      font-family: 'Font Awesome 5 Free' !important;
 	}  
 	
-	.icons {
+	/* .icons>#leftIcons{
+		width : 50%;
+		float:right;
 	}
+	.icons>#rightIcons{
+		width : 50%;
+		position : -100%
+	}
+	.icons>#rightIcons>a {
+		width : 50%;
+		float : left;
+	} */
 </style>
 <meta charset="UTF-8">
 <link rel="stylesheet"
@@ -29,7 +39,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
 <header id="header">
 	<div class="icons" >
-		<a href="${pageContext.request.contextPath}" class="logo"><strong style="font-size: 30px;">JOB-A</strong></a>
+		<!-- <div id="leftIcons"> -->
+			<a href="${pageContext.request.contextPath}" class="logo"><strong style="font-size: 30px;">JOB-A</strong></a>
+		<!-- </div>
+		<div id="rightIcons">
+			<a href="#">관리자 페이지로 이동</a>
+		</div> -->
 	</div>
 	<div class="icons" >
 		<c:if test="${empty member}">

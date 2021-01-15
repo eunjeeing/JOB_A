@@ -77,7 +77,7 @@ public class Board1Controller {
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "notice.bo");
 
 		for (int i = 0; i < list.size(); i++) {
-			String new_date = (String)(((Board1) list.get(i)).getBoard_date().substring(0, 19));
+			String new_date = (String)(((Board1) list.get(i)).getBoard_date().substring(0, 10));
 			((Board1) list.get(i)).setBoard_date(new_date);
 			//System.out.println(((Board1) list.get(i)).getBoard_date());
 		}
@@ -104,7 +104,7 @@ public class Board1Controller {
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "searchNotice.bo?keyword="+keyword);
 		
 		for (int i = 0; i < list.size(); i++) {
-			String new_date = (String)(((Board1) list.get(i)).getBoard_date().substring(0, 19));
+			String new_date = (String)(((Board1) list.get(i)).getBoard_date().substring(0, 10));
 			((Board1) list.get(i)).setBoard_date(new_date);
 			//System.out.println(((Board1) list.get(i)).getBoard_date());
 		}
@@ -125,7 +125,7 @@ public class Board1Controller {
 	public String selectOneNotice(@RequestParam int board_no, Model model) { 
 		System.out.println("[selectOneNotice] board_no : " + board_no);
 		Board1 notice = bs.selectOneNotice(board_no);
-		notice.setBoard_date(notice.getBoard_date().substring(0, 19));
+		notice.setBoard_date(notice.getBoard_date().substring(0, 10));
 		//System.out.println("Notice : " + notice);
 		model.addAttribute("notice", notice);
 
@@ -217,7 +217,7 @@ public class Board1Controller {
 			model.addAttribute("bookmarkList", bookmarkList);			
 		}
 		for (int i = 0; i < list.size(); i++) {
-			String new_date = (String)(((Board1) list.get(i)).getBoard_date().substring(0, 19));
+			String new_date = (String)(((Board1) list.get(i)).getBoard_date().substring(0, 10));
 			((Board1) list.get(i)).setBoard_date(new_date);
 			//System.out.println(((Board1) list.get(i)).getBoard_date());
 		}
@@ -237,7 +237,7 @@ public class Board1Controller {
 		Member mem = (Member)session.getAttribute("member");
 		Bookmark isBookmark = new Bookmark(board_no, mem.getMemNo(), 0, null);
 		Bookmark bookmark = ms.selectOneBookmark(isBookmark);
-		mento.setBoard_date(mento.getBoard_date().substring(0, 19));
+		mento.setBoard_date(mento.getBoard_date().substring(0, 10));
 		
 		model.addAttribute("bookmark", bookmark);
 
@@ -265,7 +265,7 @@ public class Board1Controller {
 			model.addAttribute("bookmarkList", bookmarkList);			
 		}
 		for (int i = 0; i < list.size(); i++) {
-			String new_date = (String)(((Board1) list.get(i)).getBoard_date().substring(0, 19));
+			String new_date = (String)(((Board1) list.get(i)).getBoard_date().substring(0, 10));
 			((Board1) list.get(i)).setBoard_date(new_date);
 			//System.out.println(((Board1) list.get(i)).getBoard_date());
 		}
@@ -459,7 +459,7 @@ public class Board1Controller {
 			model.addAttribute("bookmarkList", bookmarkList);			
 		}
 		for (int i = 0; i < list.size(); i++) {
-			String new_date = (String)(((Board1) list.get(i)).getBoard_date().substring(0, 19));
+			String new_date = (String)(((Board1) list.get(i)).getBoard_date().substring(0, 10));
 			((Board1) list.get(i)).setBoard_date(new_date);
 			//System.out.println(((Board1) list.get(i)).getBoard_date());
 		}
@@ -477,7 +477,7 @@ public class Board1Controller {
 		//System.out.println("Interview select One controller : " + board_no);
 		Board1 interview = bs.selectOneInterview(board_no);
 		List<Comments2> commentList = cs.selectComment(board_no);
-		interview.setBoard_date(interview.getBoard_date().substring(0, 19));
+		interview.setBoard_date(interview.getBoard_date().substring(0, 10));
 		
 		Member mem = (Member)session.getAttribute("member");
 		Bookmark isBookmark = new Bookmark(board_no, mem.getMemNo(), 0, null);
@@ -561,7 +561,7 @@ public class Board1Controller {
 			model.addAttribute("bookmarkList", bookmarkList);			
 		}
 		for (int i = 0; i < list.size(); i++) {
-			String new_date = (String)(((Board1) list.get(i)).getBoard_date().substring(0, 19));
+			String new_date = (String)(((Board1) list.get(i)).getBoard_date().substring(0, 10));
 			((Board1) list.get(i)).setBoard_date(new_date);
 			//System.out.println(((Board1) list.get(i)).getBoard_date());
 		}
@@ -592,7 +592,7 @@ public class Board1Controller {
 			model.addAttribute("bookmarkList", bookmarkList);			
 		}
 		for (int i = 0; i < list.size(); i++) {
-			String new_date = (String)(((Board1) list.get(i)).getBoard_date().substring(0, 19));
+			String new_date = (String)(((Board1) list.get(i)).getBoard_date().substring(0, 10));
 			((Board1) list.get(i)).setBoard_date(new_date);
 			//System.out.println(((Board1) list.get(i)).getBoard_date());
 		}
@@ -609,7 +609,7 @@ public class Board1Controller {
 		//System.out.println("Interview select One controller : " + board_no);
 		Board1 accept = bs.selectOneAccept(board_no);
 		List<Comments2> commentList = cs.selectComment(board_no);
-		accept.setBoard_date(accept.getBoard_date().substring(0, 19));
+		accept.setBoard_date(accept.getBoard_date().substring(0, 10));
 		
 		Member mem = (Member)session.getAttribute("member");
 		Bookmark isBookmark = new Bookmark(board_no, mem.getMemNo(), 0, null);
@@ -692,7 +692,7 @@ public class Board1Controller {
 			model.addAttribute("bookmarkList", bookmarkList);			
 		}
 		for (int i = 0; i < list.size(); i++) {
-			String new_date = (String)(((Board1) list.get(i)).getBoard_date().substring(0, 19));
+			String new_date = (String)(((Board1) list.get(i)).getBoard_date().substring(0, 10));
 			((Board1) list.get(i)).setBoard_date(new_date);
 			//System.out.println(((Board1) list.get(i)).getBoard_date());
 		}
