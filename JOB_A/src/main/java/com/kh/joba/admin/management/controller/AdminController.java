@@ -109,9 +109,7 @@ public class AdminController {
 		
 		admin.setAdminPw(encryptPassword);
 		
-		
 		System.out.println("admin 수정 : " + admin);
-		
 		
 		int result = adminService.updateAdmin(admin);
 		System.out.println(result);
@@ -119,7 +117,7 @@ public class AdminController {
 		String msg="";
 		if (result > 0) {
 			msg = "수정 성공";
-
+			model.addAttribute("admin", admin);
 		}else {
 			msg = "수정 실패";
 		}

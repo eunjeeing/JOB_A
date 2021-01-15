@@ -400,13 +400,7 @@
 				async: true,
 				dataType : "json",
 				success : function(data){
-					$('#dataTable-4').DataTable({
-				        autoWidth: true,
-				        "lengthMenu": [
-				          [16, 32, 64, -1],
-				          [16, 32, 64, "All"]
-				        ]
-			      	});
+					
 			      	
 					var rcList = data;
 					$('rCommentListTbody').empty();
@@ -424,7 +418,13 @@
 							+'</tr>'
 						$('.rCommentListTbody').append(listBody);
 					}
-					
+					$('#dataTable-4').DataTable({
+				        autoWidth: true,
+				        "lengthMenu": [
+				          [16, 32, 64, -1],
+				          [16, 32, 64, "All"]
+				        ]
+			      	});
 					
 				}, error : function () {
 					alert("불러오기 실패");

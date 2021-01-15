@@ -19,8 +19,6 @@
 	      font-family: 'Font Awesome 5 Free' !important;
 	}  
 	
-	.icons {
-	}
 </style>
 <meta charset="UTF-8">
 <link rel="stylesheet"
@@ -28,8 +26,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com"> 
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
 <header id="header">
+	
 	<div class="icons" >
-		<a href="${pageContext.request.contextPath}" class="logo"><strong style="font-size: 30px;">JOB-A</strong></a>
+		<a href="${pageContext.request.contextPath}" class="logo"><strong style="font-size: 30px; margin-bottom: 10px">JOB-A</strong></a>
 	</div>
 	<div class="icons" >
 		<c:if test="${empty member}">
@@ -38,13 +37,23 @@
 		<c:if test="${member.gradeNo le 1}">
 			<span>관리자 <a href="${pageContext.request.contextPath}/member/myPage.do?member=${member}">${member.memNick}</a>님, 오늘도 즐거운 노동~!</span>&nbsp;
 			<a href="${pageContext.request.contextPath}/member/memberLogout.do"><i class="fas fa-sign-out-alt"></i><span>로그아웃</span></a>
+			<div style="cursor: pointer;">
+				<a onclick="goAdmin();" >관리자 페이지로 이동</a>
+			</div>
 		</c:if>
 		<c:if test="${member.gradeNo gt 1}">
 			<span><a href="${pageContext.request.contextPath}/member/myPage.do?member=${member}">${member.memNick}</a> 님, 취뽀 화이팅</span>&nbsp;
 			<a href="${pageContext.request.contextPath}/member/memberLogout.do"><i class="fas fa-sign-out-alt"></i><span>로그아웃</span></a>
 		</c:if>
 	</div>
+	
 </header>
+
+<script type="text/javascript">
+function goAdmin(){
+	location.href = '${pageContext.request.contextPath}/adminIndex.do';
+	}
+</script>
 
 
 

@@ -108,7 +108,7 @@ public class ChatController {
 	
 	@RequestMapping("/chat/exitChat")
 	public String exitChat() {
-		return "user/chat/chatList";
+		return "redirect:/chat/chatList";
 	}
 	
 	@RequestMapping("/chat/deleteChat/{chatNo}")
