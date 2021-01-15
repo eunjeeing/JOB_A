@@ -149,28 +149,6 @@ p {
 											</div>
 										</div>
 									</div>
-<%-- 									<c:if test="${b.file_Count > 0}">
-										<div class="article-list-pre attach-img-pre">
-											<div class="tit" id="${search.board_No}">
-												<p style="display: none;">${search.board_No }</p>
-												<h3 class="hh">${search.board_Title}</h3>
-												<div class="pre-txt">${search.board_Content}</div>
-												<span class="attach-img"> <img src="http://localhost:8087/joba/resources/uplaodFiles/board/20210104_023203_730.png">
-												</span>
-											</div>
-											<div class="sub">
-												<p class="name">${search.mem_Nick}</p>
-												<div class="wrap-info">
-													<i class="far fa-eye"> ${search.board_View }</i> <i
-														class="far fa-comment"> ${search.comm_Count }</i>
-													<div class="info_fnc">
-														${search.board_Date} <i class="far fa-bookmark"
-															id="bookmark"></i>
-													</div>
-												</div>
-											</div>
-										</div>
-									</c:if> --%>
 								</c:forEach>
 							</div>
 						</div>
@@ -191,48 +169,10 @@ p {
 		$(function() {
 			$("div[class=tit]").on("click",
 				function() {
-				var board_No = $(this).attr("id");
-		         var tno = $(this).siblings('.tno').val();
-
-		         console.log(board_No);
-		         console.log(tno);
-		         
-		         switch(tno) {
-		         case '1':
-		            location.href = "${pageContext.request.contextPath}/notice.bo?board_no="+ board_No;
-		            break;
-
-		         case '2':
-		            location.href = "${pageContext.request.contextPath}/board2/jobSelectOne.do?board_No="+ board_No;
-		            break;
-		               
-		         case '4':
-		            location.href = "${pageContext.request.contextPath}/board2/blahView.do?board_No="+ board_No;
-		            break;
-		         
-		         case '5':
-		            location.href = "${pageContext.request.contextPath}/board2/blindSelectOne.do?board_No="+ board_No;
-		            break;
-
-		         case '6':
-		            location.href = "${pageContext.request.contextPath}/selectOneTomorrow.bo?board_no="+ board_No;
-		            break;
-
-		         case '7':
-		            location.href = "${pageContext.request.contextPath}/board2/qnaSelectOne.do?board_No="+ board_No;
-		            break;   
-
-		         case '8':
-		            location.href = "${pageContext.request.contextPath}/selectOneMento.bo?board_no="+ board_No;
-		            break;
-		            
-		         case '9':
-		            location.href = "${pageContext.request.contextPath}/selectOneAccept.bo?board_no="+ board_No;
-		            break;
-
-		         case'10':
-		            location.href = "${pageContext.request.contextPath}/selectOneInterview.bo?board_no="+ board_No;
-		            break;
+						var board_No = $(this).attr("id");
+						console.log("board_No=" + board_No);
+						location.href = "${pageContext.request.contextPath}/board2/blahView.do?board_No="
+								+ board_No;
 				});
 		});
 	</script>

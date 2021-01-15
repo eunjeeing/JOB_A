@@ -35,7 +35,8 @@ public class IndexController {
 		
 		System.out.println("rankList() 기능 실행");
 		List<Map<String, String>> rankList =is.selectRank();
-		model.addAttribute("count", rankList);
+		System.out.println("list :" + rankList);
+		model.addAttribute("rankList", rankList);
 		
 		return new Gson().toJson(rankList);
 	}
@@ -44,7 +45,7 @@ public class IndexController {
 	@ResponseBody
 	public String carouselList(Model model) {
 		
-		System.out.println("carouselList() 기능 실행");
+		//System.out.println("carouselList() 기능 실행");
 		List<Map<String, String>> carouselList = is.selectBoard();
 		
 		System.out.println("list :" + carouselList);
