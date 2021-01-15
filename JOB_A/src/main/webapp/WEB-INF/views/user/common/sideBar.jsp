@@ -34,7 +34,7 @@
 					</ul>
 				</li>
 				<li><a href="${pageContext.request.contextPath}/board2/selectQnAList.do">레벨 업</a></li>
-				<li><a href=javascript:void(0);" onclick="chat();">실시간 채팅</a></li>
+				<li><a href="javascript:void(0);" onclick="chat();">실시간 채팅</a></li>
 				<li><a href="${pageContext.request.contextPath}/mentoList.bo">멘토 멘티</a></li>
 				<li><span class="opener">꿀팁 후기</span>
 					<ul>

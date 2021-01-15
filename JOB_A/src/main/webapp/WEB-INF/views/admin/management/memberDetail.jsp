@@ -262,6 +262,13 @@
 				async: true,
 				dataType : "json",
 				success : function(data){
+					$('#dataTable-1').DataTable({
+						autoWidth: true,
+				        "lengthMenu": [
+				          [16, 32, 64, -1],
+				          [16, 32, 64, "All"]
+				        ]
+			      	});
 					var bList = data;
 					$('.boardListTbody').empty();
 					for(var i in bList){
@@ -289,13 +296,7 @@
 							+'</tr>'
 						$('.boardListTbody').append(listBody);
 					}
-					$('#dataTable-1').DataTable({
-						autoWidth: true,
-				        "lengthMenu": [
-				          [16, 32, 64, -1],
-				          [16, 32, 64, "All"]
-				        ]
-			      	});
+					
 					
 				}, error : function () {
 					alert("불러오기 실패");
@@ -312,6 +313,13 @@
 				async: true,
 				dataType : "json",
 				success : function(data){
+					$('#dataTable-2').DataTable({
+				        autoWidth: true,
+				        "lengthMenu": [
+				          [16, 32, 64, -1],
+				          [16, 32, 64, "All"]
+				        ]
+			      	});
 					var cList = data;
 					$('.commentListTbody').empty();
 					for(var i in cList){
@@ -326,13 +334,7 @@
 							+'</tr>'
 						$('.commentListTbody').append(listBody);
 					}
-					$('#dataTable-2').DataTable({
-				        autoWidth: true,
-				        "lengthMenu": [
-				          [16, 32, 64, -1],
-				          [16, 32, 64, "All"]
-				        ]
-			      	});
+					
 					
 				}, error : function () {
 					alert("불러오기 실패");
@@ -348,6 +350,13 @@
 				async: true,
 				dataType : "json",
 				success : function(data){
+					$('#dataTable-3').DataTable({
+				        autoWidth: true,
+				        "lengthMenu": [
+				          [16, 32, 64, -1],
+				          [16, 32, 64, "All"]
+				        ]
+			      	});
 					var rbList = data;
 					$('.rBoardListTbody').empty();
 					for(var i in rbList){
@@ -375,13 +384,7 @@
 						$('.rBoardListTbody').append(listBody);
 					}
 					
-					$('#dataTable-3').DataTable({
-				        autoWidth: true,
-				        "lengthMenu": [
-				          [16, 32, 64, -1],
-				          [16, 32, 64, "All"]
-				        ]
-			      	});
+					
 					
 				}, error : function () {
 					alert("불러오기 실패");
@@ -397,6 +400,14 @@
 				async: true,
 				dataType : "json",
 				success : function(data){
+					$('#dataTable-4').DataTable({
+				        autoWidth: true,
+				        "lengthMenu": [
+				          [16, 32, 64, -1],
+				          [16, 32, 64, "All"]
+				        ]
+			      	});
+			      	
 					var rcList = data;
 					$('rCommentListTbody').empty();
 					for(var i in rcList){
@@ -413,13 +424,7 @@
 							+'</tr>'
 						$('.rCommentListTbody').append(listBody);
 					}
-					$('#dataTable-4').DataTable({
-				        autoWidth: true,
-				        "lengthMenu": [
-				          [16, 32, 64, -1],
-				          [16, 32, 64, "All"]
-				        ]
-			      	});
+					
 					
 				}, error : function () {
 					alert("불러오기 실패");

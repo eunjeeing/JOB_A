@@ -1,9 +1,12 @@
 package com.kh.joba.user.chat.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,22 +14,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.joba.user.chat.model.service.ChatService;
 import com.kh.joba.user.chat.model.vo.Chat;
 import com.kh.joba.user.common.util.Utils;
+import com.kh.joba.user.member.model.vo.Member;
 
 @Controller
 public class ChatController {
 	
 	@Autowired
 	ChatService chatService;
-
 	
+	                  //   방 번호, 참가자 목록
+	public static HashMap<Integer, List<String>> roomMembers;
 	
 	@RequestMapping("chat/chatList")
-	public String selectChatList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, Model model, HttpServletRequest req) { 
+	public String selectChatList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, Model model) { 
 	
 		// 페이징
 		int numPerPage = 8; // 한 페이지당 채팅방 and 페이지 수
@@ -47,61 +51,64 @@ public class ChatController {
 		model.addAttribute("numPerPage", numPerPage);
 		model.addAttribute("pageBar", pageBar);
 		
-		
-		// System.out.println(chatNo);
-		
-//		// 방 정보
-//		Map<String, Chat> chat = chatService.selectChat(chatNo);
-//		System.out.println(chatNo + "번째 chat: " + chat);
-//		
-//		model.addAttribute("chat", chat);
-		
 		return "user/chat/chatList";
 	}
 	
-	
-//	@RequestMapping("chat/chatList")
-//	public String selectChatList(Model model, HttpServletRequest req) { 
-//
-//		List<Map<String,String>> chatList = chatService.selectChatList();
-////		System.out.println(chatList);
-//		model.addAttribute("chatList", chatList);
-//		
-//		return "user/chat/chatList";
-//	}
-	
-	@RequestMapping("chat/chatRoom/{chatNo}")
-	@ResponseBody
-	public Map<String, Chat> selectChatRoom(@PathVariable int chatNo) {
-		System.out.println(chatNo);
-		Map<String, Chat> chatRoom = chatService.selectChatRoom(chatNo);
-		System.out.println(chatRoom);
-		return chatRoom;
+	@RequestMapping("chat/chatRoom/{chatRoomNo}")
+	public String selectChatRoom(HttpSession session, @PathVariable int chatRoomNo, @RequestParam(value="cPage", required=false, defaultValue="1") int cPage, Model model, HttpServletRequest req) {
+		System.out.println(chatRoomNo);
+		Map<String, String> chatRoom = chatService.selectChatRoom(chatRoomNo);
+		if(roomMembers == null) {
+			roomMembers = new HashMap<Integer, List<String>>();
+			
+		}
+		ArrayList<String> members = null;
+		if(roomMembers.get(chatRoomNo) == null) { // 채팅방이 없을 때
+			members = new ArrayList<String>();
+			members.add(((Member)session.getAttribute("member")).getMemId());
+			
+			roomMembers.put(chatRoomNo, members);
+		} else { // 채팅방이 있을 때
+			members = (ArrayList<String>)roomMembers.get(chatRoomNo);
+			members.add(((Member)session.getAttribute("member")).getMemId());
+			
+			roomMembers.put(chatRoomNo, members);
+		}
+		
+		
+		model.addAttribute("chatRoom", chatRoom);
+		
+		
+		int numPerPage = 8;
+		List<Map<String,String>> chatList = chatService.selectChatList(cPage, numPerPage);
+		int totalChats = chatService.selectChatTotalContents();
+		String pageBar = Utils.getPageBar(totalChats, cPage, numPerPage, "");
+
+		model.addAttribute("chatList", chatList);
+		model.addAttribute("totalChats", totalChats);
+		model.addAttribute("numPerPage", numPerPage);
+		model.addAttribute("pageBar", pageBar);
+		
+		model.addAttribute("host", req.getRemoteAddr());
+		
+		return "user/chat/chatRoom";
 	}
-	
-//	@RequestMapping("chat/insertChat")
-//	public String insertChat(Chat chat, Model model, HttpServletRequest req) {
-//		System.out.println(chat);
-//		int chatNo = chatService.insertChat(chat);
-//		
-//		return "redirect:/chat/chatRoom/" + chatNo;
-//	}
 
 	@RequestMapping("chat/insertChat")
-	@ResponseBody
-	public Map<String, Integer> insertChat(Chat chat, Model model, HttpServletRequest req) {
+	public String insertChat(Chat chat, @RequestParam(value="cPage", required=false, defaultValue="1") int cPage, Model model, HttpServletRequest req) {
 		System.out.println(chat);
-		Map<String, Integer> chatRoomNo = chatService.insertChat(chat);
-		List<Map<String,String>> chatList = chatService.selectChatList();
-		model.addAttribute("chatList", chatList);
+		int chatRoomNo = chatService.insertChat(chat);
+		Map<String, String> chatRoom = chatService.selectChatRoom(chatRoomNo);
 		
-		System.out.println(chatRoomNo);
-		return chatRoomNo;
+		model.addAttribute("chatRoom", chatRoom);
+		
+		
+		return "redirect:/chat/chatRoom/" + chatRoomNo;
 	}
 	
 	@RequestMapping("/chat/exitChat")
 	public String exitChat() {
-		return "redirect:/chat/chatList";
+		return "user/chat/chatList";
 	}
 	
 	@RequestMapping("/chat/deleteChat/{chatNo}")
