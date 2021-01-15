@@ -16,7 +16,7 @@
 		background-size: 100% 100%;
 		margin-top: 10px;
 		border: 1px solid black;
-		height: 300px;
+		height: 400px;
 		display: flex;
 	}
 	

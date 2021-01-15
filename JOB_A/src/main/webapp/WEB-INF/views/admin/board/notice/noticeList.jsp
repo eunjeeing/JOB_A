@@ -26,7 +26,7 @@
 		background: black;
 		color: white;
 		cursor: pointer;
-		padding: 20px 8px 5px 8px;
+		padding: 5px 8px 5px 8px;
 	}
 	
 	#mento {
@@ -85,7 +85,8 @@
 													<th>상태</th>
 													<th width="10%"></th>
 												</tr>
-											</thead>										<tbody>
+											</thead>										
+											<tbody>
 												<c:forEach items="${noticeList}" var="notice">
 													<tr align="center" class="trtr">
 														<td>${notice.board_no}</td>
@@ -103,11 +104,11 @@
 														<td>
 																<c:if test="${notice.board_status eq 'Y' }">
 																	<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
-																		onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusB.do?board_No=${notice.board_no}&type_No=${notice.type_no }'">블라인드</button>
+																		onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusB.do?board_No=${notice.board_no}&type_No=${notice.type_no}'">블라인드</button>
 																</c:if>
 																<c:if test="${notice.board_status eq 'B' }">
 																	<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
-																		onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusY.do?board_No=${notice.board_no}&type_No=${notice.type_no }'">활성화</button>
+																		onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusY.do?board_No=${notice.board_no}&type_No=${notice.type_no}'">활성화</button>
 																</c:if>
 																<c:if test="${notice.board_status eq 'N'}">
 																	<button class="btn mb-2 btn-light" disabled="disabled">활성화</button>

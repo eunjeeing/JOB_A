@@ -20,6 +20,10 @@
 	height: 400px;
 	display: flex;
 	background-size : cover;
+	opacity : 0.75;
+}
+#topbanner-textarea{
+	opacity : 0.75;
 }
 
 .tit:hover {

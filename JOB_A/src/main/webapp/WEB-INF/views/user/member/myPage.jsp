@@ -161,7 +161,7 @@
 							<a href="#" title="내가 스크랩한 게시글"> <i class="xi-bookmark"></i></a>
 						</div>
 						<div class="next" id="scrab">
-							<p class="number">30</p><!-- 내가 스크랩한 게시글 갯수 삽입 코드 -->
+							<p class="number">${myScrapTotalContents}</p><!-- 내가 스크랩한 게시글 갯수 삽입 코드 -->
 						</div>
 					</div>
 					</div>

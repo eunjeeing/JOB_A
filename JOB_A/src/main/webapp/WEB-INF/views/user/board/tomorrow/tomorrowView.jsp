@@ -215,6 +215,18 @@ p {
 											${tomorrow.comm_count }
 									</span>
 									<div class="info_fnc">
+										<c:if test="${member.memNo ne tomorrow.mem_no}">
+										<!-- 신고 inline css by 은열 -->
+										<span class="rebo" style="margin-right:-4px;"> 
+											<i class="fas fa-exclamation-triangle" id="report" style="padding:2px;"></i>
+											<a class="reportBtn" style="color:black; vertical-align: middle; " id="myBtn"> 신고</a> 
+										</span>
+											<input type="hidden" id="board_info" value="${tomorrow.board_no }">
+											<input type="hidden" id="board_mem_no" value="${tomorrow.mem_no }">
+											<input type="hidden" id="board_reporter" value="${member }">
+										<!---------------------------------------------------------------------------> 
+										</c:if>
+										
 										<span class="rebo" onclick="bookmark(${tomorrow.board_no}, ${member.memNo})">
 											<c:if test="${!empty bookmark}">
 												<i class="fas fa-bookmark" id="bookmark"></i> 스크랩
@@ -234,10 +246,6 @@ p {
 								<div align="right">
 									<button style="font-weight: 300; margin-right:10px;"
 									 onclick="location.href='${pageContext.request.contextPath}/tomorrowUpdateForm.bo?board_no=${tomorrow.board_no}'">수정</button>
-									<!-- 
-									 <button style="font-weight: 300; margin-right:10px;"
-									 onclick="location.href='${pageContext.request.contextPath}/tomorrowUpdateForm.bo?board_no=${tomorrow.board_no}&mem_no=${SessionScope.member.memNo}&type_no=${tomorrow.type_no}'">수정</button>
-									 -->
 									<button style="font-weight: 300;" onclick="location.href='${pageContext.request.contextPath}/tomorrowDelete.bo?board_no=${tomorrow.board_no}'">삭제</button>
 								</div>
 								</c:if>
@@ -270,14 +278,14 @@ p {
 								
 								<!-- 댓글리스트 -->
 								<c:forEach items="${commentList}" var="co">
-								<c:if test="${co.comm_level eq 1}">
-									<div id="${co.comm_no }" class="wrap-comment comment-area">
-										<p class="name">${co.mem_nick }<c:if test="${co.mem_no eq tomorrow.mem_no }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
-										<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_content }</textarea></p>
+								<c:if test="${co.comm_Level eq 1}">
+									<div id="${co.comm_No }" class="wrap-comment comment-area">
+										<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq tomorrow.mem_no }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
+										<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content }</textarea></p>
 										<div class="wrap-info">
 										
 											<span class="date"> <i class="far fa-clock"></i>
-											<fmt:parseDate var="parsedDate" value="${co.comm_date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
+											<fmt:parseDate var="parsedDate" value="${co.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
 											<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
 											<a class="cmt" href="#" onclick="reComment(this);return false;"> <i class="far fa-comment"> </i> 대댓글
 											</a>
@@ -291,6 +299,14 @@ p {
 													<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
 													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?type_No=${tomorrow.type_no}&board_no=${tomorrow.board_no}&comm_No=${co.comm_No }'">삭제</a>
 												</c:if>
+												<c:if test="${member.memNo ne co.mem_No}">
+												<span class="reportBtn_comment" id="reportBtn_comment" style="vertical-align: middle;" ><i class="fas fa-exclamation-triangle"></i></span> 
+													<!-- ----------------------- 댓글신고정보 by 은열 ------------------------------ -->
+													<input type="hidden" class="board_comment_info" value="${co.comm_No }">
+													<input type="hidden" class="board_comment_mem_no" value="${co.mem_No }">
+													<input type="hidden" class="board_comment_reporter" value="${member }">
+													<!-- ----------------------------------------------------- -->
+												</c:if>
 											</div>
 										</div>
 									</div>
@@ -300,7 +316,7 @@ p {
 								<c:if test="${co.comm_Level ne 1}">
 									<div class="wrap-reply">
 										<div id="${co.comm_No }" class="wrap-comment comment-area">
-											<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq tomorrow.mem_No }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
+											<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq tomorrow.mem_no }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
 											<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content }</textarea></p>
 											<div class="wrap-info">
 											
@@ -316,6 +332,15 @@ p {
 														<a href="#" onclick="updateComment(this);return false;">수정</a>
 														<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
 														<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?type_No=${tomorrow.type_no}&board_no=${tomorrow.board_no}&comm_No=${co.comm_No }'">삭제</a>
+													</c:if>
+													
+													<c:if test="${member.memNo ne co.mem_No}">
+													<span class="reportBtn_cocomment" id="reportBtn_cocomment" style="vertical-align: middle;" ><i class="fas fa-exclamation-triangle"></i></span> 
+													<!-- ----------------------- 대댓글신고정보 by 은열 ------------------------------ -->
+													<input type="hidden" class="board_cocomment_info" value="${co.comm_No }">
+													<input type="hidden" class="board_cocomment_mem_no" value="${co.mem_No }">
+													<input type="hidden" class="board_cocomment_reporter" value="${member }">
+													<!-- ----------------------------------------------------- -->
 													</c:if>
 												</div>
 											</div>
@@ -333,6 +358,8 @@ p {
 		</div>
 		<c:import url="../../common/sideBar.jsp" />
 	</div>
+		<c:import url="../reportModal.jsp"/>	<!-- 신고 모달 창 -->
+	
 
 	<script
 		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
@@ -482,7 +509,57 @@ p {
 						}
 				});
 			}
-		}	
+		}
+
+	 // 게시글신고모달 스크립트 by 은열
+	    $('.reportBtn').click(function(){
+		    var test = $('#board_info').val();
+		    
+			$('.modal_board').val($('#board_info').val());
+			$('.modal_reporter').val($('#board_reporter').val());
+			$('.modal_board_no').val($('#board_mem_no').val());
+			$('.modal_separate').val(1);
+	    });
+
+        var commentModal = document.getElementById('myModal');
+	    
+	    // 댓글 신고모달 스크립트 by 은열
+		var $comment = $('.reportBtn_comment').on('click', function(){
+				var idx = $comment.index(this);
+				console.log(idx)
+				var modal_board = $('.board_comment_info:eq('+idx+')').val();
+				console.log( "보드번호:"+modal_board );
+				var modal_reporter = $('.board_comment_reporter:eq('+idx+')').val();
+				console.log( "신고자넘버:"+modal_reporter );
+				var modal_board_no = $('.board_comment_mem_no:eq('+idx+')').val();
+				console.log( "게시글작성자번호:"+modal_board_no );
+				
+				$('.modal_separate').val(2);	
+				$('.modal_board').val(modal_board);
+				$('.modal_reporter').val(modal_reporter);
+				$('.modal_board_no').val(modal_board_no);
+	              commentModal.style.display = "block";
+					
+			});
+
+
+	    // 대댓글 신고모달 스크립트 by 은열
+		var $cocoment = $('.reportBtn_cocomment').on('click', function(){
+				var idx = $cocoment.index(this);
+				var modal_board = $('.board_cocomment_info:eq('+idx+')').val();
+				console.log( "보드번호:"+modal_board );
+				var modal_reporter = $('.board_cocomment_reporter:eq('+idx+')').val();
+				console.log( "신고자넘버:"+modal_reporter );
+				var modal_board_no = $('.board_cocomment_mem_no:eq('+idx+')').val();
+				console.log( "게시글작성자번호:"+modal_board_no );
+				
+				$('.modal_separate').val(2);	
+				$('.modal_board').val(modal_board);
+				$('.modal_reporter').val(modal_reporter);
+				$('.modal_board_no').val(modal_board_no);
+	              commentModal.style.display = "block";
+					
+			});	
 
 	</script>
 </body>

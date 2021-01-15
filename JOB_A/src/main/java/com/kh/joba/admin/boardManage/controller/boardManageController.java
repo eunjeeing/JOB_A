@@ -132,6 +132,8 @@ public class boardManageController {
 			loc = "/admin/interviewList.do";
 		} else if (type_No == 10) {
 			loc = "/admin/acceptList.do";
+		} else if (type_No == 1) {
+			loc = "/admin/noticeList.bo";
 		}
 
 		if (result > 0) {
@@ -170,6 +172,8 @@ public class boardManageController {
 			loc = "/admin/interviewList.do";
 		} else if (type_No == 10) {
 			loc = "/admin/acceptList.do";
+		} else if (type_No == 1) {
+			loc = "/admin/noticeList.bo";
 		}
 
 		if (result > 0) {

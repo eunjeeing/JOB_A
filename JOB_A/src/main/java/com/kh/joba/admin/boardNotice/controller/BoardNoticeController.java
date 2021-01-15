@@ -28,5 +28,10 @@ public class BoardNoticeController {
 		
 		return "admin/board/notice/noticeList";
 	}
+	
+	@RequestMapping("/admin/noticeWrite.bo")
+	public String noticeWriteForm () {
+		return "admin/board/notice/noticeWriteForm";
+	}
 
 }

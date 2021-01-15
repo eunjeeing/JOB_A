@@ -44,6 +44,10 @@ public class MyScrapServiceImpl implements MyScrapService {
 	public int searchMyScrapTotalContents(Bookmark book) {
 		return msDAO.searchScrapTotalContents(book);
 	}
+
+
+	
+	
 	
 	 
 

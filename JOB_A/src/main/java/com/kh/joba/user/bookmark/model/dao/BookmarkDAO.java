@@ -16,4 +16,6 @@ public interface BookmarkDAO {
 
 	int deleteAllBookmark(int board_no);
 
+	int deleteAllBookmark();
+
 }

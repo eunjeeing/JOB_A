@@ -38,6 +38,12 @@ public class BookmarkDAOImpl implements BookmarkDAO {
 	public int deleteAllBookmark(int board_no) {
 		return sqlSession.delete("bookmarkMapper.deleteAllBookmark", board_no);
 	}
+
+	@Override
+	public int deleteAllBookmark() {
+		return sqlSession.delete("bookmarkMapper.deleteAllBookmarkOutDate");
+	}
+	
 	
 	
 	

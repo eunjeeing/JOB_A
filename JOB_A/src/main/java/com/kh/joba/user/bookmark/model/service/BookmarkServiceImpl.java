@@ -34,6 +34,13 @@ public class BookmarkServiceImpl implements BookmarkService {
 	public Bookmark selectOneBookmark(Bookmark bookmark) {
 		return bmDAO.selectOneBookmark(bookmark);
 	}
+
+	@Override
+	public int deleteAllBookmark() {
+		return bmDAO.deleteAllBookmark();
+	}
+	
+	
 	
 	
 	

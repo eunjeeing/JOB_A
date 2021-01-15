@@ -21,6 +21,10 @@
 	<delete id="deleteAllBookmark" parameterType="_int">
 		DELETE FROM SCRAP WHERE BOARD_NO = #{board_no}
 	</delete>
+	<delete id="deleteAllBookmarkOutDate">
+		DELETE FROM scrap 
+		WHERE board_no IN (SELECT board_no FROM board WHERE sysdate - 1 <![CDATA[>]]> board_date)
+	</delete>
 	
 	
 	

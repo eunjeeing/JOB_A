@@ -14,5 +14,7 @@ public interface BookmarkService {
 	
 	Bookmark selectOneBookmark(Bookmark bookmark);
 
+	int deleteAllBookmark();
+
 	
 }

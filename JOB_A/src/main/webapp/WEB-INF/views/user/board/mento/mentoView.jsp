@@ -223,14 +223,14 @@ p {
 									
 										<c:if test="${member.memNo ne mento.mem_no}">
 										<!-- 신고 inline css by 은열 -->
-										<span class="rebo" style="margin-right:-4px;"> 
-											<i class="fas fa-exclamation-triangle" id="report" style="padding:2px;"></i>
-											<a class="reportBtn" style="color:black; vertical-align: middle; " id="myBtn"> 신고</a> 
-										</span>
-											<input type="hidden" id="board_info" value="${mento.board_no}">
-											<input type="hidden" id="board_mem_no" value="${mento.mem_no }">
-											<input type="hidden" id="board_reporter" value="${member}">
-										<!---------------------------------------------------------------------------> 
+											<span class="rebo" style="margin-right:-4px;"> 
+												<i class="fas fa-exclamation-triangle" id="report" style="padding:2px;"></i>
+												<a class="reportBtn" style="color:black; vertical-align: middle; " id="myBtn"> 신고</a> 
+											</span>
+												<input type="hidden" id="board_info" value="${mento.board_no}">
+												<input type="hidden" id="board_mem_no" value="${mento.mem_no }">
+												<input type="hidden" id="board_reporter" value="${member}">
+											<!---------------------------------------------------------------------------> 
 										</c:if>
 										
 										<span class="rebo" onclick="bookmark(${mento.board_no}, ${member.memNo})">

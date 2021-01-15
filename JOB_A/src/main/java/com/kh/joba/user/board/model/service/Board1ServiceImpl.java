@@ -158,6 +158,7 @@ public class Board1ServiceImpl implements Board1Service {
 // *******************************************************************************************
 	@Override
 	public List<Map<String, String>> selectInterviewList(int cPage, int numPerPage) {
+		int reuslt = bmDAO.deleteAllBookmark();
 		return board1DAO.selectInterviewList(cPage, numPerPage);
 	}
 	@Override
