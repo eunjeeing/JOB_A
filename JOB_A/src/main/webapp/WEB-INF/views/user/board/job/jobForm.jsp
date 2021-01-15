@@ -204,18 +204,18 @@ input[type="date"]:focus {
 									<input type="text" class="form-control" placeholder="제목"
 									name="board_Title" id="board_Title" required>
 									<input type="text" class="form-control" placeholder="URL ex) http://www.naver.com"
-									name="board_Url">
+									name="board_Url" required>
 									<div style="color: #7f888f; display: inline-flex;" >
 										<text style="line-height: 40px;">시작일  </text> 
-										<input type="date" class="form-control" style="width:20%; color:inherit;" name="board_Start" >
+										<input type="date" class="form-control" style="width:20%; color:inherit;" name="board_Start" required>
 										<text style="line-height: 40px;">종료일  </text>
-										<input type="date" class="form-control" style="width:20%; color:inherit;" name="board_End">
+										<input type="date" class="form-control" style="width:20%; color:inherit;" name="board_End" required>
 										<text style="line-height: 40px;">합격발표일  </text>
-										<input type="date" class="form-control" style="width:20%; color:inherit;" name="board_Announce">
+										<input type="date" class="form-control" style="width:20%; color:inherit;" name="board_Announce" required>
 									</div>
 									 	<div id="category-border">
 											<div id="categoty" style="padding: 15px 50px 0 50px;">
-												<input type="radio" name="category_No" id="경영·사무" value="1" >
+												<input type="radio" name="category_No" id="경영·사무" value="1" checked>
 												<label for="경영·사무" class="top-radio">경영·사무</label> &nbsp;&nbsp;&nbsp;
 												
 												<input type="radio" name="category_No" id="마케팅·광고·홍보" value="2" >
