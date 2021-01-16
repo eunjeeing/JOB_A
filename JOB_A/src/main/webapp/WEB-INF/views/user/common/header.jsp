@@ -48,6 +48,12 @@
 	
 </header>
 
+<script>
+function goAdmin(){
+	location.href = '${pageContext.request.contextPath}/adminIndex.do';
+	}
+</script>
+
 
 
 

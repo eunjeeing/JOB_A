@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.joba.admin.management.model.vo.Admin;
+import com.kh.joba.user.board2.blahblah.model.vo.Board2;
 import com.kh.joba.user.member.model.vo.Member;
 
 @Repository
@@ -86,6 +87,12 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
+	public Board2 selectBoardDetail(int boardNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("adminMapper.selectBoardDetail", boardNo);
+	}
+
+	@Override
 	public List<Map<String, String>> selectGradeList() {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("adminMapper.selectGradeList");
@@ -102,6 +109,7 @@ public class AdminDAOImpl implements AdminDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.update("memberMapper.changeStatus", member);
 	}
+
 
 
 }

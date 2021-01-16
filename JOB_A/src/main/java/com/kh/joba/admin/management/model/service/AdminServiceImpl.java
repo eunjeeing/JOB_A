@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.joba.admin.management.model.dao.AdminDAO;
 import com.kh.joba.admin.management.model.vo.Admin;
+import com.kh.joba.user.board2.blahblah.model.vo.Board2;
 import com.kh.joba.user.member.model.vo.Member;
 
 @Service
@@ -88,6 +89,12 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public Board2 selectBoardDetail(int boardNo) {
+		// TODO Auto-generated method stub
+		return adminDAO.selectBoardDetail(boardNo);
+	}
+	
+	@Override
 	public List<Map<String, String>> selectGradeList() {
 		// TODO Auto-generated method stub
 		return adminDAO.selectGradeList();
@@ -104,6 +111,7 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		return adminDAO.changeStatus(member);
 	}
+
 
 
 

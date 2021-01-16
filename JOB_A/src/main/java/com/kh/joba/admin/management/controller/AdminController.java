@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.kh.joba.admin.management.model.service.AdminService;
 import com.kh.joba.admin.management.model.vo.Admin;
+import com.kh.joba.user.board2.blahblah.model.vo.Board2;
 import com.kh.joba.user.member.model.vo.Member;
 
 @Controller
@@ -144,12 +145,61 @@ public class AdminController {
 	@RequestMapping("user/userDetail")
 	public String selcetUserDetail(int memNo, Model model) { 
 		
-		List<Map<String, String>> member = adminService.selectMember(memNo);
+		List<Map<String, String>> user = adminService.selectMember(memNo);
 		
-		model.addAttribute("user", member);
+		model.addAttribute("user", user);
 		return "admin/management/memberDetail";
 	}
 	
+	@RequestMapping("user/selectBoardList")
+	public String selectBoardList(int memNo, Model model) { 
+		List<Map<String, String>> user = adminService.selectMember(memNo);
+		model.addAttribute("user", user);
+		
+		List<Map<String,String>> boardList = adminService.selectBoardList(memNo);
+		System.out.println("boardList : " + boardList);
+		model.addAttribute("boardList", boardList);
+		
+		return "admin/management/boardList";
+	}
+	
+	@RequestMapping("user/selectCommentList")
+	public String selectCommentList(int memNo, Model model) { 
+		List<Map<String, String>> user = adminService.selectMember(memNo);
+		model.addAttribute("user", user);
+		
+		List<Map<String,String>> commentList = adminService.selectCommentList(memNo);
+		System.out.println("commentList : " + commentList);
+		model.addAttribute("commentList", commentList);
+		
+		return "admin/management/commentList";
+	}
+	
+	@RequestMapping("user/selectReportBoardList")
+	public String selectReportBoardList(int memNo, Model model) { 
+		List<Map<String, String>> user = adminService.selectMember(memNo);
+		model.addAttribute("user", user);
+		
+		List<Map<String,String>> rBoardList = adminService.selectReportBoardList(memNo);
+		System.out.println("rBoardList : " + rBoardList);
+		model.addAttribute("rBoardList", rBoardList);
+		
+		return "admin/management/reportBoardList";
+	}
+	
+	@RequestMapping("user/selectReportCommentList")
+	public String selectReportCommentList(int memNo, Model model) { 
+		List<Map<String, String>> user = adminService.selectMember(memNo);
+		model.addAttribute("user", user);
+		
+		List<Map<String,String>> rCommentList = adminService.selectReportCommentList(memNo);
+		System.out.println("rCommentList : " + rCommentList);
+		model.addAttribute("rCommentList", rCommentList);
+		
+		return "admin/management/reportCommentList";
+	}
+	
+/* ajax로 구현할때
 	@RequestMapping(value="user/selectBoardList", produces="application/text; charset=utf8")
 	@ResponseBody
 	public String selectBoardList(int memNo) { 
@@ -182,6 +232,17 @@ public class AdminController {
 		List<Map<String,String>> rcList = adminService.selectReportCommentList(memNo);
 		System.out.println("rcList : " + rcList);
 		return new Gson().toJson(rcList);
+	}
+*/
+	
+	@RequestMapping("user/selectBoardDetail")
+	public String selectBoardDetail(int boardNo, Model model) {
+		
+		Board2 board = adminService.selectBoardDetail(boardNo);
+		System.out.println(board);
+		model.addAttribute("board", board);
+		
+		return "admin/management/boardDetail";
 	}
 	
 	@RequestMapping("user/gradeListView")
