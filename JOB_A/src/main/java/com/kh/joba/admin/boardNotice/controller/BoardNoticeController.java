@@ -36,6 +36,7 @@ public class BoardNoticeController {
 		 * List<Map<String, String>> list = bns.adminNoticeList();
 		 * model.addAttribute("adminNotice", list);
 		 */
+		System.out.println("adminNoticeList");
 		
 		return "admin/board/notice/adminNoticeList";
 	}
