@@ -36,7 +36,6 @@
 												<tr role="row">
 													<th>No.</th>
 													<th>제목</th>
-													<th>내용</th>
 													<th>작성자</th>
 													<th>등록일</th>
 													<th>활동내역으로 이동</th>
@@ -44,10 +43,12 @@
 											</thead>
 											<tbody>
 												<c:forEach items="${gradeList}" var="g">
-													<tr>
-														<td>${g.board_No}</td>
-														<td>${g.board_Title}</td>
-														<td>${g.board_Content}</td>
+													<tr >
+														<td>
+															${g.board_No}
+															<input type="hidden" id="boardNo" value="${g.board_No}">
+														</td>
+														<td><a href="javascript:void(0);" onclick="boardDetail()">${g.board_Title}</a></td>
 														<td>${g.mem_Nick}</td>
 														<td>${g.board_Date}</td>
 														<td>
@@ -56,30 +57,6 @@
 													</tr>
 												</c:forEach>
 											</tbody>
-											<%-- <tbody>
-												<c:forEach items="${gradeList}" var="g">
-													<tr>
-														<td>${g.board_No}</td>
-														<td>
-															<div id="accordion">
-																<a href="#collapse" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse">${g.board_Title}</a>
-															</div>
-														</td>
-														<td>${g.mem_Nick}</td>
-														<td>${g.board_Date}</td>
-														<td>
-															<a style="text-decoration: none;" href="${pageContext.request.contextPath}/user/userDetail?memNo=${m.memNo}">&nbsp;<span style="color: #6c757d" class="fe fe-file-text fe-24 mr-2"></span></a>
-														</td>
-													</tr>
-													<tr>
-														<td colspan="5">
-															<div id="collapse" class="collapse" aria-labelledby="heading" data-parent="#accordion">
-							                					<div class="card-body">${g.board_Content }</div>
-							              					</div>
-							              				</td>
-													</tr>
-												</c:forEach>
-											</tbody> --%>
 										</table>
 									</div>
 								</div>
@@ -97,7 +74,16 @@
 		<!-- main -->
 	</div>
 	<!-- .wrapper -->
+	
+	<script>
+		function boardDetail() {
+			var boardNo = $('#boardNo').val();
+			var popUrl = "${pageContext.request.contextPath}/user/selectBoardDetail?boardNo=" + boardNo;
+			var popOption = "width=700, height=600, resizable=no, scrollbars=no, status=no;";
 
+			window.open(popUrl, "", popOption);
+		}
+	</script>
 
 	<script>
 	$('#dataTable-1').DataTable(

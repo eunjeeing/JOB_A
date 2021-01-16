@@ -52,7 +52,7 @@
 												<div class="row">
 													<label for="adminPhone" class="col-form-label col-sm-3 pt-0">연락처</label>
 													<div class="col-sm-6">
-														<input class="form-control input-phoneus" id="adminPhone" name="adminPhone" maxlength="14" required>
+														<input class="form-control input-phoneus" onblur="validate2(this)" id="adminPhone" name="adminPhone" maxlength="14" required>
 													</div>
 												</div>
 											</fieldset>
@@ -100,7 +100,7 @@
 
 		$('.input-phoneus').mask('000-0000-0000');
 
-
+		
 
 		/* 아이디 중복 체크 */
 		$(".duplicateCheck").click(function(){
@@ -131,6 +131,8 @@
 				});
 						} // else 닫는 부분
 			});
+
+		
 	</script>
 </body>
 </html>

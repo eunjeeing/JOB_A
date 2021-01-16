@@ -80,18 +80,58 @@
                     <div class="card-body">
                       <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist">
                         <li class="nav-item">
-                          <a class="nav-link active" onclick="boardTab()" id="pills-board-tab" data-toggle="pill" href="#pills-board" role="tab" aria-controls="pills-board" aria-selected="false">총 작성 글</a>
+                          <a class="nav-link" onclick="boardTab()" id="pills-board-tab" data-toggle="pill" href="#pills-board" role="tab" aria-controls="pills-board" aria-selected="false">총 작성 글</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" onclick="commentTab()" id="pills-comment-tab" data-toggle="pill" href="#pills-comment" role="tab" aria-controls="pills-comment" aria-selected="false">총 작성 댓글</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" onclick="rBoardTab()" id="pills-rBoard-tab" data-toggle="pill" href="#pills-rBoard" role="tab" aria-controls="pills-rBoard" aria-selected="false">신고된 글</a>
+                          <a class="nav-link active" onclick="rBoardTab()" id="pills-rBoard-tab" data-toggle="pill" href="#pills-rBoard" role="tab" aria-controls="pills-rBoard" aria-selected="false">신고된 글</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" onclick="rCommentTab()" id="pills-rComment-tab" data-toggle="pill" href="#pills-rComment" role="tab" aria-controls="pills-rComment" aria-selected="false">신고된 댓글</a>
                         </li>
                       </ul>
+                      <div class="tab-content mb-1" id="pills-tabContent">
+                        
+                        <div class="tab-pane fade show active" id="pills-rBoard" role="tabpanel" aria-labelledby="pills-rBoard-tab">
+                        	<table class="table table-hover datatables" id="dataTable-1">
+								<thead>
+									<tr role="row">
+										<th>No.</th>
+										<th>게시판</th>
+										<th style="width: 40%">제목</th>
+										<th>작성자</th>
+										<th>등록일</th>
+										<th>조회수</th>
+										<th>게시물 상태</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${rBoardList}" var="rb">
+										<tr>
+											<td>
+												${rb.board_No}
+												<input type="hidden" id="boardNo" value="${rb.board_No}">
+											</td>
+											<td>${rb.type_Name}</td>
+											<td><a href="javascript:void(0)" onclick="boardDetail()">${rb.board_Title}</a></td>
+											<td>${rb.mem_Nick}</td>
+											<td>${rb.board_Date}</td>
+											<td>${rb.board_View}</td>
+											<td><c:if test="${rb.board_Status eq 'Y'}">
+												<span class="badge badge-success">활성화</span></c:if>
+												<c:if test="${rb.board_Status eq 'N'}">
+												<span class="badge badge-secondary">삭제</span></c:if>
+												<c:if test="${rb.board_Status eq 'B'}">
+												<span class="badge badge-danger">블라인드</span></c:if>
+											</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+                       </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -175,40 +215,26 @@
       </main> <!-- main -->
     </div> <!-- .wrapper -->
    
+   	<script>
+		function boardDetail() {
+			var boardNo = $('#boardNo').val();
+			var popUrl = "${pageContext.request.contextPath}/user/selectBoardDetail?boardNo=" + boardNo;
+			var popOption = "width=700, height=600, resizable=no, scrollbars=no, status=no;";
+
+			window.open(popUrl, "", popOption);
+		}
+	</script>
+	
+   
     <script type="text/javascript">
+	   
 	    $('#dataTable-1').DataTable({
 			autoWidth: true,
 	        "lengthMenu": [
 	          [16, 32, 64, -1],
 	          [16, 32, 64, "All"]
 	        ]
-	  	});
-
-	    $('#dataTable-2').DataTable({
-			autoWidth: true,
-	        "lengthMenu": [
-	          [16, 32, 64, -1],
-	          [16, 32, 64, "All"]
-	        ]
       	});
-
-	    $('#dataTable-3').DataTable({
-			autoWidth: true,
-	        "lengthMenu": [
-	          [16, 32, 64, -1],
-	          [16, 32, 64, "All"]
-	        ]
-      	});
-
-	    $('#dataTable-4').DataTable({
-			autoWidth: true,
-	        "lengthMenu": [
-	          [16, 32, 64, -1],
-	          [16, 32, 64, "All"]
-	        ]
-      	});
-      	
-
 	</script>
    
    
@@ -235,166 +261,7 @@
    
    </script>
    
-	<!-- ajax로 불러올때 -->
-	<script>
-    	/* function boardTab(){
-    		var memNo = $('.memNoVal').val();
-			$.ajax({
-				url: "${pageContext.request.contextPath}/user/selectBoardList",
-				data :{memNo : memNo},
-				async: true,
-				dataType : "json",
-				success : function(data){
-					
-					var bList = data;
-					$('.boardListTbody').empty();
-					for(var i in bList){
-						console.log(data[i]);
-						listBody = 
-							'<tr class="accordion-toggle collapsed" data-toggle="collapse"  href="#collap' + i + '">'
-								+'<td>'+ data[i].board_No +'</td>'
-								+'<td>'+ data[i].type_Name +'</td>'
-								+'<td>'+ data[i].board_Title +'</td>'
-								+'<td>'+ data[i].mem_Nick +'</td>'
-								+'<td>'+ data[i].board_Date +'</td>'
-								+'<td>'+ data[i].board_View +'</td>'
-								+'<td>'+ data[i].board_Status +'</td>'
-							+'</tr>'
-							+'<tr id="collap' + i + '" class="collapse in p-3 bg-light">'
-								+'<td colspan="7">'+ data[i].board_Content +'</td>'
-							+'</tr>'
-						$('.boardListTbody').append(listBody);
-					}
-					
-					
-				}, error : function () {
-					alert("불러오기 실패");
-				}
-			});
-		};
-
-		
-		function commentTab(){
-			var memNo = $('.memNoVal').val();
-			$.ajax({
-				url: "${pageContext.request.contextPath}/user/selectCommentList",
-				data :{memNo : memNo},
-				async: true,
-				dataType : "json",
-				success : function(data){
-					
-					var cList = data;
-					$('.commentListTbody').empty();
-					for(var i in cList){
-						console.log(data[i]);
-						listBody = 
-							'<tr>'
-								+'<td>'+ data[i].comm_No +'</td>'
-								+'<td colspan="3">'+ data[i].comm_Content +'</td>'
-								+'<td></td>'
-								+'<td></td>'
-								+'<td>'+ data[i].comm_Date +'</td>'
-							+'</tr>'
-						$('.commentListTbody').append(listBody);
-					}
-					
-				}, error : function () {
-					alert("불러오기 실패");
-				}
-			});
-		};
-
-		function rBoardTab(){
-    		var memNo = $('.memNoVal').val();
-			$.ajax({
-				url: "${pageContext.request.contextPath}/user/selectReportBoardList",
-				data :{memNo : memNo},
-				async: true,
-				dataType : "json",
-				success : function(data){
-					
-					var rbList = data;
-					
-					$('.rBoardListTbody').empty();
-					for(var i in rbList){
-						console.log(data[i]);
-						listBody = 
-							'<tr>'
-								+'<td>'+ data[i].board_No +'</td>'
-								+'<td>'+ data[i].type_Name +'</td>'
-								+'<td class="'+ data[i].board_No +'">'
-									+'<div id="accordion'+ i +'">'
-										+'<a href="#collapse'+ i +'" data-toggle="collapse" data-target="#collapse'+ i +'" aria-expanded="false" aria-controls="collapse'+ i +'">'+ data[i].board_Title +'</a>'
-									+'</div>'
-								+'</td>'
-								+'<td>'+ data[i].mem_Nick +'</td>'
-								+'<td>'+ data[i].board_Date +'</td>'
-								+'<td>'+ data[i].board_View +'</td>'
-							+'</tr>'
-							+'<tr>'
-								+'<td colspan="6">'
-									+'<div id="collapse'+ i +'" class="collapse" aria-labelledby="heading" data-parent="#accordion'+ i +'">'
-	                					+'<div class="card-body">'+ data[i].board_Content +'</div>'
-	              					+'</div>'
-	              				+'</td>'
-							+'</tr>'
-						$('.rBoardListTbody').append(listBody);
-					}
-					
-					
-					
-				}, error : function () {
-					alert("불러오기 실패");
-				}
-			});
-		};
-
-		function rCommentTab(){
-			var memNo = $('.memNoVal').val();
-			$.ajax({
-				url: "${pageContext.request.contextPath}/user/selectReportCommentList",
-				data :{memNo : memNo},
-				async: true,
-				dataType : "json",
-				success : function(data){
-					
-					$('.rCommentListTbody').empty();
-					var rcList = data;
-					for(var i in rcList){
-						console.log(data[i]);
-						listBody = 
-							'<tr>'
-								+'<td>'+ data[i].comm_No +'</td>'
-								+'<td colspan="5">'+ data[i].comm_Content +'</td>'
-								+'<td></td>'
-								+'<td></td>'
-								+'<td></td>'
-								+'<td></td>'
-								+'<td>'+ data[i].comm_Date +'</td>'
-							+'</tr>'
-						$('.rCommentListTbody').append(listBody);
-					}
-					
-				}, error : function () {
-					alert("불러오기 실패");
-				}
-			});
-		}; */
-	</script>
-	
-	
-<%-- 	+'<fmt:parseDate var="parsedDate" value="'+ data[i].comm_Date +'" pattern="yyyy-MM-dd HH:mm:ss.S"/>'
-	+'<td><fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>' --%>
-	
-<%-- 	+'<td>'
-		+'<c:if test="'+ data[i].board_Status +'eq Y}">'
-			+'<span class="badge badge-success">활성화</span></c:if>'
-		+'<c:if test="'+ data[i].board_Status +'eq N}">'
-			+'<span class="badge badge-secondary">삭제</span></c:if> 
-		+'<c:if test="'+ data[i].board_Status +'eq B}">'
-			+'<span class="badge badge-danger">블라인드</span></c:if> 
-	+'</td>' --%>
-  
+ 
 	<script>
 
     window.dataLayer = window.dataLayer || [];

@@ -72,7 +72,7 @@
 														class="col-form-label col-sm-3 pt-0">연락처</label>
 													<div class="col-sm-6">
 														<input class="form-control input-phoneus" id="adminPhone" 
-															name="adminPhone" maxlength="14" value="${admin.adminPhone}" required>
+															name="adminPhone" maxlength="14" onblur="validate2(this)" value="${admin.adminPhone}" required>
 													</div>
 												</div>
 											</fieldset>
@@ -114,16 +114,14 @@
 			
 		case 'adminPw':
 			validate = /^[A-Za-z0-9_-]{6,18}$/; // (영문대소문자+숫자 6~18자리)
-			valiMessage = '대,소문자와 숫자를 조합하여 6~18자리 생성해 주세요 ~^^';
+			valiMessage = '대,소문자와 숫자를 조합한 6~18자리 입력';
 			break;
 			
-		/* 관리자 연락처 사용시 필요할까봐 주석처리
-		case 'tel':
+		case 'adminPhone':
 			validate = /^\d{2,3}-\d{3,4}-\d{4}$/; // 010-0000-0000
 			valiMessage = '전화번호 양식을 확인해주세요';
 			break;
-		*/
-			
+		
 		}
 		
 		// 유효성 체크

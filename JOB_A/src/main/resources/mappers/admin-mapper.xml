@@ -57,7 +57,7 @@
 	<select id="selectBoardList" parameterType="_int" resultType="Board">
 		SELECT *
 		FROM BOARD B, MEMBER M, BOARDTYPE T
-		WHERE B.MEM_NO = #{mem_No} 
+		WHERE B.MEM_NO = #{adminNo} 
 		AND BOARD_STATUS = 'Y' 
 		AND B.MEM_NO = M.MEM_NO 
 		AND B.TYPE_NO = T.TYPE_NO
@@ -68,7 +68,7 @@
 	<select id="selectCommentList" parameterType="_int" resultType="Comments2">
 		SELECT *
 		FROM COMMENTS C, MEMBER M, BOARD B
-		WHERE C.MEM_NO = #{mem_No} 
+		WHERE C.MEM_NO = #{adminNo} 
 		AND COMM_STATUS = 'Y' 
 		AND C.MEM_NO = M.MEM_NO 
 		AND B.BOARD_NO = C.BOARD_NO
@@ -78,7 +78,7 @@
 	<select id="selectReportBoardList" parameterType="_int" resultType="Board">
 		SELECT *
 		FROM BOARD B, MEMBER M, BOARDTYPE T
-		WHERE B.MEM_NO = #{mem_No} 
+		WHERE B.MEM_NO = #{adminNo} 
 		AND BOARD_REPORTNUM > 0 
 		AND B.MEM_NO = M.MEM_NO 
 		AND B.TYPE_NO = T.TYPE_NO
@@ -88,11 +88,16 @@
 	<select id="selectReportCommentList" parameterType="_int" resultType="Comments2">
 		SELECT *
 		FROM COMMENTS C, MEMBER M, BOARD B
-		WHERE C.MEM_NO = #{mem_No} 
+		WHERE C.MEM_NO = #{adminNo} 
 		AND COMM_REPORTNUM > 0 
 		AND C.MEM_NO = M.MEM_NO 
 		AND B.BOARD_NO = C.BOARD_NO
 		ORDER BY COMM_DATE DESC, COMM_NO DESC
+	</select>
+	
+	<select id="selectBoardDetail" parameterType="_int" resultType="Board">
+		SELECT * FROM BOARD
+		WHERE BOARD_NO = #{boardNo}
 	</select>
 	
 	<select id="selectGradeList" parameterType="_int" resultType="Board">

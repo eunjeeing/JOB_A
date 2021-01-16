@@ -66,7 +66,7 @@
           </li> -->
           <div style="padding-top: 15px; padding-left: 10px;">
           	<a href="" style="text-decoration: none; ">
-          		${member.memNick}&nbsp;님 오늘도 수고링~!
+          		${member.memNick}&nbsp;님 월급루팡은 안돼요~
           	</a>
           </div>
         </ul>
