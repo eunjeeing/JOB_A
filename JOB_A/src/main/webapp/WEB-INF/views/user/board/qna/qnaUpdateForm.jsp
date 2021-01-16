@@ -17,7 +17,7 @@
 <style>
 #topbanner {
 	background:
-		url(${pageContext.request.contextPath}/resources/images/com.jpg)
+		url(${pageContext.request.contextPath}/resources/images/bg2.jpg)
 		no-repeat;
 	background-position: center center;
 	margin-top: 10px;
@@ -155,7 +155,7 @@ a {
 								  	 onclick="window.history.back();"></i>
 								 	</div>
 								 	<br />
-									<input type="text" class="form-control" 
+									<input type="text" class="form-control"  maxlength="50"
 									name="board_Title" id="board_Title" value="${board2.board_Title }" required>
 							</div>
 							

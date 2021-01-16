@@ -202,9 +202,9 @@ input[type="date"]:focus {
 								  	 onclick="window.history.back();"></i>
 								 	</div>
 								 	<br />
-									<input type="text" class="form-control" 
+									<input type="text" class="form-control"  maxlength="50"
 									name="board_Title" id="board_Title" value="${board2.board_Title }" required>
-									<input type="text" class="form-control" name="board_Url" value="${board2.board_Url }" required>
+									<input type="text" class="form-control" name="board_Url" maxlength="100" value="${board2.board_Url }" required>
 									<div style="color: #7f888f; display: inline-flex;" >
 										<text style="line-height: 40px;">시작일  </text> 
 										<input type="date" class="form-control" style="width:20%; color:inherit;" name="board_Start" value="${board2.board_Start }">

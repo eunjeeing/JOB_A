@@ -13,7 +13,7 @@
 <style>
 #topbanner {
 	background:
-		url(${pageContext.request.contextPath}/resources/images/level.jpg)
+		url(${pageContext.request.contextPath}/resources/images/bg2.jpg)
 		no-repeat;
 	background-position: center center;
 	margin-top: 10px;
@@ -220,7 +220,7 @@ form {
 									
 										<!-- 신고 inline css by 은열 -->
 										<c:if test="${member.memNo ne board2.mem_No}">
-										<span class="rebo" style="margin-right:-4px;"> 
+										<span class="rebo" id="goReport" style="margin-right:-4px;"> 
 											<i class="fas fa-exclamation-triangle" id="report" style="padding:2px;"></i>
 											<a class="reportBtn" style="color:black; vertical-align: middle;" id="myBtn"> 신고</a> 
 										</span>
@@ -270,7 +270,7 @@ form {
 												placeholder="댓글을 남겨주세요." style="resize: none;"></textarea>
 											</form>
 											
-											<!-- 댓글 수 -->
+											<!-- 글자 수 -->
 											<div class="byte" style="float:right; font-size:12px; color:darkgray;">
 												<text id="commentByte">0</text><text id="slash"> / </text><text id="maxByte">500</text>
 											</div>
@@ -547,8 +547,8 @@ form {
 		}
 
 	    // 게시글신고모달 스크립트 by 은열
-	    $('.reportBtn').click(function(){
-		    var test = $('#board_info').val();
+	    $('#goReport').click(function(){
+	    	var test = $('#board_info').val();
 		    
 			$('.modal_board').val($('#board_info').val());
 			$('.modal_reporter').val($('#board_reporter').val());

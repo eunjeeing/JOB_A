@@ -201,10 +201,10 @@ input[type="date"]:focus {
 								  	 onclick="window.history.back();"></i>
 								 	</div>
 								 	<br />
-									<input type="text" class="form-control" placeholder="제목"
+									<input type="text" class="form-control" placeholder="제목" maxlength="50"
 									name="board_Title" id="board_Title" required>
 									<input type="text" class="form-control" placeholder="URL ex) www.naver.com"
-									name="board_Url" required>
+									name="board_Url" maxlength="100" required>
 									<div style="color: #7f888f; display: inline-flex;" >
 										<text style="line-height: 40px;">시작일  </text> 
 										<input type="date" class="form-control" style="width:20%; color:inherit;" name="board_Start" required>

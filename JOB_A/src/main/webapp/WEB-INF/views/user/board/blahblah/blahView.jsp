@@ -8,9 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <title>JOB_A | 블라블라</title>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board.css" />
-
 <style>
 #topbanner {
 	background:
@@ -225,9 +225,9 @@ form {
 									
 										<c:if test="${member.memNo ne board2.mem_No}">
 										<!-- 신고 inline css by 은열 -->
-										<span class="rebo" style="margin-right:-4px;"> 
+										<span class="rebo" id="goReport" style="margin-right:-4px;"> 
 											<i class="fas fa-exclamation-triangle" id="report" style="padding:2px;"></i>
-											<a class="reportBtn" style="color:black; vertical-align: middle; " id="myBtn"> 신고</a> 
+											<a class="reportBtn" style="color:black; vertical-align: middle;" id="myBtn"> 신고</a> 
 										</span>
 											<input type="hidden" id="board_info" value="${board2.board_No }">
 											<input type="hidden" id="board_mem_no" value="${board2.mem_No }">
@@ -278,7 +278,7 @@ form {
 												placeholder="댓글을 남겨주세요." style="resize: none;"></textarea>
 											</form>
 											
-											<!-- 댓글 수 -->
+											<!-- 글자 수 -->
 											<div class="byte" style="float:right; font-size:12px; color:darkgray;">
 												<text id="commentByte">0</text><text id="slash"> / </text><text id="maxByte">500</text>
 											</div>
@@ -377,8 +377,6 @@ form {
 		<c:import url="../../common/sideBar.jsp" />
 	</div>
 	<c:import url="../reportModal.jsp"/>	<!-- 신고 모달 창 -->
-		 	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
 	<script
@@ -554,8 +552,8 @@ form {
 		}	
 
 	    // 게시글신고모달 스크립트 by 은열
-	    $('.reportBtn').click(function(){
-		    var test = $('#board_info').val();
+       $('#goReport').click(function(){
+          var test = $('#board_info').val();
 		    
 			$('.modal_board').val($('#board_info').val());
 			$('.modal_reporter').val($('#board_reporter').val());
