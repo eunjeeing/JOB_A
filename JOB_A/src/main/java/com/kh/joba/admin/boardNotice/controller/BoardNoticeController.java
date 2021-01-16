@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.joba.admin.boardNotice.model.service.BoardNoticeService;
 
@@ -27,6 +28,24 @@ public class BoardNoticeController {
 		
 		
 		return "admin/board/notice/noticeList";
+	}
+	
+	@RequestMapping("/admin/adminNotice.bo")
+	public String adminNotice(Model model) {
+		/*
+		 * List<Map<String, String>> list = bns.adminNoticeList();
+		 * model.addAttribute("adminNotice", list);
+		 */
+		
+		return "admin/board/notice/adminNoticeList";
+	}
+	
+	@RequestMapping("/admin/noticeView.bo")
+	public String noticeView(@RequestParam int board_no, Model model) {
+		
+		System.out.println(board_no);
+		
+		return "admin/board/notice/noticeView";
 	}
 	
 	@RequestMapping("/admin/noticeWrite.bo")

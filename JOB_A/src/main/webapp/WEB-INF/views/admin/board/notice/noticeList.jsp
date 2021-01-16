@@ -15,21 +15,7 @@
 		padding-right: 10px;
 	}
 	
-	p {
-		background: #80808026;
-	    padding: 5px 8px 5px 8px;
-	    color: black;
-	    border-radius: 5px;
-	}
-	
-	p:hover {
-		background: black;
-		color: white;
-		cursor: pointer;
-		padding: 5px 8px 5px 8px;
-	}
-	
-	#mento {
+	#notice {
 		font-weight:800;
 	}
 	
@@ -61,12 +47,11 @@
 						<!-- 탭 -->
 						
 						<div class="tab-div">
-							<div class="tab"><p id="notice">공지사항</p></div>
-							<div class="tab"><p id="adminNotice">관리자 전용 공지</p></div>
+							<div class="tab"><p id="noticeList" class="btn mb-2 btn-primary">공지사항</p></div>
+							<div class="tab"><p id="adminNotice" class="btn mb-2 btn-outline-primary">관리자 전용 공지</p></div>
 						</div>
-						
 
-						
+						<!-- 영역 -->		
 						<div class="row">
 							<div class="col-md-12">
 								<div class="card shadow">
@@ -90,7 +75,7 @@
 												<c:forEach items="${noticeList}" var="notice">
 													<tr align="center" class="trtr">
 														<td>${notice.board_no}</td>
-														<td class="goBoard" id="${notice.board_no }">${notice.board_title}</td>
+														<td class="goBoard" id="${notice.board_no}">${notice.board_title}</td>
 														<td>${notice.mem_nick}</td>
 														<td>${notice.board_date}</td>
 														<td>${notice.board_view}</td>
@@ -103,17 +88,17 @@
 															</c:if> 
 														</td>
 														<td>
-																<c:if test="${notice.board_status eq 'Y' }">
-																	<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
-																		onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusB.do?board_No=${notice.board_no}&type_No=${notice.type_no}'">블라인드</button>
-																</c:if>
-																<c:if test="${notice.board_status eq 'B' }">
-																	<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
-																		onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusY.do?board_No=${notice.board_no}&type_No=${notice.type_no}'">활성화</button>
-																</c:if>
-																<c:if test="${notice.board_status eq 'N'}">
-																	<button class="btn mb-2 btn-light" disabled="disabled">활성화</button>
-																</c:if>
+															<c:if test="${notice.board_status eq 'Y' }">
+																<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
+																	onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusB.do?board_No=${notice.board_no}&type_No=${notice.type_no}'">블라인드</button>
+															</c:if>
+															<c:if test="${notice.board_status eq 'B' }">
+																<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
+																	onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusY.do?board_No=${notice.board_no}&type_No=${notice.type_no}'">활성화</button>
+															</c:if>
+															<c:if test="${notice.board_status eq 'N'}">
+																<button class="btn mb-2 btn-light" disabled="disabled">활성화</button>
+															</c:if>
 														</td>
 													</tr>
 												</c:forEach>
@@ -138,7 +123,7 @@
 <script>
 	$(function(){
 		
-		$("#notice").on("click", function(){
+		$("#noticeList").on("click", function(){
 			location.href = "${pageContext.request.contextPath}/admin/noticeList.bo";
 		});
 		
@@ -150,20 +135,18 @@
 	$(function(){
 		$(".goBoard").on("click", function(){
 			var board_No = $(this).attr("id");
-			location.href = "${pageContext.request.contextPath}/noticeView.bo?board_no="+ board_No;
+			location.href = "${pageContext.request.contextPath}/admin/noticeView.bo?board_no="+ board_No;
 		});
 	});
 
-</script>
-	<script>
-      $('#dataTable-1').DataTable(
-      {
-        autoWidth: true,
-        "lengthMenu": [
-          [16, 32, 64, -1],
-          [16, 32, 64, "All"]
-        ]
-      });
+    $('#dataTable-1').DataTable(
+    {
+      autoWidth: true,
+      "lengthMenu": [
+        [16, 32, 64, -1],
+        [16, 32, 64, "All"]
+      ]
+    });
     </script>
 	<script src="${pageContext.request.contextPath}/resources/admin/js/apps.js"></script>
 	<!-- Global site tag (gtag.js) - Google Analytics -->

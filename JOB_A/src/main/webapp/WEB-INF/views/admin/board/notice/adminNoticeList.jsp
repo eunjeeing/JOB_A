@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시판 관리 | 멘토&멘티</title>
+<title>공지사항 관리 | 관리자 공지사항</title>
 
 <style>
 	.tab {
@@ -15,21 +15,7 @@
 		padding-right: 10px;
 	}
 	
-	p {
-		background: #80808026;
-	    padding: 5px 8px 5px 8px;
-	    color: black;
-	    border-radius: 5px;
-	}
-	
-	p:hover {
-		background: black;
-		color: white;
-		cursor: pointer;
-		padding: 20px 8px 5px 8px;
-	}
-	
-	#mento {
+	#adminNotice {
 		font-weight:800;
 	}
 	
@@ -47,27 +33,22 @@
 <body class="vertical  dark">
 	<div class="wrapper">
 		<!-- 헤더 -->
-		<c:import url="../common/navbar.jsp" />
+		<c:import url="../../common/navbar.jsp" />
 		<!-- 사이드 바 -->
-		<c:import url="../common/sidebar.jsp" />
+		<c:import url="../../common/sidebar.jsp" />
 		
 		<main role="main" class="main-content">
 			<div class="container-fluid">
 				<div class="row justify-content-center">
 					<div class="col-12">
-						<h2 class="page-title">BOARD LIST</h2>
+						<h2 class="page-title">NOTICE LIST</h2>
 						<br />
 						
 						<!-- 탭 -->
+						
 						<div class="tab-div">
-							<div class="tab"><p id="job">채용공고</p></div>
-							<div class="tab"><p id="blahblah">블라블라</p></div>
-							<div class="tab"><p id="blind">블라인드</p></div>
-							<div class="tab"><p id="tomo">언틸 투모로우</p></div>
-							<div class="tab"><p id="qna">레벨업</p></div>
-							<div class="tab"><p id="accept">합격후기</p></div>
-							<div class="tab"><p id="interview">면접후기</p></div>
-							<div class="tab"><p id="mento">멘토&멘티</p></div>
+							<div class="tab"><p id="noticeList" class="btn mb-2 btn-outline-primary">공지사항</p></div>
+							<div class="tab"><p id="adminNotice" class="btn mb-2 btn-primary">관리자 전용 공지</p></div>
 						</div>
 						
 
@@ -90,34 +71,35 @@
 													<th>상태</th>
 													<th width="10%"></th>
 												</tr>
-											</thead>
+											</thead>										
 											<tbody>
-												<c:forEach items="${mentoList }" var="mento">
+												<c:forEach items="${noticeList}" var="notice">
 													<tr align="center" class="trtr">
-														<td>${mento.board_No}</td>
-														<td class="goBoard" id="${mento.board_No }">${mento.board_Title}</td>
-														<td>${mento.mem_Nick}</td>
-														<td>${mento.board_Date}</td>
-														<td>${mento.board_View}</td>
-														<td><c:if test="${mento.board_Status eq 'Y'}">
+														<td>${notice.board_no}</td>
+														<td class="goBoard" id="${notice.board_no }">${notice.board_title}</td>
+														<td>${notice.mem_nick}</td>
+														<td>${notice.board_date}</td>
+														<td>${notice.board_view}</td>
+														<td><c:if test="${notice.board_status eq 'Y'}">
 																<span class='badge badge-success'>정상</span>
-															</c:if> <c:if test="${mento.board_Status eq 'B'}">
+															</c:if> <c:if test="${notice.board_status eq 'B'}">
 																<span class='badge badge-danger'>블라인드</span>
-															</c:if>  <c:if test="${mento.board_Status eq 'N'}">
+															</c:if>  <c:if test="${notice.board_status eq 'N'}">
 																<span class='badge badge-secondary'>삭제</span>
-															</c:if> </td>
+															</c:if> 
+														</td>
 														<td>
-																<c:if test="${mento.board_Status eq 'Y' }">
-																	<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
-																		onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusB.do?board_No=${mento.board_No}&type_No=${mento.type_No }'">블라인드</button>
-																</c:if>
-																<c:if test="${mento.board_Status eq 'B' }">
-																	<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
-																		onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusY.do?board_No=${mento.board_No}&type_No=${mento.type_No }'">활성화</button>
-																</c:if>
-																<c:if test="${mento.board_Status eq 'N'}">
-																	<button class="btn mb-2 btn-light" disabled="disabled">활성화</button>
-																</c:if>
+															<c:if test="${notice.board_status eq 'Y' }">
+																<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
+																	onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusB.do?board_No=${notice.board_no}&type_No=${notice.type_no}'">블라인드</button>
+															</c:if>
+															<c:if test="${notice.board_status eq 'B' }">
+																<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
+																	onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusY.do?board_No=${notice.board_no}&type_No=${notice.type_no}'">활성화</button>
+															</c:if>
+															<c:if test="${notice.board_status eq 'N'}">
+																<button class="btn mb-2 btn-light" disabled="disabled">활성화</button>
+															</c:if>
 														</td>
 													</tr>
 												</c:forEach>
@@ -142,44 +124,19 @@
 <script>
 	$(function(){
 		
-		$("#job").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/jobList.do";
+		$("#noticeList").on("click", function(){
+			location.href = "${pageContext.request.contextPath}/admin/noticeList.bo";
 		});
 		
-		$("#blahblah").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/blahList.do";
+		$("#adminNotice").on("click", function(){
+			location.href = "${pageContext.request.contextPath}/admin/adminNotice.bo";
 		});
-
-		$("#blind").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/blindList.do";
-		});
-
-		$("#tomo").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/tomoList.do";
-		});
-
-		$("#qna").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/qnaList.do";
-		});
-
-		$("#accept").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/acceptList.do";
-		});
-
-		$("#interview").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/interviewList.do";
-		});
-
-		$("#mento").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/mentoList.do";
-		});
-		
 	});
 	
 	$(function(){
 		$(".goBoard").on("click", function(){
 			var board_No = $(this).attr("id");
-			location.href = "${pageContext.request.contextPath}/mentoView.bo?board_no="+ board_No;
+			location.href = "${pageContext.request.contextPath}/noticeView.bo?board_no="+ board_No;
 		});
 	});
 

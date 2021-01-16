@@ -79,11 +79,31 @@
 											</thead>
 											<tbody>
 												<tr align="center">
-													<th>asdf</th>
-													<th>asdf</th>
-													<th>asdf</th>
-													<th>asdf</th>
-													<th>asdf</th>
+													<th>${notice.board_no}</th>
+													<th>${notice.mem_nick}</th>
+													<th>${notice.board_date}</th>
+													<th>
+														<c:if test="${notice.board_status eq 'Y'}">
+															<span class='badge badge-success'>정상</span>
+														</c:if> <c:if test="${notice.board_status eq 'B'}">
+															<span class='badge badge-danger'>블라인드</span>
+														</c:if>  <c:if test="${notice.board_status eq 'N'}">
+															<span class='badge badge-secondary'>삭제</span>
+														</c:if> 
+													</th>
+													<th>
+														<c:if test="${notice.board_status eq 'Y' }">
+															<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
+																onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusB.do?board_No=${notice.board_no}&type_No=${notice.type_no}'">블라인드</button>
+														</c:if>
+														<c:if test="${notice.board_status eq 'B' }">
+															<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
+																onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusY.do?board_No=${notice.board_no}&type_No=${notice.type_no}'">활성화</button>
+														</c:if>
+														<c:if test="${notice.board_status eq 'N'}">
+															<button class="btn mb-2 btn-light" disabled="disabled">활성화</button>
+														</c:if>
+													</th>
 												</tr>
 											</tbody>
 										</table>
@@ -101,8 +121,8 @@
 								<div class="card shadow">
 									<div class="card-body">
 										<div id="buttonArea">
-											<button class="btn mb-2 btn-primary">수정</button>&nbsp;
-											<button class="btn mb-2 btn-primary">삭제</button>
+											<button class="btn mb-2 btn-primary" onclick="goUpdate();">수정</button>&nbsp;
+											<button class="btn mb-2 btn-primary" onclick="deleteNotice(${notice.board_no});">삭제</button>
 										</div>
 											
 										<div class="basicInfo">
@@ -149,7 +169,7 @@
 	$(function(){
 		$(".goBoard").on("click", function(){
 			var board_No = $(this).attr("id");
-			location.href = "${pageContext.request.contextPath}/noticeView.bo?board_no="+ board_No;
+			location.href = "${pageContext.request.contextPath}/admin/noticeView.bo?board_no="+ board_No;
 		});
 	});
 
@@ -177,6 +197,15 @@
 		gtag('js', new Date());
 		gtag('config', 'UA-56159088-1');
 
+    </script>
+    <script>
+		function goUpdate() {
+			location.href="${pageContext.request.contextPath}/admin/updateForm.bo";
+		}
+
+		function deleteNotice(board_no) {
+			location.href="${pageContext.request.contextPath}/admin/deleteNotice.bo?board_no=" + board_no;
+		}
     </script>
 </body>
 </html>

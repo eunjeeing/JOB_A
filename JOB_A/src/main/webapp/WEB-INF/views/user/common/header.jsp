@@ -45,6 +45,11 @@
 			<a href="${pageContext.request.contextPath}/member/memberLogout.do"><i class="fas fa-sign-out-alt"></i><span>로그아웃</span></a>
 		</c:if>
 	</div>
+	<script>
+		function goAdmin() {
+			location.href="${pageContext.request.contextPath}/adminIndex.do"
+		}
+	</script>
 	
 </header>
 
