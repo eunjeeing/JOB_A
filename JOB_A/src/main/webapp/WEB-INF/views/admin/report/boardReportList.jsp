@@ -13,6 +13,19 @@
 		cursor: pointer;
 		background: #EAEAEA;
 	}
+	#boardTitle:hover{
+		cursor: pointer;
+		background: #EAEAEA;
+	}	
+	#boardTitle:focus{
+		outline: none;
+	}
+	#boardTitle{
+		width: 100%;
+		height: auto;
+		border: none;
+		background: transparent;
+	}
 </style>
 </head>
 <body class="vertical  dark  ">
@@ -37,24 +50,30 @@
 										<table class="table table-bordered" align="center" id="dataTable-1">
 											<thead>
 												<tr align="center" role="row" >
-													<th>NO.</th>
+													<th>No.</th>
+													<th>게시글 번호</th>
 													<th>게시글 제목</th>
 													<th>게시글 작성자</th> <!-- 피신고자 : memNo2 -->
 													<th>신고사유</th>
 													<th>신고자</th> <!-- memNo -->
 													<th>신고일</th>
+													<th>신고횟수</th>
 													<th>상태</th>
 												</tr>
 											</thead>
 											<tbody>
 												<c:forEach items="${reportList}" var="m" varStatus="status"> 
 													<tr align="center" class="goDetail" onclick="location.href='${pageContext.request.contextPath}/boardReportDetail.do?boardNo=${m.boardNo}&reportReason=${m.reportReason}&appendantMemNick=${appendantList[status.index].memNick}&reporterMemNick=${reporterList[status.index].memNick}';">
+														<td>${status.index+1}</td>
 														<td>${m.reportNo}</td>
-														<td>${boardList[status.index].board_Title }</td>
+														<td> 
+															<input align="left" type="text" id="boardTitle" maxlength="200" readonly="readonly" value="${boardList[status.index].board_Title}"/>
+														</td>
 														<td>${appendantList[status.index].memNick}</td>
 														<td>${m.reportReason }</td>
 														<td>${reporterList[status.index].memNick}</td>
 														<td>${m.reportDate}</td>
+														<td>${boardList[status.index].board_ReportNum}</td>
 														<td> <!-- 토글버튼 -->
 									
 															<div class="custom-control custom-switch">

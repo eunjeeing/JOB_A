@@ -9,14 +9,88 @@
 <meta charset="utf-8">
 <title>신고 게시글 상세 페이지</title>
 <style>
-
+	/* 상단 */
 	#reporterInfor{
-		width: 80%;
+		width: 100%;
 		height: 100%;
-		border: 1px solid black;
-		displagy : inline;
+		border-style : hidden;
+        box-shadow: 1px 1px 5px 2px lightgrey;
+		margin-top:15px;
+		
+		column-width : 30%;
+        column-gap : 15px;
+        column-rule: solid lightgrey 2px;
+        column–rule–width :thin;
+        column-count : 3;
+	}
+
+	#reporter, #reportReason, #toggle{
+		padding-top: 5px;
+		padding-left: 10px;
 	}
 	
+	#Big{
+		color: #6c757d;
+	}
+	#data{
+		font-size: 15px;
+	}
+	
+	/* 게시글 정보 테이블 */
+	#boardTable{
+		width: 100%;
+		height: 100%;
+		margin-top: 30px;
+		padding-left: 10px;
+		font-size: 14px;
+		letter-spacing: 1.5px;
+		
+	}
+	
+	.title, .content{
+		padding-top: 10px;
+	}
+	
+	.title{
+		padding-right: 15px;
+		font-weight: bolder;
+	}
+	.content{
+		padding-left: 15px;
+		border-left: 1px solid;
+	}
+	
+	/* 해당 게시글 상세 내용 */
+	#TitleAndcontent{
+		margin-top: 30px;
+		padding-left: 10px;
+		letter-spacing: 1.5px;
+	}
+	#board_Title{
+		font-weight: bold;
+		font-size: 20px;
+	}
+	
+	#board_Content{
+		padding-top : 15px;
+		min-height: 250px;
+	}
+	
+	/*확인버튼 : 뒤로가기*/
+	#goBack{
+		width: 200px;
+		height: 35px;
+		border: none;
+		border-radius: 5px;
+		margin: 50px 60% 0 40%; 
+		cursor: pointer;
+		color: #6c757d;
+		letter-spacing: 2px;
+		
+	}
+	#goback:hover{
+		background: gray;
+	}
 </style>
 </head>
 <body class="vertical  dark  ">
@@ -40,17 +114,16 @@
 										<!-- 상세 페이지 시작 -->
 										<div id="reporterInfor">
 											<div id="reporter">
-												<h3>신고자</h3>
-												<p>${reporterMemNick}</p>
+												<h3 id="Big">신고자</h3>
+												<p id="data">${reporterMemNick}</p>
 											</div>
 											
 											<div id="reportReason">
-												<h3>신고사유</h3>
-												<p>${reportReason}</p>
+												<h3 id="Big">신고사유</h3>
+												<p id="data">${reportReason}</p>
 											</div>
-											<div>
-												<h3>상태</h3>
-																	<b>비활성화</b>
+											<div id="toggle">
+												<h3 id="Big">상태</h3>
 														<div class="custom-control custom-switch">
 														<c:if test="${boardList.board_Status eq 'Y'}">
 															<input type="checkbox" class="custom-control-input" 
@@ -66,32 +139,38 @@
 																for="${boardList.board_No}"></label>
 															</c:if>	 															
 														</div>
-															<b>활성화</b>
 											</div>
 										</div>
 										
-										<div>
+										<!-- 게시글 정보 -->
+										<div id="boardTable">
 											<table>
 												<tr>
-													<th>게시판</th>
-														<td>${boardType}</td>
+													<th class="title">게시판</th>
+														<td class="content">${boardType}</td>
 												</tr>
 												<tr>
-													<th>게시일</th>
-													<td>${boardList.board_Date} </td>
+													<th class="title">게시일</th>
+													<td class="content">${boardList.board_Date} </td>
 												</tr>
 												<tr>
-													<th>게시글 작성자</th>
-													<td>${appendantMemNick} </td>
+													<th class="title">작성자</th>
+													<td class="content">${appendantMemNick} </td>
 												</tr>
 											</table>
 										</div>
 										
-										<div>
-											<span>${boardList.board_Title}</span>
-											<div>${boardList.board_Content}</div>
+										<!-- 해당 게시글 상세 내용 -->
+										<div id="TitleAndcontent">
+											<span id="board_Title">${boardList.board_Title}</span>
+											<div id="board_Content">${boardList.board_Content}</div>
 										</div>
 										
+										<div>
+											<input type="button" id="goBack"
+											 onclick="location.href='${pageContext.request.contextPath}/boardReportList.do'"
+											 value="확인">
+										</div>
 										
 									</div>
 								</div>

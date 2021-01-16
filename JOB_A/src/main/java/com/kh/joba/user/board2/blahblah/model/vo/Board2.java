@@ -27,6 +27,7 @@ public class Board2 implements Serializable{
 	private Date board_Start;
 	private Date board_End;
 	private Date board_Announce;
+	private int board_ReportNum;
 	
 	private String category_Name;
 	private int comm_Count;
