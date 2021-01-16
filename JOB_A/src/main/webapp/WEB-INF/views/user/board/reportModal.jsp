@@ -10,7 +10,7 @@
         var modal = document.getElementById('myModal');
         
         // Get the button that opens the modal
-        var btn = document.getElementById("myBtn");
+        var btn = document.getElementById("goReport");
         
         // Get the <span> element that closes the modal
           var span = document.getElementsByClassName("close")[0];                                          
@@ -159,7 +159,6 @@
           <div class="modal-body">
             <form id="form1" action="${pageContext.request.contextPath}/insertReport.do" method="post">
   
-           <!-- radio, checkbox가 안먹힘 : 템플릿에 먹혀서 그런거 같아서 일단 구현하려고 임시로 버튼 해놓음 -->
            <input type="hidden" class="modal_board" name="board2" value=""/>  				<!-- 게시글, 댓글 번호 -->
            <input type="hidden" class="modal_board_no" name="board2_no" value=""/>  		<!-- 게시글, 댓글 작성자 번호 -->
            <input type="hidden" class="modal_reporter" name="declare" value=""/>			<!-- 게시글, 댓글 신고자 번호 -->

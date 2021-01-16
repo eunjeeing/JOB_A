@@ -209,7 +209,7 @@
 									<tr>
 										<th class="table_th">생년월일 <span class="star">*</span></th>
 										<td>
-											<input type="date" size="30" id="memBirth" name="memBirth" onchange="check()" value="${member.memBirth}"/> 
+											<input type="date" size="30" id="memBirth" name="memBirth" onchange="check()" disabled="disabled" value="${member.memBirth}"/> 
 										</td>
 									</tr>
 								</table>

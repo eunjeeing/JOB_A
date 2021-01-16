@@ -9,9 +9,22 @@
 <meta charset="utf-8">
 <title>신고 댓글 리스트</title>
 <style>
-	.comentContent:hover{
+	.commentContent:hover{
+		background: #EAEAEA;
+	}
+	#commentContent:hover{
 		cursor: pointer;
 		background: #EAEAEA;
+	}
+	#commentContent:focus{
+		outline: none;
+	}
+	#commentContent{
+		width: 100%;
+		height: auto;
+		border: none;
+		background: transparent;
+		
 	}
 </style>
 </head>
@@ -37,24 +50,32 @@
 										<table class="table table-bordered" align="center" id="dataTable-1">
 											<thead>
 												<tr align="center" role="row" >
-													<th>NO.</th>
-													<th>게시글 작성자</th> <!-- 피신고자 : memNo2 -->
+													<th>No.</th>
+													<th>댓글번호</th>
+													<th>댓글내용</th>
+													<th>댓글 작성자</th> <!-- 피신고자 : memNo2 -->
 													<th>신고사유</th>
 													<th>신고자</th> <!-- memNo -->
 													<th>신고일</th>
+													<th>신고횟수</th>
 													<th>상태</th>
 												</tr>
 									
 											</thead>
 											<tbody>
 												<c:forEach items="${reportList}" var="m" varStatus="status"> 
-													<tr align="center">
+													<tr align="center" class="commentContent">
+														<td>${status.index+1}</td>
 														<td>${m.reportNo}</td>
-														
+														<td> 
+															<input type="text" maxlength="200" id="commentContent" readonly="readonly" 
+															onclick="boardView(${board2List[status.index].type_No}, ${board2List[status.index].board_No})" value="${commentList[status.index].comm_Content }"/>
+														</td>
 														<td>${appendantList[status.index].memNick}</td>
 														<td>${m.reportReason }</td>
 														<td>${reporterList[status.index].memNick}</td>
 														<td>${m.reportDate}</td>
+														<td>${commentList[status.index].comm_ReportNum}</td>
 														<td> <!-- 토글버튼 -->
 									
 															<div class="custom-control custom-switch">
@@ -74,12 +95,9 @@
 																for="${commentList[status.index].comm_No}"></label>
 															</c:if>	 															
 															</div>
-															
 														</td>
 													</tr>
-													<tr>
-													<td colspan="6" class="comentContent" onclick="boardView(${board2List[status.index].type_No}, ${board2List[status.index].board_No})"> >&nbsp;&nbsp; ${commentList[status.index].comm_Content }</td>
-													</tr>
+										
 												</c:forEach>
 											</tbody>
 										</table>
@@ -207,7 +225,7 @@
 
 				}
     </script>
-    
+
 	
 <!-- 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	<script type="text/javascript">
