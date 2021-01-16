@@ -35,6 +35,7 @@ public class IndexController {
 		
 		System.out.println("rankList() 기능 실행");
 		List<Map<String, String>> rankList =is.selectRank();
+		
 		System.out.println("list :" + rankList);
 		model.addAttribute("rankList", rankList);
 		

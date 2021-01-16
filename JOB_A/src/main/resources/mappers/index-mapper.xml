@@ -6,7 +6,7 @@
 	
 <!-- 랭킹 -->
 
-	<select id="selectAllCount" resultType="hashmap">
+	<select id="selectAllCount" resultType="HashMap" parameterType="string">
 		select 
 			(select count(category_no) from wish_category where category_no = 1) as office,
 	        (select count(category_no) from wish_category where category_no = 2) as marketing,
