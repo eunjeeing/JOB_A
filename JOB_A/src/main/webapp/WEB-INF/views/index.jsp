@@ -384,9 +384,28 @@ $(document).ready(function(){
 		dataType : "json",
 		async: true,
 		success : function(data){
-			var list = data;
-				console.log(data);
-			// 어레이 리스트 sort하기	
+			console.log(data);
+			var list = data.split(',');
+			for ( var i in list){
+					console.log(list[i])
+				}
+			
+			var	RESEARCH = data[0].RESEARCH;			/* 경영·사무 */
+			var TRADE = data[0].TRADE;					/* 마케팅·광고·홍보 */	
+			var MARKET = data[0].MARKET;				/* IT·미디어 */
+			var OFFICE = data[0].OFFICE;				/* 영업 */
+			var EDU = data[0].EDU;						/* 서비스 */
+			var ARCHITECTURE = data[0].ARCHITECTURE;	/* 연구·개발 */
+			var MARKETING = data[0].MARKETING;			/* 의료업 */
+			var MEDIA = data[0].MEDIA;					/* 건설업 */
+			var SERVICE = data[0].SERVICE;				/* 교육 */
+			var MEDICINE = data[0].MEDICINE;			/* 생산·제조 */
+			var PRODUCTION = data[0].PRODUCTION;		/* 무역·유통 */
+			
+			
+			li = '<li><a href="#">&nbsp;1.'+EDU+'회 선택!!' +'<a></li>'
+		
+			$('.rank-down').append(li);
 		}
 	});
 });
@@ -477,11 +496,12 @@ $(document).ready(function(){
 								    firstBox.classList.add(active);
 
 									lastBox = document.querySelector(".carou-card:last-child");
-
+									
 									$(".carou-card").on("click",function() {
 								         var board_No = $(this).attr("id");
 										 var tno = $(this).find('.tno').val();
 								         console.log(board_No + "/" + tno);
+										 
 								         
 								         switch(tno) {
 								         case '1':
@@ -497,6 +517,7 @@ $(document).ready(function(){
 								            break;
 								         
 								         case '5':
+									        
 								            location.href = "${pageContext.request.contextPath}/board2/blindSelectOne.do?board_No="+ board_No;
 								            break;
 								
@@ -552,8 +573,8 @@ $(document).ready(function(){
 							<dl id="rank-list">
 								<dt>//&nbsp;Wanted JOB</dt>
 								<dd>
-									<ol>
-										<li><a href="#">&nbsp;1. </a></li>
+									<ol class = "rank-down">
+										<!-- <li><a href="#">&nbsp;1. </a></li>
 										<li><a href="#">&nbsp;2. test<a></li>
 										<li><a href="#">&nbsp;3.<a></li>
 										<li><a href="#">&nbsp;4.<a></li>
@@ -562,7 +583,7 @@ $(document).ready(function(){
 										<li><a href="#">&nbsp;7.<a></li>
 										<li><a href="#">&nbsp;8.<a></li>
 										<li><a href="#">&nbsp;9.<a></li>
-										<li><a href="#">10.</a></li>
+										<li><a href="#">10.</a></li> -->
 									</ol>
 								</dd>
 							</dl>
@@ -610,10 +631,8 @@ $(document).ready(function(){
 
 	</div>
 
-	<script
-		src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<!-- 캐러셀 클릭 이벤트 -->
