@@ -156,7 +156,7 @@ a {
 								 	</div>
 								 	<br />
 									<input type="text" class="form-control" placeholder="제목"
-									name="board_Title" id="board_Title" required>
+									name="board_Title" id="board_Title" maxlength="50" required>
 								 <input type="hidden" id="mem_No" name="mem_No" value="${member.memNo }" /> 
 								 <input type="hidden" id="type_No" name="type_No" value="4">
 								 

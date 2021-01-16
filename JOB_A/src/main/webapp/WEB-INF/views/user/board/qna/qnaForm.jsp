@@ -18,7 +18,7 @@
 <style>
 #topbanner {
 	background:
-		url(${pageContext.request.contextPath}/resources/images/com.jpg)
+		url(${pageContext.request.contextPath}/resources/images/bg2.jpg)
 		no-repeat;
 	background-position: center center;
 	margin-top: 10px;
@@ -155,7 +155,7 @@ a {
 								  	 onclick="window.history.back();"></i>
 								 	</div>
 								 	<br />
-									<input type="text" class="form-control" placeholder="제목"
+									<input type="text" class="form-control" placeholder="제목" maxlength="50"
 									name="board_Title" id="board_Title" required>
 								 <input type="hidden" id="mem_No" name="mem_No" value="${member.memNo }" /> 
 								 <input type="hidden" id="type_No" name="type_No" value="7">

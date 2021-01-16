@@ -14,7 +14,7 @@
 <style>
 #topbanner {
 	background:
-		url(${pageContext.request.contextPath}/resources/images/com.jpg)
+		url(${pageContext.request.contextPath}/resources/images/bg2.jpg)
 		no-repeat;
 	background-position: center center;
 	margin-top: 10px;

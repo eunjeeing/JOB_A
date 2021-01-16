@@ -238,7 +238,7 @@ form {
 									<div class="info_fnc">
 										<c:if test="${member.memNo ne board2.mem_No}">
 										<!-- 신고 inline css by 은열 -->
-										<span class="rebo" style="margin-right:-4px;"> 
+										<span class="rebo" id="goReport" style="margin-right:-4px;"> 
 											<i class="fas fa-exclamation-triangle" id="report" style="padding:2px;"></i>
 											<a class="reportBtn" style="color:black; vertical-align: middle;" id="myBtn"> 신고</a> 
 										</span>
@@ -260,9 +260,10 @@ form {
 								</div>
 							</div>
 							<div class="article-view-contents">
-								<text><i class="far fa-calendar-alt"></i> 접수기간 : ${board2.board_Start } ~ ${board2.board_End }</text><br>
-								<text><i class="far fa-calendar-alt"></i> 합격자 발표일 : ${board2.board_Announce }</text><br>
-								<text><i class="fas fa-link"></i> 링크 : <a href="http://${board2.board_Url }">${board2.board_Url }</a></text>
+							<br />
+								<text style="color:gray;"><i class="far fa-calendar-alt"></i> 접수기간 : ${board2.board_Start } ~ ${board2.board_End }</text><br>
+								<text style="color:gray;"><i class="far fa-calendar-alt"></i> 합격자 발표일 : ${board2.board_Announce }</text><br>
+								<text style="color:gray;"><i class="fas fa-link"></i> 링크 : <a href="http://${board2.board_Url }">${board2.board_Url }</a></text>
 
 								<div id="contentArea" class="contents-txt">
 									${board2.board_Content }</div>
@@ -292,7 +293,7 @@ form {
 												placeholder="댓글을 남겨주세요." style="resize: none;"></textarea>
 											</form>
 											
-											<!-- 댓글 수 -->
+											<!-- 글자 수 -->
 											<div class="byte" style="float:right; font-size:12px; color:darkgray;">
 												<text id="commentByte">0</text><text id="slash"> / </text><text id="maxByte">500</text>
 											</div>
@@ -569,7 +570,7 @@ form {
 		}				
 
 	    // 게시글신고모달 스크립트 by 은열
-	    $('.reportBtn').click(function(){
+	    $('#goReport').click(function(){
 		    var test = $('#board_info').val();
 		    
 			$('.modal_board').val($('#board_info').val());
