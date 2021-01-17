@@ -73,7 +73,7 @@
 													<th>등록일</th>
 													<th width="8%">조회수</th>
 													<th>상태</th>
-													<th width="10%"></th>
+													<th width="10%">상태변경</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -164,7 +164,7 @@
 	$(function(){
 		$(".goBoard").on("click", function(){
 			var board_No = $(this).attr("id");
-			location.href = "${pageContext.request.contextPath}/selectOneAccept.bo?board_no="+ board_No;
+			location.href = "${pageContext.request.contextPath}/admin/selectOneBoard.do?board_No="+ board_No;
 		});
 	});
 

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.joba.admin.boardManage.model.dao.boardManageDAO;
+import com.kh.joba.user.board2.blahblah.model.vo.Board2;
+import com.kh.joba.user.comments2.model.vo.Comments2;
 
 @Service
 public class boardManageServiceImpl implements boardManageService {
@@ -64,5 +66,16 @@ public class boardManageServiceImpl implements boardManageService {
 	public int updateStatusB(int board_No, int type_No) {
 		return bmd.updateStatusB(board_No, type_No);
 	}
+
+	@Override
+	public Board2 selectOneBoard(int board_No) {
+		return bmd.selectOneBoard(board_No);
+	}
+
+	@Override
+	public List<Comments2> selectComment(int board_No) {
+		return bmd.selectComment(board_No);
+	}
+
 
 }

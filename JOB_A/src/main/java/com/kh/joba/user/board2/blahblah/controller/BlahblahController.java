@@ -87,12 +87,12 @@ public class BlahblahController {
 		
 		int result = bs.blahDelete(board_No);
 		
+		
 		String msg = "";
 		String loc = "/board2/blahList.do";
 
 		if (result > 0) {
 			msg = "게시글 삭제 성공!";
-
 		} else {
 			msg = "게시글 삭제 실패";
 		}

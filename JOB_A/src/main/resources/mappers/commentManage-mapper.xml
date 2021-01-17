@@ -66,4 +66,12 @@
 		WHERE COMM_NO = #{comm_No}
 	</update>
 	
+<!-- 	
+	<select id="selectOneComment" parameterType="_int" resultType="Board">
+		SELECT B.*, M.MEM_NICK, C.*, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO) COMM_COUNT
+		FROM BOARD B, MEMBER M, BOARDTYPE T, COMMENTS C
+		WHERE B.TYPE_NO = T.TYPE_NO AND M.MEM_NO = B.MEM_NO 
+			  AND B.BOARD_NO = C.BOARD_NO AND C.COMM_NO = #{comm_No}
+	</select>
+	 -->
 </mapper>

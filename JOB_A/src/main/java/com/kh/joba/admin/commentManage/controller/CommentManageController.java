@@ -9,7 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.joba.admin.boardManage.model.service.boardManageService;
 import com.kh.joba.admin.commentManage.model.service.CommentManageService;
+import com.kh.joba.user.board2.blahblah.model.vo.Board2;
+import com.kh.joba.user.comments2.model.vo.Comments2;
 import com.kh.joba.user.common.util.UtilsBoard1;
 
 @Controller
@@ -17,6 +20,9 @@ public class CommentManageController {
 
 	@Autowired
 	CommentManageService cms;
+	
+	@Autowired
+	boardManageService bms;
 	
 	// 댓글 리스트 출력
 	// 채용공고
@@ -182,5 +188,6 @@ public class CommentManageController {
 		
 		return "user/common/msg";
 	}
+	
 
 }

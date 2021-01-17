@@ -97,7 +97,7 @@ p {
 					<button type="button" onclick="location.href='${pageContext.request.contextPath}/board2/blahList.do'"
 					style="width: 50px;"><i class="fas fa-redo" style="margin: -9px;"></i></button>
 					
-					<c:if test="${ !empty member }" >
+					<c:if test="${ !empty member && member.gradeNo != 5 }" >
 						<button id="writeBtn" onclick="goBlahForm();">글쓰기</button>
 					</c:if>
 				</div>

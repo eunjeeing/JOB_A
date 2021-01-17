@@ -69,19 +69,17 @@
 											<thead>
 												<tr align="center" role="row">
 													<th>No.</th>
-													<th width="20%">제목</th>
-													<th width="35%">댓글내용</th>
+													<th width="60%">댓글내용</th>
 													<th>작성자</th>
 													<th>등록일</th>
 													<th>상태</th>
-													<th width="15%"></th>
+													<th width="12%">상태변경</th>
 												</tr>
 											</thead>
 											<tbody>
 												<c:forEach items="${acceptCommentList }" var="accept">
 													<tr align="center" class="trtr">
 														<td>${accept.comm_No}</td>
-														<td class="goBoard" id="${accept.board_No }">${accept.board_Title }</td>
 														<td class="goBoard" id="${accept.board_No }">${accept.comm_Content}</td>
 														<td>${accept.mem_Nick}</td>
 														<td><fmt:parseDate var="parsedDate" value="${accept.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
@@ -164,12 +162,6 @@ $(function(){
 	
 });
 
-	$(function(){
-		$(".goBoard").on("click", function(){
-			var board_No = $(this).attr("id");
-			location.href = "${pageContext.request.contextPath}/selectOneAccept.bo?board_no="+ board_No;
-		});
-	});
 
 </script>
 	<script>

@@ -3,6 +3,9 @@ package com.kh.joba.admin.boardManage.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.joba.user.board2.blahblah.model.vo.Board2;
+import com.kh.joba.user.comments2.model.vo.Comments2;
+
 public interface boardManageService {
 
 	List<Map<String, String>> selectJobList();
@@ -25,5 +28,8 @@ public interface boardManageService {
 
 	int updateStatusB(int board_No, int type_No);
 
+	Board2 selectOneBoard(int board_No);
+
+	List<Comments2> selectComment(int board_No);
 
 }

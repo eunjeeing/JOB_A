@@ -172,6 +172,25 @@ input[type="date"]:invalid {
 input[type="date"]:focus {
     border-color: #f56a6a;
     box-shadow: 0 0 0 1px #f56a6a; }
+    
+.close {
+	opacity: 1.0;
+	font-size: 25px;
+	height: 1em;
+	box-shadow: none;
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+	background-color: white;
+	border: 2px solid #f56a6a;
+	opacity: 1.0 !important;
+}
+
+.note-modal-footer {
+    padding: 0 10px 20px 20px;
+    margin-bottom: 10px;
+}
+
 </style>
 </head>
 <body class="is-preload">

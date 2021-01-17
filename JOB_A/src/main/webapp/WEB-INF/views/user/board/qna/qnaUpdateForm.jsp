@@ -125,6 +125,24 @@ a {
     box-shadow: inset 0 0 0 2px #fff !important;
 }
 
+.close {
+	opacity: 1.0;
+	font-size: 25px;
+	height: 1em;
+	box-shadow: none;
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+	background-color: white;
+	border: 2px solid #f56a6a;
+	opacity: 1.0 !important;
+}
+
+.note-modal-footer {
+    padding: 0 10px 20px 20px;
+    margin-bottom: 10px;
+}
+
 </style>
 </head>
 <body class="is-preload">

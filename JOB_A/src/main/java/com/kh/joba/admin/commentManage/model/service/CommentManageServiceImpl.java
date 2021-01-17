@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.joba.admin.commentManage.model.dao.CommentManageDAO;
+import com.kh.joba.user.board2.blahblah.model.vo.Board2;
 
 @Service
 public class CommentManageServiceImpl implements CommentManageService {
@@ -63,6 +64,7 @@ public class CommentManageServiceImpl implements CommentManageService {
 	public int updateCommStatusY(int comm_No, int type_No) {
 		return cmd.updateCommStatusY(comm_No, type_No);
 	}
+
 
 
 }
