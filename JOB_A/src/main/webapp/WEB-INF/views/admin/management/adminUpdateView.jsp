@@ -8,6 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 수정</title>
+<style>
+   span.guide {display:none; top:10px; right:20px; padding-top:7px; padding-right:5px;}
+   span.ok{color:green;}
+   span.error, span.invalid{color:red;}
+</style>
 </head>
 <body>
 <body class="vertical  dark  ">

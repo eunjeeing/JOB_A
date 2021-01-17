@@ -26,8 +26,7 @@ public class ChatController {
 	@Autowired
 	ChatService chatService;
 	
-	                  //   방 번호, 참가자 목록
-	public static HashMap<Integer, List<String>> roomMembers;
+	public static HashMap<Integer, List<String>> roomMembers; // 참가자목록
 	
 	@RequestMapping("chat/chatList")
 	public String selectChatList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, Model model) { 
@@ -58,10 +57,11 @@ public class ChatController {
 	public String selectChatRoom(HttpSession session, @PathVariable int chatRoomNo, @RequestParam(value="cPage", required=false, defaultValue="1") int cPage, Model model, HttpServletRequest req) {
 		System.out.println(chatRoomNo);
 		Map<String, String> chatRoom = chatService.selectChatRoom(chatRoomNo);
+		
 		if(roomMembers == null) {
 			roomMembers = new HashMap<Integer, List<String>>();
-			
 		}
+		
 		ArrayList<String> members = null;
 		if(roomMembers.get(chatRoomNo) == null) { // 채팅방이 없을 때
 			members = new ArrayList<String>();
@@ -74,7 +74,6 @@ public class ChatController {
 			
 			roomMembers.put(chatRoomNo, members);
 		}
-		
 		
 		model.addAttribute("chatRoom", chatRoom);
 		
@@ -102,7 +101,6 @@ public class ChatController {
 		
 		model.addAttribute("chatRoom", chatRoom);
 		
-		
 		return "redirect:/chat/chatRoom/" + chatRoomNo;
 	}
 	
@@ -117,25 +115,6 @@ public class ChatController {
 		
 		return "redirect:/chat/chatList";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
 
