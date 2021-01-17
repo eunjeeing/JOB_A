@@ -3,6 +3,9 @@ package com.kh.joba.admin.commentManage.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.joba.user.board2.blahblah.model.vo.Board2;
+import com.kh.joba.user.comments2.model.vo.Comments2;
+
 public interface CommentManageService {
 
 
@@ -25,4 +28,5 @@ public interface CommentManageService {
 	int updateCommStatusB(int comm_No, int type_No);
 
 	int updateCommStatusY(int comm_No, int type_No);
+
 }

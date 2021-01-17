@@ -69,19 +69,17 @@
 											<thead>
 												<tr align="center" role="row">
 													<th>No.</th>
-													<th width="20%">제목</th>
-													<th width="35%">댓글내용</th>
+													<th width="60%">댓글내용</th>
 													<th>작성자</th>
 													<th>등록일</th>
 													<th>상태</th>
-													<th width="15%"></th>
+													<th width="12%">상태변경</th>
 												</tr>
 											</thead>
 											<tbody>
 												<c:forEach items="${interviewCommentList }" var="inter">
 													<tr align="center" class="trtr">
 														<td>${inter.comm_No}</td>
-														<td class="goBoard" id="${inter.board_No }">${inter.board_Title }</td>
 														<td class="goBoard" id="${inter.board_No }">${inter.comm_Content}</td>
 														<td>${inter.mem_Nick}</td>
 														<td><fmt:parseDate var="parsedDate" value="${inter.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
@@ -164,12 +162,6 @@ $(function(){
 	
 });
 
-	$(function(){
-		$(".goBoard").on("click", function(){
-			var board_No = $(this).attr("id");
-			location.href = "${pageContext.request.contextPath}/selectOneInterview.bo?board_no="+ board_No;
-		});
-	});
 
 </script>
 	<script>

@@ -85,7 +85,7 @@
 					<button type="button" onclick="location.href='${pageContext.request.contextPath}/board2/selectQnAList.do'"
 					style="width: 50px;"><i class="fas fa-redo" style="margin: -9px;"></i></button>
 					
-					<c:if test="${ !empty member && member.gradeNo != 4}" >
+					<c:if test="${ !empty member && member.gradeNo != 4 && member.gradeNo != 5}" >
 						<button id="writeBtn" onclick="goQnAForm();">글쓰기</button>
 					</c:if>
 				</div>

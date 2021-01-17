@@ -288,13 +288,13 @@ form {
 													value="${sessionScope.mem_No}" /> 
 												<input type="hidden" name="comm_Ref" value="0" />
 												<input type="hidden" name="comm_Level" value="1" />
-												<textarea class="summernote" id="comm_Content" name="comm_Content" maxlength="500"
+												<textarea class="summernote" id="comm_Content" name="comm_Content" maxlength="200"
 													placeholder="댓글을 남겨주세요." style="resize: none;"></textarea>
 												</form>
 												
 												<!-- 글자 수 -->
 												<!-- <div class="byte" style="float:right; font-size:12px; color:darkgray;">
-													<text id="commentByte">0</text><text id="slash"> / </text><text id="maxByte">500</text>
+													<text id="commentByte">0</text><text id="slash"> / </text><text id="maxByte">200</text>
 												</div> -->
 	
 												
@@ -514,11 +514,11 @@ form {
 					"<input type='hidden' id='mem_No' name='mem_No' value='${sessionScope.mem_No }' />" +
 					"<input type='hidden' name='comm_Ref' value=" + comm_Ref + " />" +
 					"<input type='hidden' name='comm_Level' value='1' />" +
-					"<textarea id='comm_Content2' name='comm_Content' placeholder='댓글을 남겨주세요.' style='resize: none;' maxlength='500'>" +
+					"<textarea id='comm_Content2' name='comm_Content' placeholder='댓글을 남겨주세요.' style='resize: none;' maxlength='200'>" +
 					"</textarea>" +
 					"</form>" +
 		               "<div class='byte' style='float:right; font-size:12px; color:darkgray;'>" +
-		                  "<text id='commentByte2'>0</text><text id='slash2'> / </text><text id='maxByte2'>500</text>" +
+		                  "<text id='commentByte2'>0</text><text id='slash2'> / </text><text id='maxByte2'>200</text>" +
 		               "</div>" +
 				"</div>" +
 				"<button onclick='reConfirm(this); return false;' style='font-weight: 300; font-size: 20px;'> 작성</button>" +
@@ -529,23 +529,11 @@ form {
 
 	        $('#comm_Content2').on('keyup', function(){
 	            var inputLength = $(this).val().length; // 입력된 글자 수
-	            var remain = 500 - inputLength;         // 남은 글자 수
+	            var remain = 200 - inputLength;         // 남은 글자 수
 
 	            $('#commentByte2').html(inputLength);
 	            $('#maxByte2').html(remain);
 
-	            if(inputLength == 500) {
-	            	$('#commentByte2').empty();
-	            	$('#slash2').empty();
-	            	$('#maxByte2').html("입력 가능한 글자 수를 초과하였습니다.");
-	            	$('#maxByte2').css('color', '#fa1302');
-	            	
-	            } else if(inputLength < 500) {
-	            	$('#commentByte2').html(inputLength);
-	                $('#maxByte2').html(remain);
-	                $('#slash2').html(' / ');
-	                $('#maxByte2').css('color', 'darkgray');
-	            }
 
 	        });
 
@@ -673,25 +661,20 @@ form {
 	    // 댓글 글자수 세기
         $('#comm_Content').on('keyup', function(){
             var inputLength = $(this).val().length; // 입력된 글자 수
-            var remain = 500 - inputLength;         // 남은 글자 수
+            var remain = 200 - inputLength;         // 남은 글자 수
 
             $('#commentByte').html(inputLength);
             $('#maxByte').html(remain);
 
-            if(inputLength == 500) {
-            	$('#commentByte').empty();
-            	$('#slash').empty();
-            	$('#maxByte').html("입력 가능한 글자 수를 초과하였습니다.");
-            	$('#maxByte').css('color', '#fa1302');
-            	
-            } else if(inputLength < 500) {
-            	$('#commentByte').html(inputLength);
-                $('#maxByte').html(remain);
-                $('#slash').html(' / ');
-                $('#maxByte').css('color', 'darkgray');
-            }
-
         });	
+
+        // textarea 자동조절
+        var txtArea = $(".comm_Con2");
+        if (txtArea) {
+            txtArea.each(function(){
+                $(this).height(this.scrollHeight);
+            });
+        }
 
 	</script>
 	<script src="${pageContext.request.contextPath}/resources/summernote/summernote-lite.js"></script>

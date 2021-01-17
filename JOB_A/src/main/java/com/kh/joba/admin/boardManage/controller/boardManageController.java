@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.joba.admin.boardManage.model.service.boardManageService;
-import com.kh.joba.user.common.util.UtilsBoard1;
+import com.kh.joba.user.board2.blahblah.model.vo.Board2;
+import com.kh.joba.user.comments2.model.service.Comments2Service;
+import com.kh.joba.user.comments2.model.vo.Comments2;
 
 @Controller
 public class boardManageController {
@@ -186,6 +188,21 @@ public class boardManageController {
 		model.addAttribute("msg", msg).addAttribute("loc", loc);
 		
 		return "user/common/msg";
+	}
+	
+	@RequestMapping("/admin/selectOneBoard.do")
+	public String selectOneBoard(@RequestParam int board_No, Model model) {
+		
+		Board2 selectOneBoard = bms.selectOneBoard(board_No);
+		System.out.println(selectOneBoard);
+
+		List<Comments2> commentList = bms.selectComment(board_No);
+		
+		model.addAttribute("board2", selectOneBoard);
+		model.addAttribute("commentList", commentList);
+
+		
+		return "admin/boardManage/selectOneBoard";
 	}
 
 }

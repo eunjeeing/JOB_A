@@ -8,6 +8,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.joba.user.board2.blahblah.model.vo.Board2;
+import com.kh.joba.user.comments2.model.vo.Comments2;
+
 @Repository
 public class boardManageDAOImpl implements boardManageDAO {
 
@@ -63,6 +66,17 @@ public class boardManageDAOImpl implements boardManageDAO {
 	public int updateStatusB(int board_No, int type_No) {
 		return sqlSession.update("boardM-Mapper.updateStatusB", board_No);
 	}
+
+	@Override
+	public Board2 selectOneBoard(int board_No) {
+		return sqlSession.selectOne("boardM-Mapper.selectOneBoard", board_No);
+	}
+
+	@Override
+	public List<Comments2> selectComment(int board_No) {
+		return sqlSession.selectList("boardM-Mapper.selectComment", board_No);
+	}
+
 
 
 

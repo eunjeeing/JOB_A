@@ -122,7 +122,11 @@
 						</c:if>
 						
 						<c:if test="${empty selectMyPost}">
-							<div id="nonListArea">
+							<div id="listArea">
+							<p style="font-size:17px;"><text style="color: #f56a6a;">게시글</text>
+								&nbsp;&nbsp;&nbsp;<text style="font-size:20px; color:black;">|</text>&nbsp;&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/mypage/selectMyComment.do?mem_No=${member.memNo}" style="border: none; color: black;">댓글</a></p>
+							</div>
+							<div id="nonListArea">	
 								<p>등록된 게시글이 없습니다.</p>
 							</div>
 						</c:if>		

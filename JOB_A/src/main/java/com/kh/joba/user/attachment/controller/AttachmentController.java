@@ -33,10 +33,9 @@ public class AttachmentController {
 	      
 	      for(MultipartFile f : upFiles) {
 	         if( !f.isEmpty() ) {
-	            // 파일 이름 재생성해서 저장하기
-	            String originalFileName = f.getOriginalFilename();
+
+	        	 String originalFileName = f.getOriginalFilename();
 	            String ext = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
-	            // sample.jpg --> .jpg
 	            
 	            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
 	            
@@ -44,7 +43,6 @@ public class AttachmentController {
 	            
 	            renamedFileName
 	             = sdf.format(new Date(System.currentTimeMillis()))+"_"+rndNum+"."+ext;  
-	            // --> 20191230_154500_1.jpg
 	            
 	            try {
 	               
@@ -85,10 +83,8 @@ public class AttachmentController {
 	      
 	      for(MultipartFile f : upFiles) {
 	         if( !f.isEmpty() ) {
-	            // 파일 이름 재생성해서 저장하기
 	            String originalFileName = f.getOriginalFilename();
 	            String ext = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
-	            // sample.jpg --> .jpg
 	            
 	            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
 	            
@@ -96,7 +92,6 @@ public class AttachmentController {
 	            
 	            renamedFileName
 	             = sdf.format(new Date(System.currentTimeMillis()))+"_"+rndNum+"."+ext;  
-	            // --> 20191230_154500_1.jpg
 	            
 	            try {
 	               
