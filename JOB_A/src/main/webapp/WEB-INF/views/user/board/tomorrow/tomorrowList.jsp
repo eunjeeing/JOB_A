@@ -47,8 +47,8 @@ p {
 	word-wrap: break-word;
 	box-sizing: border-box;
 	max-height: 40px;
+	max-width: 100px;
 	font-size: 17px;
-	line-height: 1.43em;
 	word-break: break-word;
 }
 
