@@ -36,7 +36,6 @@ import com.kh.joba.user.myscrap.model.service.MyScrapService;
 @Controller
 public class MemberController {
 
-	// 비밀번호 암호화
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
@@ -53,8 +52,7 @@ public class MemberController {
 	
 	@Autowired
 	BookmarkService bs;
-	
-	// 이메일 인증 
+
 	@Autowired
 	private JavaMailSender mailSender;
 	
@@ -91,7 +89,6 @@ public class MemberController {
             msg = "회원가입 해주셨나요? 존재하지 않는 아이디입니다 ㅠ_ㅠ";
          } else {
             if(bcryptPasswordEncoder.matches(memPw, m.getMemPw()) && m.getMemState() != 2){
-               // msg = "로그인 성공 >_<!";
                model.addAttribute("member", m);
                return "redirect:/";
                
@@ -123,7 +120,7 @@ public class MemberController {
 	
 		String plainPassword = member.getMemPw();
 		
-		String encryptPassword = bcryptPasswordEncoder.encode(plainPassword); // 비밀번호 암호화
+		String encryptPassword = bcryptPasswordEncoder.encode(plainPassword); 
 		System.out.println("gradeNo: " + member.getGradeNo());
 		System.out.println("원문 : " + plainPassword);
 		System.out.println("암호문 : " + encryptPassword);
@@ -133,10 +130,7 @@ public class MemberController {
 		try {
 			int result = memberService.insertMember(member);
 			
-			// int result = memberService.insertMember(member, WishCategory);
-			// Member m = memberService.selectOneMember(member.getMemId());
-
-			String loc="/"; // /login.do
+			String loc="/";
 			String msg="";
 			
 			if(result > 0) msg = "취뽀 성공해요!";
@@ -179,7 +173,10 @@ public class MemberController {
 	
 	// 마이페이지 접속
 	@RequestMapping("/member/myPage.do")
-	public String mypage(Member member, Model model) {
+	public String mypage(Model model) {
+	    
+		Member member = (Member) model.getAttribute("member");
+		System.out.println(member);
 		
 		Admin admin = new Admin(member.getMemNo(), member.getGradeNo(), member.getMemId(), 
 								member.getMemPw(), member.getMemName(), member.getMemPhone(), 
@@ -200,7 +197,6 @@ public class MemberController {
 		if(member.getGradeNo()== 0 || member.getGradeNo()==1) {
 			
 			System.out.println("admin 정보 : " + admin);
-			// System.out.println("admin 정보2 : " + admin2); --> Member member, Admin admin 이 안되서 강제로 삽입함
 			
 			model.addAttribute("admin", admin);
 			return "admin/management/adminUpdateView";
@@ -232,12 +228,7 @@ public class MemberController {
 	@ResponseBody
 	public Map<String, Object> checkNicknameDuplicate(@RequestParam String memNick){
 		System.out.println("1번");
-	//	Map<String, Object> map = new HashMap<String, Object>();
-		//System.out.println("memNick :" + memNick);
-	//	boolean isUsable
-	//		= memberService.checkNicknameDuplicate(memNick) ==0 ? true : false;
 		
-	//	map.put("isUsable", isUsable);
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		boolean isUsable = memberService.checkNicknameDuplicate(memNick) == null ? true : false;
@@ -293,11 +284,10 @@ public class MemberController {
 	
     // 회원 정보 수정 페이지
     @RequestMapping("/member/memberView.do")
-    public String memberUpdate(@RequestParam String memId, int memNo, Model model) {
-    	
-    	System.out.println("memId : " + memId + " memNo : " + memNo);	
-    	
-    	Member m = memberService.selectOneMember(memId);
+    public String memberUpdate( Model model) {
+    	    	
+    	Member m = (Member) model.getAttribute("member");
+    	System.out.println("마이페이지 멤버뷰"+m);
     	model.addAttribute("member", m);
     	
     	List<WishCategory> ws = new ArrayList<WishCategory>();
@@ -317,7 +307,6 @@ public class MemberController {
 		System.out.println("컨트롤러 버튼에서 member : " + member);
     	System.out.println("컨트롤러에서 WishCategory : " + WishCategory);
     	
-    	// 비밀번호 암호화
 		String plainPassword = member.getMemPw();
 		
 		String encryptPassword = bcryptPasswordEncoder.encode(plainPassword); 
@@ -326,10 +315,10 @@ public class MemberController {
 		System.out.println("암호문 : " + encryptPassword);
 		
 		member.setMemPw(encryptPassword);
-		
-    	//멤버테이블 수정
+	
+  
     	int result = memberService.updateMember(member);
-    	// 관심직종 삭제 후 인서트
+    
     	memberService.deleteWishCategory(member.getMemNo());
     	memberService.insertWishCategory(member.getMemNo(),WishCategory.getCategory_No());
 
@@ -356,8 +345,8 @@ public class MemberController {
     public String memberDelete(SessionStatus sessionStatus, Model model, Member member) {
     	
     	int result = memberService.deleteMember(member.getMemId());
-    	// 삭제가 될경우 양수 1이 온다. 
-    	if(result > 0) sessionStatus.setComplete(); // 세션의 정보를 없앤다.
+    
+    	if(result > 0) sessionStatus.setComplete(); 
     	
     	String loc = "/";
     	String msg = "";

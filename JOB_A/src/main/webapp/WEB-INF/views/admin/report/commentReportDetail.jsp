@@ -12,27 +12,32 @@
 	/* 상단 */
 	#reporterInfor{
 		width: 100%;
-		height: 100%;
+		min-height: 120px;
 		border-style : hidden;
-        box-shadow: 1px 1px 5px 2px lightgrey;
 		margin-top:15px;
-		
-        column-gap : 15px;
-        column-rule: solid lightgrey 2px;
-        column–rule–width :thin;
-        column-count : 4;
+		box-shadow: 5px 5px 5px 5px lightgrey;
 	}
 
 	#reporter, #reportReason, #toggle, #status{
 		padding-top: 30px;
 		padding-left: 10px;
 		padding-bottom: 30px;
+		float: left;
 	}
 	
 	#reporter{
+		width: 40%;
 		padding-left: 15px;
 	}
-	
+	#reportReason{
+		width: 30%;
+		padding-left: 15px;
+	}
+	#toggle, #status{
+		width: 15%;
+		text-align: center;
+		
+	}
 	#Big, #sangtae{
 		color: #6c757d;
 	}
@@ -46,24 +51,21 @@
 	#boardTable{
 		width: 100%;
 		height: 100%;
-		margin-top: 30px;
 		padding-left: 10px;
 		font-size: 14px;
 		letter-spacing: 1.5px;
-		
-	}
-	
-	.title, .content{
-		padding-top: 10px;
+		display: inline-block;
+		margin-top: 50px;
 	}
 	
 	.title{
 		padding-right: 15px;
 		font-weight: bolder;
 	}
+	
 	.content{
 		padding-left: 15px;
-		border-left: 1px solid;
+		border-left: 1px solid #ddd;
 	}
 	
 	/* 해당 게시글 상세 내용 */
@@ -81,9 +83,6 @@
 		padding-top : 15px;
 		min-height: 250px;
 	}
-	#comment_Content{
-	
-	}
 	
 	/*확인버튼 : 뒤로가기*/
 	#goBack{
@@ -97,9 +96,20 @@
 		letter-spacing: 2px;
 		
 	}
+	
 	#goback:hover{
 		background: gray;
 	}
+	
+	#commentAndcontent{
+
+		padding-left: 10px;
+		letter-spacing: 1.5px;
+	}
+	#comment_Content{
+		padding-top : 15px;
+	}
+	
 </style>
 </head>
 <body class="vertical  dark  ">
@@ -204,13 +214,13 @@
 											<span id="board_Title">${board.board_Title}</span>
 											<div id="board_Content">${board.board_Content}</div>
 										</div>
-										<div>
-											<span id="comment">댓글</span>
+										<div id="commentAndcontent">
+											<span id="comment">해당 댓글</span>
 											<div id="comment_Content">${comment.comm_Content}</div>
 										</div>
 										<div>
 											<input type="button" id="goBack"
-											 onclick="location.href='${pageContext.request.contextPath}/boardReportList.do'"
+											 onclick="location.href='${pageContext.request.contextPath}/commentReportList.do'"
 											 value="확인">
 										</div>
 										
@@ -262,20 +272,40 @@
 		
 		// 활성화 ture 비활성화 false
 		$(".custom-control-input").click(function(){
+			
 				var status = "${comment.comm_Status}";
 				console.log("status"+ status);
+				
 				var test = $(".custom-control-input").is(":checked");
 				if(status == "Y" && test == false){
-						console.log("트루임");
-						//비활성화(B)로 바꿔야함
-						location.href="${pageContext.request.contextPath}/commentReportUpdate.do?commNo=${comment.comm_No}&commStatus=B"; 
+
+					var toggle = confirm("블라인드 처리 하시겠습니까?");
+						if(toggle == true){
+							
+							console.log("트루임");
+							//비활성화(B)로 바꿔야함
+							location.href="${pageContext.request.contextPath}/commentReportUpdate.do?commNo=${comment.comm_No}&commStatus=B";  
+						}
+						else if(toggle == false){
+							$(".custom-control-input").prop("checked", true);
+						}
+						
 					}else if(status == "B" && test == true){
-						console.log("여기는 비활>활성화로");
-						//활성화(Y)로 해야함                                  
-						location.href="${pageContext.request.contextPath}/commentReportUpdate.do?commNo=${comment.comm_No}&commStatus=Y"; 
+						
+						var toggle = confirm("활성화 하시겠습니까?");
+						if(toggle == true){
+							
+							console.log("여기는 비활>활성화로");
+							//활성화(Y)로 해야함
+							location.href="${pageContext.request.contextPath}/commentReportUpdate.do?commNo=${comment.comm_No}&commStatus=Y"; 
+							
+						}
+						else if(toggle == false){
+							$(".custom-control-input").prop("checked", false);
+						}
 						}
 			});
-
+		
 		</script>
 
 </body>

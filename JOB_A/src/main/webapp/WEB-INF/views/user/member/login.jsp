@@ -72,7 +72,7 @@
 							<table align="center">
 								<tr>
 									<td>
-										<input type="text" class="form-control" placeholder="ID" name="memId" required />
+										<input type="text" id="mem_focus" class="form-control" placeholder="ID" name="memId" required />
 									</td>
 								</tr>
 								<tr>
@@ -107,10 +107,15 @@
 			<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 			
+			<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script>
 		function goJoin() {
 			location.href = "${pageContext.request.contextPath}/join.do";
 		}
+
+		$(function(){
+			$("#mem_focus").focus();
+			})
 	</script>
 
 </body>

@@ -14,7 +14,7 @@
 	}
 	#commentContent:hover{
 		cursor: pointer;
-		background: #EAEAEA;
+	
 	}
 	#commentContent:focus{
 		outline: none;
@@ -47,7 +47,7 @@
 									<div class="card-body">
 										
 										<!-- table -->
-										<table class="table table-bordered" align="center" id="dataTable-1">
+										<table class="table table-hover datatables" align="center" id="dataTable-1">
 											<thead>
 												<tr align="center" role="row" >
 													<th>No.</th>
@@ -68,11 +68,11 @@
 														<td>${status.index+1}</td>
 														<td>${commentList[status.index].comm_No}</td>
 														<td> 
-															<input type="text" maxlength="200" id="commentContent" readonly="readonly" />
+															<input type="text" maxlength="200" id="commentContent" readonly="readonly" value="${commentList[status.index].comm_Content}"/>
 														</td>
 														<td>${appendantList[status.index].memNick}</td>
 														<td>${m.reportReason }</td>
-														<td>${reporterList[status.index].memNick}&nbsp;외&nbsp;${commentList[status.index].comm_ReportNum-1}&nbsp;명</td>
+														<td>${reporterList[status.index].memNick}<span class="people2">&nbsp;외&nbsp;<span class="people">${commentList[status.index].comm_ReportNum-1}</span>&nbsp;명</span></td>
 														<td>${m.reportDate}</td>
 														<td>${commentList[status.index].comm_ReportNum}</td>
 													
@@ -129,6 +129,25 @@
 		}
 		gtag('js', new Date());
 		gtag('config', 'UA-56159088-1');
+
+		// 리스트에서 외 몇명 구현
+		$(function(){
+			var test = $(".people").length;
+			var num = $(".people").text();
+			console.log("num: "+num);
+			console.log("Test"+test);
+			for(var i=0; i<test; i++){
+					var num2 = num[i];
+					console.log("num:"+num2);
+					if(num2 == 0){
+						$(".people2").eq(i).hide();
+						console.log("zzzzz");
+					}else{
+						$(".people").eq(i).show();
+						}
+						
+				}
+			});
 	</script>
 	
 	<script>
@@ -214,33 +233,5 @@
 				*/
     </script>
 
-	
-<!-- 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-	<script type="text/javascript">
-
-		function search(){
-			var searchKey = $("#search").val();
-			var searchCon = $("#inlineFormCustomSelectPref").val();
-			
-			if(searchKey == ""){
-				Swal.fire({
-	                title: "ʕ⁰̈●̫⁰̈ʔ..이러면 아모고토 검색할수가 없지",
-	                timer: 1300,
-	                showConfirmButton: false
-	            });
-				return false;
-			} else if(searchCon == ""){
-				Swal.fire({
-	                title: "ʕʘ●̫ʘʔ..근데 뭘로 검색해?",
-	                timer: 1300,
-	                showConfirmButton: false
-	            });
-				return false;
-			} else {
-				location.href="${pageContext.request.contextPath}/user/userSearch?condition="+$('#inlineFormCustomSelectPref').val()+"&keyword="+$('#search').val();	
-			}
-			
-		}
-	</script> -->
 </body>
 </html>
