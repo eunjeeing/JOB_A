@@ -101,11 +101,16 @@
 
 	</div>
 			<!-- Scripts -->
-			<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+<%-- 			<!-- Scripts -->
+			<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/js/main.js"></script> --%>
 			
 			<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script>

@@ -14,19 +14,6 @@
 		cursor: pointer;
 		background: #EAEAEA;
 	}
-	#boardTitle:hover{
-		cursor: pointer;
-	}	
-	#boardTitle:focus{
-		outline: none;
-	}
-	#boardTitle{
-		width: 100%;
-		height: auto;
-		border: none;
-		background: transparent;
-	}
-	
 
 </style>
 </head>
@@ -69,7 +56,7 @@
 														<td>${status.index+1}</td>
 														<td>${boardList[status.index].board_No}</td>
 														<td> 
-															<input align="left" type="text" id="boardTitle" maxlength="200" readonly="readonly" value="${boardList[status.index].board_Title}"/>
+															${boardList[status.index].board_Title}
 														</td>
 														<td>${appendantList[status.index].memNick}</td>
 														<td>${m.reportReason }</td>
@@ -115,10 +102,11 @@
         ]
       });
     </script>
-	<script src="${pageContext.request.contextPath}/resources/admin/js/apps.js"></script>
+<%-- 	<script src="${pageContext.request.contextPath}/resources/admin/js/apps.js"></script>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async
 		src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+		 --%>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 		
 	<script>
