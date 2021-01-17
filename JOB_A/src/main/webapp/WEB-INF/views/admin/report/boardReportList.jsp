@@ -65,16 +65,21 @@
 												<c:forEach items="${reportList}" var="m" varStatus="status"> 
 													<tr align="center" class="goDetail" onclick="location.href='${pageContext.request.contextPath}/boardReportDetail.do?boardNo=${m.boardNo}&reportReason=${m.reportReason}&appendantMemNick=${appendantList[status.index].memNick}&reporterMemNick=${reporterList[status.index].memNick}';">
 														<td>${status.index+1}</td>
-														<td>${m.reportNo}</td>
+														<td>${boardList[status.index].board_No}</td>
 														<td> 
 															<input align="left" type="text" id="boardTitle" maxlength="200" readonly="readonly" value="${boardList[status.index].board_Title}"/>
 														</td>
 														<td>${appendantList[status.index].memNick}</td>
 														<td>${m.reportReason }</td>
-														<td>${reporterList[status.index].memNick}</td>
+														<td>${reporterList[status.index].memNick}&nbsp;외&nbsp;${boardList[status.index].board_ReportNum-1}&nbsp;명</td>
 														<td>${m.reportDate}</td>
 														<td>${boardList[status.index].board_ReportNum}</td>
-														<td> <!-- 토글버튼 -->
+															<td><c:if test="${boardList[status.index].board_Status eq 'Y'}">
+																<span class='badge badge-success'>정상</span>
+															</c:if> <c:if test="${boardList[status.index].board_Status eq 'B'}">
+																<span class='badge badge-danger'>블라인드</span>
+															</c:if> </td>
+<%-- 														<td> <!-- 토글버튼 -->
 									
 															<div class="custom-control custom-switch">
 														<c:if test="${boardList[status.index].board_Status eq 'Y'}">
@@ -84,7 +89,7 @@
 																 for="${boardList[status.index].board_No}"></label>
 														</c:if>
 														
-														<c:if test="${boardList[status.index].board_Status eq 'N'}">
+														<c:if test="${boardList[status.index].board_Status eq 'B'}">
 															<input type="checkbox" class="custom-control-input" 
 																id="${boardList[status.index].board_No}" disabled="disabled" >
 															<label class="custom-control-label"
@@ -92,7 +97,7 @@
 															</c:if>	 															
 															</div>
 															
-														</td>
+														</td> --%>
 													</tr>
 												</c:forEach>
 											</tbody>

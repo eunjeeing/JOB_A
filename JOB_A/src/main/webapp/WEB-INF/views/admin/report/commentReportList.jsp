@@ -64,38 +64,24 @@
 											</thead>
 											<tbody>
 												<c:forEach items="${reportList}" var="m" varStatus="status"> 
-													<tr align="center" class="commentContent">
+													<tr align="center" class="commentContent" onclick="location.href='${pageContext.request.contextPath}/commentReportDetail.do?commentNo=${m.commNo}&reportReason=${m.reportReason}&appendantMemNick=${appendantList[status.index].memNick}&reporterMemNick=${reporterList[status.index].memNick}';" value="${commentList[status.index].comm_Content }">
 														<td>${status.index+1}</td>
-														<td>${m.reportNo}</td>
+														<td>${commentList[status.index].comm_No}</td>
 														<td> 
-															<input type="text" maxlength="200" id="commentContent" readonly="readonly" 
-															onclick="boardView(${board2List[status.index].type_No}, ${board2List[status.index].board_No})" value="${commentList[status.index].comm_Content }"/>
+															<input type="text" maxlength="200" id="commentContent" readonly="readonly" />
 														</td>
 														<td>${appendantList[status.index].memNick}</td>
 														<td>${m.reportReason }</td>
-														<td>${reporterList[status.index].memNick}</td>
+														<td>${reporterList[status.index].memNick}&nbsp;외&nbsp;${commentList[status.index].comm_ReportNum-1}&nbsp;명</td>
 														<td>${m.reportDate}</td>
 														<td>${commentList[status.index].comm_ReportNum}</td>
-														<td> <!-- 토글버튼 -->
-									
-															<div class="custom-control custom-switch">
-														<c:if test="${commentList[status.index].comm_Status eq 'Y'}">
-																<input type="checkbox" class="custom-control-input" 
-																		id="${commentList[status.index].comm_No}" name="statusY" checked>
-																<label class="custom-control-label"
-																 for="${commentList[status.index].comm_No}"></label>
-														</c:if>
-																 <input type="hidden" class="checkStatus" value="${commentList[status.index].comm_Status }">
-																 <input type="hidden" class="commentNo" value="${commentList[status.index].comm_No}">
-														
-														<c:if test="${commentList[status.index].comm_Status eq 'N'}">
-															<input type="checkbox" class="custom-control-input" 
-																id="${commentList[status.index].comm_No}" >
-															<label class="custom-control-label"
-																for="${commentList[status.index].comm_No}"></label>
-															</c:if>	 															
-															</div>
-														</td>
+													
+															<td><c:if test="${commentList[status.index].comm_Status eq 'Y'}">
+																<span class='badge badge-success'>정상</span>
+															</c:if> <c:if test="${commentList[status.index].comm_Status eq 'B'}">
+																<span class='badge badge-danger'>블라인드</span>
+															</c:if> </td>
+							
 													</tr>
 										
 												</c:forEach>
@@ -146,7 +132,7 @@
 	</script>
 	
 	<script>
-
+/*
 		// 활성화 true 비활성화 false
 			var $comment = $(".custom-control-input").on('click', function(){
 				
@@ -162,17 +148,17 @@
 			
 			if(status == "Y" ){
 					console.log("트루임");
-					//비활성화(n)로 바꿔야함
-					location.href="${pageContext.request.contextPath}/commentReportUpdate.do?commentStatus=N&commentNo="+commentNo; 
+					//비활성화(B)로 바꿔야함
+					location.href="${pageContext.request.contextPath}/commentReportUpdate.do?commentStatus=B&commentNo="+commentNo; 
 					
-				}else if(status == "N" ){
+				}else if(status == "B" ){
 					console.log("여기는 비활>활성화로");
 					//활성화(Y)로 해야함
 					location.href="${pageContext.request.contextPath}/commentReportUpdate.do?commentStatus=Y&commentNo="+commentNo; 
 					}
 		});
-
-
+*/
+/*
 		   // 해당 게시글로 이동
 			function boardView(boardType, boardNo){
 				// 해당 게시글로 넘어갈 때 컨펌창 
@@ -224,6 +210,8 @@
 						}
 
 				}
+				
+				*/
     </script>
 
 	

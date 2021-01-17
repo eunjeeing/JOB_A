@@ -55,6 +55,30 @@ public interface ReportService {
 	// 댓글 비활성화/상태 여부  
 	int updateComment(int commentNo, String commentStatus);
 
+	// 상세 페이지에 board_No로 모든 신고정보 가져오기 
+	List<Report> selectDetailReportList(int boardNo);
+
+	// 4회 이상 신고글 블라인드 상태로 변경
+	void updateBoardBlind(Board2 board);
+
+	// 신고테이블에서 삭제 
+	void deleteReport(int boardNo);
+
+	// 신고횟수 초기화
+	void updateBoardReportNumReset(int boardNo);
+
+	// 상세 페이지에 comm_No로 모든 신고정보 가져오기 
+	List<Report> selectDetailCommentsReportList(int commentNo);
+
+	// 4회 이상 신고댓글 블라인드 상태로 변경
+	void updateReportBlind(Comments2 comment);
+
+	// 댓글 신고테이블에서 삭제 
+	void deleteCommentReport(int commNo);
+
+	// 댓글 신고횟수 초기화
+	void updateCommentReportNumReset(int commNo);
+
 	
 	
 }

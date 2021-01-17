@@ -17,23 +17,29 @@
         box-shadow: 1px 1px 5px 2px lightgrey;
 		margin-top:15px;
 		
-		column-width : 30%;
         column-gap : 15px;
         column-rule: solid lightgrey 2px;
         column–rule–width :thin;
-        column-count : 3;
+        column-count : 4;
 	}
 
-	#reporter, #reportReason, #toggle{
-		padding-top: 5px;
+	#reporter, #reportReason, #toggle, #status{
+		padding-top: 30px;
 		padding-left: 10px;
+		padding-bottom: 30px;
 	}
 	
-	#Big{
+	#reporter{
+		padding-left: 15px;
+	}
+	
+	#Big, #sangtae{
 		color: #6c757d;
 	}
-	#data{
+
+	.data{
 		font-size: 15px;
+		margin-bottom: 0;
 	}
 	
 	/* 게시글 정보 테이블 */
@@ -115,16 +121,59 @@
 										<div id="reporterInfor">
 											<div id="reporter">
 												<h3 id="Big">신고자</h3>
-												<p id="data">${reporterMemNick}</p>
+												<b class="data">${reporterMemNick}</b>
+												
+												<b class="data">
+												<c:choose>
+													<c:when test="${empty DetailList}">
+													<div>
+														-----추가 신고내용 없음-----
+													</div>
+													</c:when>
+													<c:otherwise>
+														<c:forEach items="${DetailList}" var="list" varStatus="status">
+																, ${DetailMemberList[status.index].memNick }
+														</c:forEach>
+													</c:otherwise>
+												</c:choose>
+												</b>
 											</div>
 											
 											<div id="reportReason">
 												<h3 id="Big">신고사유</h3>
-												<p id="data">${reportReason}</p>
+												<b class="data">${reportReason}</b>
+												
+												<b class="data">
+												<c:choose>
+													<c:when test="${empty DetailList}">
+													<div>
+														-----추가 신고내용 없음-----
+													</div>
+													</c:when>
+													<c:otherwise>
+														<c:forEach items="${DetailList}" var="list" varStatus="status">
+															, ${list.reportReason }
+														</c:forEach>
+													</c:otherwise>
+												</c:choose>
+												</b>
 											</div>
+											
+											<div id="status">
+												<h3 id="sangtae">상태</h3>
+												<div>
+													<c:if test="${boardList.board_Status eq 'Y'}">
+														<span class='badge badge-success'>정상</span>
+													</c:if> 
+													<c:if test="${boardList.board_Status eq 'B'}">
+														<span class='badge badge-danger'>블라인드</span>
+													</c:if> 
+												</div>
+											</div>
+											
 											<div id="toggle">
-												<h3 id="Big">상태</h3>
-														<div class="custom-control custom-switch">
+												<h3 id="Big">상태 변경</h3>
+														<div class="custom-control custom-switch" id="YBtn">
 														<c:if test="${boardList.board_Status eq 'Y'}">
 															<input type="checkbox" class="custom-control-input" 
 																	id="${boardList.board_No}" name="statusY" checked>
@@ -132,13 +181,14 @@
 															 for="${boardList.board_No}"></label>
 														</c:if>
 														
-														<c:if test="${boardList.board_Status eq 'N'}">
+														<c:if test="${boardList.board_Status eq 'B'}">
 															<input type="checkbox" class="custom-control-input" 
 																id="${boardList.board_No}" >
 															<label class="custom-control-label"
 																for="${boardList.board_No}"></label>
 															</c:if>	 															
 														</div>
+
 											</div>
 										</div>
 										
@@ -165,7 +215,7 @@
 											<span id="board_Title">${boardList.board_Title}</span>
 											<div id="board_Content">${boardList.board_Content}</div>
 										</div>
-										
+									
 										<div>
 											<input type="button" id="goBack"
 											 onclick="location.href='${pageContext.request.contextPath}/boardReportList.do'"
@@ -173,6 +223,7 @@
 										</div>
 										
 									</div>
+
 								</div>
 							</div>
 							<!-- simple table -->
@@ -224,9 +275,9 @@
 				var test = $(".custom-control-input").is(":checked");
 				if(status == "Y" && test == false){
 						console.log("트루임");
-						//비활성화(n)로 바꿔야함
-						location.href="${pageContext.request.contextPath}/boardReportUpdate.do?boardNo=${boardList.board_No}&boardStatus=N"; 
-					}else if(status == "N" && test == true){
+						//비활성화(B)로 바꿔야함
+						location.href="${pageContext.request.contextPath}/boardReportUpdate.do?boardNo=${boardList.board_No}&boardStatus=B"; 
+					}else if(status == "B" && test == true){
 						console.log("여기는 비활>활성화로");
 						//활성화(Y)로 해야함
 						location.href="${pageContext.request.contextPath}/boardReportUpdate.do?boardNo=${boardList.board_No}&boardStatus=Y"; 

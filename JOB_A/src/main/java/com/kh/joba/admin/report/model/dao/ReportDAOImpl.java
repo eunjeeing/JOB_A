@@ -130,6 +130,60 @@ public class ReportDAOImpl implements ReportDAO {
 		return sqlSession.update("reportMapper.updateComment", comments);
 	}
 
+	// 상세 페이지에 board_No로 모든 신고정보 가져오기 
+	@Override
+	public List<Report> selectDetailReportList(int boardNo) {
+		
+		return sqlSession.selectList("reportMapper.selectDetailReportList", boardNo);
+	}
+
+	// 4회 이상 신고글 블라인드 상태로 변경
+	@Override
+	public int updateBoardBlind(Board2 board) {
+		
+		return sqlSession.update("reportMapper.updateBoardBlind", board);
+	}
+
+	// 신고테이블에서 삭제
+	@Override
+	public int deleteReport(int boardNo) {
+
+		return sqlSession.delete("reportMapper.deleteReport", boardNo);
+	}
+	
+	// 신고횟수 초기화
+	@Override
+	public int updateBoardReportNumReset(int boardNo) {
+
+		return sqlSession.update("reportMapper.updateBoardReportNumReset", boardNo);
+	}
+
+	// 상세 페이지에 comm_No로 모든 신고정보 가져오기 
+	@Override
+	public List<Report> selectDetailCommentsReportList(int commentNo) {
+		
+		return sqlSession.selectList("reportMapper.selectDetailCommentsReportList", commentNo);
+	}
+
+	// 4회 이상 신고댓글 블라인드 상태로 변경
+	@Override
+	public int updateReportBlind(Comments2 comment) {
+
+		return sqlSession.update("reportMapper.updateReportBlind", comment);
+	}
+	// 댓글 신고테이블에서 삭제 
+	@Override
+	public int deleteCommentReport(int commNo) {
+		
+		return sqlSession.delete("reportMapper.deleteCommentReport", commNo);
+	}
+	// 댓글 신고횟수 초기화
+	@Override
+	public int updateCommentReportNumReset(int commNo) {
+		
+		return sqlSession.update("reportMapper.updateCommentReportNumReset", commNo);
+	}
+
 
 
 }

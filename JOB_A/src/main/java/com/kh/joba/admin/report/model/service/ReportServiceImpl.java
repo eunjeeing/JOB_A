@@ -128,4 +128,74 @@ public class ReportServiceImpl implements ReportService {
 		return reportDAO.updateComment(commentNo, commentStatus);
 	}
 
+	// 상세 페이지에 board_No로 모든 신고정보 가져오기 
+	@Override
+	public List<Report> selectDetailReportList(int boardNo) {
+		
+		return reportDAO.selectDetailReportList(boardNo);
+	}
+
+	// 4회 이상 신고글 블라인드 상태로 변경
+	@Override
+	public void updateBoardBlind(Board2 board) {
+		
+		int res =  reportDAO.updateBoardBlind(board);
+		
+		System.out.println("res"+res);
+	}
+
+	// 신고테이블에서 삭제 
+	@Override
+	public void deleteReport(int boardNo) {
+		
+		int res = reportDAO.deleteReport(boardNo);
+		
+		System.out.println("1이상이면 삭제 완료" + res);
+	}
+
+	// 신고횟수 초기화
+	@Override
+	public void updateBoardReportNumReset(int boardNo) {
+		
+		int res = reportDAO.updateBoardReportNumReset(boardNo);
+		
+		System.out.println("1이상이면 초기화 완료 " + res);
+	}
+
+	// 상세 페이지에 comm_No로 모든 신고정보 가져오기 
+	@Override
+	public List<Report> selectDetailCommentsReportList(int commentNo) {
+		
+		return reportDAO.selectDetailCommentsReportList(commentNo);
+	}
+
+	// 4회 이상 신고댓글 블라인드 상태로 변경
+	@Override
+	public void updateReportBlind(Comments2 comment) {
+		
+		int res =  reportDAO.updateReportBlind(comment);
+		
+		System.out.println("res"+res);
+	}
+	
+	// 댓글 신고테이블에서 삭제 
+	@Override
+	public void deleteCommentReport(int commNo) {
+		
+		int res = reportDAO.deleteCommentReport(commNo);
+		
+		System.out.println("1이상이면 삭제 완료" + res);
+		
+	}
+	
+	// 댓글 신고횟수 초기화
+	@Override
+	public void updateCommentReportNumReset(int commNo) {
+		
+		int res = reportDAO.updateCommentReportNumReset(commNo);
+		
+		System.out.println("1이상이면 초기화 완료 " + res);
+		
+	}
+
 }
