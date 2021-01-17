@@ -147,8 +147,8 @@
 
             </ul></li>
 
-			<!-- 통계 관리 -->
-			<li class="nav-item dropdown"><a href="#static"
+			 <!-- 통계 관리 -->
+			<!--<li class="nav-item dropdown"><a href="#static"
 				data-toggle="collapse" aria-expanded="false"
 				class="dropdown-toggle nav-link"> <i
 					class="fe fe-bar-chart-2 fe-16"></i> <span class="ml-3 item-text">STATICS</span>
@@ -161,7 +161,7 @@
 					<li class="nav-item"><a class="nav-link pl-3" href="#"> <span
 							class="ml-1 item-text">Report Static</span></a></li>
 
-				</ul></li>
+				</ul></li> -->
 		</ul>
 
 		</ul>

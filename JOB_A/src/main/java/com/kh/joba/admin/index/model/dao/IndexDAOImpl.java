@@ -57,4 +57,18 @@ public class IndexDAOImpl implements IndexDAO {
 		return countTotalMember;
 	}
 
+	@Override
+	public List<Map<String, String>> countReport() {
+		List<Map<String, String>> noticeCount = sqlSession.selectList("indexMapper.countReport"); 
+		return noticeCount;
+	}
+
+	@Override
+	public List<Map<String, String>> recentBoard() {
+		
+		List<Map<String, String>> recentBoard = sqlSession.selectList("indexMapper.recentBoard"); 
+		return recentBoard;
+	}
+
+
 }

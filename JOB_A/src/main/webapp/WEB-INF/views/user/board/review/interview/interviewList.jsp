@@ -12,8 +12,10 @@
 	}
 	
 	#topbanner {
-		background-image: url(${pageContext.request.contextPath}/resources/images/review.jpg);
+		background-image: url(${pageContext.request.contextPath}/resources/images/back7.jpg);
 		background-size: 100% 100%;
+		background-position: center;
+		background-size : cover;
 		margin-top: 10px;
 		/* border: 1px solid black; */
 		height: 400px;
@@ -27,15 +29,15 @@
 		padding: auto;
 		/* border : 1px solid black; */
 		display: flex;
-		background : black;
-		opacity : 0.4;
+		background : white;
+		opacity : 0.7;
 	}
 	
 	#topbanner-text {
 		font-size: 40px;
 		font-weight: 500;
 		margin: auto;
-		color: white;
+		color: black;
 	}
 	
 	#utilBox {

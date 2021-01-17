@@ -6,10 +6,17 @@
  
 <!doctype html>
 <html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>JOB_A | Admin</title>
 <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/admin/js/simplebar.min.js"></script>
 <script>
-var chartval = {};
-var chartval = {};
 $(document).ready(function(){
 	 $.ajax({
 	      url:"${pageContext.request.contextPath}/boardCount",
@@ -57,49 +64,143 @@ $(document).ready(function(){
 	    	  $('.totalMember').append('<p class="small text-muted mb-0">Total '+ data[0]["COUNT(*)"] +'</p>');
 	      }
 	 });
-	
 	 $.ajax({
 	      url:"${pageContext.request.contextPath}/rankList",
 	      type:"POST",
 	      dataType : "json",
-	      async: false,
+	      async: true,
 	      success : function(data){
 				console.log(data);
-				chartval = data;
-				
-	      }
-	 });
-	 console.log(chartval);
-});
-/* chart = 
-	<canvas id="pieChart" width="698" height="600"
-		style="display: block; height: 300px; width: 349px;">
-		This text is displayed if your browser does not support HTML5 Canvas.
-		</canvas>
-	<script type="text/javascript">
-	var context = document.getElementById('pieChart');
-	var myChart = new chart(context,{
-			type : 'pie',
-			data : {
-				labels : [ chartlabel ],
-				datasets : [ { 
-					data : [ chartval ]
+				var count = [];
+				var name = [];
 
+				for(var i in data){
+					count.push(data[i].CATEGORY_COUNT);
+					name.push(data[i].CATEGORY_NAME)
+					};
+				console.log(count);
+				console.log(name);
+
+				// doughnut차트 시작
+				var ctx = $('#doughnutChart');
+				var myChart = new Chart(ctx,{
+					type : "doughnut",
+					data : {
+						datasets: [{
+							data: count,
+							backgroundColor : [
+									'#E74645',
+									'#FB7756',
+									'#FACD60',
+									'#8CC474',
+									'#8FCACA',
+									'#ABDEE6',
+									'#CBAACB',
+									'#6546A4',
+									'#6F85BF',
+									'#BC5679'
+								],
+						}],
+						labels: name
+					}, // data : end
+					options : {
+						responsive : true,
+						animation : {
+							animateScale : true,
+							animaterotate : true
+							}
+						}// option end	
+				}); // config end\
+	      }
+	}); // ajax end
+	$.ajax({
+		url:"${pageContext.request.contextPath}/reportCount",
+		type:"POST",
+		dataType : "json",
+		async: true,
+		success : function(data){
+			var date = [];
+			var report = [];
+			var board = [];
+
+			for(var i in data){
+				date.push(data[i].BOARD_DATE);
+				report.push(data[i].REPORT_COUNT);
+				board.push(data[i].BOARD_COUNT);
+				
+				};
+			console.log('date:' +date);
+			console.log('report:' +report);
+			console.log('board:' +board);
+
+			// area차트 시작
+			var ctx = $('#areaChart');
+			var config = new Chart(ctx, {
+				type : 'line',
+				data : {
+					labels : date,
+					datasets : [{
+						label : "신고된 게시글",
+						borderColor : 'rgb(214,10,0,0.8)',
+						backgroundColor: 'rgb(214,10,0,0.8)',
+						data : report,
+					}, {
+					 	label : "전체 게시글",
+						borderColor :'rgb(0,186,24,0.5)',
+						backgroundColor : 'rgb(0,186,24,0.5)',
+						data : board,
 					}]
-				},
-				options : {
-					reponsive : false
+					}, // data end
+					options : {
+						responsive : true,
+						tooltips : { mode : 'index'},
+						hover : { mode : 'index'},
+						scales : {
+							xAxes : [{
+								scaleLabel : {
+									display : true,
+									labelString : 'Month'
+									}
+								}],
+								yAxes : [{
+									stacked:true,
+									scaleLabel : {
+										display:true,
+										labelString :'Value'
+										}
+							}]
+						}// option end
 					}
-			}); */
-	</script>
+				}); // config end
+		} // success end
+	}); // ajax end
+
+	// 최근 게시글 10개 
+	$.ajax({
+		url:"${pageContext.request.contextPath}/recentBoard",
+		type:"POST",
+		dataType : "json",
+		async: true,
+		success : function(data){
+			var list = data;
+			console.log(list);
+			for ( var i in list){
+				tr =
+					'<tr align="center" class="trtr odd" role="row">'+
+					'<td class="sorting_1">'+ data[i].BOARD_NO +'</td>'+
+					'<td class="goBoard" id="4">'+ data[i].BOARD_TITLE+'</td>'+
+					'<td>'+ data[i].MEM_NICK+'</td>'+
+					'<td>'+ data[i].BOARD_DATE+'</td>'+
+					'<td>'+ data[i].BOARD_VIEW+'</td>'+
+					'</tr>' 
+
+					$('.recentBoard').append(tr);
+				}// for문 end
+			/* click(); */
+		} // success end 
+	});// ajax end
+});
 </script>
-<head>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-<title>JOB_A | Admin</title>
 <!-- Simple bar CSS -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/admin/css/simplebar.css">
@@ -108,34 +209,18 @@ $(document).ready(function(){
 	href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
 	rel="stylesheet">
 <!-- Icons CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/admin/css/feather.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/admin/css/select2.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/admin/css/dropzone.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/admin/css/uppy.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/admin/css/jquery.steps.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/admin/css/jquery.timepicker.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/admin/css/quill.snow.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/css/feather.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/css/select2.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/css/dropzone.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/css/uppy.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/css/jquery.steps.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/css/jquery.timepicker.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/css/quill.snow.css">
 <!-- Date Range Picker CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/admin/css/daterangepicker.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/css/daterangepicker.css">
 <!-- App CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/admin/css/app-light.css"
-	id="lightTheme">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/admin/css/app-dark.css"
-	id="darkTheme" disabled>
-	
-<script type="text/javascript">
-
-</script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/css/app-light.css" id="lightTheme">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/css/app-dark.css" id="darkTheme" disabled>
 </head>
 <body class="vertical  dark  ">
 	<div class="wrapper">
@@ -198,7 +283,7 @@ $(document).ready(function(){
 					</div>
 				</div>
 			</div>
-			<div class="row align-items-center my-2">
+			<!-- <div class="row align-items-center my-2">
 				<div class="col-auto ml-auto">
 					<form class="form-inline">
 						<div class="form-group">
@@ -226,9 +311,7 @@ $(document).ready(function(){
 						</div>
 					</form>
 				</div>
-			</div>
-              
-			
+			</div> -->
               
 			<div class="container-fluid">
 				<div class="row justify-content-center">
@@ -236,134 +319,121 @@ $(document).ready(function(){
 		                <div class="col-md-6 mb-4" style="width: 50vw;">
 		                  <div class="card shadow">
 		                    <div class="card-header">
-		                      <strong class="card-title mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">파이 차트</font></font></strong>
+		                      <strong class="card-title mb-0">
+		                      	<font style="vertical-align: inherit;">
+		                      	<font style="vertical-align: inherit;">선호 직종</font>
+		                      	</font></strong>
 		                    </div>
-		                    <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-		                      <canvas id="pieChartjs" width="634" height="600" class="chartjs-render-monitor" style="display: block; height: 300px; width: 317px;"></canvas>
+		                    <div class="card-body">
+		                    	<div class="chartjs-size-monitor">
+		                    		<div class="chartjs-size-monitor-expand">
+		                    		</div>
+		                    		<div class="chartjs-size-monitor-shrink">
+		                    		</div>
+		                    	</div>
+		                     	<canvas id="doughnutChart" width="650" height="500"></canvas>
 		                    </div> <!-- /.card-body -->
 		                  </div> <!-- /.card -->
 		                </div> <!-- /. col -->
+		                <!-- 도넛 차트 끝 -->
+		                
 		                <div class="col-md-6 mb-4">
 		                  <div class="card shadow">
 		                    <div class="card-header">
-		                      <strong class="card-title mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">영역 차트</font></font></strong>
+		                      <strong class="card-title mb-0">
+			                      <font style="vertical-align: inherit;">
+			                     	 <font style="vertical-align: inherit;">일반 게시글 VS 신고 게시글</font>
+			                      </font>
+		                      </strong>
 		                    </div>
-		                    <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-		                      <canvas id="areaChartjs" width="634" height="600" class="chartjs-render-monitor" style="display: block; height: 300px; width: 317px;"></canvas>
+		                    <div class="card-body">
+		                    	<div class="chartjs-size-monitor">
+		                    		<div class="chartjs-size-monitor-expand">
+		                    		</div>
+		                    		<div class="chartjs-size-monitor-shrink"></div>
+		                    	</div>
+		                      	<canvas id="areaChart" width="650" height="500"></canvas>
+		                      
 		                    </div> <!-- /.card-body -->
 		                  </div> <!-- /.card -->
 		                </div> <!-- /. col -->
 		              </div>
-
-					<div class="row items-align-baseline">
-						<div class="col-md-12 col-lg-4">
-							<div class="card shadow eq-card mb-4">
-								<div class="card-body mb-n3">
-									<div class="row items-align-baseline h-100">
-										<div class="col-md-6 my-3">
-											<p class="mb-0">
-												<strong class="mb-0 text-uppercase text-muted">신규 게시글</strong>
-											</p>
-											<h3>2,562</h3><!-- 
-											<p class="text-muted">Lorem ipsum dolor sit amet,
-												consectetur adipiscing elit.</p> -->
-										</div>
-										<div class="col-md-6 my-4 text-center">
-											<div lass="chart-box mx-4">
-												<div id="radialbarWidget"></div>
-											</div>
-										</div>
-										<div class="col-md-6 border-top py-3">
-											<p class="mb-1">
-												<strong class="text-muted">Cost</strong>
-											</p>
-											<h4 class="mb-0">108</h4>
-											<p class="small text-muted mb-0">
-												<span>37.7% Last week</span>
-											</p>
-										</div>
-										<!-- .col -->
-										<div class="col-md-6 border-top py-3">
-											<p class="mb-1">
-												<strong class="text-muted">Revenue</strong>
-											</p>
-											<h4 class="mb-0">1168</h4>
-											<p class="small text-muted mb-0">
-												<span>-18.9% Last week</span>
-											</p>
-										</div>
-										<!-- .col -->
-									</div>
-								</div>
-								<!-- .card-body -->
-							</div>
-							<!-- .card -->
-						</div>
-						<!-- .col -->
-						<div class="col-md-12 col-lg-4">
-							<div class="card shadow eq-card mb-4">
+						
+					
+						<div class="col-md-12 mb-12">
+							<div class="card shadow">
 								<div class="card-body">
-									<div class="chart-widget mb-2">
-										<div id="radialbar"></div>
-									</div>
-									<div class="row items-align-center">
-										<div class="col-4 text-center">
-											<p class="text-muted mb-1">Cost</p>
-											<h6 class="mb-1">$1,823</h6>
-											<p class="text-muted mb-0">+12%</p>
-										</div>
-										<div class="col-4 text-center">
-											<p class="text-muted mb-1">Revenue</p>
-											<h6 class="mb-1">$6,830</h6>
-											<p class="text-muted mb-0">+8%</p>
-										</div>
-										<div class="col-4 text-center">
-											<p class="text-muted mb-1">Earning</p>
-											<h6 class="mb-1">$4,830</h6>
-											<p class="text-muted mb-0">+8%</p>
-										</div>
+								<div class="row">
+									<div class="col-sm-12" style=" margin-bottom : 10px;">
+										<font style="vertical-align: inherit;">
+										&nbsp;최근 게시글&nbsp;&nbsp;&nbsp;</font>
+										<font style="vertical-align: right;">
+											<a href="${pageContext.request.contextPath}/admin/jobList.do">
+											👉&nbsp;더보기</a>
+										</font>
 									</div>
 								</div>
-								<!-- .card-body -->
-							</div>
-							<!-- .card -->
-						</div>
-						<!-- .col -->
-						<div class="col-md-12 col-lg-4">
-							<div class="card shadow eq-card mb-4">
-								<div class="card-body">
-									<div class="d-flex mt-3 mb-4">
-										<div class="flex-fill pt-2">
-											<p class="mb-0 text-muted">Total</p>
-											<h4 class="mb-0">108</h4>
-											<span class="small text-muted">+37.7%</span>
-										</div>
-										<div class="flex-fill chart-box mt-n2">
-											<div id="barChartWidget"></div>
+									<!-- 테이블 -->
+								<div id="dataTable-1_wrapper"
+									class="dataTables_wrapper dt-bootstrap4 no-footer">
+									<div class="row">
+										<div class="col-sm-12">
+											<table class="table table-hover dataTable no-footer"
+												align="center" id="dataTable-1" role="grid"
+												aria-describedby="dataTable-1_info">
+												<thead>
+													<tr align="center" role="row">
+														<th class="sorting_asc" tabindex="0"
+															aria-controls="dataTable-1" rowspan="1" colspan="1"
+															aria-sort="ascending"
+															aria-label="No.: activate to sort column descending"
+															style="width: 26px;">No.</th>
+														<th width="40%" class="sorting" tabindex="0"
+															aria-controls="dataTable-1" rowspan="1" colspan="1"
+															aria-label="제목: activate to sort column ascending"
+															style="width: 248px;">제목</th>
+														<th class="sorting" tabindex="0"
+															aria-controls="dataTable-1" rowspan="1" colspan="1"
+															aria-label="작성자: activate to sort column ascending"
+															style="width: 49px;">작성자</th>
+														<th class="sorting" tabindex="0"
+															aria-controls="dataTable-1" rowspan="1" colspan="1"
+															aria-label="등록일: activate to sort column ascending"
+															style="width: 83px;">등록일</th>
+														<th width="8%" class="sorting" tabindex="0"
+															aria-controls="dataTable-1" rowspan="1" colspan="1"
+															aria-label="조회수: activate to sort column ascending"
+															style="width: 30px;">조회수</th>
+													</tr>
+												</thead>
+												<tbody class="recentBoard">
+													
+												</tbody>
+											</table>
 										</div>
 									</div>
-									<!-- .d-flex -->
-									<div class="row border-top">
-										<div class="col-md-6 pt-4">
-											<h6 class="mb-0">
-												108 <span class="small text-muted">+37.7%</span>
-											</h6>
-											<p class="mb-0 text-muted">Cost</p>
-										</div>
-										<div class="col-md-6 pt-4">
-											<h6 class="mb-0">
-												1168 <span class="small text-muted">-18.9%</span>
-											</h6>
-											<p class="mb-0 text-muted">Revenue</p>
-										</div>
-									</div>
-									<!-- .row -->
+									
 								</div>
-								<!-- .card-body -->
+								<script type="text/javascript">
+								/* function click(){
+									$("#list").on("click",function(){
+										var board_No = $(this).attr("id");
+										var popUrl = "${pageContext.request.contextPath}/user/selectBoardDetail?boardNo=" + boardNo;
+										var popOption = "width=700, height=600, resizable=no, scrollbars=no, status=no;";
+	
+										window.open(popUrl, "", popOption);
+										
+										});
+									}; */
+								</script>
+								<br>
+								</div>
 							</div>
-							<!-- .card -->
 						</div>
-						<!-- .col-md -->
+							<!-- Bordered table -->
+					
+					
+					
 					</div>
 
 				</div>
@@ -377,7 +447,6 @@ $(document).ready(function(){
 	<script src="${pageContext.request.contextPath}/resources/admin/js/popper.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/admin/js/moment.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/admin/js/bootstrap.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/admin/js/simplebar.min.js"></script>
 	<script src='${pageContext.request.contextPath}/resources/admin/js/daterangepicker.js'></script>
 	<script src='${pageContext.request.contextPath}/resources/admin/js/jquery.stickOnScroll.js'></script>
 	<script src="${pageContext.request.contextPath}/resources/admin/js/tinycolor-min.js"></script>
@@ -387,7 +456,6 @@ $(document).ready(function(){
 	<script src="${pageContext.request.contextPath}/resources/admin/js/datamaps.all.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/admin/js/datamaps-zoomto.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/admin/js/datamaps.custom.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/admin/js/Chart.min.js"></script>
 	<script>
       /* defind global options */
       Chart.defaults.global.defaultFontFamily = base.defaultFontFamily;

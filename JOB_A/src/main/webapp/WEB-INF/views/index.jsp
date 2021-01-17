@@ -329,7 +329,6 @@ $(document).ready(function(){
          for(var i in list){
             console.log(data[i]);
             if(i == 0){
-            div = 
             	div = 
 					'<div class="carou-card active" id="' + data[i].BOARD_NO + '" style="width:30vw; padding-top:2em;padding-left:2.7vw;">'+
 					'<div class="tit">' +
