@@ -7,19 +7,12 @@
 <!-- 랭킹 -->
 
 	<select id="selectAllCount" resultType="HashMap" parameterType="string">
-		select 
-			(select count(category_no) from wish_category where category_no = 1) as office,
-	        (select count(category_no) from wish_category where category_no = 2) as marketing,
-	        (select count(category_no) from wish_category where category_no = 3) as media,
-	        (select count(category_no) from wish_category where category_no = 4) as market,
-	        (select count(category_no) from wish_category where category_no = 5) as service,
-	        (select count(category_no) from wish_category where category_no = 6) as research,
-	        (select count(category_no) from wish_category where category_no = 7) as medicine,
-	        (select count(category_no) from wish_category where category_no = 8) as architecture,
-	        (select count(category_no) from wish_category where category_no = 9) as edu,
-	        (select count(category_no) from wish_category where category_no = 10) as production,
-	        (select count(category_no) from wish_category where category_no = 11) as trade
-		from dual
+		SELECT  CW.CATEGORY_NAME, CW.CATEGORY_COUNT
+        FROM (SELECT C.CATEGORY_NAME, 
+                (SELECT COUNT(CATEGORY_NO) FROM WISH_CATEGORY W WHERE W.CATEGORY_NO = C.CATEGORY_NO ) CATEGORY_COUNT
+        FROM CATEGORY C, WISH_CATEGORY W
+        WHERE C.CATEGORY_NO = W.CATEGORY_NO) CW
+        GROUP BY CW.CATEGORY_NAME, CW.CATEGORY_COUNT
 	</select>
 	
 	<select id="selectCarouselList" resultType="HashMap" parameterType="string">
@@ -33,5 +26,24 @@
       	]]>
 	</select>
 	
+	<select id="countTodayBoard" resultType="HashMap" parameterType="string">
+		SELECT COUNT(*) FROM BOARD
+		WHERE BOARD_STATUS = 'Y' AND SUBSTR(TO_CHAR(BOARD_DATE),1,9)=TO_DATE(SYSDATE,'yy/MM/dd')
+	</select>
+	
+	<select id="countBoard" resultType="HashMap" parameterType="string">
+		SELECT COUNT(*) FROM BOARD
+   		WHERE BOARD_STATUS = 'Y'
+	</select>
+	
+	<select id="countTodayMember" resultType="HashMap" parameterType="_int">
+		SELECT COUNT(*) FROM MEMBER
+   		WHERE MEM_STATE = 0 AND SUBSTR(TO_CHAR(MEM_DATE),1,9)=TO_DATE(SYSDATE,'yy/MM/dd')
+	</select>
+	
+	<select id="countTotalMember" resultType="HashMap" parameterType="_int">
+		SELECT COUNT(*) FROM MEMBER
+   		WHERE MEM_STATE = 0
+	</select>
 
 </mapper>

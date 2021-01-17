@@ -19,6 +19,7 @@ public class IndexVo {
 	private int type_no;
 	private int mem_no;
 	private int category_no;
+	private String category_Count;
 	private String board_title;
 	private String board_content;
 	private String mem_nick;
