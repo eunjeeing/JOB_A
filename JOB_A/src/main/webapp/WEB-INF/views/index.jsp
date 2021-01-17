@@ -420,7 +420,7 @@ $(document).ready(function(){
 		<div id="main">
 			<div class="inner">
 				<c:import url="user/common/header.jsp" />
-
+				<a href="${pageContext.request.contextPath}/calendar">ddd</a>
 				
 				<!-- Banner -->
 				<section id="banner">
@@ -682,6 +682,8 @@ $(document).ready(function(){
 				function goInfo(){
 					location.href = '${pageContext.request.contextPath}/selectNoticeFromIndex.bo';
 				}	
+
+				
 				
 	</script>
 	

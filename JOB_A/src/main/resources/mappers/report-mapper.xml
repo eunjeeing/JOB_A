@@ -94,9 +94,9 @@
 	
 	<!-- 게시글 댓글 신고 -->
 	<insert id="insertReport" parameterType="Report">
-		INSERT INTO REPORT 
-		VALUES(REPORT_SEQ.NEXTVAL, #{memNo}, #{boardNo}, #{commNo}, #{reportReason}, DEFAULT, #{memNo2})
-	</insert>
+      INSERT INTO REPORT (REPORT_NO, MEM_NO, BOARD_NO, COMM_NO, REPORT_REASON, REPORT_DATE, MEM_NO2)
+      VALUES(REPORT_SEQ.NEXTVAL, #{memNo}, #{boardNo}, #{commNo}, #{reportReason}, DEFAULT, #{memNo2})
+   </insert>
 	
 	<!-- 게시글 비화성화, 활성화 -->
 	<update id="updateBoard" parameterType="Board">

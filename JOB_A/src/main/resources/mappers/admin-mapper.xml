@@ -96,8 +96,13 @@
 	</select>
 	
 	<select id="selectBoardDetail" parameterType="_int" resultType="Board">
-		SELECT * FROM BOARD
-		WHERE BOARD_NO = #{boardNo}
+		SELECT *
+		FROM BOARD B, MEMBER M, BOARDTYPE T
+		WHERE B.BOARD_NO = #{boardNo} 
+		AND BOARD_STATUS = 'Y' 
+		AND B.MEM_NO = M.MEM_NO 
+		AND B.TYPE_NO = T.TYPE_NO
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 	</select>
 	
 	<select id="selectGradeList" parameterType="_int" resultType="Board">

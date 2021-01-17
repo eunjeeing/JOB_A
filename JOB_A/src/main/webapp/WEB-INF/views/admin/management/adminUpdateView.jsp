@@ -56,7 +56,7 @@
 											</div>
 											<div class="form-group row">
 												<label for="adminNick" class="col-sm-3 col-form-label">닉네임</label>
-												<div class="col-sm-4">
+												<div class="col-sm-6">
 													<input class="form-control" id="adminNick" type="text"
 														name="adminNick" value="${admin.adminNick}">
 													<input type="hidden" class="checkAdminNick" value="${admin.adminNick}" />
@@ -143,23 +143,22 @@
 	/* 닉네임 중복검사 */
 	$("#adminNick").on("keyup", function(){
         var memNick = $(this).val().trim();
-
         var myNick = $(".checkAdminNick").val().trim();
-        console.log("memNick:"+memNick+"nickName:"+nickName);
+        console.log("memNick:"+memNick+"myNick:"+myNick);
         
-        if( memNick == myNick || memNick =="" || memNick == null){ // 내 닉네임과 수정할 닉네임 비교 시작
+        if( memNick == myNick || memNick == "" || memNick == null){ // 내 닉네임과 수정할 닉네임 비교 시작
         	console.log("같다");
-            $(".guide.ok").hide();
-        	$(".guide.error").hide();
-            $(".guide.invalid").hide();
+            $(".guide .ok").hide();
+        	$(".guide .error").hide();
+            $(".guide .invalid").hide();
             
 	        
     	} else {
         
 	        if(memNick.length>10) {
-	        	$(".guide.error").hide();
-	        	$(".guide.ok").hide();
-	        	$(".guide.invalid").show();
+	        	$(".guide .error").hide();
+	        	$(".guide .ok").hide();
+	        	$(".guide .invalid").show();
 	        	return;
 	        	
 	        } else {
@@ -194,6 +193,7 @@
 			console.log(memNick);
 		}
 	});
+
 
 		$('.input-phoneus').mask('000-0000-0000');
 	</script>
