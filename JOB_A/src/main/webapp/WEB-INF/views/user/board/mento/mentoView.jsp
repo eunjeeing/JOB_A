@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>JOB_A | MENTO</title>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board.css" />
 <style>
@@ -193,10 +193,11 @@ form {
 }
 
 </style>
+
+	<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
 <scrip>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-lite.css">
 </scrip>
-
 </head>
 <body class="is-preload">
 	<div id="wrapper">
@@ -262,12 +263,12 @@ form {
 								<p>
 								<c:if test="${member.memNo eq mento.mem_no}">
 								<div align="right">
-									<button style="font-weight: 300; margin-right:10px;"
+									<%-- <button style="font-weight: 300; margin-right:10px;"
 									 onclick="location.href='${pageContext.request.contextPath}/mentoUpdateForm.bo?board_no=${mento.board_no}'">수정</button>
-									<!-- 
+ --%>
 									 <button style="font-weight: 300; margin-right:10px;"
 									 onclick="location.href='${pageContext.request.contextPath}/mentoUpdateForm.bo?board_no=${mento.board_no}&mem_no=${SessionScope.member.memNo}&type_no=${mento.type_no}'">수정</button>
-									 -->
+
 									<button style="font-weight: 300;" onclick="location.href='${pageContext.request.contextPath}/mentoDelete.bo?board_no=${mento.board_no}'">삭제</button>
 								</div>
 								</c:if>
@@ -403,7 +404,7 @@ form {
 	</div>
 	<c:import url="../reportModal.jsp"/>	<!-- 신고 모달 창 -->
 	 	
-	<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+
 	<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>

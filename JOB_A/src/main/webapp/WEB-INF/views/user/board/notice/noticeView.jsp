@@ -198,6 +198,10 @@ p {
 
 
 </style>
+	 	<script
+		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
 </head>
 <body class="is-preload">
 	<div id="wrapper">
@@ -361,10 +365,7 @@ p {
 		</div>
 		<c:import url="../../common/sideBar.jsp" />
 	</div>
-		 	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+	
 	<script
 		src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>

@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title> 후기 | 합격후기</title>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" />
 <style>
 #topbanner {
@@ -185,6 +185,8 @@ form {
 }
 
 </style>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
 </head>
 <body class="is-preload">
 	<div id="wrapper">
@@ -369,7 +371,7 @@ form {
 	<c:import url="../../reportModal.jsp"/>	<!-- 신고 모달 창 -->
 	
 	<!-- Scripts -->
-	<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+
 	<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
