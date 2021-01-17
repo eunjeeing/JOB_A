@@ -109,12 +109,9 @@
 								<tbody>
 									<c:forEach items="${boardList}" var="b">
 										<tr>
-											<td>
-												${b.board_No}
-												<input type="hidden" id="boardNo" value="${b.board_No}">
-											</td>
+											<td>${b.board_No}</td>
 											<td>${b.type_Name}</td>
-											<td><a href="javascript:void(0);" onclick="boardDetail()">${b.board_Title}</a></td>
+											<td style="cursor: pointer;" onclick="boardDetail(${b.board_No})">${b.board_Title}</td>
 											<td>${b.mem_Nick}</td>
 											<td>${b.board_Date}</td>
 											<td>${b.board_View}</td>
@@ -216,8 +213,7 @@
    
    
 	<script>
-		function boardDetail() {
-			var boardNo = $('#boardNo').val();
+		function boardDetail(boardNo) {
 			var popUrl = "${pageContext.request.contextPath}/user/selectBoardDetail?boardNo=" + boardNo;
 			var popOption = "width=700, height=600, resizable=no, scrollbars=no, status=no;";
 

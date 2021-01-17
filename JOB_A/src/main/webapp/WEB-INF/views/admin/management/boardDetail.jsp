@@ -7,11 +7,35 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>JOB_A | 블라블라</title>
+<title>게시물 상세보기</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board.css" />
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/admin/css/feather.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/admin/css/select2.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/admin/css/dropzone.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/admin/css/uppy.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/admin/css/jquery.steps.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/admin/css/jquery.timepicker.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/admin/css/quill.snow.css">
 <style>
+
+@font-face {
+    font-family: 'NEXON Lv2 Gothic';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+* {
+	 font-family: 'NEXON Lv2 Gothic';
+}
+
 #topbanner {
 	background:
 		url(${pageContext.request.contextPath}/resources/images/com.jpg)
@@ -28,6 +52,7 @@
 
 #wrapped {
 	border: 1px solid #f56a6a;
+	height: 580px;
 }
 
 .article-view-head {
@@ -185,6 +210,8 @@ form {
 	margin: 0 !important;
 }
 
+
+
 </style>
 </head>
 <body class="is-preload">
@@ -192,12 +219,6 @@ form {
 		<div id="main">
 			<div class="inner">
 
-				<!-- Top Banner Area -->
-				<div id="topbanner">
-					<div id="topbanner-textarea">
-						<h3 id="topbanner-text">${board.category_Name}</h3>
-					</div>
-				</div>
 				
 				<!-- 게시글 -->
 				<section class="container">
@@ -212,8 +233,8 @@ form {
 								<p class="name">${board.mem_Nick }</p>
 								<div class="wrap-info">
 									<span class="date"> <i class="far fa-clock"></i>${board.board_Date }</span> 
-									<span class="pv"> <i class="far fa-eye"></i>${board.board_View }</span> 
-									<span class="cmt"> <i class="far fa-comment"></i>${board.comm_Count }</span>
+									<span class="pv fe fe-16 fe-eye"></i>${board.board_View }</span> 
+									<span class="cmt fe fe-16 fe-message-circle"></i>${board.comm_Count }</span>
 								</div>
 							</div>
 							<div class="article-view-contents">
