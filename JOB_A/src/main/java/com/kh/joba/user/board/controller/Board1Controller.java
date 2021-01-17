@@ -193,9 +193,15 @@ public class Board1Controller {
 	public String selectNoticeFromIndex () {
 		
 		String keyword = "사이트 이용 방법";
-		int board_no = bs.selectNoticeFromIndex(keyword);
+		String board_no = bs.selectNoticeFromIndex(keyword);
+		String loc ="";
+		if (board_no == null) {
+			loc = "redirect:notice.bo";
+		} else {
+			loc = "redirect:selectOneNotice.bo?board_no=" + board_no;
+		}
 		
-		return "redirect:selectOneNotice.bo?board_no=" + board_no;
+		return loc;
 	}
 	
 	
@@ -286,7 +292,7 @@ public class Board1Controller {
 		return "user/board/mento/mentoUpdateForm";
 	}
 	
-	@RequestMapping("/mentoUpdate.bo")
+	@RequestMapping("/updateMento.bo")
 	public String mentoUpdate(Board1 mento, Model model) {
 			
 		int result = bs.mentoUpdate(mento);
@@ -294,7 +300,7 @@ public class Board1Controller {
 		String loc = "";
 		
 		if (result > 0) {
-			loc = "/mentoView.bo?board_no=" + mento.getBoard_no();
+			loc = "/selectOneMento.bo?board_no=" + mento.getBoard_no();
 			msg = "게시글 수정 성공";
 		} else {
 			msg = "게시글 수정 실패";

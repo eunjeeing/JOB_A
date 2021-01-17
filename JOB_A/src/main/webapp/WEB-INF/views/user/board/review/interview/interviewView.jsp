@@ -19,6 +19,7 @@
 	margin-top: 10px;
 	height: 400px;
 	display: flex;
+	background-size : cover;
 }
 
 #title {

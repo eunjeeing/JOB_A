@@ -8,14 +8,14 @@
 <head>
 <meta charset="UTF-8">
 <title>공지사항 관리 | 공지 작성</title>
-
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-lite.css">
 <style>
 	.tab {
 		display: inline-block;
 		padding-right: 10px;
 	}
 	
-	/* p {
+/* 	p {
 		background: #80808026;
 	    padding: 5px 8px 5px 8px;
 	    color: black;
@@ -45,14 +45,17 @@
 		float: right;
 	}
 	
-/* 	p {
+	.note-editable {
+		background-color : lightgrey;
+	}
+	
+	p {
 		background-color : lightgrey !important;
 	}
 	
 	p:hover {
 		background-color : lightgrey !important;
-	} */
-	
+	}
 	
 </style>
 </head>
@@ -68,7 +71,7 @@
 				<div class="row justify-content-center">
 					<div class="col-12">
 						<div>
-							<h2 class="page-title">NOTICE VIEW <button class="btn mb-2 btn-light" style="float:right; position:-30px;"onclick="history.go(-1);"> 뒤로가기</button></h2>
+							<h2 class="page-title">NOTICE UPDATE <button class="btn mb-2 btn-light" style="float:right; position:-30px;"onclick="history.go(-1);"> 뒤로가기</button></h2>
 						</div>
 						<br />
 						
@@ -130,27 +133,23 @@
 							<div class="col-md-12">
 								<div class="card shadow">
 									<div class="card-body">
+										<form action="${pageContext.request.contextPath}/admin/updateNotice.bo">
 										<div id="buttonArea">
-											<button class="btn mb-2 btn-primary" onclick="goUpdate(${notice.board_no});">수정</button>&nbsp;
-											<button class="btn mb-2 btn-primary" onclick="deleteNotice(${notice.board_no});">삭제</button>
+											<button type="submit" class="btn mb-2 btn-primary">수정완료</button>&nbsp;&nbsp;
+											<%-- <button class="btn mb-2 btn-primary" onclick="deleteNotice(${notice.board_no});">삭제</button> --%>
 										</div>
 											
 										<div class="basicInfo" style="margin-top:20px;">
-											<h2 align="center"><!-- 제모오오오옥 -->${notice.board_title}</h2>
+											<input type="hidden" name="board_no" value="${notice.board_no}" />
+											<h2 align="center"><input type="text" name="board_title" style="width:40%; margin-left:10%; background-color:lightgrey;"value="${notice.board_title}"/></h2>
 											<!-- <input type="text" id="simpleInput" class="form-control form-control-lg"/> -->
 											<br /><hr />
-											<div style="display:flex;">
-												<!-- <textarea name="" id="" cols="30" rows="10">
-												awefjkl;asdfjkl;asdfjkl;asdfjkl;asdfjkl;
-												</textarea>>	 -->			
-												<div  style="width:60%; margin:auto;">
-													<!-- 내요요오오오오ㅗㅇㅇ -->${notice.board_content}
-												</div>
-								
+											<div style="display:flex; width:60%; margin:auto;">		
+												<textarea class="summernote" name="board_content">${notice.board_content}</textarea>
 											</div>
 										</div>
 										<br>
-										
+										</form>
 									</div>
 								</div>
 							</div>
@@ -166,14 +165,6 @@
 	</div>
 	<!-- .wrapper -->
 <script>
-	function goUpdate(board_no) {
-		location.href="${pageContext.request.contextPath}/admin/noticeUpdateForm.bo?board_no=" + board_no;
-	}
-	
-	function deleteNotice(board_no) {
-		location.href="${pageContext.request.contextPath}/admin/deleteNotice.bo?board_no=" + board_no;
-	}
-	
 	$(function(){
 		
 		$("#notice").on("click", function(){
@@ -191,7 +182,51 @@
 			location.href = "${pageContext.request.contextPath}/admin/noticeView.bo?board_no="+ board_No;
 		});
 	});
+	$(document).ready(function(){
+		
+		$('.summernote').summernote({
+		    placeholder: '내용',
+		    tabsize: 2,
+		    lang : 'ko-KR',
+		    height: 500,
+		    focus: true,
+		    callbacks: {
+		          onImageUpload: function(files, editor, welEditable) {
+		        	  console.log(files);
+		        	  console.log(editor);
+		        	  console.log(welEditable);
+		        	  var opt = {};
+			          for (var i = files.length - 1; i >= 0; i--) {
+			                sendFile(files[i], this);
+		             }
+		         }
+		    }
+		});
+	});
 
+	function sendFile(file, el) {
+	    
+	 var form_data = new FormData();
+	  form_data.append('file', file);
+	   console.log(form_data.file);
+	
+	  
+	  $.ajax({
+	       data: form_data,
+	       type: "post",
+	       url: '/joba/insertImage.do',
+	    cache : false,
+	    contentType : false,
+	    enctype: 'multipart/form-data',
+	    processData : false,
+	       success: function(url) {
+	          url.replace("\/","/");
+	         $(el).summernote('editor.insertImage', url);
+	       }, error: function(){
+	          console.log("error");
+	       }
+	  });
+	} 
 </script>
 	<script>
       $('#dataTable-1').DataTable(
@@ -217,8 +252,8 @@
 		gtag('config', 'UA-56159088-1');
 
     </script>
-    <script>
-		
-    </script>
+
+    <script src="${pageContext.request.contextPath}/resources/summernote/summernote-lite.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
 </body>
 </html>

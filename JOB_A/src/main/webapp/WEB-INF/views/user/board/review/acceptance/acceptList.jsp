@@ -15,7 +15,7 @@
 		background-image: url(${pageContext.request.contextPath}/resources/images/review.jpg);
 		background-size: 100% 100%;
 		margin-top: 10px;
-		border: 1px solid black;
+		/* border: 1px solid black; */
 		height: 400px;
 		display: flex;
 	}
@@ -25,7 +25,7 @@
 		height: 50%;
 		margin: auto;
 		padding: auto;
-		border : 1px solid black;
+		/* border : 1px solid black; */
 		display: flex;
 		background : black;
 		opacity : 0.4;
@@ -142,7 +142,7 @@
 							<button type="button" id="searchBtn" onclick="search()">검색
 							</button>
 							<button type="button" id="cancelSearchBtn" onclick="toList();">목록으로</button>
-							<c:if test="${member.gradeNo != 2 || member.gradeNo != 5}">
+							<c:if test="${member.gradeNo <= 1 || member.gradeNo >= 3}">
 								<button id="writeBtn" onclick="goAcceptForm();">글쓰기
 								</button>
 							</c:if>

@@ -125,7 +125,8 @@
 						href="${pageContext.request.contextPath}/admin/jobCommentList.do">
 							<span class="ml-1 item-text">Comment List</span>
 					</a></li>
-					<li class="nav-item"><a class="nav-link pl-3" href="#"> <span
+					<li class="nav-item"><a class="nav-link pl-3" 
+						href="${pageContext.request.contextPath}/admin/mentoTotalList.bo"> <span
 							class="ml-1 item-text">Mentoring</span></a></li>
 				</ul></li>
 

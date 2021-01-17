@@ -20,6 +20,11 @@
 	height: 400px;
 	display: flex;
 	background-size : cover;
+	opacity : 0.75;
+	}
+	
+	#topbanner-textarea{
+	opacity : 0.75;
 }
 
 
@@ -187,6 +192,9 @@ form {
 }
 
 </style>
+<scrip>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-lite.css">
+</scrip>
 </head>
 <body class="is-preload">
 	<div id="wrapper">
@@ -268,45 +276,57 @@ form {
 
 							<!-- 댓글작성 -->
 							<div class="article-comments">
-								<h3 style="font-weight: 500">댓글 ${board2.comm_Count }</h3>
-								<div class="write_area">
-									<div id="btn_add_comment" style="display: flex;">
-										<div class="reply_area" style="width: 100%;">
-											<form id="commentForm" method="post">
-											<input type="hidden" id="mem_No" name="mem_No"
-												value="${sessionScope.mem_No }" /> 
-											<input type="hidden" name="comm_Ref" value="0" />
-											<input type="hidden" name="comm_Level" value="1" />
-											<textarea id="comm_Content" name="comm_Content" maxlength="500"
-												placeholder="댓글을 남겨주세요." style="resize: none;"></textarea>
-											</form>
-											
-											<!-- 글자 수 -->
-											<div class="byte" style="float:right; font-size:12px; color:darkgray;">
-												<text id="commentByte">0</text><text id="slash"> / </text><text id="maxByte">500</text>
+								<h3 style="font-weight: 500">답변 ${mento.comm_count }</h3>
+								<c:if test="${member.gradeNo < 2 && mento.comm_count < 1}">
+									<div class="write_area">
+										<div id="btn_add_comment" style="display: flex;">
+											<div class="reply_area" style="width: 100%;">
+												<form id="commentForm" method="post">
+												<input type="hidden" id="mem_No" name="mem_No"
+													value="${sessionScope.mem_No}" /> 
+												<input type="hidden" name="comm_Ref" value="0" />
+												<input type="hidden" name="comm_Level" value="1" />
+												<textarea class="summernote" id="comm_Content" name="comm_Content" maxlength="500"
+													placeholder="댓글을 남겨주세요." style="resize: none;"></textarea>
+												</form>
+												
+												<!-- 글자 수 -->
+												<!-- <div class="byte" style="float:right; font-size:12px; color:darkgray;">
+													<text id="commentByte">0</text><text id="slash"> / </text><text id="maxByte">500</text>
+												</div> -->
+	
+												
 											</div>
-
-											
-										</div>
-										<div class="reply_button" style="height:100%;">
-											<button id="insertComment" type="button" 
-											style="font-weight: 300; font-size: 20px;">작성</button>
+											<div class="reply_button" style="height:100%;">
+												<button id="insertComment" type="button" 
+												style="font-weight: 300; font-size: 20px;">작성</button>
+											</div>
 										</div>
 									</div>
-								</div>
+								</c:if>
 								
+								<!-- 댓글리스트 -->
 								<c:forEach items="${commentList}" var="co">
 									<c:if test="${co.comm_Level eq 1}">
 									<div id="${co.comm_No }" class="wrap-comment comment-area">
 										<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq board2.mem_No }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
-										<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content }</textarea></p>
+										<p class="cmt-txt">
+											<div id="contentArea-comm" class="contents-txt">
+												<c:if test="${member.gradeNo < 2}">
+													<textarea id="comm_Con2" class="summernote" readonly="readonly" style="overflow:auto;">${co.comm_Content}</textarea>
+												</c:if>
+												<c:if test="${member.gradeNo >= 2 }">
+													${co.comm_Content}												
+												</c:if>
+											</div>
+										</p>
 										<div class="wrap-info">
 										
 											<span class="date"> <i class="far fa-clock"></i>
 											<fmt:parseDate var="parsedDate" value="${co.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
 											<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
 											<c:if test="${sessionScope.member.gradeNo < 2}">
-											<a class="cmt" href="#" onclick="reComment(this);return false;"> <i class="far fa-comment"> </i> 대댓글
+											<!-- <a class="cmt" href="#" onclick="reComment(this);return false;"> <i class="far fa-comment"> </i> 대댓글 -->
 											</a>
 											<div class="info_fnc">
 													<input type="hidden" id="comm_No" name="comm_No" value="${co.comm_No }"/>
@@ -314,9 +334,10 @@ form {
 											  		<input type="hidden" class="comm_Ref"  name="comm_Ref" value="${co.comm_No}" />
 											  		<input type="hidden" class="comm_Level"  name="comm_Level" value="${co.comm_Level}" />
 												<c:if test="${member.memNo eq co.mem_No}">
-													<a href="#" onclick="updateComment(this);return false;">수정</a>
-													<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
-													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?type_No=${mento.type_no}&board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
+													<c:if test="${member.gradeNo < 2}"></c:if>
+													<a href="#" class="updateConfirm" onclick="updateConfirm(this);">수정완료</a>
+													<!-- <a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>	 -->											
+													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?type_No=${mento.type_no}&board_No=${mento.board_no}&comm_No=${co.comm_No }'">삭제</a>
 												</c:if>
 												<c:if test="${member.memNo ne co.mem_No}">
 												<span class="reportBtn_comment" id="reportBtn_comment" style="vertical-align: middle;" ><i class="fas fa-exclamation-triangle"></i></span> 
@@ -332,7 +353,7 @@ form {
 									</div>
 								</c:if>
 									
-								<!-- 대댓글일때 -->
+				<%-- 				<!-- 대댓글일때 -->
 								<c:if test="${co.comm_Level ne 1}">
 								<c:if test="${sessionScope.member.gradeNo < 2}">
 									<div class="wrap-reply">
@@ -352,7 +373,7 @@ form {
 													<c:if test="${member.memNo eq co.mem_No}">
 														<a href="#" onclick="updateComment(this);return false;">수정</a>
 														<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>												
-														<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?type_No=${mento.type_no}&board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
+														<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?type_No=${mento.type_no}&board_No=${mento.board_no}&comm_No=${co.comm_No }'">삭제</a>
 													</c:if>
 													<c:if test="${member.memNo ne co.mem_No}">
 													<span class="reportBtn_cocomment" id="reportBtn_cocomment" style="vertical-align: middle;" ><i class="fas fa-exclamation-triangle"></i></span> 
@@ -367,7 +388,7 @@ form {
 										</div>
 									</div>
 								</c:if>
-								</c:if>			
+								</c:if>	 --%>		
 								</c:forEach>
 							</div>
 
@@ -388,6 +409,52 @@ form {
 	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<script>
+		$(document).ready(function(){
+			
+			$('.summernote').summernote({
+			    placeholder: '내용',
+			    tabsize: 2,
+			    lang : 'ko-KR',
+			    height: 500,
+			    focus: true,
+			    callbacks: {
+			          onImageUpload: function(files, editor, welEditable) {
+			        	  console.log(files);
+			        	  console.log(editor);
+			        	  console.log(welEditable);
+			        	  var opt = {};
+				          for (var i = files.length - 1; i >= 0; i--) {
+				                sendFile(files[i], this);
+			             }
+			         }
+			    }
+			});
+		});
+
+		function sendFile(file, el) {
+		    
+		 var form_data = new FormData();
+		  form_data.append('file', file);
+		   console.log(form_data.file);
+		
+		  
+		  $.ajax({
+		       data: form_data,
+		       type: "post",
+		       url: '/joba/insertImage.do',
+		    cache : false,
+		    contentType : false,
+		    enctype: 'multipart/form-data',
+		    processData : false,
+		       success: function(url) {
+		          url.replace("\/","/");
+		         $(el).summernote('editor.insertImage', url);
+		       }, error: function(){
+		          console.log("error");
+		       }
+		  });
+		}  
+		
 		document
 				.getElementById("insertComment")
 				.addEventListener(
@@ -407,12 +474,13 @@ form {
 		function updateComment(obj) {
 			// 현재 버튼의 위치와 가장 가까운 textarea 접근하기
 			$(obj).parent().parent().parent().find('textarea').removeAttr('readonly');
-			
+			/* $(obj).parent().parent().parent().find('textarea').attr('class', 'summernote'); */
 			// 수정 완료 버튼 보이게 하기
 			$(obj).siblings('.updateConfirm').css('display', 'inline');
 			
 			// 현재 클릭한 수정 버튼 숨기기
 			$(obj).css('display', 'none');
+			alert("댓글 수정이 완료되었습니다");
 		}
 
 		function updateConfirm(obj) {
@@ -426,6 +494,7 @@ form {
 			
 			location.href = "${pageContext.request.contextPath}/comments2/updateComment.do?type_No=${mento.type_no}&board_No=${mento.board_no}&comm_No=" + comm_No + "&comm_Content="
 				+ content;
+			alert("수정이 완료되었습니다");
 		}
 
 		// 대댓글 .......
@@ -627,5 +696,7 @@ form {
         });	
 
 	</script>
+	<script src="${pageContext.request.contextPath}/resources/summernote/summernote-lite.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
 </body>
 </html>

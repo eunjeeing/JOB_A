@@ -61,7 +61,7 @@ public class Board1ServiceImpl implements Board1Service {
 		return board1DAO.insertNotice(notice);
 	}
 	@Override
-	public int selectNoticeFromIndex(String keyword) {
+	public String selectNoticeFromIndex(String keyword) {
 		return board1DAO.selectNoticeFromIndex(keyword);
 	}
 	// *******************************************************************************************

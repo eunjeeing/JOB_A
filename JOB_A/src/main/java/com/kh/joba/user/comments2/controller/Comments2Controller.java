@@ -50,6 +50,8 @@ public class Comments2Controller {
 			loc = "/selectOneInterview.bo?board_no="+board_No;			
 		} else if (type_No == 10) {
 			loc = "/selectOneAccept.bo?board_no="+board_No;
+		} else if (type_No == 11) {
+			loc = "/adminNoticeView.bo?board_no=" + board_No;
 		}
 		
 		model.addAttribute("loc", loc);
@@ -85,6 +87,8 @@ public class Comments2Controller {
 			loc = "/selectOneInterview.bo?board_no="+board_No;			
 		} else if (type_No == 10) {
 			loc = "/selectOneAccept.bo?board_no="+board_No;
+		} else if (type_No == 11) {
+			loc = "/adminNoticeView.bo?board_no=" + board_No;
 		}
 		
 		model.addAttribute("loc", loc);
@@ -123,6 +127,8 @@ public class Comments2Controller {
 			loc = "/selectOneInterview.bo?board_no="+board_No;			
 		} else if (type_No == 10) {
 			loc = "/selectOneAccept.bo?board_no="+board_No;
+		} else if (type_No == 11) {
+			loc = "/adminNoticeView.bo?board_no=" + board_No;
 		}
 		
 		model.addAttribute("loc", loc);

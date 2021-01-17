@@ -21,7 +21,7 @@ public interface Board1Service {
 	Board1 updateViewNotice(int board_no);
 	int deleteNotice(int board_no);
 	int insertNotice(Board1 notice);
-	int selectNoticeFromIndex(String keyword);
+	String selectNoticeFromIndex(String keyword);
 	
 // *******************************************************************************************
 // 							Mentoring Service Area

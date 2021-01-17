@@ -21,6 +21,7 @@ public interface Board1DAO {
 	Board1 updateViewNotice(int board_no);
 	int deleteNotice(int board_no);
 	int insertNotice(Board1 notice);
+	String selectNoticeFromIndex(String keyword);
 	
 	// *******************************************************************************************
 	// 							Mentoring DAO Area
@@ -46,6 +47,7 @@ public interface Board1DAO {
 	int updateTomorrow(Board1 tomorrow);
 	int deleteTomorrow(int board_no);
 	int insertTomorrow(Board1 tomorrow);
+	int updateTomorrowOutDate();
 	
 	
 	// *******************************************************************************************
@@ -74,8 +76,6 @@ public interface Board1DAO {
 	int acceptUpdate(Board1 accept);
 	int acceptDelete(int board_no);
 	int acceptInsert(Board1 accept);
-	int selectNoticeFromIndex(String keyword);
-	int updateTomorrowOutDate();
 	
 	
 

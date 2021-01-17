@@ -15,7 +15,7 @@
 		background-image: url(${pageContext.request.contextPath}/resources/images/review.jpg);
 		background-size: 100% 100%;
 		margin-top: 10px;
-		border: 1px solid black;
+		/* border: 1px solid black; */
 		height: 400px;
 		display: flex;
 	}
@@ -25,7 +25,7 @@
 		height: 50%;
 		margin: auto;
 		padding: auto;
-		border : 1px solid black;
+		/* border : 1px solid black; */
 		display: flex;
 		background : black;
 		opacity : 0.4;

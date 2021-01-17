@@ -19,6 +19,7 @@
 	margin-top: 10px;
 	height: 400px;
 	display: flex;
+	background-size:cover;
 }
 
 #title {
@@ -259,7 +260,7 @@ form {
 
 							<!-- 댓글작성 -->
 							<div class="article-comments">
-								<h3 style="font-weight: 500">댓글 ${board2.comm_Count }</h3>
+								<h3 style="font-weight: 500">댓글 ${accept.comm_count }</h3>
 								<div class="write_area">
 									<div id="btn_add_comment" style="display: flex;">
 										<div class="reply_area" style="width: 100%;">

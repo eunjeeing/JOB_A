@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항 관리 | 관리자 공지사항</title>
+<title>게시판 관리 | 멘토&멘티</title>
 
 <style>
 	.tab {
@@ -15,7 +15,7 @@
 		padding-right: 10px;
 	}
 	
-	#adminNotice {
+	#mento {
 		font-weight:800;
 	}
 	
@@ -41,14 +41,14 @@
 			<div class="container-fluid">
 				<div class="row justify-content-center">
 					<div class="col-12">
-						<h2 class="page-title">NOTICE LIST</h2>
+						<h2 class="page-title">MENTO TOTAL LIST</h2>
 						<br />
 						
 						<!-- 탭 -->
-						
 						<div class="tab-div">
-							<div class="tab"><p id="noticeList" class="btn mb-2 btn-outline-primary">공지사항</p></div>
-							<div class="tab"><p id="adminNotice" class="btn mb-2 btn-primary">관리자 전용 공지</p></div>
+							<div class="tab"><p id="total" class="btn mb-2 btn-primary">전체</p></div>
+							<div class="tab"><p id="answered" class="btn mb-2 btn-outline-primary">답변완료</p></div>
+							<div class="tab"><p id="unanswered" class="btn mb-2 btn-outline-primary">답변미완료</p></div>
 						</div>
 						
 
@@ -68,40 +68,46 @@
 													<th>작성자</th>
 													<th>등록일</th>
 													<th width="8%">조회수</th>
-													<th width="8%">답글수</th>
+													<th width="8%">답변상태</th>
 													<th>상태</th>
 													<th width="10%"></th>
 												</tr>
-											</thead>										
+											</thead>
 											<tbody>
-												<c:forEach items="${adminNotice}" var="notice">
+												<c:forEach items="${mentoTotalList }" var="mento">
 													<tr align="center" class="trtr">
-														<td>${notice.board_no}</td>
-														<td class="goBoard" id="${notice.board_no }">${notice.board_title}</td>
-														<td>${notice.mem_nick}</td>
-														<td>${notice.board_date}</td>
-														<td>${notice.board_view}</td>
-														<td>${notice.comm_count}</td>
-														<td><c:if test="${notice.board_status eq 'Y'}">
+														<td>${mento.board_no}</td>
+														<td class="goBoard" id="${mento.board_no }">${mento.board_title}</td>
+														<td>${mento.mem_nick}</td>
+														<td>${mento.board_date}</td>
+														<td>${mento.board_view}</td>
+														<th>
+														<c:if test="${mento.comm_count > 0}">
+															<span class='badge badge-success'>완료</span>
+														</c:if>
+														<c:if test="${mento.comm_count == 0}">
+															<span class='badge badge-secondary'>미완료</span>
+														</c:if>
+														</th>
+														<td><c:if test="${mento.board_status eq 'Y'}">
 																<span class='badge badge-success'>정상</span>
-															</c:if> <c:if test="${notice.board_status eq 'B'}">
+															</c:if> <c:if test="${mento.board_status eq 'B'}">
 																<span class='badge badge-danger'>블라인드</span>
-															</c:if>  <c:if test="${notice.board_status eq 'N'}">
+															</c:if>  <c:if test="${mento.board_status eq 'N'}">
 																<span class='badge badge-secondary'>삭제</span>
-															</c:if> 
-														</td>
+															</c:if> </td>
 														<td>
-															<c:if test="${notice.board_status eq 'Y' }">
-																<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
-																	onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusB.do?board_No=${notice.board_no}&type_No=${notice.type_no}'">블라인드</button>
-															</c:if>
-															<c:if test="${notice.board_status eq 'B' }">
-																<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
-																	onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusY.do?board_No=${notice.board_no}&type_No=${notice.type_no}'">활성화</button>
-															</c:if>
-															<c:if test="${notice.board_status eq 'N'}">
-																<button class="btn mb-2 btn-light" disabled="disabled">활성화</button>
-															</c:if>
+																<c:if test="${mento.board_status eq 'Y' }">
+																	<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
+																		onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusB.do?board_No=${mento.board_no}&type_No=${mento.type_no }'">블라인드</button>
+																</c:if>
+																<c:if test="${mento.board_status eq 'B' }">
+																	<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
+																		onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusY.do?board_No=${mento.board_no}&type_No=${mento.type_no }'">활성화</button>
+																</c:if>
+																<c:if test="${mento.board_status eq 'N'}">
+																	<button class="btn mb-2 btn-light" disabled="disabled">활성화</button>
+																</c:if>
 														</td>
 													</tr>
 												</c:forEach>
@@ -126,19 +132,23 @@
 <script>
 	$(function(){
 		
-		$("#noticeList").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/noticeList.bo";
+		$("#total").on("click", function(){
+			location.href = "${pageContext.request.contextPath}/admin/mentoTotalList.bo";
 		});
 		
-		$("#adminNotice").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/admin/adminNotice.bo";
+		$("#answered").on("click", function(){
+			location.href = "${pageContext.request.contextPath}/admin/mentoAnsweredList.bo";
+		});
+
+		$("#unanswered").on("click", function(){
+			location.href = "${pageContext.request.contextPath}/admin/mentoUnansweredList.bo";
 		});
 	});
 	
 	$(function(){
 		$(".goBoard").on("click", function(){
 			var board_No = $(this).attr("id");
-			location.href = "${pageContext.request.contextPath}/adminNoticeView.bo?board_no="+ board_No;
+			location.href = "${pageContext.request.contextPath}/admin/mentoView.bo?board_no="+ board_No;
 		});
 	});
 
@@ -153,7 +163,7 @@
         ]
       });
     </script>
-	<script src="${pageContext.request.contextPath}/resources/admin/js/apps.js"></script>
+
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async
 		src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>

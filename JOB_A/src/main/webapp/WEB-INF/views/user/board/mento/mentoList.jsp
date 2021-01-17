@@ -124,7 +124,12 @@ p {
 											<p class="name" style="padding-top: 2em;">${mento.mem_nick}</p>
 											<div class="wrap-info">
 												<i class="far fa-eye" style="margin-right: 0;"></i> ${mento.board_view }
-												<i class="far fa-comment" style="margin-right: 0; margin-left: 14px;"></i> ${mento.comm_count }
+												<c:if test="${mento.comm_count > 0}">
+													<i class="fas fa-comment" style="margin-right: 0; margin-left: 14px;"></i>&nbsp;답변완료
+												</c:if>
+												<c:if test="${mento.comm_count == 0}">
+													<i class="far fa-comment" style="margin-right: 0; margin-left: 14px;"></i>
+												</c:if>
 												<div class="info_fnc">
 													<span class="date"> 
 														<i class="far fa-clock"></i> ${mento.board_date}

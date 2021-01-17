@@ -8,14 +8,14 @@
 <head>
 <meta charset="UTF-8">
 <title>공지사항 관리 | 공지 작성</title>
-
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-lite.css">
 <style>
 	.tab {
 		display: inline-block;
 		padding-right: 10px;
 	}
 	
-	/* p {
+/* 	p {
 		background: #80808026;
 	    padding: 5px 8px 5px 8px;
 	    color: black;
@@ -45,14 +45,17 @@
 		float: right;
 	}
 	
-/* 	p {
+	.note-editable {
+		background-color : lightgrey;
+	}
+	
+	p {
 		background-color : lightgrey !important;
 	}
 	
 	p:hover {
 		background-color : lightgrey !important;
-	} */
-	
+	}
 	
 </style>
 </head>
@@ -68,7 +71,7 @@
 				<div class="row justify-content-center">
 					<div class="col-12">
 						<div>
-							<h2 class="page-title">NOTICE VIEW <button class="btn mb-2 btn-light" style="float:right; position:-30px;"onclick="history.go(-1);"> 뒤로가기</button></h2>
+							<h2 class="page-title">NOTICE INSERT <button class="btn mb-2 btn-light" style="float:right; position:-30px;"onclick="history.go(-1);"> 뒤로가기</button></h2>
 						</div>
 						<br />
 						
@@ -89,20 +92,20 @@
 											</thead>
 											<tbody>
 												<tr align="center">
-													<th>${notice.board_no}</th>
-													<th>${notice.mem_nick}</th>
-													<th>${notice.board_date}</th>
-													<th>
-														<c:if test="${notice.board_status eq 'Y'}">
+													<th>미정</th>
+													<th>미정</th>
+													<th>미정</th>
+													<th>미정
+														<%-- <c:if test="${notice.board_status eq 'Y'}">
 															<span class='badge badge-success'>정상</span>
 														</c:if> <c:if test="${notice.board_status eq 'B'}">
 															<span class='badge badge-danger'>블라인드</span>
 														</c:if>  <c:if test="${notice.board_status eq 'N'}">
 															<span class='badge badge-secondary'>삭제</span>
-														</c:if> 
+														</c:if>  --%>
 													</th>
-													<th>
-														<c:if test="${notice.board_status eq 'Y' }">
+													<th>미정
+														<%-- <c:if test="${notice.board_status eq 'Y' }">
 															<button class="btn mb-2 btn-light" style="margin-bottom:0 !important;"
 																onclick="location.href='${pageContext.request.contextPath}/admin/updateStatusB.do?board_No=${notice.board_no}&type_No=${notice.type_no}'">블라인드</button>
 														</c:if>
@@ -112,7 +115,7 @@
 														</c:if>
 														<c:if test="${notice.board_status eq 'N'}">
 															<button class="btn mb-2 btn-light" disabled="disabled">활성화</button>
-														</c:if>
+														</c:if> --%>
 													</th>
 												</tr>
 											</tbody>
@@ -130,27 +133,31 @@
 							<div class="col-md-12">
 								<div class="card shadow">
 									<div class="card-body">
-										<div id="buttonArea">
-											<button class="btn mb-2 btn-primary" onclick="goUpdate(${notice.board_no});">수정</button>&nbsp;
-											<button class="btn mb-2 btn-primary" onclick="deleteNotice(${notice.board_no});">삭제</button>
-										</div>
-											
-										<div class="basicInfo" style="margin-top:20px;">
-											<h2 align="center"><!-- 제모오오오옥 -->${notice.board_title}</h2>
-											<!-- <input type="text" id="simpleInput" class="form-control form-control-lg"/> -->
-											<br /><hr />
-											<div style="display:flex;">
-												<!-- <textarea name="" id="" cols="30" rows="10">
-												awefjkl;asdfjkl;asdfjkl;asdfjkl;asdfjkl;
-												</textarea>>	 -->			
-												<div  style="width:60%; margin:auto;">
-													<!-- 내요요오오오오ㅗㅇㅇ -->${notice.board_content}
+										<form action="${pageContext.request.contextPath}/admin/insertNotice.bo">
+											<div id="selectSession">
+												<div style="margin-left:40%;">
+													<input type="radio" id="type_no1" name="type_no" value="1" checked/><label for="type_no1"> 공지사항 </label>&nbsp;&nbsp;&nbsp;&nbsp;<!-- &nbsp;공지사항&nbsp;&nbsp;&nbsp;&nbsp; -->
+													<input type="radio" id="type_no2" name="type_no" value="11"/><label for="type_no2">관리자 공지사항</label><!-- &nbsp;관리자 공지사항 -->
+													<button type="submit" class="btn mb-2 btn-primary" style="float:right;">작성</button>&nbsp;&nbsp;
 												</div>
-								
 											</div>
-										</div>
-										<br>
-										
+											<br />
+											<div id="buttonArea">
+												
+												<%-- <button class="btn mb-2 btn-primary" onclick="deleteNotice(${notice.board_no});">삭제</button> --%>
+											</div>
+												
+											<div class="basicInfo" style="margin-top:20px;">
+												<input type="hidden" name="mem_no" value="${member.memNo}" />
+												<h2 align="center"><input type="text" name="board_title" style="width:60%; margin:auto; background-color:lightgrey;"value="${notice.board_title}" placeholder="제목"/></h2>
+												<!-- <input type="text" id="simpleInput" class="form-control form-control-lg"/> -->
+												
+												<div style="display:flex; width:60%; margin:auto;">		
+													<textarea class="summernote" name="board_content">${notice.board_content}</textarea>
+												</div>
+											</div>
+											<br>
+										</form>
 									</div>
 								</div>
 							</div>
@@ -166,14 +173,6 @@
 	</div>
 	<!-- .wrapper -->
 <script>
-	function goUpdate(board_no) {
-		location.href="${pageContext.request.contextPath}/admin/noticeUpdateForm.bo?board_no=" + board_no;
-	}
-	
-	function deleteNotice(board_no) {
-		location.href="${pageContext.request.contextPath}/admin/deleteNotice.bo?board_no=" + board_no;
-	}
-	
 	$(function(){
 		
 		$("#notice").on("click", function(){
@@ -191,7 +190,51 @@
 			location.href = "${pageContext.request.contextPath}/admin/noticeView.bo?board_no="+ board_No;
 		});
 	});
+	$(document).ready(function(){
+		
+		$('.summernote').summernote({
+		    placeholder: '내용',
+		    tabsize: 2,
+		    lang : 'ko-KR',
+		    height: 500,
+		    focus: true,
+		    callbacks: {
+		          onImageUpload: function(files, editor, welEditable) {
+		        	  console.log(files);
+		        	  console.log(editor);
+		        	  console.log(welEditable);
+		        	  var opt = {};
+			          for (var i = files.length - 1; i >= 0; i--) {
+			                sendFile(files[i], this);
+		             }
+		         }
+		    }
+		});
+	});
 
+	function sendFile(file, el) {
+	    
+	 var form_data = new FormData();
+	  form_data.append('file', file);
+	   console.log(form_data.file);
+	
+	  
+	  $.ajax({
+	       data: form_data,
+	       type: "post",
+	       url: '/joba/insertImage.do',
+	    cache : false,
+	    contentType : false,
+	    enctype: 'multipart/form-data',
+	    processData : false,
+	       success: function(url) {
+	          url.replace("\/","/");
+	         $(el).summernote('editor.insertImage', url);
+	       }, error: function(){
+	          console.log("error");
+	       }
+	  });
+	} 
 </script>
 	<script>
       $('#dataTable-1').DataTable(
@@ -217,8 +260,8 @@
 		gtag('config', 'UA-56159088-1');
 
     </script>
-    <script>
-		
-    </script>
+
+    <script src="${pageContext.request.contextPath}/resources/summernote/summernote-lite.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
 </body>
 </html>

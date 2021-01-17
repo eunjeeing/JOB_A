@@ -95,7 +95,7 @@ p {
 					style="width: 50px;"><i class="fas fa-redo" style="margin: -9px;"></i></button>
 					
 					<c:if test="${ !empty member }" >
-						<c:if test="${ member.gradeNo >= 4 || member.gradeNo < 2 }">
+						<c:if test="${ member.gradeNo != 5 }">
 							<button id="writeBtn" onclick="goTomorrowForm();">글쓰기</button>
 						</c:if>
 					</c:if>

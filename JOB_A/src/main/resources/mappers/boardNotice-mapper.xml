@@ -10,4 +10,68 @@
 		WHERE TYPE_NO = 1 AND M.MEM_NO = B.MEM_NO
 		ORDER BY BOARD_NO DESC, BOARD_DATE DESC
 	</select>
+
+	<select id="selectOneNotice" parameterType="_int" resultType="Board1">
+		SELECT B.*, M.MEM_NICK
+		FROM BOARD B, MEMBER M
+		WHERE TYPE_NO = 1 AND M.MEM_NO = B.MEM_NO AND B.BOARD_NO = #{board_no}
+		ORDER BY BOARD_NO DESC, BOARD_DATE DESC
+	</select>
+	<update id="updateNotice" parameterType="Board1">
+		UPDATE BOARD
+		SET BOARD_TITLE = #{board_title}, BOARD_CONTENT = #{board_content}
+		WHERE BOARD_NO = #{board_no}
+	</update>
+	<delete id="deleteNotice" parameterType="_int">
+		DELETE FROM BOARD
+		WHERE BOARD_NO = #{board_no}
+	</delete>
+	<insert id="insertNotice" parameterType="Board1">
+		INSERT INTO BOARD(BOARD_NO, TYPE_NO, MEM_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_DATE)
+		VALUES (BOARD_SEQ.NEXTVAL, #{type_no}, #{mem_no}, #{board_title}, #{board_content}, default)
+	</insert>
+	<insert id="insertAdminNotice" parameterType="Board1">
+		INSERT INTO BOARD(BOARD_NO, TYPE_NO, MEM_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_DATE)
+		VALUES (BOARD_SEQ.NEXTVAL, #{type_no}, #{mem_no}, #{board_title}, #{board_content}, default)
+	</insert>
+	
+	<!--  admin Notice -->
+	<select id="adminNoticeList" resultType="Board1">
+		SELECT B.*, M.MEM_NICK, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
+		FROM BOARD B, MEMBER M
+		WHERE TYPE_NO = 11 AND M.MEM_NO = B.MEM_NO
+		ORDER BY BOARD_NO DESC, BOARD_DATE DESC
+	</select>
+	<select id="selectOneAdminNotice" parameterType="_int" resultType="Board1">
+		SELECT B.*, M.MEM_NICK, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
+		FROM BOARD B, MEMBER M
+		WHERE TYPE_NO = 11 AND M.MEM_NO = B.MEM_NO AND B.BOARD_NO = #{board_no}
+		ORDER BY BOARD_NO DESC, BOARD_DATE DESC
+	</select>
+	
+	
+	<select id="selectMentoTotalList" resultType="Board1">
+		SELECT B.*, M.MEM_NICK, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
+		FROM BOARD B, MEMBER M
+		WHERE TYPE_NO = 8 AND M.MEM_NO = B.MEM_NO
+		ORDER BY BOARD_NO DESC, BOARD_DATE DESC
+	</select>
+	<select id="selectMentoAnsweredList" resultType="Board1">
+		SELECT B.*, M.MEM_NICK, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
+		FROM BOARD B, MEMBER M
+		WHERE TYPE_NO = 8 AND M.MEM_NO = B.MEM_NO AND (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') <![CDATA[ > ]]> 0
+		ORDER BY BOARD_NO DESC, BOARD_DATE DESC
+	</select>
+	<select id="selectMentoUnansweredList" resultType="Board1">
+		SELECT B.*, M.MEM_NICK, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
+		FROM BOARD B, MEMBER M
+		WHERE TYPE_NO = 8 AND M.MEM_NO = B.MEM_NO AND (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') <![CDATA[ < ]]> 1 
+		ORDER BY BOARD_NO DESC, BOARD_DATE DESC
+	</select>
+	<select id="selectOneMento" parameterType="_int" resultType="Board1">
+		SELECT B.*, M.MEM_NICK, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
+		FROM BOARD B, MEMBER M
+		WHERE TYPE_NO = 8 AND M.MEM_NO = B.MEM_NO AND B.BOARD_NO = #{board_no} 
+		ORDER BY BOARD_NO DESC, BOARD_DATE DESC
+	</select>
 </mapper>

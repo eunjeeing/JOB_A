@@ -63,7 +63,7 @@ public class Board1DAOImpl implements Board1DAO {
 		return sqlSession.insert("board1Mapper.insertNotice", notice);
 	}
 	@Override
-	public int selectNoticeFromIndex(String keyword) {
+	public String selectNoticeFromIndex(String keyword) {
 		return sqlSession.selectOne("board1Mapper.selectNoticeFromIndex", keyword);
 	}
 	// *******************************************************************************************
