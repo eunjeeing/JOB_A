@@ -39,10 +39,10 @@ public class ReportController {
 		
 		System.out.println("게시글 신고 리스트 페이지 접속 ok");
 		
-		List<Report> list = reportService.selectReportList(); 	// 신고된 게시글 조회
-		List<Board2> boardList = new ArrayList<Board2>(); 		// 게시글 제목 가져 올 경로.
-		List<Member> reporterList = new ArrayList<Member>(); 	// 신고자 ID 가지고 오기
-		List<Member> appendantList = new ArrayList<Member>(); 	// 피신고자 ID 가지고 오기
+		List<Report> list = reportService.selectReportList(); 	
+		List<Board2> boardList = new ArrayList<Board2>(); 		
+		List<Member> reporterList = new ArrayList<Member>(); 	
+		List<Member> appendantList = new ArrayList<Member>(); 	
 
 		System.out.println("reportList : " + list.toString());
 		
@@ -82,21 +82,16 @@ public class ReportController {
 		System.out.println("게시글작성자"+board2_no);
 		System.out.println("댓글 게시글 구분(1이면 게시글 2이면 댓글) : " + modal_separate);
 		
-		
-		// 중복 신고 체크
-		//Report reportCheck = new Report(member.getMemNo(),board2);	
-		
-		//Report rp = reportService.selectReportCheck(reportCheck); 
+
 		
 		
-		//인서트 결과
 		String result = "X";
-		//게시글 타입
+		
 		int boardType = 0;
-		//페이지이동
+	
         String loc = "/login.do";
         String msg = "";
-        //게시글 번호
+      
         int boardNo = 0;
 
         	if(modal_separate == 1) {
@@ -128,7 +123,7 @@ public class ReportController {
     					result = "Y";
     					boardNo = board2;
     					System.out.println("신고 당한 횟수 : " + board.getBoard_ReportNum());
-    					// 4회 이상 신고글 블라인드 상태로 변경
+    			
     					if(board.getBoard_ReportNum()>=4) {
     						System.out.println("4회 이상 블라인드 처리");
     						reportService.updateBoardBlind(board);
@@ -154,7 +149,7 @@ public class ReportController {
         			//신고가 없을 때
     				Report report = new Report( member.getMemNo(), 0, board2, reason, board2_no);
     				
-    				Comments2 comment = reportService.selectComment(board2); // 댓글번호로 댓글정보 가져오기
+    				Comments2 comment = reportService.selectComment(board2); 
     				System.out.println("댓글번호로 게시글 번호 가져오기 : " + comment );
 
     				boardType = reportService.selectBoardTypeNo(comment.getBoard_No()); 
@@ -165,12 +160,12 @@ public class ReportController {
     				if(res>0) {
     					System.out.println("여기 들어오면 댓글 신고됨");
     					
-    					reportService.updateCommentReportNum(board2); // 신고 횟수 업데이트 
+    					reportService.updateCommentReportNum(board2); 
     					result = "Y";
         				boardNo = comment.getBoard_No();
         				comment = reportService.selectComment(board2);
     					System.out.println("신고 당한 횟수 : " + comment.getComm_ReportNum());
-    					// 4회 이상 신고글 블라인드 상태로 변경
+    	
     					if(comment.getComm_ReportNum()>=4) {
     						System.out.println("4회 이상 블라인드 처리");
     						reportService.updateReportBlind(comment);
@@ -180,7 +175,7 @@ public class ReportController {
     				
         		}else {
     				
-    				int bno = reportService.selectBoardNo(board2); // 댓글번호로 게시글번호 가져오기
+    				int bno = reportService.selectBoardNo(board2);
     				System.out.println("댓글번호로 게시글 번호 가져오기 : " + bno );
     				
     				boardType = reportService.selectBoardTypeNo(bno); 
@@ -306,9 +301,9 @@ public class ReportController {
 		Board2 board2 = reportService.selectBoardList(boardNo);
 		System.out.println("board2 : " + board2.toString());
 		
-		List<Report> DetailList = new ArrayList<Report>();	 		//해당 게시글 첫번째를 제외한 신고정보 
-		List<Member> DetailMemberList = new ArrayList<Member>();	//해당 게시글 첫번째를 제외한 신고정보에 대한 신고자 정보
-		// 상세 페이지에 board_No로 모든 신고정보 가져오기 
+		List<Report> DetailList = new ArrayList<Report>();	 		
+		List<Member> DetailMemberList = new ArrayList<Member>();	
+
 		DetailList = reportService.selectDetailReportList(boardNo);
 		
 		for(Report report: DetailList) {
@@ -328,16 +323,16 @@ public class ReportController {
 		model.addAttribute("reportReason", reportReason);
 		model.addAttribute("appendantMemNick", appendantMemNick);
 		model.addAttribute("reporterMemNick", reporterMemNick);
-		model.addAttribute("boardType", boardType); // 게시판 타입 String으로 변경
-		//두 번째 부터의 신고 내용
+		model.addAttribute("boardType", boardType); 
 		
+		//두 번째 부터의 신고 내용
 		model.addAttribute("DetailList", DetailList);
 		model.addAttribute("DetailMemberList", DetailMemberList);
 
 		return "admin/report/boardReportDetail";
-	}
+		}
 	
-	// 신고 댓글 상세 페이지 접속
+		// 신고 댓글 상세 페이지 접속
 		@RequestMapping("commentReportDetail.do")
 		public String commentReportDetail(Model model, int commentNo, String reportReason, String appendantMemNick, String reporterMemNick) {
 			
@@ -346,9 +341,9 @@ public class ReportController {
 			Comments2 comment = reportService.selectComment(commentNo);
 			System.out.println("comment : " + comment.toString());
 			
-			List<Report> DetailList = new ArrayList<Report>();	 		//해당 댓글 첫번째를 제외한 신고정보 
-			List<Member> DetailMemberList = new ArrayList<Member>();	//해당 댓글 첫번째를 제외한 신고정보에 대한 신고자 정보
-			// 상세 페이지에 board_No로 모든 신고정보 가져오기 
+			List<Report> DetailList = new ArrayList<Report>();	 		
+			List<Member> DetailMemberList = new ArrayList<Member>();	
+
 			String boardType = "";
 			
 			DetailList = reportService.selectDetailCommentsReportList(commentNo);
@@ -361,21 +356,21 @@ public class ReportController {
 				
 				DetailMemberList.add(DetailMember);
 			}
-			//게시글 번호 넘겨서 게시글 타입번호 가져오기
+		
 			Board2 board = reportService.selectBoardList(comment.getBoard_No());
-			//게시글 타입번호로 게시글 타입 가져오기
+
 			boardType = reportService.selectBoardType(board.getType_No());
 
 			System.out.println("boardType : " + boardType);
 			
-			//첫 신고 정보
+
 			model.addAttribute("comment", comment);
 			model.addAttribute("board", board);			
 			model.addAttribute("reportReason", reportReason);
 			model.addAttribute("appendantMemNick", appendantMemNick);
 			model.addAttribute("reporterMemNick", reporterMemNick);
-			model.addAttribute("boardType", boardType); // 게시판 타입 String으로 변경
-			//두 번째 부터의 신고 내용
+			model.addAttribute("boardType", boardType);
+			
 			
 			model.addAttribute("DetailList", DetailList);
 			model.addAttribute("DetailMemberList", DetailMemberList);
@@ -393,14 +388,14 @@ public class ReportController {
 		int res = reportService.updateBoard(boardNo, boardStatus);
 		System.out.println("res:"+res);
 			
-			if( boardStatus.equals("Y")){ // 업데이트 성공시
+			if( boardStatus.equals("Y")){ 
 				reportService.deleteReport(boardNo);
 				reportService.updateBoardReportNumReset(boardNo);
 				System.out.println("신고횟수 초기화 및 신고 테이블에서 정보 삭제 ok");
 				
 				return "redirect:boardReportList.do";
 			
-			}else { // 업데이트 실패시
+			}else { 
 
 				return "redirect:boardReportList.do"; 
 			
@@ -418,14 +413,14 @@ public class ReportController {
 		int res = reportService.updateComment(commNo, commStatus);
 		
 	
-		if( commStatus.equals("Y")){ // 업데이트 성공시
+		if( commStatus.equals("Y")){ 
 			reportService.deleteCommentReport(commNo);
 			reportService.updateCommentReportNumReset(commNo);
 			System.out.println("신고횟수 초기화 및 신고 테이블에서 정보 삭제 ok");
 			
 			return "redirect:commentReportList.do";
 			
-		}else { // 업데이트 실패시
+		}else { 
 			
 			return "redirect:commentReportList.do"; 
 		}
@@ -438,18 +433,18 @@ public class ReportController {
 
 		System.out.println("댓글 신고 리스트");
 		
-		List<Report> list = reportService.selectCommentList(); 	// 신고된 댓글 조회
+		List<Report> list = reportService.selectCommentList();
 		
-		List<Comments2> commentList = new ArrayList<Comments2>(); // 댓글 내용 가져 올 경로.
-		List<Member> reporterList = new ArrayList<Member>(); 	// 신고자 ID 가지고 오기
-		List<Member> appendantList = new ArrayList<Member>(); 	// 피신고자 ID 가지고 오기
-		List<Board2> board2List = new ArrayList<Board2>(); 		// 게시글 정보 조회
+		List<Comments2> commentList = new ArrayList<Comments2>(); 
+		List<Member> reporterList = new ArrayList<Member>(); 	
+		List<Member> appendantList = new ArrayList<Member>(); 
+		List<Board2> board2List = new ArrayList<Board2>(); 		
 		
 		for(Report report : list) {
 			System.out.println("report:"+report.toString());
-			Comments2 comments2 = reportService.selectComment(report.getCommNo()); // 해당 댓글 정보 조회
+			Comments2 comments2 = reportService.selectComment(report.getCommNo()); 
 			
-			Board2 board2 = reportService.selectBoardList(comments2.getBoard_No()); // 해당 게시글 정보 조회
+			Board2 board2 = reportService.selectBoardList(comments2.getBoard_No());
 			
 			Member reporter = reportService.selectMember(report.getMemNo());
 			Member appendant = reportService.selectMember(report.getMemNo2());

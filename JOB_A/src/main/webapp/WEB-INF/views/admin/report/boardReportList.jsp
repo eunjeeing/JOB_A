@@ -9,13 +9,13 @@
 <meta charset="utf-8">
 <title>신고 게시글 리스트</title>
 <style>
+
 	.goDetail:hover{
 		cursor: pointer;
 		background: #EAEAEA;
 	}
 	#boardTitle:hover{
 		cursor: pointer;
-		background: #EAEAEA;
 	}	
 	#boardTitle:focus{
 		outline: none;
@@ -26,6 +26,8 @@
 		border: none;
 		background: transparent;
 	}
+	
+
 </style>
 </head>
 <body class="vertical  dark  ">
@@ -47,7 +49,7 @@
 									<div class="card-body">
 										
 										<!-- table -->
-										<table class="table table-bordered" align="center" id="dataTable-1">
+										<table class="table table-hover datatables" align="center" id="dataTable-1">
 											<thead>
 												<tr align="center" role="row" >
 													<th>No.</th>
@@ -71,7 +73,7 @@
 														</td>
 														<td>${appendantList[status.index].memNick}</td>
 														<td>${m.reportReason }</td>
-														<td>${reporterList[status.index].memNick}&nbsp;외&nbsp;${boardList[status.index].board_ReportNum-1}&nbsp;명</td>
+														<td>${reporterList[status.index].memNick}<span class="people2">&nbsp;외&nbsp;<span class="people">${boardList[status.index].board_ReportNum-1}</span>&nbsp;명</span></td>
 														<td>${m.reportDate}</td>
 														<td>${boardList[status.index].board_ReportNum}</td>
 															<td><c:if test="${boardList[status.index].board_Status eq 'Y'}">
@@ -79,25 +81,6 @@
 															</c:if> <c:if test="${boardList[status.index].board_Status eq 'B'}">
 																<span class='badge badge-danger'>블라인드</span>
 															</c:if> </td>
-<%-- 														<td> <!-- 토글버튼 -->
-									
-															<div class="custom-control custom-switch">
-														<c:if test="${boardList[status.index].board_Status eq 'Y'}">
-																<input type="checkbox" class="custom-control-input" 
-																		id="${boardList[status.index].board_No}" disabled="disabled" name="statusY" checked>
-																<label class="custom-control-label"
-																 for="${boardList[status.index].board_No}"></label>
-														</c:if>
-														
-														<c:if test="${boardList[status.index].board_Status eq 'B'}">
-															<input type="checkbox" class="custom-control-input" 
-																id="${boardList[status.index].board_No}" disabled="disabled" >
-															<label class="custom-control-label"
-																for="${boardList[status.index].board_No}"></label>
-															</c:if>	 															
-															</div>
-															
-														</td> --%>
 													</tr>
 												</c:forEach>
 											</tbody>
@@ -136,6 +119,8 @@
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async
 		src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		
 	<script>
       	window.dataLayer = window.dataLayer || [];
 
@@ -145,34 +130,25 @@
 		gtag('js', new Date());
 		gtag('config', 'UA-56159088-1');
 
+		// 리스트에서 외 몇명 구현
+		$(function(){
+			var test = $(".people").length;
+			var num = $(".people").text();
+			console.log("num: "+num);
+			console.log("Test"+test);
+			for(var i=0; i<test; i++){
+					var num2 = num[i];
+					console.log("num:"+num2);
+					if(num2 == 0){
+						$(".people2").eq(i).hide();
+						console.log("zzzzz");
+					}else{
+						$(".people").eq(i).show();
+						}
+						
+				}
+			});
     </script>
 	
-<!-- 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-	<script type="text/javascript">
-
-		function search(){
-			var searchKey = $("#search").val();
-			var searchCon = $("#inlineFormCustomSelectPref").val();
-			
-			if(searchKey == ""){
-				Swal.fire({
-	                title: "ʕ⁰̈●̫⁰̈ʔ..이러면 아모고토 검색할수가 없지",
-	                timer: 1300,
-	                showConfirmButton: false
-	            });
-				return false;
-			} else if(searchCon == ""){
-				Swal.fire({
-	                title: "ʕʘ●̫ʘʔ..근데 뭘로 검색해?",
-	                timer: 1300,
-	                showConfirmButton: false
-	            });
-				return false;
-			} else {
-				location.href="${pageContext.request.contextPath}/user/userSearch?condition="+$('#inlineFormCustomSelectPref').val()+"&keyword="+$('#search').val();	
-			}
-			
-		}
-	</script> -->
 </body>
 </html>

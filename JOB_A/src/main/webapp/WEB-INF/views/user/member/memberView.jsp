@@ -120,12 +120,12 @@
 
 							<form class="memberEnrollForm" id="memberEnrollForm" action="memberUpdated.do" method="post" onsubmit="return validate();">
 								<!-- 기본정보 테이블 -->
-								<input type="hidden" class="check_email" value="true" /> <!-- 이메일 인증 여부 -->
-								<input type="hidden" class="email" name="memEmail" value="${member.memEmail}" />	<!-- 컨트롤러로 보낼 이메일 -->
-								<input type="hidden" class="check_Id" value="false" /> <!-- 아이디 중복 체크 여부 -->
-								<input type="hidden" class="check_info" value="false" /> <!-- 약관 체크 여부 -->
-								<input type="hidden" class="local" value="${member.memArea}" /> <!-- 선호지역 바인딩 -->
-								<input type="hidden" class="check_nickName" value="${member.memNick}" /> <!-- 닉네임 수정시 비교대상 -->
+								<input type="hidden" class="check_email" value="true" /> 
+								<input type="hidden" class="email" name="memEmail" value="${member.memEmail}" />	
+								<input type="hidden" class="check_Id" value="false" />
+								<input type="hidden" class="check_info" value="false" /> 
+								<input type="hidden" class="local" value="${member.memArea}" /> 
+								<input type="hidden" class="check_nickName" value="${member.memNick}" />
 								<!-- 선호지역 -->
 								<input type="hidden" class="local1" name="memArea" value="">
 								<input type="hidden" class="local2" name="memArea" value="">
@@ -165,11 +165,11 @@
 									<tr>
 										<th class="table_th">닉네임 <span class="star">*</span></th>
 										<td id="memNick-container">
-											<input type="text" size="30" class="form-control" name="memNick" id="nickname_" value="${member.memNick}" required />
+											<input type="text" size="30" class="form-control" maxlength="6" memNick" id="nickname_" value="${member.memNick}" required />
 											<!-- 닉네임 중복 검사 코멘트 추가 -->
 											<span class="guide ok">사용 가능</span>
 				            				<span class="guide error">사용 불가</span>
-				            				<span class="guide invalid">10글자 미만</span>
+				            				<span class="guide invalid">최대 6글자</span>
 				            				<input type="hidden" name="nickNameDuplicateCheck" id="nickNameDuplicateCheck" value="1"/>
 										</td>
 										<td>
@@ -329,38 +329,50 @@
 						
 						<script type="text/javascript">
 
-						var code = ""; 	//이메일전송 인증번호 저장위한 코드
-
+						var code = ""; 	
+						
 						/* 이메일 바인딩 */
 						$(function(){
 							var email = $("#memEmail").val();
 							var email_id = email.split("@");
 		
-							// alert(email);
 							 console.log(email_id[0]);					
 							 console.log(email_id[1]);	
 							$("#memEmail").val(email_id[0]);
 							$("#domain").val(email_id[1]);
 
 						/* 관심직종 배열 바인딩 */
-							var jobList = $(".jobList").length; // 배열갯수를 가지고 옴
+							var jobList = $(".jobList").length;
 							console.log("jobList : " + jobList);
 							for(var i = 1; i <= jobList; i++){
 								$('input:checkbox[name="category_No"][value="'+$("#category"+i).val()+'"]').prop('checked', true);	
 							}
 						});
-						/* 이메일 변경시 이메일인증 하도록 */
-						$("#memEmail").on("change keyup paste", function() {
-							$('.check_email').val("false");
-							console.log("이메일인증을하시오");
-						});
+
+						$("#memEmail").change(function(){
+			
+							var email = $(".email").val().split("@");
+							console.log(email[0]);
+							
+							var email2 = $("#memEmail").val();
+							console.log(email2);
+
+							if(email[0] != email2){
+								$('.check_email').val("false");
+								console.log("이메일인증을하시오");
+								}else{
+									$('.check_email').val("true");
+
+									}
+							});
+						
 						/*각 종 유효성 검사*/
 						function validate2(obj){
 						
-							var validate = ''; // 정규식
-							var valiMessage = ''; // 유효성 체크 메새지
+							var validate = ''; 
+							var valiMessage = '';
 							
-							var inputValue = $(obj).val(); // 입력 값
+							var inputValue = $(obj).val(); 
 							
 							switch($(obj).attr('id')) {
 							case 'memId_':
@@ -396,7 +408,7 @@
 									if(memId == null || memId == ""){
 										alert("아이디를 입력해주세요!!");	
 												
-										} else{ // else 시작하는 부분
+										} else{ 
 											
 								console.log("userInputId : " + memId);
 
@@ -416,7 +428,7 @@
 									        }
 									}
 									});
-											} // else 닫는 부분
+											}
 								});
 
 							/* 비밀번호 확인 */
@@ -434,37 +446,35 @@
 
 							/* 인증번호 이메일 전송 */
 							$(".mail_check_button").click(function(){
-								var email = $(".mail_input").val()+"@"+$("#domain option:selected").val(); // 입력한 이메일
+								var email = $(".mail_input").val()+"@"+$("#domain option:selected").val();
 								
 									if($(".mail_input").val() == null || $(".mail_input").val() == "" || $("#domain option:selected").val() == "none"){
 											alert("이메일을 다시 확인해주세요 ~^^");
 											
-										} else{ // else 시작하는 부분
+										} else{
 											alert("인증번호를 발송했습니다! ")
-								// console.log("email : " + email);
-								var checkBox = $(".mail_check_input");        // 인증번호 입력란
-							    var boxWrap = $(".mail_check_input_box");    // 인증번호 입력란 박스
+								var checkBox = $(".mail_check_input");       
+							    var boxWrap = $(".mail_check_input_box");    
 							    console.log("1");
    						    $.ajax({
    						   		
    						        type:"GET",
    						        url:"emailCheck.do",
    						        data: "email=" + email,
-   						        success:function(data){ 				// data : 스트링으로 변환된 인증코드
+   						        success:function(data){ 				
 
-   						        // console.log("data : " + data);
    						        boxWrap.attr("disabled", false);
    	   							boxWrap.attr("id", "mail_check_input_box_true");
    	   							code = data;
    	   						        }
 								});
-											} // else 끝나는 부분
+											}
 							});
 
 							/*인증확인 버튼 클릭 시*/
 							$(".confirm_code").click(function(){
 								var userInputCode = $(".mail_check_input_box").val();
-								var email = $(".mail_input").val()+"@"+$("#domain option:selected").val(); // 입력한 이메일
+								var email = $(".mail_input").val()+"@"+$("#domain option:selected").val(); 
 
 								console.log("code: "+code+"userInputCode: "+userInputCode);
 
@@ -486,13 +496,13 @@
 
 							/* 닉네임 중복검사 이벤트 추가 */
 							$("#nickname_").on("keyup", function(){
-						        var memNick = $(this).val().trim(); // ajax에 보낼 닉네임값
+						        var memNick = $(this).val().trim(); 
 						        
 						   
 						        var nickName = $(".check_nickName").val().trim();
 					        	console.log("memNick:"+memNick+"nickName:"+nickName);
 					        	
-						        if( memNick == nickName || memNick =="" || memNick == null){ // 내 닉네임과 수정할 닉네임 비교 시작
+						        if( memNick == nickName || memNick =="" || memNick == null){ 
 							        	console.log("같다");
 					                    $(".guide.ok").hide();
 							        	$(".guide.error").hide();
@@ -500,7 +510,7 @@
 					                    
 								        
 						        } else {
-						        if(memNick.length>10 ) {
+						        if(memNick.length>6 ) {
 						        	$(".guide.error").hide();
 						        	$(".guide.ok").hide();
 						        	$(".guide.invalid").show();
@@ -512,9 +522,8 @@
 							            data : {memNick:memNick},
 							            dataType: "json",
 							            success : function(data){
-							                // console.log(data);
-							                // if(data=="true") //stream 방식
-							                if(data.isUsable==true){ //viewName 방식
+								            
+							                if(data.isUsable==true){ 
 							                    $(".guide.error").hide();
 							                    $(".guide.invalid").hide();
 							                    $(".guide.ok").show();
@@ -535,7 +544,7 @@
 						        	});
 						     	}
 						     console.log(memNick);
-						        } // 원래 내 닉네임과 수정할 닉네임 비교 
+						        } 
 						     
 						        
 							});
@@ -543,26 +552,18 @@
 						
 						function validate(){
 							var memNick = $("#nickname_");
-							if(memNick.val().trim().length>10){
-								alert("닉네임은 최소 10자리 미만이어야 합니다.");
+							if(memNick.val().trim().length>6){
+								alert("닉네임은 최대 6자리 입니다.");
 								memNick.focus();
 								return false;
 							}
 							
-							// 아이디 중복 체크 여부
-							//if($(".check_Id").val()=="false"){
-							//	alert("아이디를 다시 확인 해주세요.");
-							//	return false;
-								
-							//}
-							
-							// 닉네임 중복 체크 여부
+							// 여기서부턴 중복 체크 여부
 						    if($("#nickNameDuplicateCheck").val()==0){
 						        alert("사용가능한 닉네임을 입력해주세요.");
 						        return false;
 						    }
 									    
-						    // 이메일 인증 확인 여부
 						    if($(".check_email").val()=="false"){
 						        alert("이메일 인증을 해주세요.");
 						        return false;
@@ -573,12 +574,10 @@
 
 							// 생년월일 날짜 제약조건
 							   function check(){
-						        var date = new Date(); // 오늘날짜 생성
+						        var date = new Date();
 						 
-						        var date2 = new Date( $("#memBirth").val()); // 우리가 선택한 날짜 
-						        // alert("date2:"+date2);
-						        // alert("date:"+date);
-						
+						        var date2 = new Date( $("#memBirth").val());
+						        
 						        if(date2>date){
 							       alert("당신 미래에서 오셨나요 ? ")
 						            $("#memBirth").val(null);
@@ -587,13 +586,13 @@
 						
 							/* 선호지역 API 스크립트 */
 							jQuery(document).ready(function(){
-								  //sido option 추가
+								 
 								  jQuery.each(hangjungdong.sido, function(idx, code){
-								    //append를 이용하여 option 하위에 붙여넣음
+								    
 								    jQuery('#sido1').append(fn_option(code.sido, code.codeNm));
 								  });
 								 
-								  //sido 변경시 시군구 option 추가
+								 
 								  jQuery('#sido1').change(function(){
 								    jQuery('#sigugun1').show();
 								    jQuery('#sigugun1').empty();
@@ -603,14 +602,9 @@
 								        jQuery('#sigugun1').append(fn_option(code.sigugun, code.codeNm));
 								    });
 								 
-								    //세종특별자치시 예외처리
-								    //옵션값을 읽어 비교
 								    if(jQuery('#sido1 option:selected').val() == '36'){
 								      jQuery('#sigugun1').hide();
-								      //index를 이용해서 selected 속성(attr)추가
-								      //기본 선택 옵션이 최상위로 index 0을 가짐
 								      jQuery('#sigugun1 option:eq(1)').attr('selected', 'selected');
-								      //trigger를 이용해 change 실행
 								      jQuery('#sigugun1').trigger('change');
 								    }
 								  });
@@ -618,17 +612,15 @@
 								  jQuery('#sigugun1').change(function(){
 								    var sido = jQuery('#sido1 option:selected').val();
 								    var sigugun = jQuery('#sigugun1 option:selected').val();
-								    //var dong = jQuery('#dong option:selected').val();
 								    var dongCode = sido + sigugun + '00';    
 		
 								    var sidoIdx=hangjungdong.sido.findIndex(i=>i.sido==$("#sido1").val());
 								    var sigugunIdx=hangjungdong.sigugun.findIndex(i=>i.sigugun==$("#sigugun1").val()&&i.sido==$("#sido1").val());
 								    
-								    var sido = hangjungdong.sido[sidoIdx].codeNm;//시
-								    var sigungu = hangjungdong.sigugun[sigugunIdx].codeNm;//시군구
+								    var sido = hangjungdong.sido[sidoIdx].codeNm;
+								    var sigungu = hangjungdong.sigugun[sigugunIdx].codeNm;
 		
-								    // alert(sido + ":" + sigungu);
-								    $(".local1").val(sido+" "+sigungu); // 예) 서울특별시/강남구 로 한 쌍씩 주려고 만듬.
+								    $(".local1").val(sido+" "+sigungu); 
 								    
 								  });
 								});
@@ -638,9 +630,8 @@
 		
 								/*두번째 선호지역 */
 								jQuery(document).ready(function(){
-									  //sido option 추가
+								
 									  jQuery.each(hangjungdong.sido, function(idx, code){
-									    //append를 이용하여 option 하위에 붙여넣음
 									    jQuery('#sido2').append(fn_option(code.sido, code.codeNm));
 									  });
 									 
@@ -654,14 +645,9 @@
 									        jQuery('#sigugun2').append(fn_option(code.sigugun, code.codeNm));
 									    });
 									 
-									    //세종특별자치시 예외처리
-									    //옵션값을 읽어 비교
 									    if(jQuery('#sido2 option:selected').val() == '36'){
 									      jQuery('#sigugun2').hide();
-									      //index를 이용해서 selected 속성(attr)추가
-									      //기본 선택 옵션이 최상위로 index 0을 가짐
 									      jQuery('#sigugun2 option:eq(1)').attr('selected', 'selected');
-									      //trigger를 이용해 change 실행
 									      jQuery('#sigugun2').trigger('change');
 									    }
 									  });
@@ -670,17 +656,15 @@
 									  jQuery('#sigugun2').change(function(){
 									    var sido = jQuery('#sido2 option:selected').val();
 									    var sigugun = jQuery('#sigugun2 option:selected').val();
-									    //var dong = jQuery('#dong option:selected').val();
 									    var dongCode = sido + sigugun + '00';    
 		
 									    var sidoIdx=hangjungdong.sido.findIndex(i=>i.sido==$("#sido2").val());
 									    var sigugunIdx=hangjungdong.sigugun.findIndex(i=>i.sigugun==$("#sigugun2").val()&&i.sido==$("#sido2").val());
 									    
-									    var sido = hangjungdong.sido[sidoIdx].codeNm;//시
-									    var sigungu = hangjungdong.sigugun[sigugunIdx].codeNm;//시군구
+									    var sido = hangjungdong.sido[sidoIdx].codeNm;
+									    var sigungu = hangjungdong.sigugun[sigugunIdx].codeNm;
 		
-									    // alert(sido + ":" + sigungu);
-									    $(".local2").val(sido+" "+sigungu); // 예) 서울특별시/강남구 로 한 쌍씩 주려고 만듬.
+									    $(".local2").val(sido+" "+sigungu); 
 									    
 									  });
 									});
@@ -690,13 +674,11 @@
 		
 									/*세번째 선호지역 */
 									jQuery(document).ready(function(){
-										  //sido option 추가
+										
 										  jQuery.each(hangjungdong.sido, function(idx, code){
-										    //append를 이용하여 option 하위에 붙여넣음
 										    jQuery('#sido3').append(fn_option(code.sido, code.codeNm));
 										  });
 										 
-										  //sido 변경시 시군구 option 추가
 										  jQuery('#sido3').change(function(){
 										    jQuery('#sigugun3').show();
 										    jQuery('#sigugun3').empty();
@@ -706,14 +688,9 @@
 										        jQuery('#sigugun3').append(fn_option(code.sigugun, code.codeNm));
 										    });
 										 
-										    //세종특별자치시 예외처리
-										    //옵션값을 읽어 비교
 										    if(jQuery('#sido3 option:selected').val() == '36'){
 										      jQuery('#sigugun3').hide();
-										      //index를 이용해서 selected 속성(attr)추가
-										      //기본 선택 옵션이 최상위로 index 0을 가짐
 										      jQuery('#sigugun3 option:eq(1)').attr('selected', 'selected');
-										      //trigger를 이용해 change 실행
 										      jQuery('#sigugun3').trigger('change');
 										    }
 										  });
@@ -722,17 +699,15 @@
 										  jQuery('#sigugun3').change(function(){
 										    var sido = jQuery('#sido3 option:selected').val();
 										    var sigugun = jQuery('#sigugun3 option:selected').val();
-										    //var dong = jQuery('#dong option:selected').val();
 										    var dongCode = sido + sigugun + '00';    
 		
 										    var sidoIdx=hangjungdong.sido.findIndex(i=>i.sido==$("#sido3").val());
 										    var sigugunIdx=hangjungdong.sigugun.findIndex(i=>i.sigugun==$("#sigugun3").val()&&i.sido==$("#sido3").val());
 										    
-										    var sido = hangjungdong.sido[sidoIdx].codeNm;//시
-										    var sigungu = hangjungdong.sigugun[sigugunIdx].codeNm;//시군구
+										    var sido = hangjungdong.sido[sidoIdx].codeNm;
+										    var sigungu = hangjungdong.sigugun[sigugunIdx].codeNm;
 		
-										    // alert(sido + ":" + sigungu);
-										    $(".local3").val(sido+" "+sigungu); // 예) 서울특별시/강남구 로 한 쌍씩 주려고 만듬.
+										    $(".local3").val(sido+" "+sigungu);
 										    
 										  });
 										});
@@ -749,25 +724,20 @@
 											var area2 = area_local[1].split(" ");
 											var area3 = area_local[2].split(" ");
 											
-											// alert(area_local);
 											console.log(area1[0], area1[1]);
 											console.log(area2[0], area2[1]);
 											
-											//$("#sido1").val(area1[0]).trigger('change');
-											//$("#sigugun1").val(area1[1]).prop("selected", true);	
 											/* 첫 번째 선호지역 하드코딩 */
 										    var result = hangjungdong.sido.findIndex(i => i.codeNm == area1[0]);
 										    var resultsido = hangjungdong.sido[result].sido;
 										    console.log("resultsido:"+resultsido);
 										    
 										    var result2 = hangjungdong.sigugun.findIndex(i=>i.codeNm == area1[1]  &&i.sido==resultsido);					   
-										    var result2sigungu = hangjungdong.sigugun[result2].sigugun;//시군구
+										    var result2sigungu = hangjungdong.sigugun[result2].sigugun;
 										    console.log("result2sigungu:"+result2sigungu);
 
 										    $("#sido1").val(resultsido).prop("selected", true).trigger('change');
-											$("#sigugun1").val(result2sigungu).prop("selected", true);					
-										//	$('#sido1 option:selected').val(area1[0]);
-										//	$('#sigugun1 option:selected').val(area1[1]);
+											$("#sigugun1").val(result2sigungu).prop("selected", true);		
 											$(".local1").val(area1[0]+" "+area1[1]); 
 											
 										    /* 두 번째 선호지역 하드코딩 */
@@ -776,7 +746,7 @@
 										    console.log("resultsido:"+resultsido);
 										    
 										    var result2 = hangjungdong.sigugun.findIndex(i=>i.codeNm == area2[1]  &&i.sido==resultsido);					   
-										    var result2sigungu = hangjungdong.sigugun[result2].sigugun;//시군구
+										    var result2sigungu = hangjungdong.sigugun[result2].sigugun;
 										    console.log("result2sigungu:"+result2sigungu);
 
 											$("#sido2").val(resultsido).trigger('change');
@@ -789,7 +759,7 @@
 										    console.log("resultsido:"+resultsido);
 										    
 										    var result2 = hangjungdong.sigugun.findIndex(i=>i.codeNm == area3[1]  &&i.sido==resultsido);					   
-										    var result2sigungu = hangjungdong.sigugun[result2].sigugun;//시군구
+										    var result2sigungu = hangjungdong.sigugun[result2].sigugun;
 										    console.log("result2sigungu:"+result2sigungu);
 																			
 											$("#sido3").val(resultsido).trigger('change');

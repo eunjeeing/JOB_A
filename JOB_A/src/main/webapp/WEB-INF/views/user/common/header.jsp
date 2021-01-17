@@ -41,7 +41,7 @@
 			</div>
 		</c:if>
 		<c:if test="${member.gradeNo gt 1}">
-			<span><a href="${pageContext.request.contextPath}/member/myPage.do?member=${member}">${member.memNick}</a> 님, 취뽀 화이팅</span>&nbsp;
+			<span><a href="${pageContext.request.contextPath}/member/myPage.do">${member.memNick}</a> 님, 취뽀 화이팅</span>&nbsp;
 			<a href="${pageContext.request.contextPath}/member/memberLogout.do"><i class="fas fa-sign-out-alt"></i><span>로그아웃</span></a>
 		</c:if>
 	</div>

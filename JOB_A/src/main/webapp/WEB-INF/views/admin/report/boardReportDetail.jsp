@@ -12,27 +12,33 @@
 	/* 상단 */
 	#reporterInfor{
 		width: 100%;
-		height: 100%;
+		min-height: 120px;
 		border-style : hidden;
-        box-shadow: 1px 1px 5px 2px lightgrey;
 		margin-top:15px;
-		
-        column-gap : 15px;
-        column-rule: solid lightgrey 2px;
-        column–rule–width :thin;
-        column-count : 4;
+		box-shadow: 5px 5px 5px 5px lightgrey;
 	}
 
 	#reporter, #reportReason, #toggle, #status{
 		padding-top: 30px;
 		padding-left: 10px;
 		padding-bottom: 30px;
+		float: left;
+		
 	}
 	
-	#reporter{
+	#reporter {
+		width: 40%;
 		padding-left: 15px;
 	}
-	
+	#reportReason{
+		width: 30%;
+		padding-left: 15px;
+	}
+	#toggle, #status{
+		width: 15%;
+		text-align: center;
+		
+	}
 	#Big, #sangtae{
 		color: #6c757d;
 	}
@@ -46,24 +52,21 @@
 	#boardTable{
 		width: 100%;
 		height: 100%;
-		margin-top: 30px;
 		padding-left: 10px;
 		font-size: 14px;
 		letter-spacing: 1.5px;
-		
-	}
-	
-	.title, .content{
-		padding-top: 10px;
+		display: inline-block;
+		margin-top: 50px;
 	}
 	
 	.title{
 		padding-right: 15px;
 		font-weight: bolder;
 	}
+	
 	.content{
 		padding-left: 15px;
-		border-left: 1px solid;
+		border-left: 1px solid #ddd;
 	}
 	
 	/* 해당 게시글 상세 내용 */
@@ -94,9 +97,11 @@
 		letter-spacing: 2px;
 		
 	}
+	
 	#goback:hover{
 		background: gray;
 	}
+	
 </style>
 </head>
 <body class="vertical  dark  ">
@@ -123,19 +128,10 @@
 												<h3 id="Big">신고자</h3>
 												<b class="data">${reporterMemNick}</b>
 												
-												<b class="data">
-												<c:choose>
-													<c:when test="${empty DetailList}">
-													<div>
-														-----추가 신고내용 없음-----
-													</div>
-													</c:when>
-													<c:otherwise>
-														<c:forEach items="${DetailList}" var="list" varStatus="status">
-																, ${DetailMemberList[status.index].memNick }
-														</c:forEach>
-													</c:otherwise>
-												</c:choose>
+												<b class="data">											
+													<c:forEach items="${DetailList}" var="list" varStatus="status">
+															, ${DetailMemberList[status.index].memNick }
+													</c:forEach>
 												</b>
 											</div>
 											
@@ -144,18 +140,9 @@
 												<b class="data">${reportReason}</b>
 												
 												<b class="data">
-												<c:choose>
-													<c:when test="${empty DetailList}">
-													<div>
-														-----추가 신고내용 없음-----
-													</div>
-													</c:when>
-													<c:otherwise>
-														<c:forEach items="${DetailList}" var="list" varStatus="status">
+													<c:forEach items="${DetailList}" var="list" varStatus="status">
 															, ${list.reportReason }
-														</c:forEach>
-													</c:otherwise>
-												</c:choose>
+													</c:forEach>											
 												</b>
 											</div>
 											
@@ -270,17 +257,37 @@
 		
 		// 활성화 ture 비활성화 false
 		$(".custom-control-input").click(function(){
+			
 				var status = "${boardList.board_Status}";
 				console.log("status"+ status);
+				
 				var test = $(".custom-control-input").is(":checked");
 				if(status == "Y" && test == false){
-						console.log("트루임");
-						//비활성화(B)로 바꿔야함
-						location.href="${pageContext.request.contextPath}/boardReportUpdate.do?boardNo=${boardList.board_No}&boardStatus=B"; 
+
+					var toggle = confirm("블라인드 처리 하시겠습니까?");
+						if(toggle == true){
+							
+							console.log("트루임");
+							//비활성화(B)로 바꿔야함
+							location.href="${pageContext.request.contextPath}/boardReportUpdate.do?boardNo=${boardList.board_No}&boardStatus=B"; 
+						}
+						else if(toggle == false){
+							$(".custom-control-input").prop("checked", true);
+						}
+						
 					}else if(status == "B" && test == true){
-						console.log("여기는 비활>활성화로");
-						//활성화(Y)로 해야함
-						location.href="${pageContext.request.contextPath}/boardReportUpdate.do?boardNo=${boardList.board_No}&boardStatus=Y"; 
+						
+						var toggle = confirm("활성화 하시겠습니까?");
+						if(toggle == true){
+							
+							console.log("여기는 비활>활성화로");
+							//활성화(Y)로 해야함
+							location.href="${pageContext.request.contextPath}/boardReportUpdate.do?boardNo=${boardList.board_No}&boardStatus=Y"; 
+							
+						}
+						else if(toggle == false){
+							$(".custom-control-input").prop("checked", false);
+						}
 						}
 			});
 

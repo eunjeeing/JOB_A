@@ -6,6 +6,7 @@
  <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script type="text/javascript">
       $(function(){
+          
 	/* 여기는 게시글 신고 */
         var modal = document.getElementById('myModal');
         
@@ -152,22 +153,22 @@
           <div class="modal-header">
   
             <span class="close">&times;</span>  
-            <h4 class="modal-title"> 신고<h4> <!-- 사용자 지정 부분② : 타이틀 -->
+            <h4 class="modal-title"> 신고<h4> 
   
           </div>
   
           <div class="modal-body">
             <form id="form1" action="${pageContext.request.contextPath}/insertReport.do" method="post">
   
-           <input type="hidden" class="modal_board" name="board2" value=""/>  				<!-- 게시글, 댓글 번호 -->
-           <input type="hidden" class="modal_board_no" name="board2_no" value=""/>  		<!-- 게시글, 댓글 작성자 번호 -->
-           <input type="hidden" class="modal_reporter" name="declare" value=""/>			<!-- 게시글, 댓글 신고자 번호 -->
-           <input type="hidden" class="modal_separate" name="modal_separate" value=""> 		<!-- 댓글 게시글 구분 -->
+           <input type="hidden" class="modal_board" name="board2" value=""/>  			
+           <input type="hidden" class="modal_board_no" name="board2_no" value=""/>  		
+           <input type="hidden" class="modal_reporter" name="declare" value=""/>			
+           <input type="hidden" class="modal_separate" name="modal_separate" value=""> 		
            <!-- 여긴 댓글 -->
 
            
               <div class="form-group">
-               <label for="reportReason"><h3>신고 사유를 선택해주세요.</h3></label> <!-- 사용자 지정 부분③ : 텍스트 메시지 -->
+               <label for="reportReason"><h3>신고 사유를 선택해주세요.</h3></label> 
                <select class="form-control" name="reason" id="reportReason">		
                  <option class="reportConfirm" value="허위사실">&nbsp;&nbsp;&nbsp;허위 사실인 것 같아요!</option>
                  <option class="reportConfirm" value="욕설">&nbsp;&nbsp;&nbsp;욕설이 담겨져 있어요!</option>
@@ -180,12 +181,6 @@
                 <br />
           		<input type="submit" class="submitBtn" value="제출" />
              </div>
-           <!-- <input type="button" class="reportBtn" value="허위사실">허위 사실인 것 같아요! <br>
-             	<input type="button" class="reportBtn" value="음란물">문란하다고 생각합니다!<br>
-              	<input type="button" class="reportBtn" value="광고글">광고글인 것 같아요!<br>
-              	<input type="button" class="reportBtn" value="욕설">욕설이 담겨져 있어요!<br>
-              	<input type="button" class="reportBtn" value="기타"/> 
-     		  	<input type="button" class="reportBtn" name="reason" value="">기타 <input type="text"><br> -->
               
             </form>
           </div>
