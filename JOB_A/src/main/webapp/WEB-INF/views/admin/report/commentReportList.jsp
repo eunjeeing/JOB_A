@@ -12,20 +12,7 @@
 	.commentContent:hover{
 		background: #EAEAEA;
 	}
-	#commentContent:hover{
-		cursor: pointer;
-	
-	}
-	#commentContent:focus{
-		outline: none;
-	}
-	#commentContent{
-		width: 100%;
-		height: auto;
-		border: none;
-		background: transparent;
-		
-	}
+
 </style>
 </head>
 <body class="vertical  dark  ">
@@ -68,10 +55,10 @@
 														<td>${status.index+1}</td>
 														<td>${commentList[status.index].comm_No}</td>
 														<td> 
-															<input type="text" maxlength="200" id="commentContent" readonly="readonly" value="${commentList[status.index].comm_Content}"/>
+															${commentList[status.index].comm_Content}
 														</td>
 														<td>${appendantList[status.index].memNick}</td>
-														<td>${m.reportReason }</td>
+														<td style="color: #EAEAEA;">${m.reportReason }</td>
 														<td>${reporterList[status.index].memNick}<span class="people2">&nbsp;외&nbsp;<span class="people">${commentList[status.index].comm_ReportNum-1}</span>&nbsp;명</span></td>
 														<td>${m.reportDate}</td>
 														<td>${commentList[status.index].comm_ReportNum}</td>
@@ -117,10 +104,10 @@
         ]
       });
     </script>
-	<script src="${pageContext.request.contextPath}/resources/admin/js/apps.js"></script>
+<%-- 	<script src="${pageContext.request.contextPath}/resources/admin/js/apps.js"></script>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async
-		src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+		src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script> --%>
 	<script>
       	window.dataLayer = window.dataLayer || [];
 
