@@ -6,157 +6,157 @@
 <!DOCTYPE HTML>
 <style>
 #banner {
-	height: 40%;
+   height: 40%;
 }
 
 .left {
-	width: 70%;
-	padding-right: 22px;
+   width: 70%;
+   padding-right: 22px;
 }
 /* 검색창 스타일 */
 .container {
-	width: 80%;
-	vertical-align: middle;
-	white-space: nowrap;
-	position: relative;
-	margin-left: 10px;
+   width: 80%;
+   vertical-align: middle;
+   white-space: nowrap;
+   position: relative;
+   margin-left: 10px;
 }
 
 .container input#search::-webkit-input-placeholder {
-	color: #65737e;
-	cursor: pointer;
+   color: #65737e;
+   cursor: pointer;
 }
 
 .container input#search:-moz-placeholder { /* Firefox 18- */
-	color: #65737e;
+   color: #65737e;
 }
 
 .container input#search::-moz-placeholder { /* Firefox 19+ */
-	color: #65737e;
+   color: #65737e;
 }
 
 .container input#search:-ms-input-placeholder {
-	color: #65737e;
+   color: #65737e;
 }
 
 .container input#search {
-	width: 120%;
-	height: 50px;
-	font-size: 10pt;
-	float: left;
-	color: #63717f;
-	padding-left: 45px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
+   width: 120%;
+   height: 50px;
+   font-size: 10pt;
+   float: left;
+   color: #63717f;
+   padding-left: 45px;
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
 }
 
 .container .icon {
-	position: absolute;
-	top: 45%;
-	margin-left: 18px;
-	margin-top: 14px;
-	z-index: 1;
-	color: #4f5b66;
-	-webkit-transition: all .55s ease;
-	-moz-transition: all .55s ease;
-	-ms-transition: all .55s ease;
-	-o-transition: all .55s ease;
-	transition: all .55s ease;
+   position: absolute;
+   top: 45%;
+   margin-left: 18px;
+   margin-top: 14px;
+   z-index: 1;
+   color: #4f5b66;
+   -webkit-transition: all .55s ease;
+   -moz-transition: all .55s ease;
+   -ms-transition: all .55s ease;
+   -o-transition: all .55s ease;
+   transition: all .55s ease;
 }
 
 .container:hover .icon {
-	margin-top: 13px;
-	color: #93a2ad;
-	-webkit-transform: scale(1.5); /* Safari and Chrome */
-	-moz-transform: scale(1.5); /* Firefox */
-	-ms-transform: scale(1.5); /* IE 9 */
-	-o-transform: scale(1.5); /* Opera */
-	transform: scale(1.5);
+   margin-top: 13px;
+   color: #93a2ad;
+   -webkit-transform: scale(1.5); /* Safari and Chrome */
+   -moz-transform: scale(1.5); /* Firefox */
+   -ms-transform: scale(1.5); /* IE 9 */
+   -o-transform: scale(1.5); /* Opera */
+   transform: scale(1.5);
 }
 
 .container input#search:hover, .container input#search:focus, .container input#search:active
-	{
-	outline: none;
-	background: rgba(222, 225, 226, 0.75);
+   {
+   outline: none;
+   background: rgba(222, 225, 226, 0.75);
 }
 /* 캐러셀 스타일 */
 p {
-	display: contents;
+   display: contents;
 }
 
 .carou_title {
-	height: 30px;
-	width: 95%;
-	margin: 85px auto 10px 13px;
+   height: 30px;
+   width: 95%;
+   margin: 85px auto 10px 13px;
 }
 
 .carousel-container {
-	width: 96%;
-	height: 280px;
-	margin: auto auto 30px 13px;
-	border: 0px solid #000;
-	position: relative;
-	overflow: hidden;
+   width: 96%;
+   height: 280px;
+   margin: auto auto 30px 13px;
+   border: 0px solid #000;
+   position: relative;
+   overflow: hidden;
 }
 .carousel-slide {
-	height: 280px;
-	display : flex;
-	padding-left: 5vw;
-	padding-right: 5vw;
+   height: 280px;
+   display : flex;
+   padding-left: 5vw;
+   padding-right: 5vw;
 }
 .carou-card{
-	height:100%;
-	z-index: 0;
-	opacity: 0;
-	position: absolute;
+   height:100%;
+   z-index: 0;
+   opacity: 0;
+   position: absolute;
 }
 .active {
-	z-index: 1;
-	opacity: 1;
-	transform : none;
-	transition : all .7s ease-in-out !important;
+   z-index: 1;
+   opacity: 1;
+   transform : none;
+   transition : all .7s ease-in-out !important;
 }
 .carousel-slide:hover{
-	cursor: pointer;
-	background-color: rgba(222, 225, 226, 0.75);
-	transition : all .4s ease-in-out !important;
+   cursor: pointer;
+   background-color: rgba(222, 225, 226, 0.75);
+   transition : all .4s ease-in-out !important;
 }
 
 #prevBtn {
-	position: absolute !important;
-	top: 50%;
-	transform: translate(0%, -50%);
-	height: 280px;
-	width: 13px;
-	box-shadow: none;
-	border: 3px solid #f56a6a;
-	border-right: none;
+   position: absolute !important;
+   top: 50%;
+   transform: translate(0%, -50%);
+   height: 280px;
+   width: 13px;
+   box-shadow: none;
+   border: 3px solid #f56a6a;
+   border-right: none;
 }
 #nextBtn {
-	position: absolute !important;
-	top: 50%;
-	right: 0;
-	transform: translate(0%, -50%);
-	height: 280px;
-	width: 13px;
-	box-shadow: none;
-	border: 3px solid #f56a6a;
-	border-left: none;
+   position: absolute !important;
+   top: 50%;
+   right: 0;
+   transform: translate(0%, -50%);
+   height: 280px;
+   width: 13px;
+   box-shadow: none;
+   border: 3px solid #f56a6a;
+   border-left: none;
 }
 
 #prevBtn>img {
-	width: 15px;
-	position: absolute;
-	left: 10px;
-	bottom: 132px;
+   width: 15px;
+   position: absolute;
+   left: 10px;
+   bottom: 132px;
 }
 
 #nextBtn>img {
-	width: 15px;
-	position: absolute;
-	right: 10px;
-	bottom: 132px;
+   width: 15px;
+   position: absolute;
+   right: 10px;
+   bottom: 132px;
 }
 
 /* 사이트 홍보 배너 */
@@ -171,130 +171,130 @@ p {
 }
 
 .site_title>p {
-	font-size: 24px;
-	font-weight: bold;
-	color: white;
+   font-size: 24px;
+   font-weight: bold;
+   color: white;
 }
 
 .right {
-	width: 27%;
-	height: 550px;
-	display: block;
-	margin-bottom: 20px;
+   width: 27%;
+   height: 550px;
+   display: block;
+   margin-bottom: 20px;
 }
 .right>div {
-	/* background-color: rgba(222, 225, 226, 0.75); */
-	background-image: url(${pageContext.request.contextPath}/resources/images/back4.jpg);
-	background-size: 100% 100%;
+   /* background-color: rgba(222, 225, 226, 0.75); */
+   background-image: url(${pageContext.request.contextPath}/resources/images/back4.jpg);
+   background-size: 100% 100%;
     background-position: center;
 }
 /* 랭킹 스타일 */
 .ranking {
-	height: 325px;
-	width: 100%;
+   height: 325px;
+   width: 100%;
 }
 
 #rank-list a {
-	border-bottom: none;
-	text-decoration: none;
-	color: grey;
+   border-bottom: none;
+   text-decoration: none;
+   color: grey;
 }
 
 #rank-list a:hover {
-	cursor: pointer;
+   cursor: pointer;
 }
 
 #rank-list {
-	overflow: hidden;
-	width: 100%;
-	height: 320px;
-	margin: 0;
+   overflow: hidden;
+   width: 100%;
+   height: 320px;
+   margin: 0;
 }
 
 #rank-list dt {
-	font-size: 18px;
-	font-weight: bold;
-	color: black;
-	margin-top: 25px;
-	margin-left: 30px;
-	margin-bottom: 5px;
+   font-size: 18px;
+   font-weight: bold;
+   color: black;
+   margin-top: 25px;
+   margin-left: 30px;
+   margin-bottom: 5px;
 }
 
 #rank-list dd {
-	position: relative;
+   position: relative;
 }
 
 #rank-list ol {
-	position: absolute;
-	top: 0;
-	left: 9px;
-	margin: 0;
-	padding: 0;
-	list-style-type: none;
+   position: absolute;
+   top: 0;
+   left: 7px;
+   margin: 0;
+   padding: 0;
+   list-style-type: none;
 }
 
 #rank-list li {
-	margin-top: 3px;
-	line-height: 20px;
-	transform: scale(1);
-	-webkit-transform: scale(1);
-	-moz-transform: scale(1);
-	-ms-transform: scale(1);
-	-o-transform: scale(1);
-	transition: all 0.3s ease-in-out;
+   margin-top: 3px;
+   line-height: 20px;
+   transform: scale(1);
+   -webkit-transform: scale(1);
+   -moz-transform: scale(1);
+   -ms-transform: scale(1);
+   -o-transform: scale(1);
+   transition: all 0.3s ease-in-out;
 }
 
 #rank-list li:hover {
-	transform: scale(1.2);
-	-webkit-transform: scale(1.2);
-	-moz-transform: scale(1.2);
-	-ms-transform: scale(1.2);
-	-o-transform: scale(1.2);
+   transform: scale(1.2);
+   -webkit-transform: scale(1.2);
+   -moz-transform: scale(1.2);
+   -ms-transform: scale(1.2);
+   -o-transform: scale(1.2);
 }
 
 section>div>.sub_menu {
-	border-left: 10px solid #f56a6a;
-	border-right: 10px solid #f56a6a;
-	border-radius: 5px;
-	width: 30%;
-	height: 100px;
-	margin-right: 20px;
-	padding: 17px 15px 10px 32px;
+   border-left: 10px solid #f56a6a;
+   border-right: 10px solid #f56a6a;
+   border-radius: 5px;
+   width: 30%;
+   height: 100px;
+   margin-right: 20px;
+   padding: 17px 15px 10px 32px;
 }
 
 section>div>.sub_menu3 {
-	border-left: 10px solid #f56a6a;
-	border-right: 10px solid #f56a6a;
-	border-radius: 5px;
-	width: 30%;
-	height: 100px;
-	margin-right: 20px;
-	padding: 17px 15px 10px 22px;
+   border-left: 10px solid #f56a6a;
+   border-right: 10px solid #f56a6a;
+   border-radius: 5px;
+   width: 30%;
+   height: 100px;
+   margin-right: 20px;
+   padding: 17px 15px 10px 22px;
 }
 
 .textline {
-	font-size: 17px;
-	font-weight: bold;
-	display: inline-block;
-	margin-left: 18px;
-	margin-bottom: 0;
+   font-size: 17px;
+   font-weight: bold;
+   display: inline-block;
+   margin-left: 18px;
+   margin-bottom: 0;
 }
 
 #sub_menu:hover {
-	cursor: pointer;
-	background-color: lightgrey;
+   cursor: pointer;
+   background-color: lightgrey;
 }
 
 .adminBtn{
-	width : 10%;
-	height : 15px;
-	text-align: center;
-	display: table-cell;
-	vertical-align: middle;
-	padding-top: 15px;
+   width : 10%;
+   height : 15px;
+   text-align: center;
+   display: table-cell;
+   vertical-align: middle;
+   padding-top: 15px;
 }
 .pre-txt{
-	display: -webkit-box;
+   display: -webkit-box;
    overflow: hidden;
    line-height: 1.5em;
    text-overflow: ellipsis;
@@ -319,18 +319,18 @@ section>div>.sub_menu3 {
 <script>
 $(document).ready(function(){
 
-	var date = {};
-	$.ajax({
-		url:"${pageContext.request.contextPath}/carousel",
-		type:"POST",
-		dataType : "json",
-		async: true,
-		success : function(data){
-			var list = data;
-			for(var i in list){
-				console.log(data[i]);
-				if(i == 0){
-				div = 
+   $.ajax({
+      url:"${pageContext.request.contextPath}/carousel",
+      type:"POST",
+      dataType : "json",
+      async: true,
+      success : function(data){
+         var list = data;
+         for(var i in list){
+            console.log(data[i]);
+            if(i == 0){
+            div = 
+            	div = 
 					'<div class="carou-card active" id="' + data[i].BOARD_NO + '" style="width:30vw; padding-top:2em;padding-left:2.7vw;">'+
 					'<div class="tit">' +
 						'<input class="tno" type="hidden" value="' + data[i].TYPE_NO + '" />'+
@@ -339,7 +339,7 @@ $(document).ready(function(){
 						'<div class="pre-txt">' + data[i].BOARD_CONTENT + '</div>' +
 					'</div>' +
 				'<div class="sub" style="margin-top : 0.7em;">' +
-					'<p class="name" style="padding-top: 1.5em;">' + data[i].MEM_NICK + '</p>' +
+					'<p class="name" id="name" style="padding-top: 1.5em;">' + data[i].MEM_NICK + '</p>' +
 					'<div class="wrap-info">' +
 						'<i class="far fa-eye" style="margin-right : 0.5em;">' + data[i].BOARD_VIEW + '</i>' +
 							'<i class="far fa-comment">' + data[i].COMM_COUNT + '</i>' +
@@ -347,7 +347,7 @@ $(document).ready(function(){
 					'</div>' +
 				'</div>'+
 				'</div>'
-				} else {
+				} else if(data[i].TYPE_NO == 5){
 				div =
 					'<div class="carou-card " id="' + data[i].BOARD_NO + '" style="width:30vw; padding-top:2em;padding-left: 2.7vw;">'+
 					'<div class="tit">' +
@@ -357,7 +357,6 @@ $(document).ready(function(){
 						'<div class="pre-txt">' + data[i].BOARD_CONTENT + '</div>' +
 					'</div>' +
 				'<div class="sub" style="margin-top : 0.7em;">' +
-					'<p class="name" style="padding-top: 1.5em;">' + data[i].MEM_NICK + '</p>' +
 					'<div class="wrap-info">' +
 						'<i class="far fa-eye" style="margin-right : 0.5em;">' + data[i].BOARD_VIEW + '</i>' +
 							'<i class="far fa-comment">' + data[i].COMM_COUNT + '</i>' +
@@ -365,18 +364,36 @@ $(document).ready(function(){
 					'</div>' +
 				'</div>'+
 				'</div>'
-				};
-			$('.carousel-slide').append(div);
-			init_test();
-			}; /* for문 끝 */
-			
-		},
-		error : function(){
-				alert("ajax 오류!");
-				console.log(error);
-	            console.log(error.status);
-			}
-		});
+				}else{
+					div =
+						'<div class="carou-card " id="' + data[i].BOARD_NO + '" style="width:30vw; padding-top:2em;padding-left: 2.7vw;">'+
+						'<div class="tit">' +
+						'<input class="tno" type="hidden" value="'+ data[i].TYPE_NO +'" />'+
+							'<p >' + data[i].TYPE_NAME + ' 게시판</p>' +
+							'<h3 class="hh" style="font-size:23px;">"' + data[i].BOARD_TITLE + '"</h3>' +
+							'<div class="pre-txt">' + data[i].BOARD_CONTENT + '</div>' +
+						'</div>' +
+					'<div class="sub" style="margin-top : 0.7em;">' +
+						'<p class="name" id="name" style="padding-top: 1.5em;">' + data[i].MEM_NICK + '</p>' +
+						'<div class="wrap-info">' +
+							'<i class="far fa-eye" style="margin-right : 0.5em;">' + data[i].BOARD_VIEW + '</i>' +
+								'<i class="far fa-comment">' + data[i].COMM_COUNT + '</i>' +
+							'<div class="info_fnc">' + data[i].BOARD_DATE + '</div>' +
+						'</div>' +
+					'</div>'+
+					'</div>'
+            };
+         $('.carousel-slide').append(div);
+         init_test();
+         }; /* for문 끝 */
+         click(); 
+      },
+      error : function(){
+            alert("ajax 오류!");
+            console.log(error);
+               console.log(error.status);
+         }
+      });
 
 	$.ajax({
 		url:"${pageContext.request.contextPath}/rankList",
@@ -384,309 +401,319 @@ $(document).ready(function(){
 		dataType : "json",
 		async: true,
 		success : function(data){
+			// 내림차순 정렬하기
+			function countSort(a, b) { 
+			    if(a.CATEGORY_COUNT == b.CATEGORY_COUNT){ 
+			        return 0 
+			    } return a.total > b.total ? 1 : -1; 
+			    } 
+			data.sort(countSort); 
 			console.log(data);
-			var list = data.split(',');
-			for ( var i in list){
-					console.log(list[i])
-				}
-			
-			var	RESEARCH = data[0].RESEARCH;			/* 경영·사무 */
-			var TRADE = data[0].TRADE;					/* 마케팅·광고·홍보 */	
-			var MARKET = data[0].MARKET;				/* IT·미디어 */
-			var OFFICE = data[0].OFFICE;				/* 영업 */
-			var EDU = data[0].EDU;						/* 서비스 */
-			var ARCHITECTURE = data[0].ARCHITECTURE;	/* 연구·개발 */
-			var MARKETING = data[0].MARKETING;			/* 의료업 */
-			var MEDIA = data[0].MEDIA;					/* 건설업 */
-			var SERVICE = data[0].SERVICE;				/* 교육 */
-			var MEDICINE = data[0].MEDICINE;			/* 생산·제조 */
-			var PRODUCTION = data[0].PRODUCTION;		/* 무역·유통 */
-			
-			
-			li = '<li><a href="#">&nbsp;1.'+EDU+'회 선택!!' +'<a></li>'
-		
-			$('.rank-down').append(li);
-		}
-	});
+
+			for(var i in data){
+	            console.log(data[i]);
+				li = '<li><a href="#">&nbsp;'+[i]+'. '+data[i].CATEGORY_NAME+' ('+data[i].CATEGORY_COUNT+'명)' +'<a></li>'
+				$('.rank-down').append(li);
+			}
+      }
+   });
 });
 </script>
 </head>
 <body class="is-preload">
 
-	<!-- Wrapper -->
-	<div id="wrapper">
+   <!-- Wrapper -->
+   <div id="wrapper">
 
-		<!-- Main -->
-		<div id="main">
-			<div class="inner">
-				<c:import url="user/common/header.jsp" />
-				<a href="${pageContext.request.contextPath}/calendar">ddd</a>
-				
-				<!-- Banner -->
-				<section id="banner">
-					<!-- 왼쪽 구역 -->
-					<div class="left">
-						<!-- 검색창 -->
-						<div class="container">
-							<span class="icon"><i class="fa fa-search"></i></span> <input
-								type="search" id="search" placeholder=" Search !"
-								onKeyDown="enterKey();" />
-						</div>
-						<!-- 캐러셀 -->
-						<div class="carou_title">
-							<i class="fas fa-fire"
-								style="font-size: 22px; color: #f56a6a; margin-left: 5px;"></i>
-							<p style="font-size: 17px;">&nbsp;토픽 베스트</p>
-						</div>
-						
-						<div class="carousel-container">
-							<div class="carousel-slide">
-							</div>
-						<button id="prevBtn">
-							<img alt="prev"
-								src="${pageContext.request.contextPath}/resources/images/left-arrow.png">
-						</button>
-						<button id="nextBtn">
-							<img alt="next"
-								src="${pageContext.request.contextPath}/resources/images/right-arrow.png">
-						</button>
-						</div>
-							<!-- 캐러셀 함수 -->
-							<script>
-								var active = "active";
-								
-								var firstBox = document.querySelector(".carou-card:first-child");
-								var lastBox = document.querySelector(".carou-card:last-child");
-								var leftBtn = document.querySelector("#prevBtn");
-								var rightBtn = document.querySelector("#nextBtn");
+      <!-- Main -->
+      <div id="main">
+         <div class="inner">
+            <c:import url="user/common/header.jsp" />
 
-								var moveLeft = function(){
-								var current = document.querySelector(".active");
-									if(current){
-										current.classList.remove(active);
-										var prev = current.previousElementSibling;
-											if(prev){
-												prev.classList.add(active);
-											}else{
-												lastBox.classList.add(active);
-											};
+            
+            <!-- Banner -->
+            <section id="banner">
+               <!-- 왼쪽 구역 -->
+               <div class="left">
+                  <!-- 검색창 -->
+                  <div class="container">
+                     <span class="icon"><i class="fa fa-search"></i></span> <input
+                        type="search" id="search" placeholder=" Search !"
+                        onKeyDown="enterKey();" />
+                  </div>
+                  <!-- 캐러셀 -->
+                  <div class="carou_title">
+                     <i class="fas fa-fire"
+                        style="font-size: 22px; color: #f56a6a; margin-left: 5px;"></i>
+                     <p style="font-size: 17px;">&nbsp;토픽 베스트</p>
+                  </div>
+                  
+                  <div class="carousel-container">
+                     <div class="carousel-slide">
+                     </div>
+                  <button id="prevBtn">
+                     <img alt="prev"
+                        src="${pageContext.request.contextPath}/resources/images/left-arrow.png">
+                  </button>
+                  <button id="nextBtn">
+                     <img alt="next"
+                        src="${pageContext.request.contextPath}/resources/images/right-arrow.png">
+                  </button>
+                  </div>
+                     <!-- 캐러셀 함수 -->
+                     <script>
+                        var active = "active";
+                        
+                        var firstBox = document.querySelector(".carou-card:first-child");
+                        var lastBox = document.querySelector(".carou-card:last-child");
+                        var leftBtn = document.querySelector("#prevBtn");
+                        var rightBtn = document.querySelector("#nextBtn");
+
+                        var moveLeft = function(){
+                        var current = document.querySelector(".active");
+                           if(current){
+                              current.classList.remove(active);
+                              var prev = current.previousElementSibling;
+                                 if(prev){
+                                    prev.classList.add(active);
+                                 }else{
+                                    lastBox.classList.add(active);
+                                 };
+                           }else{
+                              firstBox.classList.add(active);
+                           };
+                        };
+                        var moveRight = function(){
+                            var current = document.querySelector(".active");
+                            if(current){
+                                var next = current.nextElementSibling;
+                                current.classList.remove(active);
+                                if(next){
+                                    next.classList.add(active);
+                                }else{
+                                    firstBox.classList.add(active);
+                                }
+                            }else{
+                                firstBox.classList.add(active);
+                            }
+                        }
+                        leftBtn.addEventListener("click", moveLeft);
+                        rightBtn.addEventListener("click", moveRight);
+
+                        function init_test(){
+                           firstBox = document.querySelector(".carou-card:first-child");
+                            firstBox.classList.add(active);
+
+                           lastBox = document.querySelector(".carou-card:last-child");
+                        }
+                        function click(){
+                        	$(".carou-card").on("click",function() {
+			                    var board_No = $(this).attr("id");
+			                    var tno = $(this).find('.tno').val();
+			                    var gradeNo = '${sessionScope.member.gradeNo}';
+			                    console.log(board_No + "/" + tno);
+                              
+                                
+                                switch(tno) {
+                                case '1':
+                                   location.href = "${pageContext.request.contextPath}/notice.bo?board_no="+ board_No;
+                                   break;
+                       
+                                case '2':
+                                   location.href = "${pageContext.request.contextPath}/board2/jobSelectOne.do?board_No="+ board_No;
+                                   break;
+                                      
+                                case '4':
+                                	if ( gradeNo == '5') {
+										alert("접근할 수 없는 레벨이네요!");										        	
+										break;
 									}else{
-										firstBox.classList.add(active);
-									};
-								};
-								var moveRight = function(){
-								    var current = document.querySelector(".active");
-								    if(current){
-								        var next = current.nextElementSibling;
-								        current.classList.remove(active);
-								        if(next){
-								            next.classList.add(active);
-								        }else{
-								            firstBox.classList.add(active);
-								        }
+										location.href = "${pageContext.request.contextPath}/board2/blahView.do?board_No="+ board_No;
+										break;
+									}
+                                case '5':
+                                	if (gradeNo == '2' || gradeNo == '5') {
+							        	alert("접근할 수 없는 레벨이네요!");
+							        	break;
+							        }else{
+							        	location.href = "${pageContext.request.contextPath}/board2/blindSelectOne.do?board_No="+ board_No;
+							            break;
+							        }
+                                case '6':
+                                   location.href = "${pageContext.request.contextPath}/selectOneTomorrow.bo?board_no="+ board_No;
+                                   break;
+                       
+                                case '7':
+                                   location.href = "${pageContext.request.contextPath}/board2/qnaSelectOne.do?board_No="+ board_No;
+                                   break;   
+                       
+                                case '8':
+                                	if (gradeNo == '2' || gradeNo == '3' || gradeNo == '5') {
+							        	alert("접근할 수 없는 레벨이네요!");
+							        	break;
 								    }else{
-								        firstBox.classList.add(active);
+						            	location.href = "${pageContext.request.contextPath}/selectOneMento.bo?board_no="+ board_No;
+						            break;
 								    }
-								}
-								leftBtn.addEventListener("click", moveLeft);
-								rightBtn.addEventListener("click", moveRight);
+                                case '9':
+                                	if (gradeNo == '2' || gradeNo == '5') {
+							        	alert("접근할 수 없는 레벨이네요!");
+							        	break;
+								    }else{
+							            location.href = "${pageContext.request.contextPath}/selectOneInterview.bo?board_no="+ board_No;
+							            break;
+								    }
+                                case'10':
+                                	if (gradeNo == '2' || memder.gradeNo == '5') {
+							        	alert("접근할 수 없는 레벨이네요!");
+							        	document.location.reload(true);
+							        	break;
+								    }else{
+							            location.href = "${pageContext.request.contextPath}/selectOneAccept.bo?board_no="+ board_No;
+							            break;
+								    }
+                                }// case 문 끝
+                        	});
+                        }//click() 끝
+                        // 자동으로 넘어가게 하는 함수
+                        /* function slide() {
+                            var currentslide = document.querySelector(".active");
+                            if(currentslide) {
+                                currentslide.classList.remove(active);
+                                var nextslide = currentslide.nextElementSibling;
+                                if(nextslide) {
+                                    nextslide.classList.add(active);
+                                } else {
+                                    firstslide.classList.add(active);
+                                };
+                            } else {
+                                firstslide.classList.add(active);
+                            };
+                        };  */
+                        
+                     </script>
+                  <!-- 홍보 배너 -->
+                  <div class="site_title">
+                     <p>
+                        취준생의,&nbsp;취준생에 의한,&nbsp;취준생을 위한&nbsp;🙌<br> JOB_A로 다 잡아!
+                     </p>
+                  </div>
+               </div>
+               <!-- 오른쪽 구역 -->
+               <div class="right">
+                  <div class="ranking">
+                     <dl id="rank-list">
+                        <dt>//&nbsp;Wanted JOB</dt>
+                        <dd>
+                           <ol class = "rank-down">
+                           </ol>
+                        </dd>
+                     </dl>
+                  </div>
+                  <a href="http://localhost:8089/Zipper/"> <img
+                     class="image object" id="ad_img"
+                     src="${pageContext.request.contextPath}/resources/images/ad.png"
+                     alt="ad_page"
+                     style="margin: 0; margin-top: 20px; width: 100%; height: 240px; object-fit: contain;" />
+                  </a>
+               </div>
+            </section>
 
-								function init_test(){
-									firstBox = document.querySelector(".carou-card:first-child");
-								    firstBox.classList.add(active);
+            <!-- Section -->
 
-									lastBox = document.querySelector(".carou-card:last-child");
-									
-									$(".carou-card").on("click",function() {
-								         var board_No = $(this).attr("id");
-										 var tno = $(this).find('.tno').val();
-								         console.log(board_No + "/" + tno);
-										 
-								         
-								         switch(tno) {
-								         case '1':
-								            location.href = "${pageContext.request.contextPath}/notice.bo?board_no="+ board_No;
-								            break;
-								
-								         case '2':
-								            location.href = "${pageContext.request.contextPath}/board2/jobSelectOne.do?board_No="+ board_No;
-								            break;
-								               
-								         case '4':
-								            location.href = "${pageContext.request.contextPath}/board2/blahView.do?board_No="+ board_No;
-								            break;
-								         
-								         case '5':
-									        
-								            location.href = "${pageContext.request.contextPath}/board2/blindSelectOne.do?board_No="+ board_No;
-								            break;
-								
-								         case '6':
-								            location.href = "${pageContext.request.contextPath}/selectOneTomorrow.bo?board_no="+ board_No;
-								            break;
-								
-								         case '7':
-								            location.href = "${pageContext.request.contextPath}/board2/qnaSelectOne.do?board_No="+ board_No;
-								            break;   
-								
-								         case '8':
-								            location.href = "${pageContext.request.contextPath}/selectOneMento.bo?board_no="+ board_No;
-								            break;
-								            
-								         case '9':
-								            location.href = "${pageContext.request.contextPath}/selectOneInterview.bo?board_no="+ board_No;
-								            break;
-								
-								         case'10':
-								            location.href = "${pageContext.request.contextPath}/selectOneAccept.bo?board_no="+ board_No;
-								            break;
-								         }
-							      });
-								}
-								// 자동으로 넘어가게 하는 함수
-								/* function slide() {
-								    var currentslide = document.querySelector(".active");
-								    if(currentslide) {
-								        currentslide.classList.remove(active);
-								        var nextslide = currentslide.nextElementSibling;
-								        if(nextslide) {
-								            nextslide.classList.add(active);
-								        } else {
-								            firstslide.classList.add(active);
-								        };
-								    } else {
-								        firstslide.classList.add(active);
-								    };
-								};  */
-								
-							</script>
-						<!-- 홍보 배너 -->
-						<div class="site_title">
-							<p>
-								취준생의,&nbsp;취준생에 의한,&nbsp;취준생을 위한&nbsp;🙌<br> JOB_A로 다 잡아!
-							</p>
-						</div>
-					</div>
-					<!-- 오른쪽 구역 -->
-					<div class="right">
-						<div class="ranking">
-							<dl id="rank-list">
-								<dt>//&nbsp;Wanted JOB</dt>
-								<dd>
-									<ol class = "rank-down">
-										<!-- <li><a href="#">&nbsp;1. </a></li>
-										<li><a href="#">&nbsp;2. test<a></li>
-										<li><a href="#">&nbsp;3.<a></li>
-										<li><a href="#">&nbsp;4.<a></li>
-										<li><a href="#">&nbsp;5.<a></li>
-										<li><a href="#">&nbsp;6.<a></li>
-										<li><a href="#">&nbsp;7.<a></li>
-										<li><a href="#">&nbsp;8.<a></li>
-										<li><a href="#">&nbsp;9.<a></li>
-										<li><a href="#">10.</a></li> -->
-									</ol>
-								</dd>
-							</dl>
-						</div>
-						<a href="http://localhost:8088/Zipper/"> <img
-							class="image object" id="ad_img"
-							src="${pageContext.request.contextPath}/resources/images/ad.png"
-							alt="ad_page"
-							style="margin: 0; margin-top: 20px; width: 100%; height: 240px; object-fit: contain;" />
-						</a>
-					</div>
-				</section>
+            <section>
+               <div style="margin-left: 35px; margin-bottom: 30px; display: flex;">
+                  <div class="sub_menu" id="sub_menu" OnClick="goCal()">
+                     <i class="icon far fa-calendar-alt"
+                        style="font-size: 50px; color: #f56a6a;"></i>
+                     <p class="textline">
+                        한 눈에 보자!<br>채용달력
+                     </p>
+                  </div>
+                  <div class="sub_menu" id="sub_menu" OnClick="goChat()">
+                     <i class="icon far fa-comments"
+                        style="font-size: 50px; color: #f56a6a;"></i>
+                     <p class="textline">
+                        다들 뭐해?<br>실시간 채팅
+                     </p>
+                  </div>
+                  <div class="sub_menu3" id="sub_menu" OnClick="goInfo()">
+                     <i class="icon far fa-question-circle"
+                        style="font-size: 50px; color: #f56a6a;"></i>
+                     <p class="textline">
+                        알려주세요~<br>사이트 이용방법
+                     </p>
+                  </div>
+            </section>
 
-				<!-- Section -->
-
-				<section>
-					<div style="margin-left: 35px; margin-bottom: 30px; display: flex;">
-						<div class="sub_menu" id="sub_menu" OnClick="goCal()">
-							<i class="icon far fa-calendar-alt"
-								style="font-size: 50px; color: #f56a6a;"></i>
-							<p class="textline">
-								한 눈에 보자!<br>채용달력
-							</p>
-						</div>
-						<div class="sub_menu" id="sub_menu" OnClick="goChat()">
-							<i class="icon far fa-comments"
-								style="font-size: 50px; color: #f56a6a;"></i>
-							<p class="textline">
-								다들 뭐해?<br>실시간 채팅
-							</p>
-						</div>
-						<div class="sub_menu3" id="sub_menu" OnClick="goInfo()">
-							<i class="icon far fa-question-circle"
-								style="font-size: 50px; color: #f56a6a;"></i>
-							<p class="textline">
-								알려주세요~<br>사이트 이용방법
-							</p>
-						</div>
-				</section>
-
-			</div>
-		</div>
-		<c:import url="user/common/sideBar.jsp" />
+         </div>
+      </div>
+      <c:import url="user/common/sideBar.jsp" />
 
 
-	</div>
+   </div>
 
-	<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-	<!-- 캐러셀 클릭 이벤트 -->
-	<c:if test="${ !empty member }" >
-	<script>
+   <script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+   <script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+   <script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+   <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+   <!-- 캐러셀 클릭 이벤트 -->
+   <c:if test="${ !empty member }" >
+   <script>
 
-	</script>
-	</c:if>
-	<c:if test="${ empty member }">
-	<script>
-			$(function() {
-			$("div[class=carousel-slide]")
-				.on("click",function() {
-								window.alert("로그인 후 이용해주세요");
-							});
-			});
-	</script>
-	</c:if>
-	
-	<c:if test="${ !empty member }" >
-	
-	<script>/* 채팅으로 이동 */
-	function goChat(){
-            location.href = '${pageContext.request.contextPath}/chat/chatList';
-        }
-	</script>
-	</c:if>
-	<c:if test="${ empty member }">
-	<script>
-		function goChat() {
-			window.alert("로그인 후 이용해주세요");
-		}
-	</script>
-	</c:if>
-	<script type="text/javascript">
-				/* 전체 검색 */
-				function enterKey() {
-	    			if (event.keyCode==13){
-	    				location.href="${pageContext.request.contextPath}/search/searchList.do?keyword="+$('#search').val();
-	    			}
-	    		}
-				/* 캘린더로 이동 */
-				function goCal(){
-			            location.href = '${pageContext.request.contextPath}/calendar.do';
+   </script>
+   </c:if>
+   <c:if test="${ empty member }">
+   <script>
+         $(function() {
+         $("div[class=carousel-slide]")
+            .on("click",function() {
+                        window.alert("로그인 후 이용해주세요");
+                        location.href = '${pageContext.request.contextPath}';
+                     });
+         });
+   </script>
+   </c:if>
+   
+   <c:if test="${ !empty member }" >
+	   <script>/* 채팅으로 이동 */
+		   function goChat(){
+		            location.href = '${pageContext.request.contextPath}/chat/chatList';
+		        }
+		   /* 전체 검색 */
+			function enterKey() {
+				if (event.keyCode==13){
+					location.href="${pageContext.request.contextPath}/search/searchList.do?keyword="+$('#search').val();
 				}
-				/* 이용안내로 이동 */
-				function goInfo(){
-					location.href = '${pageContext.request.contextPath}/selectNoticeFromIndex.bo';
-				}	
-
-				
-				
-	</script>
-	
+			}
+	   </script>
+   </c:if>
+   <c:if test="${ empty member }">
+	   <script>
+		   /* 전체 검색 */
+			function enterKey() {
+				if (event.keyCode==13){
+					alert("회원가입 후 이용 가능해요!");
+				}
+			}
+			function goChat() {
+			   window.alert("로그인 후 이용해주세요");
+			}
+			/* 캘린더로 이동 */
+			function goCal(){
+			         location.href = '${pageContext.request.contextPath}/calendar.do';
+			}
+	   </script>
+   </c:if>
+   <script type="text/javascript">
+		/* 이용안내로 이동 */
+		function goInfo(){
+		   location.href = '${pageContext.request.contextPath}/selectNoticeFromIndex.bo';
+		}   
+            
+   </script>
+   
 
 </body>
 </html>
+

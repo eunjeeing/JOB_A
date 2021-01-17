@@ -9,8 +9,7 @@
 <meta charset="UTF-8">
 <title>JOB_A | 블라블라</title>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/board.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css"/>
 <style>
 #topbanner {
 	background:
@@ -377,11 +376,13 @@ form {
 		<c:import url="../../common/sideBar.jsp" />
 	</div>
 	<c:import url="../reportModal.jsp"/>	<!-- 신고 모달 창 -->
-	<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+
+	<!-- 원래 헤드에 있던건데 윤진누나꺼에선 없다고 함 -->
+	<%-- <script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script> --%>
+
 	<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-	
 	<script>
 		document
 				.getElementById("insertComment")
