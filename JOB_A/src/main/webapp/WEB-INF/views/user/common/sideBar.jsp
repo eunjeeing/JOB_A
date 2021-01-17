@@ -54,19 +54,16 @@
 				<h2>더 궁금하신 점이 있으신가요?</h2>
 			</header>
 			<ul class="contact">
-				<li class="icon solid fa-envelope"><a href="#">support@job-ja8a.com</a></li>
-				<li class="icon solid fa-phone">(000) 000-0000</li>
-				<li class="icon solid fa-home">1234 Somewhere Road #8254<br />
-					Nashville, TN 00000-0000
-				<li class="icon solid fa-link"><a href="${pageContext.request.contextPath}/resources/uplaodFiles/common/서비스소개.pdf" download="서비스소개.pdf">서비스 소개</a> &nbsp;&nbsp;&nbsp; <a href="${pageContext.request.contextPath}/resources/uplaodFiles/common/이용약관.pdf" download="이용약관.pdf">이용약관</a></li>
+				<li class="icon solid fa-envelope"><a href="mailto:support@job-ja8a.com">support@job-ja8a.com</a></li>
+				<li class="icon solid fa-phone">(070) 3207-8593</li>
+				<li class="icon solid fa-home">2, 29, 5tyoume, Hommachi<br />
+					Shibuya Ku, Tokyo To, 151-0071, Japan
+				<li class="icon solid fa-download"><a href="${pageContext.request.contextPath}/resources/uploadFiles/common/서비스소개.pdf" download="서비스소개.pdf">서비스 소개</a> &nbsp;&nbsp;&nbsp; <a href="${pageContext.request.contextPath}/resources/uplaodFiles/common/이용약관.pdf" download="이용약관.pdf">이용약관</a></li>
 			</ul>
 
 		<footer id="footer">
 			<p class="copyright">
-				&copy; Untitled. All rights reserved. Demo Images: <a
-					href="https://unsplash.com">Unsplash</a>. Design: <a
-					href="https://html5up.net">HTML5 UP</a>.
-			</p>
+				&copy; Copyright 2021. Untitled. All rights reserved.
 		</footer>
 		<!-- Scripts -->
 	<%-- 	<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script> 
