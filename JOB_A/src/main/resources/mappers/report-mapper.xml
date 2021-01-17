@@ -32,8 +32,7 @@
 	<!-- 게시글 신고 리스트 -->
 	<select id="selectReportList" resultMap="Report">
 		SELECT * FROM REPORT
-		WHERE COMM_NO = 0
-		ORDER BY REPORT_NO DESC
+		WHERE ROWID IN(SELECT MIN(ROWID) FROM REPORT GROUP BY BOARD_NO) AND COMM_NO = 0
 	</select>
 	
 	<!-- 게시판 조회 -->
@@ -58,8 +57,7 @@
 	<!-- 댓글 신고 리스트 조회 -->
 	<select id="selectCommentList" resultMap="Report">
 		SELECT * FROM REPORT
-		WHERE BOARD_NO = 0
-		ORDER BY REPORT_NO DESC
+		WHERE ROWID IN(SELECT MIN(ROWID) FROM REPORT GROUP BY COMM_NO) AND BOARD_NO = 0
 	</select>
 	
 	<!-- 댓글번호로 댓글 정보 가지고 오기 -->
@@ -92,12 +90,26 @@
 		WHERE COMM_NO = #{board2}
 	</select>
 	
+	<!-- 상세 페이지에 board_No로 모든 신고정보 가져오기  -->
+	<select id="selectDetailReportList" parameterType="int" resultMap="Report" >
+		SELECT * FROM REPORT
+		WHERE BOARD_NO = #{board2} AND REPORT_NO NOT IN(SELECT REPORT_NO FROM REPORT
+		WHERE BOARD_NO = #{board2} AND ROWNUM = 1)
+	</select>
+
+	<!-- 상세 페이지에 comm_No로 모든 신고정보 가져오기  -->
+	<select id="selectDetailCommentsReportList" parameterType="int" resultMap="Report" >
+		SELECT * FROM REPORT
+		WHERE COMM_NO = #{commentNo} AND REPORT_NO NOT IN(SELECT REPORT_NO FROM REPORT
+		WHERE COMM_NO = #{commentNo} AND ROWNUM = 1)
+	</select>
+
 	<!-- 게시글 댓글 신고 -->
 	<insert id="insertReport" parameterType="Report">
       INSERT INTO REPORT (REPORT_NO, MEM_NO, BOARD_NO, COMM_NO, REPORT_REASON, REPORT_DATE, MEM_NO2)
       VALUES(REPORT_SEQ.NEXTVAL, #{memNo}, #{boardNo}, #{commNo}, #{reportReason}, DEFAULT, #{memNo2})
-   </insert>
-	
+   	</insert>
+
 	<!-- 게시글 비화성화, 활성화 -->
 	<update id="updateBoard" parameterType="Board">
 		UPDATE BOARD SET 
@@ -126,4 +138,39 @@
 		WHERE COMM_NO = #{comm_No}
 	</update>
 	
+	<!-- 4회 이상 신고글 블라인드 상태로 변경 -->
+	<update id="updateBoardBlind" parameterType="Board">
+		UPDATE BOARD SET BOARD_STATUS = 'B'
+		WHERE BOARD_NO = #{board_No}
+	</update>
+	
+	<!-- 4회 이상 신고글 블라인드 상태로 변경 -->
+	<update id="updateReportBlind" parameterType="Comments2">
+		UPDATE COMMENTS SET COMM_STATUS = 'B'
+		WHERE COMM_NO = #{comm_No}
+	</update>
+	
+	<!-- 신고횟수 초기화 -->
+	<update id="updateBoardReportNumReset" parameterType="int">
+		UPDATE BOARD SET BOARD_REPORTNUM = 0
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	<!-- 신고테이블에서 삭제 -->
+	<delete id="deleteReport" parameterType="int">
+		DELETE FROM REPORT
+		WHERE BOARD_NO = #{boardNo} 
+	</delete>
+	
+		<!-- 댓글 신고횟수 초기화 -->
+	<update id="updateCommentReportNumReset" parameterType="int">
+		UPDATE COMMENTS SET COMM_REPORTNUM = 0
+		WHERE COMM_NO = #{commNo}
+	</update>
+	
+	<!-- 댓글 신고테이블에서 삭제 -->
+	<delete id="deleteCommentReport" parameterType="int">
+		DELETE FROM REPORT
+		WHERE COMM_NO = #{commNo} 
+	</delete>
 </mapper>
