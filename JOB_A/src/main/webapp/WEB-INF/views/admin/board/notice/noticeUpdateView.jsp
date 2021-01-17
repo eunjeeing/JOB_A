@@ -241,7 +241,7 @@
         ]
       });
     </script>
-	<script src="${pageContext.request.contextPath}/resources/admin/js/apps.js"></script>
+	<%-- <script src="${pageContext.request.contextPath}/resources/admin/js/apps.js"></script>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async
 		src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
@@ -254,7 +254,7 @@
 		gtag('js', new Date());
 		gtag('config', 'UA-56159088-1');
 
-    </script>
+    </script> --%>
 
     <script src="${pageContext.request.contextPath}/resources/summernote/summernote-lite.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
