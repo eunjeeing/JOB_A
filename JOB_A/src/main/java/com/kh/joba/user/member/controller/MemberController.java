@@ -315,7 +315,7 @@ public class MemberController {
 		System.out.println("암호문 : " + encryptPassword);
 		
 		member.setMemPw(encryptPassword);
-		
+	
   
     	int result = memberService.updateMember(member);
     

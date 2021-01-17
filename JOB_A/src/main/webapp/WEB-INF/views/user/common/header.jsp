@@ -33,15 +33,20 @@
 		<c:if test="${empty member}">
 			<a href="${pageContext.request.contextPath}/login.do"><i class="fas fa-sign-in-alt"></i> <span>로그인</span></a>
 		</c:if>
+		
 		<c:if test="${member.gradeNo le 1}">
-			<span>관리자 <a href="${pageContext.request.contextPath}/member/myPage.do?member=${member}">${member.memNick}</a>님, 오늘도 즐거운 노동~!</span>&nbsp;
+			<span>관리자 <a href="${pageContext.request.contextPath}/member/myPage.do">${member.memNick}</a>님, 오늘도 즐거운 노동~!</span>&nbsp;
 			<a href="${pageContext.request.contextPath}/member/memberLogout.do"><i class="fas fa-sign-out-alt"></i><span>로그아웃</span></a>
 			<div style="cursor: pointer;">
 				<a onclick="goAdmin();" >관리자 페이지로 이동</a>
 			</div>
 		</c:if>
-		<c:if test="${member.gradeNo gt 1}">
+		<c:if test="${(member.gradeNo gt 1) && (member.gradeNo lt 5)}">
 			<span><a href="${pageContext.request.contextPath}/member/myPage.do">${member.memNick}</a> 님, 취뽀 화이팅</span>&nbsp;
+			<a href="${pageContext.request.contextPath}/member/memberLogout.do"><i class="fas fa-sign-out-alt"></i><span>로그아웃</span></a>
+		</c:if>
+		<c:if test="${member.gradeNo eq 5}">
+			<span>인사 담당자 <a href="${pageContext.request.contextPath}/member/myPage.do">${member.memNick}</a> 님, 환영합니다</span>&nbsp;
 			<a href="${pageContext.request.contextPath}/member/memberLogout.do"><i class="fas fa-sign-out-alt"></i><span>로그아웃</span></a>
 		</c:if>
 	</div>

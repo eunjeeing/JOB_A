@@ -165,7 +165,7 @@
 									<tr>
 										<th class="table_th">닉네임 <span class="star">*</span></th>
 										<td id="memNick-container">
-											<input type="text" size="30" class="form-control" maxlength="6" memNick" id="nickname_" value="${member.memNick}" required />
+											<input type="text" size="30" class="form-control" maxlength="6" name="memNick" id="nickname_" value="${member.memNick}" required />
 											<!-- 닉네임 중복 검사 코멘트 추가 -->
 											<span class="guide ok">사용 가능</span>
 				            				<span class="guide error">사용 불가</span>
