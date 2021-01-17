@@ -38,8 +38,8 @@ public class IndexController {
 		System.out.println("rankList() 기능 실행");
 		List<Map<String, String>> rankList =is.selectRank();
 		
-		System.out.println("list :" + rankList);
-		model.addAttribute("rankList", rankList);
+		System.out.println("rankList : " + rankList);
+		model.addAttribute("rankList : ", rankList);
 		
 		return new Gson().toJson(rankList);
 	}
@@ -51,8 +51,8 @@ public class IndexController {
 		//System.out.println("carouselList() 기능 실행");
 		List<Map<String, String>> carouselList = is.selectBoard();
 		
-		System.out.println("list :" + carouselList);
-		model.addAttribute("carouselList", carouselList);
+		System.out.println("carouselList :" + carouselList);
+		model.addAttribute("carouselList : ", carouselList);
 		
 		return new Gson().toJson(carouselList);
 	}
@@ -70,7 +70,7 @@ public class IndexController {
 		
 		List<Map<String,String>> boardCount = is.countBoard();
 		
-		System.out.println("list" + boardCount);
+		System.out.println("BoardCount" + boardCount);
 		model.addAttribute("BoardCount" + boardCount);
 		
 		return new Gson().toJson(boardCount);
@@ -83,7 +83,7 @@ public class IndexController {
 		
 		List<Map<String,String>> todayBoardCount = is.countTodayBoard();
 		
-		System.out.println("list" + todayBoardCount);
+		System.out.println("BoardCount" + todayBoardCount);
 		model.addAttribute("BoardCount" + todayBoardCount);
 		
 		return new Gson().toJson(todayBoardCount);
@@ -101,7 +101,7 @@ public class IndexController {
 			
 			return new Gson().toJson(todayMember);
 	}
-	
+	// 총 회원수 카운트
 	@RequestMapping(value="/totalMember", method = RequestMethod.POST, produces="application/text;charset=utf-8")
 	@ResponseBody
 	public String totalMember(Model model) {
@@ -113,4 +113,29 @@ public class IndexController {
 			
 			return new Gson().toJson(totalMember);
 	}
+	// 신고글 & 총 게시글 카운트
+	@RequestMapping(value="/reportCount", method = RequestMethod.POST, produces="application/text;charset=utf-8")
+	@ResponseBody
+	public String reportCount(Model model) {
+		
+		List<Map<String,String>> reportCount = is.countReport();
+		
+		System.out.println("reportCount" + reportCount);
+		model.addAttribute("reportCount" + reportCount);
+			
+			return new Gson().toJson(reportCount);
+	}
+	// 최근 게시글 가져오기..
+	@RequestMapping(value="/recentBoard", method = RequestMethod.POST, produces="application/text;charset=utf-8")
+	@ResponseBody
+	public String recentBoard(Model model) {
+		
+		List<Map<String,String>> recentBoard = is.countResentB();
+		
+		System.out.println("noticeCount" + recentBoard);
+		model.addAttribute("recentBoard" + recentBoard);
+			
+			return new Gson().toJson(recentBoard);
+	}
+	
 }
