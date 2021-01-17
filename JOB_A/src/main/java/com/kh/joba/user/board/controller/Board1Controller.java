@@ -245,6 +245,7 @@ public class Board1Controller {
 		Bookmark bookmark = ms.selectOneBookmark(isBookmark);
 		mento.setBoard_date(mento.getBoard_date().substring(0, 10));
 		
+		System.out.println(mento);
 		model.addAttribute("bookmark", bookmark);
 
 		model.addAttribute("mento", mento);
@@ -419,7 +420,7 @@ public class Board1Controller {
 		String loc = "";
 		
 		if (result > 0) {
-			loc = "/tomorrowView.bo?board_no=" + tomorrow.getBoard_no();
+			loc = "/selectOneTomorrow.bo?board_no=" + tomorrow.getBoard_no();
 			msg = "게시글 수정 성공";
 		} else {
 			msg = "게시글 수정 실패";

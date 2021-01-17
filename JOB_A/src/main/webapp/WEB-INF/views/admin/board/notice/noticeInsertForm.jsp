@@ -46,16 +46,13 @@
 	}
 	
 	.note-editable {
-		background-color : lightgrey;
+		background-color : black;
+		color:white;
+		width : 90%;
 	}
 	
-	p {
-		background-color : lightgrey !important;
-	}
 	
-	p:hover {
-		background-color : lightgrey !important;
-	}
+	
 	
 </style>
 </head>
@@ -135,11 +132,13 @@
 									<div class="card-body">
 										<form action="${pageContext.request.contextPath}/admin/insertNotice.bo">
 											<div id="selectSession">
-												<div style="margin-left:40%;">
-													<input type="radio" id="type_no1" name="type_no" value="1" checked/><label for="type_no1"> 공지사항 </label>&nbsp;&nbsp;&nbsp;&nbsp;<!-- &nbsp;공지사항&nbsp;&nbsp;&nbsp;&nbsp; -->
-													<input type="radio" id="type_no2" name="type_no" value="11"/><label for="type_no2">관리자 공지사항</label><!-- &nbsp;관리자 공지사항 -->
-													<button type="submit" class="btn mb-2 btn-primary" style="float:right;">작성</button>&nbsp;&nbsp;
+												<div class="custom-control custom-radio 1" style="float:left; margin-left:13%; width:">
+													<input type="radio" id="customRadio1-1" class="custom-control-input user" name="type_no" value="1" checked/><label class="custom-control-label" for="customRadio1-1"> 공지사항 </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- &nbsp;공지사항&nbsp;&nbsp;&nbsp;&nbsp; -->
 												</div>
+												<div class="custom-control custom-radio 2" style="float:left;">
+													<input type="radio" id="customRadio1-2" class="custom-control-input admin" name="type_no" value="11"/><label class="custom-control-label" for="customRadio1-2">관리자 공지사항</label><!-- &nbsp;관리자 공지사항 -->
+												</div>
+													<button type="submit" class="btn mb-2 btn-primary" style="float:right;">작성</button>&nbsp;&nbsp;
 											</div>
 											<br />
 											<div id="buttonArea">
@@ -149,11 +148,11 @@
 												
 											<div class="basicInfo" style="margin-top:20px;">
 												<input type="hidden" name="mem_no" value="${member.memNo}" />
-												<h2 align="center"><input type="text" name="board_title" style="width:60%; margin:auto; background-color:lightgrey;"value="${notice.board_title}" placeholder="제목"/></h2>
+												<h2 align="center"><input type="text" name="board_title" style="width:73%;  background-color:black; color:white; font-size:20px;"value="${notice.board_title}" placeholder="제목"/></h2>
 												<!-- <input type="text" id="simpleInput" class="form-control form-control-lg"/> -->
-												
-												<div style="display:flex; width:60%; margin:auto;">		
-													<textarea class="summernote" name="board_content">${notice.board_content}</textarea>
+												<br />
+												<div style="display:flex; width:73%; margin:auto; background-color:black;">		
+													<textarea class="summernote" name="board_content" style="width:90%; background-color:black; color:white;">${notice.board_content}</textarea>
 												</div>
 											</div>
 											<br>

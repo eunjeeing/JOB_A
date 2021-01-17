@@ -122,7 +122,7 @@ p {
 													<span class="date"> 
 														<i class="far fa-clock"></i> ${tomorrow.board_date}
 													</span>
-													<c:if test="${!empty bookmarkList}">
+													<%-- <c:if test="${!empty bookmarkList}">
 														<c:set var="bCnt" value="0"/>
 														<c:forEach items="${bookmarkList}" var="bookmark">
 															<c:if test="${bookmark.board_no == tomorrow.board_no}">
@@ -136,7 +136,7 @@ p {
 													</c:if>
 													<c:if test="${empty bookmarkList}">
 														<i class="far fa-bookmark" id="bookmark"></i>
-													</c:if>
+													</c:if> --%>
 												</div>
 											</div>
 										</div>

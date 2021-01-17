@@ -304,7 +304,7 @@ form {
 												<!-- <textarea name="" id="" cols="30" rows="10">
 												awefjkl;asdfjkl;asdfjkl;asdfjkl;asdfjkl;
 												</textarea>>	 -->			
-												<div  style="width:60%; margin:auto;">
+												<div  style="width:45%; margin:auto;">
 													<!-- 내요요오오오오ㅗㅇㅇ -->${notice.board_content}
 												</div>
 								

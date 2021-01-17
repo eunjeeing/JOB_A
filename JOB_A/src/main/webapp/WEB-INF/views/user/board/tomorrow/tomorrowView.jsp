@@ -231,14 +231,14 @@ form {
 										<!---------------------------------------------------------------------------> 
 										</c:if>
 										
-										<span class="rebo" onclick="bookmark(${tomorrow.board_no}, ${member.memNo})">
+										<%-- <span class="rebo" onclick="bookmark(${tomorrow.board_no}, ${member.memNo})">
 											<c:if test="${!empty bookmark}">
 												<i class="fas fa-bookmark" id="bookmark"></i> 스크랩
 											</c:if>
 											<c:if test="${empty bookmark}">
 												<i class="far fa-bookmark" id="bookmark"></i> 스크랩
 											</c:if>
-										</span>
+										</span> --%>
 									</div>
 								</div>
 							</div>

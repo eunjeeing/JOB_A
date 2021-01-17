@@ -15,9 +15,9 @@
 		padding-right: 10px;
 	}
 	
-	#notice {
+	/* #notice {
 		font-weight:800;
-	}
+	} */
 	
 	.goBoard:hover{
 		cursor:pointer;

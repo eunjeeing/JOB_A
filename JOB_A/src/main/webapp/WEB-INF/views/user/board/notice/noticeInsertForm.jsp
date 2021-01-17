@@ -16,15 +16,40 @@
 
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-lite.css">
 <style>
-#topbanner {
-	background:
-		url(${pageContext.request.contextPath}/resources/images/com.jpg)
-		no-repeat;
-	background-position: center center;
-	margin-top: 10px;
-	height: 400px;
-	display: flex;
-}
+#banner{
+		float : flex;
+		height: 600px;
+	}
+	
+	#topbanner {
+		background-image: url(${pageContext.request.contextPath}/resources/images/notice.jpg);
+		background-size: 100% 100%;
+		margin-top: 10px;
+		/* border: 1px solid black; */
+		height: 400px;
+		display: flex;
+		opacity : 0.8;
+		background-size: cover;
+		
+	}
+	
+	#topbanner-textarea {
+		width: 40%;
+		height: 50%;
+		margin: auto;
+		padding: auto;
+		/* border : 1px solid black; */
+		display: flex;
+		background : black;
+		opacity : 0.75;
+	}
+	
+	#topbanner-text {
+		font-size: 40px;
+		font-weight: 500;
+		margin: auto;
+		color: white;
+	}
 #close-icon:hover {
 	cursor:pointer;
 }
@@ -125,6 +150,23 @@ a {
     user-select: none;
     box-shadow: inset 0 0 0 2px #fff !important;
 }
+.close {
+   opacity: 1.0;
+   font-size: 25px;
+   height: 1em;
+   box-shadow: none;
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+   background-color: white;
+   border: 2px solid #f56a6a;
+   opacity: 1.0 !important;
+}
+
+.note-modal-footer {
+    padding: 0 10px 20px 20px;
+    margin-bottom: 10px;
+}
 
 </style>
 </head>
@@ -134,6 +176,11 @@ a {
 			<div class="inner">
 
 				<c:import url="../../common/header.jsp" />
+				<div id="topbanner">
+					<div id="topbanner-textarea">
+						<h3 id="topbanner-text">공지사항</h3>
+					</div>
+				</div>
 				
  				<!-- insert Form -->
 				<section class="container">

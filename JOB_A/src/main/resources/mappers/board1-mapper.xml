@@ -100,13 +100,13 @@
 		WHERE B.TYPE_NO = 6 
 			AND M.MEM_NO = B.MEM_NO 
 			AND B.BOARD_STATUS = 'Y' 
-			AND (SYSDATE - BOARD.BOARD_DATE) < 1
+			AND (SYSDATE - B.BOARD_DATE) < 1
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 		]]>
 	</select>
 	<select id="selectTomorrowTotalContents" resultType="_int">
 	<![CDATA[
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 6 AND BOARD_STATUS = 'Y' AND (SYSDATE - BOARD.BOARD_DATE) < 1
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 6 AND BOARD_STATUS = 'Y' AND (SYSDATE - BOARD_DATE) < 1
 	]]>
 	</select>
 	<select id="selectOneTomorrow" parameterType="_int" resultType="Board1">
@@ -121,12 +121,12 @@
 	<![CDATA[
 		SELECT B.*, M.MEM_NICK, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
 		FROM BOARD B, MEMBER M
-		WHERE B.TYPE_NO = 6 AND B.BOARD_STATUS = 'Y' AND M.MEM_NO = B.MEM_NO AND B.BOARD_TITLE LIKE '%' || #{keyword} || '%' (SYSDATE - BOARD.BOARD_DATE) < 1
+		WHERE B.TYPE_NO = 6 AND B.BOARD_STATUS = 'Y' AND M.MEM_NO = B.MEM_NO AND B.BOARD_TITLE LIKE '%' || #{keyword} || '%' AND (SYSDATE - B.BOARD_DATE) < 1
 	]]>
 	</select>
 	<select id="searchTomorrowTotalContents" resultType="_int" parameterType="string">
 	<![CDATA[
-		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 6 AND BOARD_STATUS = 'Y' AND BOARD_TITLE LIKE '%' || #{keyword} || '%' AND (SYSDATE - BOARD.BOARD_DATE) < 1
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 6 AND BOARD_STATUS = 'Y' AND BOARD_TITLE LIKE '%' || #{keyword} || '%' AND (SYSDATE - BOARD_DATE) < 1
 	]]>
 	</select>
 	<update id="updateTomorrow" parameterType="Board1">
@@ -229,7 +229,7 @@
 		WHERE B.TYPE_NO = 10 AND M.MEM_NO = B.MEM_NO AND B.BOARD_TITLE LIKE '%' || #{keyword} || '%' AND B.BOARD_STATUS = 'Y'
 		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
 	</select>
-	<select id="searchAcceptTotalContents" resultType="_int" >
+	<select id="searchAcceptTotatlContents" resultType="_int" >
 		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 10 AND BOARD_TITLE LIKE '%' || #{keyword} || '%' AND BOARD_STATUS = 'Y'
 	</select>
 <!-- Attachment -->
@@ -241,10 +241,11 @@
 	
 <!-- myScrap Mapper -->
 	<select id="selectMyScrapList" resultType="Board1">
-		SELECT b.*, bt.type_name
+		SELECT b.*, bt.type_name, m.mem_nick
 		FROM scrap s
 		RIGHT OUTER JOIN board b ON s.board_no = b.board_no
 		RIGHT OUTER JOIN boardtype bt ON b.type_no = bt.type_no
+		RIGHT OUTER JOIN member m on b.mem_no = m.mem_no
 		WHERE s.mem_no = #{mem_no} and b.board_reportnum <![CDATA[ <]]> 4
 	</select>
 	<select id="selectMyScrapTotalContents" resultType="_int">
@@ -252,12 +253,14 @@
 		from scrap s
 		right outer join board b on s.board_no = b.board_no
 		right outer join boardtype bt on b.type_no = bt.type_no
+		right outer join member m on b.mem_no = m.mem_no
 		where s.mem_no = #{mem_no} and b.board_reportnum <![CDATA[ <]]> 4
 </select><select id="sortMyScrapList" resultType="Board1">
-		SELECT b.*, bt.type_name
+		SELECT b.*, bt.type_name, m.mem_nick
 		FROM scrap s
 		RIGHT OUTER JOIN board b ON s.board_no = b.board_no
 		RIGHT OUTER JOIN boardtype bt ON b.type_no = bt.type_no
+		right outer join member m on b.mem_no = m.mem_no
 		WHERE s.mem_no = #{mem_no} and b.board_reportnum <![CDATA[ <]]> 4 
 		<if test="type_no != 0">
 		and b.type_no = #{type_no}		
@@ -268,23 +271,26 @@
 		FROM scrap s
 		RIGHT OUTER JOIN board b ON s.board_no = b.board_no
 		RIGHT OUTER JOIN boardtype bt ON b.type_no = bt.type_no
+		right outer join member m on b.mem_no = m.mem_no
 		WHERE s.mem_no = #{mem_no} and b.board_reportnum <![CDATA[ <]]> 4 
 		<if test="type_no != 0">
 		and b.type_no = #{type_no}		
 		</if>	
 	</select>
-	<select id="searchScrapList" resultType="Board1">
-		SELECT b.*, bt.type_name
+	<select id="searchScrapList" parameterType="Bookmark" resultType="Board1">
+		SELECT b.*, bt.type_name, m.mem_nick
 		FROM scrap s
 		RIGHT OUTER JOIN board b ON s.board_no = b.board_no
 		RIGHT OUTER JOIN boardtype bt ON b.type_no = bt.type_no
+		right outer join member m on b.mem_no = m.mem_no
 		WHERE s.mem_no = #{mem_no} and b.board_reportnum <![CDATA[ <]]> 4 and b.board_title like '%' || #{keyword} || '%'
 	</select>
-	<select id="searchScrapTotalContents" resultType="_int">
+	<select id="searchScrapTotalContents" parameterType="Bookmark" resultType="_int">
 		SELECT count(*)
 		FROM scrap s
 		RIGHT OUTER JOIN board b ON s.board_no = b.board_no
 		RIGHT OUTER JOIN boardtype bt ON b.type_no = bt.type_no
+		right outer join member m on b.mem_no = m.mem_no
 		WHERE s.mem_no = #{mem_no} and b.board_reportnum <![CDATA[ <]]> 4 and b.board_title like '%' || #{keyword} || '%'
 	</select>
 	

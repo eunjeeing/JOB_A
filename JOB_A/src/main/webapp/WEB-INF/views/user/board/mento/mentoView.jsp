@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>JOB_A | MENTO</title>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board.css" />
 <style>
@@ -195,6 +196,7 @@ form {
 <scrip>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-lite.css">
 </scrip>
+
 </head>
 <body class="is-preload">
 	<div id="wrapper">
@@ -238,7 +240,7 @@ form {
 												<a class="reportBtn" style="color:black; vertical-align: middle; " id="myBtn"> 신고</a> 
 											</span>
 												<input type="hidden" id="board_info" value="${mento.board_no}">
-												<input type="hidden" id="board_mem_no" value="${mento.mem_no }">
+												<input type="hidden" id="board_mem_no" value="${mento.mem_no}">
 												<input type="hidden" id="board_reporter" value="${member}">
 											<!---------------------------------------------------------------------------> 
 										</c:if>
@@ -277,7 +279,7 @@ form {
 							<!-- 댓글작성 -->
 							<div class="article-comments">
 								<h3 style="font-weight: 500">답변 ${mento.comm_count }</h3>
-								<c:if test="${member.gradeNo < 2 && mento.comm_count < 1}">
+								<%-- <c:if test="${member.gradeNo < 2 && mento.comm_count < 1}">
 									<div class="write_area">
 										<div id="btn_add_comment" style="display: flex;">
 											<div class="reply_area" style="width: 100%;">
@@ -303,17 +305,17 @@ form {
 											</div>
 										</div>
 									</div>
-								</c:if>
+								</c:if> --%>
 								
 								<!-- 댓글리스트 -->
 								<c:forEach items="${commentList}" var="co">
 									<c:if test="${co.comm_Level eq 1}">
 									<div id="${co.comm_No }" class="wrap-comment comment-area">
-										<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq board2.mem_No }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
+										<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq mento.mem_no }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
 										<p class="cmt-txt">
 											<div id="contentArea-comm" class="contents-txt">
 												<c:if test="${member.gradeNo < 2}">
-													<textarea id="comm_Con2" class="summernote" readonly="readonly" style="overflow:auto;">${co.comm_Content}</textarea>
+													<textarea id="comm_Con2" readonly="readonly" style="overflow:auto;">${co.comm_Content}</textarea>
 												</c:if>
 												<c:if test="${member.gradeNo >= 2 }">
 													${co.comm_Content}												
@@ -335,8 +337,8 @@ form {
 											  		<input type="hidden" class="comm_Level"  name="comm_Level" value="${co.comm_Level}" />
 												<c:if test="${member.memNo eq co.mem_No}">
 													<c:if test="${member.gradeNo < 2}"></c:if>
-													<a href="#" class="updateConfirm" onclick="updateConfirm(this);">수정완료</a>
-													<!-- <a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>	 -->											
+													<a href="#" onclick="updateComment(this);return false;">수정</a>
+													<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;" >수정완료</a>											
 													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?type_No=${mento.type_no}&board_No=${mento.board_no}&comm_No=${co.comm_No }'">삭제</a>
 												</c:if>
 												<c:if test="${member.memNo ne co.mem_No}">
@@ -353,7 +355,7 @@ form {
 									</div>
 								</c:if>
 									
-				<%-- 				<!-- 대댓글일때 -->
+				<%-- 			<!-- 대댓글일때 -->
 								<c:if test="${co.comm_Level ne 1}">
 								<c:if test="${sessionScope.member.gradeNo < 2}">
 									<div class="wrap-reply">
@@ -400,14 +402,12 @@ form {
 		<c:import url="../../common/sideBar.jsp" />
 	</div>
 	<c:import url="../reportModal.jsp"/>	<!-- 신고 모달 창 -->
-	 	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+	 	
+	<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	
 	<script>
 		$(document).ready(function(){
 			
@@ -454,11 +454,8 @@ form {
 		       }
 		  });
 		}  
-		
-		document
-				.getElementById("insertComment")
-				.addEventListener(
-						"click",
+		/* 
+		document.getElementById("insertComment").addEventListner("click",
 						function() {
 							if (comm_Content.value == ""
 									|| comm_Content.value.length == 0) {
@@ -468,19 +465,18 @@ form {
 								location.href = '${pageContext.request.contextPath}/comments2/insertComment.do?type_No=${mento.type_no}&board_No=${mento.board_no}&mem_No=${member.memNo}&comm_Content='
 										+ comm_Content.value;
 							}
-						}, false);
+						}, false); */
 
 
 		function updateComment(obj) {
 			// 현재 버튼의 위치와 가장 가까운 textarea 접근하기
 			$(obj).parent().parent().parent().find('textarea').removeAttr('readonly');
-			/* $(obj).parent().parent().parent().find('textarea').attr('class', 'summernote'); */
+
 			// 수정 완료 버튼 보이게 하기
 			$(obj).siblings('.updateConfirm').css('display', 'inline');
 			
 			// 현재 클릭한 수정 버튼 숨기기
 			$(obj).css('display', 'none');
-			alert("댓글 수정이 완료되었습니다");
 		}
 
 		function updateConfirm(obj) {
@@ -631,6 +627,8 @@ form {
 			$('.modal_reporter').val($('#board_reporter').val());
 			$('.modal_board_no').val($('#board_mem_no').val());
 			$('.modal_separate').val(1);
+
+			console.log($('#board_mem_no').val());
 	    });
 
         var commentModal = document.getElementById('myModal');

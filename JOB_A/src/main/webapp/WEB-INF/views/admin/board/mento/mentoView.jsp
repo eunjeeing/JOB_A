@@ -8,7 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>공지사항 관리 | 멘토 상세</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-lite.css">
 <style>
 	.tab {
 		display: inline-block;
@@ -52,9 +51,190 @@
 	p:hover {
 		background-color : lightgrey !important;
 	} */
+	#topbanner {
+	background:
+		url(${pageContext.request.contextPath}/resources/images/mento.jpg)
+		no-repeat;
+	background-position: center center;
+	margin-top: 10px;
+	height: 400px;
+	display: flex;
+	background-size : cover;
+	opacity : 0.75;
+	}
 	
+	#topbanner-textarea{
+	opacity : 0.75;
+}
+
+
+#title {
+	margin: 0 0 0 0 !important;
+}
+
+#wrapped {
+	border: 1px solid #f56a6a;
+}
+
+.article-view-head {
+	position: relative;
+	z-index: 10;
+	padding: 25px 20px 19px;
+}
+
+.name {
+	margin-top: 16px !important;
+	font-size: 16px;
+	line-height: 16px;
+}
+
+p {
+	padding-right: 20px !important;
+	margin: 0 !important;
+}
+
+.article-view-head .wrap-info {
+	margin-top: 16px;
+}
+
+.wrap-info {
+	position: relative;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	font-size: 14px;
+}
+
+.wrap-info a, .wrap-info span {
+	margin-right: 14px;
+	color: #94969b;
+	vertical-align: top;
+}
+.wrap-info a {
+	border-bottom: 0px;
+}
+.article-view-head .wrap-info .info_fnc {
+	top: -2px;
+}
+
+.wrap-info .info_fnc {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.article-view-contents {
+	margin: 10px 20px;
+	border-top: 1px solid #eee;
+}
+
+.article-view-contents .contents-txt {
+	margin-top: 24px;
+	line-height: 1.6em;
+	font-size: 17px;
+}
+
+.article-comments {
+	margin: 10px 20px;
+	padding: 23px 0 24px;
+	border-top: 1px solid #eee;
+}
+
+#head {
+	margin: 14px 14px 14px 14px;
+}
+
+#report {
+	margin-right: 0;
+	font-size: 20px;
+}
+
+#book {
+	margin-left: 14px;
+	font-size: 20px;
+	margin-right: 0;
+}
+
+.wrap-info .rebo {
+	color: black !important;
+}
+
+.article-comments .wrap-comment {
+	padding: 8px 20px 15px;
+	border-bottom: 1px solid #eee;
+}
+
+.article-comments .wrap-comment .name {
+	margin-top: 9px;
+	color: #94969b;
+	font-size: 14px;
+	line-height: 1.33em;
+}
+
+.article-comments .wrap-comment .cmt-txt {
+	margin-top: 4px;
+	font-size: 16px;
+	line-height: 1.43em;
+}
+
+.article-comments .wrap-comment .wrap-info {
+	margin-top: 10px;
+}
+
+.cmt-txt {
+	margin: 0;
+}
+
+#comm_Con2 {
+	margin: 0;
+	border: none;
+	resize: none;
+}
+
+#close-icon:hover {
+	cursor:pointer;
+}
+/* 
+ #comm_Con2:focus {
+	border: none;
+    box-shadow: 0 0 0 0;
+} 
+ */
+
+.wrap-info i {
+    margin-right: 0;
+}
+
+/* 대댓글 스타일 */
+.article-comments .wrap-reply {
+    margin-top: -1px;
+    border-top: 1px solid #eee;
+    /* background-color: #f8f8f8; */
+}
+
+.article-comments .wrap-reply .wrap-comment {
+    padding: 8px 20px 15px 40px;
+}
+
+.article-comments .wrap-reply textarea {
+	 /* background-color: #f8f8f8; */
+}
+
+
+.rebo:hover {
+	cursor:pointer;
+}
+.fa-exclamation-triangle:hover {
+	cursor:pointer;
+	color:black;
+}
+form {
+	margin: 0 !important;
+}
 	
 </style>
+<scrip>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-lite.css">
+</scrip>
 </head>
 <body class="vertical  dark">
 	<div class="wrapper">
@@ -144,15 +324,15 @@
 											<button class="btn mb-2 btn-primary" onclick="deleteMento(${mento.board_no});">삭제</button>
 										</div>
 											
-										<div class="basicInfo" style="margin-top:20px;">
-											<h2 align="center"><!-- 제모오오오옥 -->${mento.board_title}</h2>
+										<div class="basicInfo" style="margin-top:20px; margin-left:20px;">
+											<h2><!-- 제모오오오옥 -->${mento.board_title}</h2>
 											<!-- <input type="text" id="simpleInput" class="form-control form-control-lg"/> -->
 											<br /><hr />
 											<div style="display:flex;">
 												<!-- <textarea name="" id="" cols="30" rows="10">
 												awefjkl;asdfjkl;asdfjkl;asdfjkl;asdfjkl;
 												</textarea>>	 -->			
-												<div  style="width:60%; margin:auto;">
+												<div>
 													<!-- 내요요오오오오ㅗㅇㅇ -->${mento.board_content}
 												</div>
 								
@@ -172,16 +352,17 @@
 									<div class="card-body">
 										<div class="article-comments">
 											<h3 style="font-weight: 500">답글 ${notice.comm_count }</h3>
+											<c:if test="${mento.comm_count < 1}">
 											<div class="write_area">
 												<div id="btn_add_comment" style="display: flex;">
 													<div class="reply_area" style="width: 100%;">
 														<form id="commentForm" method="post">
-														<input type="hidden" id="mem_No" name="mem_No"
-															value="${sessionScope.mem_No }" /> 
-														<input type="hidden" name="comm_Ref" value="0" />
-														<input type="hidden" name="comm_Level" value="1" />
-														<textarea class="summernote" id="comm_Content" name="comm_Content" maxlength="500"
-															placeholder="댓글을 남겨주세요." style="resize: none; width:95%; background-color : black; color:white;"></textarea>
+															<input type="hidden" id="mem_No" name="mem_No"
+																value="${sessionScope.mem_No }" /> 
+															<input type="hidden" name="comm_Ref" value="0" />
+															<input type="hidden" name="comm_Level" value="1" />
+															<textarea id="comm_Content" name="comm_Content" maxlength="500"
+																placeholder="댓글을 남겨주세요." style="height:300px; resize: none; width:95%; background-color : black; color:white;"></textarea>
 														</form>
 														
 														<!-- 글자 수 -->
@@ -197,12 +378,13 @@
 													</div>
 												</div>
 											</div>
+											</c:if>
 											
 											<c:forEach items="${commentList}" var="co">
 												<c:if test="${co.comm_Level eq 1}">
 												<div id="${co.comm_No }" class="wrap-comment comment-area">
 													<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq notice.mem_no }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
-													<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="width:100%; overflow:auto; background-color: black; color:white;">${co.comm_Content }</textarea></p>
+													<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style=" height:300px;width:100%; overflow:auto; background-color: black; color:white;">${co.comm_Content }</textarea></p>
 													<div class="wrap-info">
 													
 														<span class="date"> <i class="far fa-clock"></i>
@@ -216,9 +398,9 @@
 														  		<input type="hidden" class="comm_Ref"  name="comm_Ref" value="${co.comm_No}" />
 														  		<input type="hidden" class="comm_Level"  name="comm_Level" value="${co.comm_Level}" />
 															<c:if test="${member.memNo eq co.mem_No}">
-																<!-- <a href="#" onclick="updateComment(this);return false;">수정</a> -->
-																<a href="#" class="updateConfirm" onclick="updateConfirm(this);" >수정완료</a>												
-																<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?type_No=${notice.type_no}&board_No=${notice.board_no}&comm_No=${co.comm_No }'">삭제</a>
+																<a href="#" onclick="updateComment(this);return false;">수정</a>
+																<a href="#" class="updateConfirm" onclick="updateConfirm(this);" style="display:none;">수정완료</a>												
+																<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?type_No=${mento.type_no}&board_No=${mento.board_no}&comm_No=${co.comm_No }'">삭제</a>
 															</c:if>
 															
 															<%-- <c:if test="${member.memNo ne co.mem_No}">
@@ -309,9 +491,120 @@
 			location.href = "${pageContext.request.contextPath}/admin/mentoView.bo?board_no="+ board_No;
 		});
 	});
+	
+	document
+	.getElementById("insertComment")
+	.addEventListener(
+			"click",
+			function() {
+				if (comm_Content.value == ""
+						|| comm_Content.value.length == 0) {
+					alert("댓글을 입력해 주세요");
+					return false;
+				} else {
+					location.href = '${pageContext.request.contextPath}/comments2/insertComment.do?type_No=${mento.type_no}&board_No=${mento.board_no}&mem_No=${member.memNo}&comm_Content='
+							+ comm_Content.value;
+				}
+			}, false);
 
-</script>
-	<script>
+
+		function updateComment(obj) {
+			// 현재 버튼의 위치와 가장 가까운 textarea 접근하기
+			$(obj).parent().parent().parent().find('textarea').removeAttr('readonly');
+			
+			// 수정 완료 버튼 보이게 하기
+			$(obj).siblings('.updateConfirm').css('display', 'inline');
+			
+			// 현재 클릭한 수정 버튼 숨기기
+			$(obj).css('display', 'none');
+		}
+		
+		function updateConfirm(obj) {
+			// 수정을 마친 댓글 내용 가져오기
+			var content = $(obj).parent().parent().parent().find('textarea').val();
+			
+			// 댓글 번호 가져오기
+			var comm_No = $(obj).siblings('#comm_No').val();
+			
+			console.log(content);
+			
+			location.href = "${pageContext.request.contextPath}/comments2/updateComment.do?type_No=${mento.type_no}&board_No=${mento.board_no}&comm_No=" + comm_No + "&comm_Content="
+				+ content;
+		}
+		
+		// 대댓글 .......
+		function reComment(obj) {
+
+			var commentDiv = $(obj).parent().parent();
+
+			var comm_Ref = $(obj).next().find('.comm_Ref').val();
+			console.log("원 댓글 번호 : " + comm_Ref);
+			
+
+			$(obj).css('display','none');
+
+			var reCommentCode =
+				"<div class='write_area' style='padding: 8px 20px 15px 40px;'>" + 
+				"<i class='fa fa-reply fa-rotate-180'></i>" + 
+				"<text>   대댓글</text>" + 
+				"<div id='btn_add_comment' style='display: flex;'>" + 
+				"<div class='reply_area' style='width: 100%;'>" +
+					"<form id='commentForm' method='post'>" +
+					"<input type='hidden' id='mem_No' name='mem_No' value='${sessionScope.mem_No }' />" +
+					"<input type='hidden' name='comm_Ref' value=" + comm_Ref + " />" +
+					"<input type='hidden' name='comm_Level' value='1' />" +
+					"<textarea id='comm_Content2' name='comm_Content' placeholder='댓글을 남겨주세요.' style=' width:100%; resize: none; background-color:black; color:white;' maxlength='500'>" +
+					"</textarea>" +
+					"</form>" +
+		               "<div class='byte' style='float:right; font-size:12px; color:darkgray;'>" +
+		                  "<text id='commentByte2'>0</text><text id='slash2'> / </text><text id='maxByte2'>500</text>" +
+		               "</div>" +
+				"</div>" +
+				"<button onclick='reConfirm(this); return false;' class='btn mb-2 btn-primary' style='font-weight: 300; font-size: 20px; width:10%;'> 작성</button>" +
+			"</div>" +
+			"</div>";
+
+			commentDiv.append(reCommentCode);
+
+	        $('#comm_Content2').on('keyup', function(){
+	            var inputLength = $(this).val().length; // 입력된 글자 수
+	            var remain = 500 - inputLength;         // 남은 글자 수
+
+	            $('#commentByte2').html(inputLength);
+	            $('#maxByte2').html(remain);
+
+	            if(inputLength == 500) {
+	            	$('#commentByte2').empty();
+	            	$('#slash2').empty();
+	            	$('#maxByte2').html("입력 가능한 글자 수를 초과하였습니다.");
+	            	$('#maxByte2').css('color', '#fa1302');
+	            	
+	            } else if(inputLength < 500) {
+	            	$('#commentByte2').html(inputLength);
+	                $('#maxByte2').html(remain);
+	                $('#slash2').html(' / ');
+	                $('#maxByte2').css('color', 'darkgray');
+	            }
+
+	        });
+
+		}
+		
+		function reConfirm(obj){
+		
+			var comm_Ref = $(obj).prev().find('input[name=comm_Ref]').val();
+			console.log("원 댓글 번호 : " + comm_Ref);
+			
+			var comm_Level = Number($(obj).prev().find('input[name=comm_Level]').val()) + 1;
+			console.log("댓글 레벨 : " + comm_Level);
+			
+			var comm_Content = $(obj).prev().find('textarea').val();
+			console.log("댓글 내용 : " + comm_Content);
+			
+			location.href="${pageContext.request.contextPath}/comments2/insertComment.do?type_No=${notice.type_no}&board_No=${notice.board_no}&mem_No=${member.memNo}&comm_Content="
+				+ comm_Content + "&comm_Ref=" + comm_Ref + "&comm_Level=" + comm_Level;
+		}
+
       $('#dataTable-1').DataTable(
       {
         autoWidth: true,

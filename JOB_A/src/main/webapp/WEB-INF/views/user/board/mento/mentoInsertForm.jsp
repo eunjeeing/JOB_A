@@ -18,12 +18,18 @@
 <style>
 #topbanner {
 	background:
-		url(${pageContext.request.contextPath}/resources/images/com.jpg)
+		url(${pageContext.request.contextPath}/resources/images/mento.jpg)
 		no-repeat;
 	background-position: center center;
 	margin-top: 10px;
 	height: 400px;
 	display: flex;
+	background-size : cover;
+	opacity : 0.75;
+	}
+	
+	#topbanner-textarea{
+	opacity : 0.75;
 }
 #close-icon:hover {
 	cursor:pointer;
@@ -125,6 +131,23 @@ a {
     user-select: none;
     box-shadow: inset 0 0 0 2px #fff !important;
 }
+.close {
+   opacity: 1.0;
+   font-size: 25px;
+   height: 1em;
+   box-shadow: none;
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+   background-color: white;
+   border: 2px solid #f56a6a;
+   opacity: 1.0 !important;
+}
+
+.note-modal-footer {
+    padding: 0 10px 20px 20px;
+    margin-bottom: 10px;
+}
 
 </style>
 </head>
@@ -134,6 +157,11 @@ a {
 			<div class="inner">
 
 				<c:import url="../../common/header.jsp" />
+				<div id="topbanner">
+					<div id="topbanner-textarea">
+						<h3 id="topbanner-text">멘토링</h3>
+					</div>
+				</div>
 				
  				<!-- insert Form -->
 				<section class="container">

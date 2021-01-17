@@ -51,8 +51,6 @@
 							<div class="tab"><p id="unanswered" class="btn mb-2 btn-outline-primary">답변미완료</p></div>
 						</div>
 						
-
-						
 						<div class="row">
 							<div class="col-md-12">
 								<div class="card shadow">
@@ -70,7 +68,7 @@
 													<th width="8%">조회수</th>
 													<th width="8%">답변상태</th>
 													<th>상태</th>
-													<th width="10%"></th>
+													<th width="10%">상태변경</th>
 												</tr>
 											</thead>
 											<tbody>

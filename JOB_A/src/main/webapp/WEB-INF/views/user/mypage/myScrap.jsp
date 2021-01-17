@@ -144,16 +144,16 @@
 						<!-- search / write area -->
 						<div id="utilBox">
 							<div id="searchBox">
-								<input type="search" id="search" placeholder="제목을 입력해주세요" onKeyDown="enterKey();" />
+								<input type="search" id="search" name="keyword" placeholder="제목을 입력해주세요" 
+										onKeyDown="enterKey(${sessionScope.member.memNo});" style="width : 60%; float:right;" />
 							</div>
 							<form action="${pageContext.request.contextPath}/myscrap/sortScrapList.bo">
 								<input type="hidden" name="mem_no" value="${sessionScope.member.memNo}" />
 								<select name="type_no" id=selectBox>
 									<option value="0"> 전체</option>
 									<option value="2"> 채용공고</option>
-									<option value="4"> 자유</option>
-									<option value="5"> 익명</option>
-									<option value="6"> 24</option>
+									<option value="4"> 블라블라</option>
+									<option value="5"> 블라인드</option>
 									<option value="8"> 멘토멘티</option>
 									<option value="9"> 면접후기</option>
 									<option value="10"> 합격후기</option>
@@ -250,9 +250,9 @@
 			    		}
 			    	}
 			    	
-			    	function enterKey() {
+			    	function enterKey( mem_no ) {
 		    			if (event.keyCode==13){
-		    				location.href="${pageContext.request.contextPath}/searchScrapList.bo?keyword="+$('#search').val();
+		    				location.href="${pageContext.request.contextPath}/searchScrapList.bo?keyword="+$('#search').val()+"&mem_no=" + mem_no;
 		    			}
 		    		}
 			    						

@@ -100,7 +100,7 @@
 		height : auto;
 		width : auto;
 		margin-left : 40%;
-		font-size : 40px;
+		font-size : 150%;
 	}
 	
 </style>
@@ -175,8 +175,8 @@
 						</c:if>
 						
 						<c:if test="${empty noticeList}">
-						<div id="nonListArea">
-							<p>아직 등록된 게시글이 없어요.. ㅠㅜ</p>
+						<div id="nonListArea" style="width: 100%; height: 600px; margin:auto;">
+							<p align="center" style="margin:auto;">아직 등록된 게시글이 없어요.. ㅠㅜ</p>
 						</div>
 						</c:if>
 						

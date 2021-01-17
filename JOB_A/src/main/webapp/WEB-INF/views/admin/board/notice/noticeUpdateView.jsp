@@ -45,7 +45,7 @@
 		float: right;
 	}
 	
-	.note-editable {
+	/* .note-editable {
 		background-color : lightgrey;
 	}
 	
@@ -56,7 +56,10 @@
 	p:hover {
 		background-color : lightgrey !important;
 	}
-	
+	 */
+	 .note-frame{
+	 	color:white;
+	 }
 </style>
 </head>
 <body class="vertical  dark">
@@ -141,11 +144,11 @@
 											
 										<div class="basicInfo" style="margin-top:20px;">
 											<input type="hidden" name="board_no" value="${notice.board_no}" />
-											<h2 align="center"><input type="text" name="board_title" style="width:40%; margin-left:10%; background-color:lightgrey;"value="${notice.board_title}"/></h2>
+											<h4 align="center"><input type="text" name="board_title" style="margin-left:7%; width:60%; background-color:black; color:white;"value="${notice.board_title}"/></h4>
 											<!-- <input type="text" id="simpleInput" class="form-control form-control-lg"/> -->
-											<br /><hr />
-											<div style="display:flex; width:60%; margin:auto;">		
-												<textarea class="summernote" name="board_content">${notice.board_content}</textarea>
+											<br />
+											<div style=" width:60%; margin:auto; background-color:black; color:white;">		
+												<textarea class="summernote" name="board_content" style="width:90%; background-color:black; color:white;">${notice.board_content}</textarea>
 											</div>
 										</div>
 										<br>

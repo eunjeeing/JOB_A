@@ -142,7 +142,7 @@
 							<button type="button" id="searchBtn" onclick="search()">검색
 							</button>
 							<button type="button" id="cancelSearchBtn" onclick="toList();">목록으로</button>
-							<c:if test="${member.gradeNo <= 1 || member.gradeNo >= 3}">
+							<c:if test="${member.gradeNo <= 1 || member.gradeNo ==3 || member.gradeNo==4}">
 								<button id="writeBtn" onclick="goAcceptForm();">글쓰기
 								</button>
 							</c:if>

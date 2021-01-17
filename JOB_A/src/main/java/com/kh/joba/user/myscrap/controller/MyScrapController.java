@@ -84,7 +84,9 @@ public class MyScrapController {
 		
 		int numPerPage = 10;
 		
-		Bookmark book = new Bookmark(0, mem_no, 0, changeToUpper(keyword));
+		System.out.println(keyword + "/" + mem_no);
+		
+		Bookmark book = new Bookmark(0, mem_no, 0, keyword);
 		List<Map<String,String>> list = mss.searchScrapList(cPage, numPerPage, book);
 		int totalContents = mss.searchMyScrapTotalContents(book);
 		String pageBar = UtilsBoard1.getPageBar(totalContents, cPage, numPerPage, "searchMentoList.bo?keyword="+changeToUpper(keyword));
@@ -101,7 +103,7 @@ public class MyScrapController {
 		model.addAttribute("numPerPage", numPerPage);
 		model.addAttribute("pageBar", pageBar);
 		
-		return "user/board/mento/mentoList"; 
+		return "user/mypage/myScrap"; 
 	}
 	
 	//대문자 변환

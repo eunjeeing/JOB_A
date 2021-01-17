@@ -228,7 +228,7 @@ form {
 											<a class="reportBtn" style="color:black; vertical-align: middle; " id="myBtn"> 신고</a> 
 										</span>
 											<input type="hidden" id="board_info" value="${accept.board_no}">
-											<input type="hidden" id="board_mem_no" value="${accept.mem_no }">
+											<input type="hidden" id="board_mem_no" value="${accept.mem_no}">
 											<input type="hidden" id="board_reporter" value="${member}">
 										<!---------------------------------------------------------------------------> 
 									</c:if>
