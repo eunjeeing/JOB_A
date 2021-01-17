@@ -58,7 +58,7 @@
 				<li class="icon solid fa-phone">(070) 3207-8593</li>
 				<li class="icon solid fa-home">2, 29, 5tyoume, Hommachi<br />
 					Shibuya Ku, Tokyo To, 151-0071, Japan
-				<li class="icon solid fa-download"><a href="${pageContext.request.contextPath}/resources/uploadFiles/common/서비스소개.pdf" download="서비스소개.pdf">서비스 소개</a> &nbsp;&nbsp;&nbsp; <a href="${pageContext.request.contextPath}/resources/uplaodFiles/common/이용약관.pdf" download="이용약관.pdf">이용약관</a></li>
+				<li class="icon solid fa-download"><a href="${pageContext.request.contextPath}/resources/uploadFiles/common/서비스소개.pdf" download="서비스소개.pdf">서비스 소개</a> &nbsp;&nbsp;&nbsp; <a href="${pageContext.request.contextPath}/resources/uploadFiles/common/이용약관.html" download="이용약관.html">이용약관</a></li>
 			</ul>
 
 		<footer id="footer">

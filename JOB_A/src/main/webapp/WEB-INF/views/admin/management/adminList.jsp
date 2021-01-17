@@ -55,7 +55,7 @@
 														<td><span>${a.adminId}</span></td>
 														<th scope="col">${a.adminName}</th>
 														<td><span>${a.adminNick}</span></td>
-														<td>${a.adminEmail}</td>
+														<td><a href="mailto:${a.adminEmail}">${a.adminEmail}</a></td>
 														<td><span>${a.adminPhone}</span></td>
 														<td><span>${a.enrollDate}</span></td>
 														<c:if test="${member.gradeNo eq 0}">
