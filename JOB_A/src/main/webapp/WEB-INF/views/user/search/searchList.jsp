@@ -95,10 +95,7 @@ p {
 <body class="is-preload">
 	<!-- 사용 스크립트 선언 -->
 		<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+		
  
 
 	<div id="wrapper">
@@ -130,11 +127,12 @@ p {
 								</div>
 							</div>
 							</c:if> 
-							<div class="article-list" onclick="clickEvent()">
+							<div class="article-list">
 								<c:forEach items="${searchList}" var="search">
-									<div class="article-list-pre">
+									<div class="article-list-pre" >
 										<div class="tit" id="${search.board_No}">
 											<p >${search.type_Name } 게시판</p>
+											<input class="tno" type="hidden" value="${search.type_No}"/>
 											<h3 class="hh">${search.board_Title}</h3>
 											<div class="pre-txt">${search.board_Content}</div>
 										</div>
@@ -144,6 +142,7 @@ p {
 												<i class="far fa-eye"> ${search.board_View }</i> <i
 													class="far fa-comment"> ${search.comm_Count }</i>
 												<div class="info_fnc">
+												
 													${search.board_Date} <i class="far fa-bookmark" id="bookmark"></i>
 												</div>
 											</div>
@@ -166,15 +165,72 @@ p {
 	</div>
 	<c:if test="${ !empty member }" >
 	<script>
-		$(function() {
-			$("div[class=tit]").on("click",
-				function() {
-						var board_No = $(this).attr("id");
-						console.log("board_No=" + board_No);
-						location.href = "${pageContext.request.contextPath}/board2/blahView.do?board_No="
-								+ board_No;
-				});
-		});
+	$(".tit").on("click",function() {
+        var board_No = $(this).attr("id");
+		 var tno = $(this).find('.tno').val();
+        console.log(board_No + "/" + tno);
+        var gradeNo = '${sessionScope.member.gradeNo}';
+        
+        switch(tno) {
+        case '1':
+           location.href = "${pageContext.request.contextPath}/notice.bo?board_no="+ board_No;
+           break;
+
+        case '2':
+           location.href = "${pageContext.request.contextPath}/board2/jobSelectOne.do?board_No="+ board_No;
+           break;
+              
+        case '4':
+	        if ( gradeNo == '5') {
+		        	alert("접근할 수 없는 레벨이네요!");										        	
+		        	break;
+		    }else{
+	           location.href = "${pageContext.request.contextPath}/board2/blahView.do?board_No="+ board_No;
+	           break;
+		    }
+        case '5':
+        	if (gradeNo == '2' || member.gradeNo == '5') {
+	        	alert("접근할 수 없는 레벨이네요!");
+	        	break;
+	        }else{
+           location.href = "${pageContext.request.contextPath}/board2/blindSelectOne.do?board_No="+ board_No;
+           break;
+	        }
+
+        case '6':
+           location.href = "${pageContext.request.contextPath}/selectOneTomorrow.bo?board_no="+ board_No;
+           break;
+
+        case '7':
+           location.href = "${pageContext.request.contextPath}/board2/qnaSelectOne.do?board_No="+ board_No;
+           break;   
+
+        case '8':
+	       	if ( gradeNo == '2' || gradeNo == '3' || gradeNo == '5') {
+	        	alert("접근할 수 없는 레벨이네요!");										        	
+	        	break;
+	        }else{ 
+	           location.href = "${pageContext.request.contextPath}/selectOneMento.bo?board_no="+ board_No;
+	           break;
+	        }
+        case '9':
+       	if (gradeNo == '2' || gradeNo == '5') {
+	       	alert("접근할 수 없는 레벨이네요!");
+	       	break;
+       	}else{
+	         location.href = "${pageContext.request.contextPath}/selectOneInterview.bo?board_no="+ board_No;
+	         break;
+        }
+        case'10':
+   		if (gradeNo == '2' || gradeNo == '5') {
+		       	alert("접근할 수 없는 레벨이네요!");
+		       	break;
+	      	}else{
+		        location.href = "${pageContext.request.contextPath}/selectOneAccept.bo?board_no="+ board_No;
+		        break;
+      		}
+        }
+ });
 	</script>
 	</c:if>
 	<c:if test="${ empty member }">
@@ -188,6 +244,10 @@ p {
 			});
 	</script>
 	</c:if>
+	<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<script type="text/javascript">
 		// Menu.sidebar 오류때문에 넣음
         var $menu = $('#menu'),

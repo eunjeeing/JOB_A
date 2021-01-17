@@ -32,7 +32,7 @@
 </script>
 <title>마이페이지</title>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
-
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 
 <style>
 	
@@ -198,7 +198,6 @@
 				<c:import url="../common/sideBar.jsp" />
 	</div>	
 				<!-- Scripts -->
-			<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>

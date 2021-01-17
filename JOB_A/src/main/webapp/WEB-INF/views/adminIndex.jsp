@@ -6,6 +6,93 @@
  
 <!doctype html>
 <html lang="en">
+<script src="${pageContext.request.contextPath}/resources/admin/js/jquery.min.js"></script>
+<script>
+var chartval = {};
+var chartval = {};
+$(document).ready(function(){
+	 $.ajax({
+	      url:"${pageContext.request.contextPath}/boardCount",
+	      type:"POST",
+	      dataType : "json",
+	      async: true,
+	      success : function(data){
+	    	  console.log(data[0]);
+
+	    	  $('.boardTotal').append('<p class="small text-muted mb-0">Total '+ data[0]["COUNT(*)"] +'</p>');
+	      }
+	 });
+	 
+	 $.ajax({
+	      url:"${pageContext.request.contextPath}/todayBoardCount",
+	      type:"POST",
+	      dataType : "json",
+	      async: true,
+	      success : function(data){
+	    	  console.log(data[0]);
+	    	  
+	    	  $('.boardCount').append('<span class="h2 mb-0">Today '+ data[0]["COUNT(*)"] +'</span>');
+	      }
+	 });
+	 
+	 $.ajax({
+	      url:"${pageContext.request.contextPath}/todayMember",
+	      type:"POST",
+	      dataType : "json",
+	      async: true,
+	      success : function(data){
+	    	  console.log(data[0]);
+	    	  
+	    	  $('.todayMember').append('<span class="h2 mb-0">Today '+ data[0]["COUNT(*)"] +'</span>');
+	      }
+	 });
+	 $.ajax({
+	      url:"${pageContext.request.contextPath}/totalMember",
+	      type:"POST",
+	      dataType : "json",
+	      async: true,
+	      success : function(data){
+	    	  console.log(data[0]);
+	    	  
+	    	  $('.totalMember').append('<p class="small text-muted mb-0">Total '+ data[0]["COUNT(*)"] +'</p>');
+	      }
+	 });
+	
+	 $.ajax({
+	      url:"${pageContext.request.contextPath}/rankList",
+	      type:"POST",
+	      dataType : "json",
+	      async: false,
+	      success : function(data){
+				console.log(data);
+				chartval = data;
+				
+	      }
+	 });
+	 console.log(chartval);
+});
+/* chart = 
+	<canvas id="pieChart" width="698" height="600"
+		style="display: block; height: 300px; width: 349px;">
+		This text is displayed if your browser does not support HTML5 Canvas.
+		</canvas>
+	<script type="text/javascript">
+	var context = document.getElementById('pieChart');
+	var myChart = new chart(context,{
+			type : 'pie',
+			data : {
+				labels : [ chartlabel ],
+				datasets : [ { 
+					data : [ chartval ]
+
+					}]
+				},
+				options : {
+					reponsive : false
+					}
+			}); */
+	</script>
+</script>
 <head>
 <meta charset="utf-8">
 <meta name="viewport"
@@ -45,6 +132,10 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/admin/css/app-dark.css"
 	id="darkTheme" disabled>
+	
+<script type="text/javascript">
+
+</script>
 </head>
 <body class="vertical  dark  ">
 	<div class="wrapper">
@@ -65,7 +156,7 @@
 								<div class="col">
 									<span class="h2 mb-0">Today ${todayCount}</span>
 									<p class="small text-muted mb-0">total ${totalCount}</p>
-									<span class="badge badge-pill badge-success">방문자 집계</span>
+									<span class="badge badge-pill text-white bg-success-dark">방문자 집계</span>
 								</div>
 								<div class="col-auto">
 									<span class="fe fe-32 fe-shopping-bag text-muted mb-0"></span>
@@ -79,9 +170,9 @@
 						<div class="card-body">
 							<div class="row align-items-center">
 								<div class="col">
-									<span class="h2 mb-0">1K+</span>
-									<p class="small text-muted mb-0">BOARDS</p>
-									<span class="badge badge-pill badge-success">총 게시글</span>
+									<div class="boardCount"></div>
+									<div class="boardTotal"></div>
+									<span class="badge badge-pill badge-info">게시글 집계</span>
 								</div>
 								<div class="col-auto">
 									<span class="fe fe-32 fe-clipboard text-muted mb-0"></span>
@@ -95,9 +186,9 @@
 						<div class="card-body">
 							<div class="row align-items-center">
 								<div class="col">
-									<span class="h2 mb-0">00</span>
-									<p class="small text-muted mb-0">MEMBERS</p>
-									<span class="badge badge-pill badge-warning">총 회원</span>
+									<div class="todayMember"></div>
+									<div class="totalMember"></div>
+									<span class="badge badge-pill text-white bg-primary-dark">회원 집계</span>
 								</div>
 								<div class="col-auto">
 									<span class="fe fe-32 fe-users text-muted mb-0"></span>
@@ -107,57 +198,62 @@
 					</div>
 				</div>
 			</div>
-
+			<div class="row align-items-center my-2">
+				<div class="col-auto ml-auto">
+					<form class="form-inline">
+						<div class="form-group">
+							<label for="reportrange" class="sr-only">
+								<font style="vertical-align: inherit;">
+									<font style="vertical-align: inherit;">기간</font>
+								</font>
+							</label>
+							<div id="reportrange" class="px-2 py-2 text-muted">
+							<i class="fe fe-calendar fe-16 mx-2"></i>
+							<span class="small">
+								<font style="vertical-align: inherit;">
+									<font style="vertical-align: inherit;">2020 년 12 월 19 일-2021 년 1 월 17 일</font>
+								</font>
+							</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<button type="button" class="btn btn-sm">
+								<span class="fe fe-refresh-ccw fe-12 text-muted"></span>
+							</button>
+							<button type="button" class="btn btn-sm">
+								<span class="fe fe-filter fe-12 text-muted"></span>
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+              
+			
+              
 			<div class="container-fluid">
 				<div class="row justify-content-center">
 					<div class="row my-4">
-						<div class="col-md-6 mb-4">
-							<div class="card shadow">
-								<div class="card-header">
-									<strong class="card-title mb-0">선호직종 분포도</strong>
-								</div>
-								<div class="card-body">
-									<div class="chartjs-size-monitor">
-										<div class="chartjs-size-monitor-expand">
-											<div class=""></div>
-										</div>
-										<div class="chartjs-size-monitor-shrink">
-											<div class=""></div>
-										</div>
-									</div>
-									<canvas id="pieChartjs" width="698" height="600"
-										class="chartjs-render-monitor"
-										style="display: block; height: 300px; width: 349px;"></canvas>
-								</div>
-								<!-- /.card-body -->
-							</div>
-							<!-- /.card -->
-						</div>
-						<!-- /. col -->
-						<div class="col-md-6 mb-4">
-							<div class="card shadow">
-								<div class="card-header">
-									<strong class="card-title mb-0">연도 비교</strong>
-								</div>
-								<div class="card-body">
-									<div class="chartjs-size-monitor">
-										<div class="chartjs-size-monitor-expand">
-											<div class=""></div>
-										</div>
-										<div class="chartjs-size-monitor-shrink">
-											<div class=""></div>
-										</div>
-									</div>
-									<canvas id="areaChartjs" width="698" height="600"
-										class="chartjs-render-monitor"
-										style="display: block; height: 300px; width: 349px;"></canvas>
-								</div>
-								<!-- /.card-body -->
-							</div>
-							<!-- /.card -->
-						</div>
-						<!-- /. col -->
-					</div>
+		                <div class="col-md-6 mb-4" style="width: 50vw;">
+		                  <div class="card shadow">
+		                    <div class="card-header">
+		                      <strong class="card-title mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">파이 차트</font></font></strong>
+		                    </div>
+		                    <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+		                      <canvas id="pieChartjs" width="634" height="600" class="chartjs-render-monitor" style="display: block; height: 300px; width: 317px;"></canvas>
+		                    </div> <!-- /.card-body -->
+		                  </div> <!-- /.card -->
+		                </div> <!-- /. col -->
+		                <div class="col-md-6 mb-4">
+		                  <div class="card shadow">
+		                    <div class="card-header">
+		                      <strong class="card-title mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">영역 차트</font></font></strong>
+		                    </div>
+		                    <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+		                      <canvas id="areaChartjs" width="634" height="600" class="chartjs-render-monitor" style="display: block; height: 300px; width: 317px;"></canvas>
+		                    </div> <!-- /.card-body -->
+		                  </div> <!-- /.card -->
+		                </div> <!-- /. col -->
+		              </div>
 
 					<div class="row items-align-baseline">
 						<div class="col-md-12 col-lg-4">
@@ -278,66 +374,38 @@
 		</main>
 		<!-- main -->
 	</div>
-	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/popper.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/moment.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/bootstrap.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/simplebar.min.js"></script>
-	<script
-		src='${pageContext.request.contextPath}/resources/admin/js/daterangepicker.js'></script>
-	<script
-		src='${pageContext.request.contextPath}/resources/admin/js/jquery.stickOnScroll.js'></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/tinycolor-min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/config.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/d3.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/topojson.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/datamaps.all.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/datamaps-zoomto.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/datamaps.custom.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/Chart.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/admin/js/popper.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/admin/js/moment.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/admin/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/admin/js/simplebar.min.js"></script>
+	<script src='${pageContext.request.contextPath}/resources/admin/js/daterangepicker.js'></script>
+	<script src='${pageContext.request.contextPath}/resources/admin/js/jquery.stickOnScroll.js'></script>
+	<script src="${pageContext.request.contextPath}/resources/admin/js/tinycolor-min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/admin/js/config.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/admin/js/d3.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/admin/js/topojson.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/admin/js/datamaps.all.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/admin/js/datamaps-zoomto.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/admin/js/datamaps.custom.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/admin/js/Chart.min.js"></script>
 	<script>
       /* defind global options */
       Chart.defaults.global.defaultFontFamily = base.defaultFontFamily;
       Chart.defaults.global.defaultFontColor = colors.mutedColor;
     </script>
-	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/gauge.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/jquery.sparkline.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/apexcharts.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/apexcharts.custom.js"></script>
-	<script
-		src='${pageContext.request.contextPath}/resources/admin/js/jquery.mask.min.js'></script>
-	<script
-		src='${pageContext.request.contextPath}/resources/admin/js/select2.min.js'></script>
-	<script
-		src='${pageContext.request.contextPath}/resources/admin/js/jquery.steps.min.js'></script>
-	<script
-		src='${pageContext.request.contextPath}/resources/admin/js/jquery.validate.min.js'></script>
-	<script
-		src='${pageContext.request.contextPath}/resources/admin/js/jquery.timepicker.js'></script>
-	<script
-		src='${pageContext.request.contextPath}/resources/admin/js/dropzone.min.js'></script>
-	<script
-		src='${pageContext.request.contextPath}/resources/admin/js/uppy.min.js'></script>
-	<script
-		src='${pageContext.request.contextPath}/resources/admin/js/quill.min.js'></script>
-	<script>
+	<script src="${pageContext.request.contextPath}/resources/admin/js/gauge.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/admin/js/jquery.sparkline.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/admin/js/apexcharts.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/admin/js/apexcharts.custom.js"></script>
+	<script src='${pageContext.request.contextPath}/resources/admin/js/jquery.mask.min.js'></script>
+	<script src='${pageContext.request.contextPath}/resources/admin/js/select2.min.js'></script>
+	<script src='${pageContext.request.contextPath}/resources/admin/js/jquery.steps.min.js'></script>
+	<script src='${pageContext.request.contextPath}/resources/admin/js/jquery.validate.min.js'></script>
+	<script src='${pageContext.request.contextPath}/resources/admin/js/jquery.timepicker.js'></script>
+	<script src='${pageContext.request.contextPath}/resources/admin/js/dropzone.min.js'></script>
+	<script src='${pageContext.request.contextPath}/resources/admin/js/uppy.min.js'></script>
+	<script src='${pageContext.request.contextPath}/resources/admin/js/quill.min.js'></script>
+	<script> 
       $('.select2').select2(
       {
         theme: 'bootstrap4',
@@ -517,34 +585,10 @@
         }, false);
       })();
     </script>
-	<script>
-      var uptarg = document.getElementById('drag-drop-area');
-      if (uptarg)
-      {
-        var uppy = Uppy.Core().use(Uppy.Dashboard,
-        {
-          inline: true,
-          target: uptarg,
-          proudlyDisplayPoweredByUppy: false,
-          theme: 'dark',
-          width: 770,
-          height: 210,
-          plugins: ['Webcam']
-        }).use(Uppy.Tus,
-        {
-          endpoint: 'https://master.tus.io/files/'
-        });
-        uppy.on('complete', (result) =>
-        {
-          console.log('Upload complete! We’ve uploaded these files:', result.successful)
-        });
-      }
-    </script>
-	<script
-		src="${pageContext.request.contextPath}/resources/admin/js/apps.js"></script>
+	
+	<script src="${pageContext.request.contextPath}/resources/admin/js/apps.js"></script>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async
-		src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
 	<script>
       window.dataLayer = window.dataLayer || [];
 

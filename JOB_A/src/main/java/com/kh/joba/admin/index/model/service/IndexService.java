@@ -11,4 +11,12 @@ public interface IndexService {
 	List<Map<String, String>> selectRank();
 
 	List<Map<String, String>> selectBoard();
+
+	List<Map<String, String>> countBoard();
+
+	List<Map<String, String>> countTodayBoard();
+
+	List<Map<String, String>> countTodayMember();
+
+	List<Map<String, String>> countTotalMember();
 }

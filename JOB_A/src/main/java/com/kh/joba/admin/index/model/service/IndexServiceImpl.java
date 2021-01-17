@@ -25,6 +25,29 @@ public class IndexServiceImpl implements IndexService {
 	public List<Map<String, String>> selectBoard() {
 		return indexDAO.carouselList();
 	}
+
+	@Override
+	public List<Map<String, String>> countBoard() {
+		
+		return indexDAO.countBoard();
+	}
+
+	@Override
+	public List<Map<String, String>> countTodayBoard() {
+		// TODO Auto-generated method stub
+		return indexDAO.countTodayBoard();
+	}
+
+	@Override
+	public List<Map<String, String>> countTodayMember() {
+		// TODO Auto-generated method stub
+		return indexDAO.countTodayMember();
+	}
+
+	@Override
+	public List<Map<String, String>> countTotalMember() {
+		return indexDAO.countTotalMember();
+	}
 	
 	
 	

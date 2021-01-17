@@ -11,4 +11,12 @@ public interface IndexDAO {
 	List<Map<String, String>> selectAllCount();
 
 	List<Map<String, String>> carouselList();
+
+	List<Map<String, String>> countBoard();
+
+	List<Map<String, String>> countTodayBoard();
+
+	List<Map<String, String>> countTodayMember();
+
+	List<Map<String, String>> countTotalMember();
 }
