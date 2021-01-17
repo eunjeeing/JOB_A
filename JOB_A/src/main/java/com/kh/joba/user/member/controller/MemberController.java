@@ -262,7 +262,7 @@ public class MemberController {
         System.out.println("인증번호 : " + checkNum);
         
         /* 이메일 보내기 */
-        String setFrom = "yey95@naver.com";
+        String setFrom = "johnsara94@naver.com";
         String toMail = email;
         String title = "회원가입 인증 이메일 입니다.";
         String content = 
