@@ -48,6 +48,17 @@ public class IndexServiceImpl implements IndexService {
 	public List<Map<String, String>> countTotalMember() {
 		return indexDAO.countTotalMember();
 	}
+
+	@Override
+	public List<Map<String, String>> countReport() {
+		return indexDAO.countReport();
+	}
+
+	@Override
+	public List<Map<String, String>> countResentB() {
+		// TODO Auto-generated method stub
+		return indexDAO.recentBoard();
+	}
 	
 	
 	

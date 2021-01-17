@@ -12,8 +12,10 @@
 	}
 	
 	#topbanner {
-		background-image: url(${pageContext.request.contextPath}/resources/images/review.jpg);
+		background-image: url(${pageContext.request.contextPath}/resources/images/back9.jpg);
 		background-size: 100% 100%;
+		background-position: center;
+		background-size : cover;
 		margin-top: 10px;
 		/* border: 1px solid black; */
 		height: 400px;

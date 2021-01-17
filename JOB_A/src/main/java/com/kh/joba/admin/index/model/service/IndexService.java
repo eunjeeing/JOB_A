@@ -19,4 +19,8 @@ public interface IndexService {
 	List<Map<String, String>> countTodayMember();
 
 	List<Map<String, String>> countTotalMember();
+	
+	List<Map<String, String>> countReport();
+
+	List<Map<String, String>> countResentB();
 }

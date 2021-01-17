@@ -14,19 +14,19 @@
 <style>
 #topbanner {
 	background:
-		url(${pageContext.request.contextPath}/resources/images/mento.jpg)
+		url(${pageContext.request.contextPath}/resources/images/back8.jpg)
 		no-repeat;
-	background-position: center center;
+	background-size: 100% 100%;
+	background-position: center;
+	background-size : cover;
 	margin-top: 10px;
 	height: 400px;
 	display: flex;
-	background-size : cover;
 	opacity : 0.75;
 }
 #topbanner-textarea{
 	opacity : 0.75;
 }
-
 .tit:hover {
 	cursor: pointer;
 }

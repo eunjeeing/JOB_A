@@ -99,14 +99,11 @@
 	#nonListArea>p{
 		height : auto;
 		width : auto;
-<<<<<<< HEAD
 		margin-left : 40%;
 		font-size : 150%;
-=======
 		margin-left : 20vw;
 		margin-top : 10vw;
 		font-size : 35px;
->>>>>>> refs/remotes/origin/feature_yoon404
 	}
 	
 </style>
@@ -181,8 +178,8 @@
 						</c:if>
 						
 						<c:if test="${empty noticeList}">
-						<div id="nonListArea" style="width: 100%; height: 600px; margin:auto;">
-							<p align="center" style="margin:auto;">아직 등록된 게시글이 없어요.. ㅠㅜ</p>
+						<div id="nonListArea">
+							<p>아직 등록된 게시글이 없어요.. ㅠㅜ</p>
 						</div>
 						</c:if>
 						
