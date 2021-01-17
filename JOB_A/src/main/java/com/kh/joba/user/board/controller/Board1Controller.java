@@ -79,7 +79,7 @@ public class Board1Controller {
 		for (int i = 0; i < list.size(); i++) {
 			String new_date = (String)(((Board1) list.get(i)).getBoard_date().substring(0, 10));
 			((Board1) list.get(i)).setBoard_date(new_date);
-			//System.out.println(((Board1) list.get(i)).getBoard_date());
+			//System.out.println(((Board1) list.get(i)).getBoard_date()); 111
 		}
 		// 조회확인용
 		System.out.println("list : " + list);
