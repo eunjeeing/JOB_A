@@ -8,20 +8,37 @@
 <head>
 <meta charset="UTF-8">
 <title> 후기 | 면접후기</title>	
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/board.css" />
+<%-- <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/board.css" /> --%>
 <style>
-#topbanner {
-	background:
-		url(${pageContext.request.contextPath}/resources/images/review.jpg)
-		no-repeat;
-	background-position: center center;
-	margin-top: 10px;
-	height: 400px;
-	display: flex;
-	background-size : cover;
-}
-
+	#topbanner {
+		background-image: url(${pageContext.request.contextPath}/resources/images/back7.jpg);
+		background-size: 100% 100%;
+		background-position: center;
+		background-size : cover;
+		margin-top: 10px;
+		/* border: 1px solid black; */
+		height: 400px;
+		display: flex;
+	}
+	
+	#topbanner-textarea {
+		width: 40%;
+		height: 50%;
+		margin: auto;
+		padding: auto;
+		/* border : 1px solid black; */
+		display: flex;
+		background : white;
+		opacity : 0.7;
+	}
+	
+	#topbanner-text {
+		font-size: 40px;
+		font-weight: 500;
+		margin: auto;
+		color: black;
+	}
 #title {
 	margin: 0 0 0 0 !important;
 }
@@ -374,7 +391,6 @@ form {
 	<c:import url="../../reportModal.jsp"/>	<!-- 신고 모달 창 -->
 	
 	<!-- Scripts -->
-
 	<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>

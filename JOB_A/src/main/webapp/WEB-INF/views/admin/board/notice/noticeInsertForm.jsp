@@ -46,8 +46,8 @@
 	}
 	
 	.note-editable {
-		background-color : black;
-		color:white;
+		background-color : lightgrey;
+		color:black;
 		width : 90%;
 	}
 	
@@ -148,11 +148,11 @@
 												
 											<div class="basicInfo" style="margin-top:20px;">
 												<input type="hidden" name="mem_no" value="${member.memNo}" />
-												<h2 align="center"><input type="text" name="board_title" style="width:73%;  background-color:black; color:white; font-size:20px;"value="${notice.board_title}" placeholder="제목"/></h2>
+												<h2 align="center"><input type="text" name="board_title" style="width:73%;  background-color:lightgrey; color:black; font-size:20px;"value="${notice.board_title}" placeholder="제목"/></h2>
 												<!-- <input type="text" id="simpleInput" class="form-control form-control-lg"/> -->
 												<br />
-												<div style="display:flex; width:73%; margin:auto; background-color:black;">		
-													<textarea class="summernote" name="board_content" style="width:90%; background-color:black; color:white;">${notice.board_content}</textarea>
+												<div style="width:73%; margin:auto; background-color:lightgrey;">		
+													<textarea class="summernote" name="board_content" style="width:90%; background-color:lightgrey; color:black;">${notice.board_content}</textarea>
 												</div>
 											</div>
 											<br>

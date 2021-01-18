@@ -333,7 +333,7 @@ form {
 														<input type="hidden" name="comm_Ref" value="0" />
 														<input type="hidden" name="comm_Level" value="1" />
 														<textarea id="comm_Content" name="comm_Content" maxlength="500"
-															placeholder="댓글을 남겨주세요." style="resize: none; width:100%; background-color : black; color:white;"></textarea>
+															placeholder="댓글을 남겨주세요." style="resize: none; width:100%; background-color : lightgrey; color:black;"></textarea>
 														</form>
 														
 														<!-- 글자 수 -->
@@ -354,7 +354,7 @@ form {
 												<c:if test="${co.comm_Level eq 1}">
 												<div id="${co.comm_No }" class="wrap-comment comment-area">
 													<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq notice.mem_no }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
-													<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="width:100%; overflow:auto; background-color: black; color:white;">${co.comm_Content }</textarea></p>
+													<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="width:100%; overflow:auto; background-color: lightgrey; color:black;">${co.comm_Content }</textarea></p>
 													<div class="wrap-info">
 													
 														<span class="date"> <i class="far fa-clock"></i>
@@ -391,7 +391,7 @@ form {
 												<div class="wrap-reply">
 													<div id="${co.comm_No }" class="wrap-comment comment-area">
 														<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq notice.mem_no }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
-														<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="width:100%;overflow:auto; background-color:black; color:white;">${co.comm_Content }</textarea></p>
+														<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="width:100%;overflow:auto; background-color:lightgrey; color:black;">${co.comm_Content }</textarea></p>
 														<div class="wrap-info">
 														
 														<span class="date"> <i class="far fa-clock"></i>
