@@ -129,14 +129,35 @@ p {
 							</c:if> 
 							<div class="article-list">
 								<c:forEach items="${searchList}" var="search">
-									<div class="article-list-pre" >
+									<c:choose>
+										<c:when test="${search.type_No == 5}">
+										<div class="article-list-pre" >
+											<div class="tit" id="${search.board_No}">
+												<p >${search.type_Name } 게시판</p>
+												<input class="tno" type="hidden" value="${search.type_No}"/>
+												<h3 class="hh">${search.board_Title}</h3>
+												<div class="pre-txt">${search.board_Content}</div>
+											</div>
+											<div class="sub">
+												<div class="wrap-info">
+													<i class="far fa-eye"> ${search.board_View }</i> <i
+														class="far fa-comment"> ${search.comm_Count }</i>
+													<div class="info_fnc">
+														${search.board_Date} <i class="far fa-bookmark" id="bookmark"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+										</c:when>
+										<c:otherwise>
+											<div class="article-list-pre" >
 										<div class="tit" id="${search.board_No}">
 											<p >${search.type_Name } 게시판</p>
 											<input class="tno" type="hidden" value="${search.type_No}"/>
 											<h3 class="hh">${search.board_Title}</h3>
 											<div class="pre-txt">${search.board_Content}</div>
 										</div>
-										<div class="sub">
+										<div class="sub">".gitignore"
 											<p class="name" style="padding-top: 2em;">${search.mem_Nick}</p>
 											<div class="wrap-info">
 												<i class="far fa-eye"> ${search.board_View }</i> <i
@@ -148,6 +169,8 @@ p {
 											</div>
 										</div>
 									</div>
+										</c:otherwise>
+									</c:choose>
 								</c:forEach>
 							</div>
 						</div>

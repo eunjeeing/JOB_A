@@ -401,13 +401,13 @@ $(document).ready(function(){
 		async: true,
 		success : function(data){
 			// 내림차순 정렬하기
-			function countSort(a, b) { 
-			    if(a.CATEGORY_COUNT == b.CATEGORY_COUNT){ 
-			        return 0 
-			    } return a.total > b.total ? 1 : -1; 
-			    } 
-			data.sort(countSort); 
-			console.log(data);
+			 function countSort(a, b) { 
+            	if(a.CATEGORY_COUNT == b.CATEGORY_COUNT){ 
+                	return 0 
+             } return a.CATEGORY_COUNT > b.CATEGORY_COUNT ? -1 : 1; 
+             }  
+	         data.sort(countSort);
+	         console.log(data);
 
 			for(var i in data){
 	            console.log(data[i]);
