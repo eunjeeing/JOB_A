@@ -30,6 +30,8 @@ public class Comments2 {
 	private int type_No;
 	private String board_Title;
 	
+	private int grade_No;
+	
 	
 	// 댓글 비활성화/상태 여부 위한 객체
 	public Comments2(int comm_No, String comm_Status) {

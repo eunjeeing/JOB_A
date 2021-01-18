@@ -151,7 +151,7 @@ p {
 }
 
 .article-comments .wrap-reply .wrap-comment {
-    padding: 8px 20px 15px 40px;
+    padding: 8px 20px 15px 70px;
 }
 
 </style>
@@ -264,17 +264,23 @@ p {
 												<div id="${co.comm_No }" class="wrap-comment comment-area">
 													<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq notice.mem_no }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
 													<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="width:100%; overflow:auto;">${co.comm_Content }</textarea></p>
-													<div class="wrap-info">
+													<div class="wrap-info" style="display:flex;">
 													
 														<span class="date"> <i class="far fa-clock"></i>
 														<fmt:parseDate var="parsedDate" value="${co.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
 														<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
+														<p><c:if test="${co.comm_Status eq 'Y'}">
+																<span class='badge badge-success'>정상</span>
+															</c:if> <c:if test="${co.comm_Status eq 'B'}">
+																<span class='badge badge-danger'>블라인드</span>
+															</c:if>  <c:if test="${co.comm_Status eq 'N'}">
+																<span class='badge badge-secondary'>삭제</span>
+															</c:if></p>
 														<div class="info_fnc">
 																<input type="hidden" id="comm_No" name="comm_No" value="${co.comm_No }"/>
 													      		<input type="hidden" class="mem_No"  name="mem_no" value="${member.memNo}" />
 														  		<input type="hidden" class="comm_Ref"  name="comm_Ref" value="${co.comm_No}" />
 														  		<input type="hidden" class="comm_Level"  name="comm_Level" value="${co.comm_Level}" />
-															
 														</div>
 													</div>
 												</div>
@@ -286,11 +292,18 @@ p {
 													<div id="${co.comm_No }" class="wrap-comment comment-area">
 														<p class="name">${co.mem_Nick }</p>
 														<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style="width:100%;overflow:auto;">${co.comm_Content }</textarea></p>
-														<div class="wrap-info">
+														<div class="wrap-info" style="display:flex;">
 														
 														<span class="date"> <i class="far fa-clock"></i>
 														<fmt:parseDate var="parsedDate" value="${co.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
 														<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
+															<p style="float:right;"><c:if test="${co.comm_Status eq 'Y'}">
+																<span class='badge badge-success'>정상</span>
+															</c:if> <c:if test="${co.comm_Status eq 'B'}">
+																<span class='badge badge-danger'>블라인드</span>
+															</c:if>  <c:if test="${co.comm_Status eq 'N'}">
+																<span class='badge badge-secondary'>삭제</span>
+															</c:if></p>
 															<div class="info_fnc">
 																	<input type="hidden" id="comm_No" name="comm_No" value="${co.comm_No }"/>
 														      		<input type="hidden" class="mem_No"  name="mem_no" value="${member.memNo}" />
@@ -327,7 +340,6 @@ p {
         ]
       });
     </script>
-	<script src="${pageContext.request.contextPath}/resources/admin/js/apps.js"></script>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async
 		src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>

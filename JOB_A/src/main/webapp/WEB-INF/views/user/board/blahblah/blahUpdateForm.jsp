@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>JOB_A | 블라블라</title>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">

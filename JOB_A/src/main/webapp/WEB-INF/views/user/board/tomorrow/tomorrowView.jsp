@@ -313,12 +313,14 @@ form {
 													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?type_No=${tomorrow.type_no}&board_no=${tomorrow.board_no}&comm_No=${co.comm_No }'">삭제</a>
 												</c:if>
 												<c:if test="${member.memNo ne co.mem_No}">
+												<c:if test="${ co.grade_No != 0 && co.grade_No != 1}">												
 												<span class="reportBtn_comment" id="reportBtn_comment" style="vertical-align: middle;" ><i class="fas fa-exclamation-triangle"></i></span> 
 													<!-- ----------------------- 댓글신고정보 by 은열 ------------------------------ -->
 													<input type="hidden" class="board_comment_info" value="${co.comm_No }">
 													<input type="hidden" class="board_comment_mem_no" value="${co.mem_No }">
 													<input type="hidden" class="board_comment_reporter" value="${member }">
 													<!-- ----------------------------------------------------- -->
+												</c:if>
 												</c:if>
 											</div>
 										</div>
@@ -348,12 +350,14 @@ form {
 													</c:if>
 													
 													<c:if test="${member.memNo ne co.mem_No}">
+													<c:if test="${ co.grade_No != 0 && co.grade_No != 1}">
 													<span class="reportBtn_cocomment" id="reportBtn_cocomment" style="vertical-align: middle;" ><i class="fas fa-exclamation-triangle"></i></span> 
 													<!-- ----------------------- 대댓글신고정보 by 은열 ------------------------------ -->
 													<input type="hidden" class="board_cocomment_info" value="${co.comm_No }">
 													<input type="hidden" class="board_cocomment_mem_no" value="${co.mem_No }">
 													<input type="hidden" class="board_cocomment_reporter" value="${member }">
 													<!-- ----------------------------------------------------- -->
+													</c:if>
 													</c:if>
 												</div>
 											</div>

@@ -8,6 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>JOB_A | QnA</title>
+		 	<script
+		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -198,8 +200,7 @@ a {
  				<c:import url="../../common/sideBar.jsp" />
 	
 	</div>
-		 	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+
 	<script
 		src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
 	<script

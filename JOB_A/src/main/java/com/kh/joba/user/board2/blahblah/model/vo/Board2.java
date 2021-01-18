@@ -35,6 +35,8 @@ public class Board2 implements Serializable{
 	private int file_Count;
 	private String type_Name;
 	
+	private int grade_No;
+	
 	// 게시글 비활성화/상태 여부를 위한 매개변수 생성자 by yeori
 	public Board2(int board_No, String board_Status) {
 		super();

@@ -8,6 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>JOB_A | 채용공고</title>
+<script
+		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board.css" />
 <style>
@@ -237,6 +239,7 @@ form {
 									</span>
 									<div class="info_fnc">
 										<c:if test="${member.memNo ne board2.mem_No}">
+										<c:if test="${ board2.grade_No ne 0 && board2.grade_No ne 1}">
 										<!-- 신고 inline css by 은열 -->
 										<span class="rebo" id="goReport" style="margin-right:-4px;"> 
 											<i class="fas fa-exclamation-triangle" id="report" style="padding:2px;"></i>
@@ -246,6 +249,7 @@ form {
 											<input type="hidden" id="board_mem_no" value="${board2.mem_No }">
 											<input type="hidden" id="board_reporter" value="${member }">
 										<!---------------------------------------------------------------------------> 
+										</c:if>
 										</c:if>
 										
 										<span class="rebo"><span class="rebo" onclick="bookmark(${board2.board_No}, ${member.memNo})">
@@ -333,12 +337,14 @@ form {
 													<a href="#" onclick="location.href='${pageContext.request.contextPath}/comments2/deleteComment.do?type_No=${board2.type_No }&board_No=${board2.board_No}&comm_No=${co.comm_No }'">삭제</a>
 												</c:if>
 												<c:if test="${member.memNo ne co.mem_No}">
+												<c:if test="${ co.grade_No != 0 && co.grade_No != 1}">
 												<span class="reportBtn_comment" id="reportBtn_comment" style="vertical-align: middle;" ><i class="fas fa-exclamation-triangle"></i></span> 
 													<!-- ----------------------- 댓글신고정보 by 은열 ------------------------------ -->
 													<input type="hidden" class="board_comment_info" value="${co.comm_No }">
 													<input type="hidden" class="board_comment_mem_no" value="${co.mem_No }">
 													<input type="hidden" class="board_comment_reporter" value="${member }">
 													<!-- ----------------------------------------------------- -->
+												</c:if>
 												</c:if>
 											</div>
 										</div>
@@ -368,12 +374,14 @@ form {
 													</c:if>
 													
 													<c:if test="${member.memNo ne co.mem_No}">
+													<c:if test="${ co.grade_No != 0 && co.grade_No != 1}">
 													<span class="reportBtn_cocomment" id="reportBtn_cocomment" style="vertical-align: middle;" ><i class="fas fa-exclamation-triangle"></i></span> 
 													<!-- ----------------------- 대댓글신고정보 by 은열 ------------------------------ -->
 													<input type="hidden" class="board_cocomment_info" value="${co.comm_No }">
 													<input type="hidden" class="board_cocomment_mem_no" value="${co.mem_No }">
 													<input type="hidden" class="board_cocomment_reporter" value="${member }">
 													<!-- ----------------------------------------------------- -->
+													</c:if>
 													</c:if>
 												</div>
 											</div>
@@ -392,8 +400,7 @@ form {
 		</div>
 		<c:import url="../../common/sideBar.jsp" />
 	</div>
-		 	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+
 	<script
 		src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
 	<script

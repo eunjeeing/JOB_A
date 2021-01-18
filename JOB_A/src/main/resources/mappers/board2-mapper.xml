@@ -6,7 +6,7 @@
 <!-- 공통 게시판 -->
 	<!-- 게시글 상세 조회 -->
 	<select id="selectOneBoard" parameterType="_int" resultType="Board">
-		SELECT B.*, M.MEM_NICK,(SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y' AND COMM_REPORTNUM <![CDATA[ < ]]> 4) COMM_COUNT
+		SELECT B.*, M.MEM_NICK, M.GRADE_NO, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y' AND COMM_REPORTNUM <![CDATA[ < ]]> 4) COMM_COUNT
 		FROM BOARD B, MEMBER M
 		WHERE BOARD_NO = #{board_No} AND M.MEM_NO = B.MEM_NO 
 	</select>
