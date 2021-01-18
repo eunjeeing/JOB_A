@@ -234,7 +234,7 @@ p {
 }
 
 #rank-list li {
-   margin-top: 3px;
+   margin-top: 0.15em;
    line-height: 20px;
    transform: scale(1);
    -webkit-transform: scale(1);
@@ -685,6 +685,9 @@ $(document).ready(function(){
 					location.href="${pageContext.request.contextPath}/search/searchList.do?keyword="+$('#search').val();
 				}
 			}
+			function goCal(){
+				location.href="${pageContext.request.contextPath}/calendar.do";
+			}
 	   </script>
    </c:if>
    <c:if test="${ empty member }">
@@ -700,7 +703,7 @@ $(document).ready(function(){
 			}
 			/* 캘린더로 이동 */
 			function goCal(){
-			         location.href = '${pageContext.request.contextPath}/calendar.do';
+				window.alert("로그인 후 이용해주세요"); 
 			}
 	   </script>
    </c:if>
