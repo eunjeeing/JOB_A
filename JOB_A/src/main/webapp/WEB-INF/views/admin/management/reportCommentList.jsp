@@ -100,6 +100,7 @@
 										<th>No.</th>
 										<th style="width: 60%">댓글 내용</th>
 										<th>등록일</th>
+										<th>댓글 상태</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -108,6 +109,13 @@
 											<td>${rc.comm_No}</td>
 											<td>${rc.comm_Content}</td>
 											<td>${rc.comm_Date}</td>
+											<td><c:if test="${rc.comm_Status eq 'Y'}">
+												<span class="badge badge-success">활성화</span></c:if>
+												<c:if test="${rc.comm_Status eq 'N'}">
+												<span class="badge badge-secondary">삭제</span></c:if>
+												<c:if test="${rc.comm_Status eq 'B'}">
+												<span class="badge badge-danger">블라인드</span></c:if>
+											</td>
 										</tr>
 									</c:forEach>
 								</tbody>
