@@ -347,7 +347,7 @@
 
 								<br> 
 									<input type="submit" id="enroll" class="button" value="회원가입"> &nbsp;&nbsp; 
-									<input type="button" id="cancel" class="button" value="취소">
+									<input type="button" id="cancel" class="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/login.do'">
 							</form>
 						</div>
 					</div>
