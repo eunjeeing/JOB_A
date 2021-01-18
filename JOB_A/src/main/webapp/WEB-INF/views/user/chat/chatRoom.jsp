@@ -24,12 +24,12 @@
 		}
 		
 		.left {
-		width: 45%;
+		width: 50%;
 		padding-right : 10px;
 		}
 		
 		.right {
-			width : 55%;
+			width : 50%;
 			border-left : 1px black solid;
 			border-color: lightgrey;
 			padding-left : 10px;
@@ -66,7 +66,7 @@
 			width: 400px; 
 			height: 150px !important; 
 			font-size: 40px !important;
-			margin: 200px 0 0 180px;
+			margin: 200px 0 0 70px;
 		}
 		
 		.modal-header .close  {
@@ -106,7 +106,7 @@
 							<thead>
 								<tr>
 									<th>방 번호</th>
-									<th style="width: 280vws;">방 제목</th>
+									<th style="width: 280px;">방 제목</th>
 									<th>입장</th>
 								</tr>
 							</thead>

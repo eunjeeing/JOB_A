@@ -28,7 +28,7 @@
 										<form action="${pageContext.request.contextPath }/admin/adminEnroll" method="post">
 											<div class="form-group row">
 												<label for="adminId" class="col-sm-3 col-form-label">사번</label>
-												<div class="col-sm-6">
+												<div class="col-sm-7">
 													<input type="text" class="form-control userInputId" id="adminId"
 														name="adminId" onkeyup="enroll(this.value)" required>
 												</div>
@@ -37,28 +37,28 @@
 											</div>
 											<div class="form-group row">
 												<label for="adminPw" class="col-sm-3 col-form-label">비밀번호</label>
-												<div class="col-sm-6">
+												<div class="col-sm-7">
 													<input type="password" class="form-control" id="adminPw"
 														name="adminPw" placeholder="초기 비밀번호는 사번으로 설정됩니다">
 												</div>
 											</div>
 											<div class="form-group row">
 												<label for="adminName" class="col-sm-3 col-form-label">이름</label>
-												<div class="col-sm-6">
+												<div class="col-sm-7">
 													<input class="form-control" id="adminName" type="text" name="adminName" required>
 												</div>
 											</div>
 											<fieldset class="form-group">
 												<div class="row">
 													<label for="adminPhone" class="col-form-label col-sm-3 pt-0">연락처</label>
-													<div class="col-sm-6">
+													<div class="col-sm-7">
 														<input class="form-control input-phoneus" onblur="validate2(this)" id="adminPhone" name="adminPhone" maxlength="14" required>
 													</div>
 												</div>
 											</fieldset>
 											<div class="form-group row">
 												<label for="adminEmail" class="col-sm-3 col-form-label">이메일</label>
-												<div class="col-sm-6">
+												<div class="col-sm-7">
 													<input type="text" class="form-control" id="adminEmail"
 														name="adminEmail" placeholder="사번이 아이디로 사용됩니다">
 												</div> @job-jo8a.com

@@ -25,7 +25,7 @@
 			<main role="main" class="main-content">
 				<div class="container-fluid">
 					<div class="row justify-content-center">
-						<div class="col-6">
+						<div class="col-7">
 						<h2 class="page-title">관리자 수정</h2>
 							<div class="card shadow mb-4">
 								<div class="card-header">
@@ -63,7 +63,7 @@
 												<label for="adminNick" class="col-sm-3 col-form-label">닉네임</label>
 												<div class="col-sm-6">
 													<input class="form-control" id="adminNick" type="text"
-														name="adminNick" value="${admin.adminNick}">
+														name="adminNick" value="${admin.adminNick}" required>
 													<input type="hidden" class="checkAdminNick" value="${admin.adminNick}" />
 												</div>
 												<span class="guide ok">사용 가능</span>
