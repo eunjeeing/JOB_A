@@ -413,7 +413,7 @@ form {
 																<input type="hidden" class="board_cocomment_info" value="${co.comm_No }">
 																<input type="hidden" class="board_cocomment_mem_no" value="${co.mem_No }">
 																<input type="hidden" class="board_cocomment_reporter" value="${member }">
-																<!-- -------------------------------------------------------- -->
+																<!-- ----------------------------------------------------------- -->
 																</c:if>	
 															</div>
 														</div>
