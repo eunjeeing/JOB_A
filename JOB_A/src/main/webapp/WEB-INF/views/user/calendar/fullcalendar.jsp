@@ -18,7 +18,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
 <script src='${pageContext.request.contextPath}/resources/js/fullcalendar.js'></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script type="text/javascript">
 
+$(document).ready(function() { alert("∠( ᐛ 」∠)＿런칭 준비중 입니다!!...어떻게든 해볼께요!"); });
+</script>
 <style type="text/css">
 .fc-header-toolbar {
 	/*
