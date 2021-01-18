@@ -58,7 +58,7 @@
 															${commentList[status.index].comm_Content}
 														</td>
 														<td>${appendantList[status.index].memNick}</td>
-														<td style="color: #EAEAEA;">${m.reportReason }</td>
+														<td>${m.reportReason }</td>
 														<td>${reporterList[status.index].memNick}<span class="people2">&nbsp;외&nbsp;<span class="people">${commentList[status.index].comm_ReportNum-1}</span>&nbsp;명</span></td>
 														<td>${m.reportDate}</td>
 														<td>${commentList[status.index].comm_ReportNum}</td>
