@@ -28,7 +28,7 @@
 	
 	<!-- 댓글 삭제 -->
 	<update id="deleteComment" parameterType="Comments2">
-		UPDATE COMMENTS SET COMM_STATUS = 'N' WHERE COMM_NO = #{comm_No}
+		UPDATE COMMENTS SET COMM_STATUS = 'N', COMM_REPORTNUM = 0 WHERE COMM_NO = #{comm_No}
 	</update>
 	
 	<!-- 댓글 수정 -->

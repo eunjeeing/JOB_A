@@ -26,7 +26,7 @@
 	<!-- 게시글 삭제 -->
 	<update id="deleteBoard" parameterType="_int">
 		UPDATE BOARD
-		SET BOARD_STATUS = 'N'
+		SET BOARD_STATUS = 'N', BOARD_REPORTNUM = 0
 		WHERE BOARD_NO = #{board_No}
 	</update>
 	

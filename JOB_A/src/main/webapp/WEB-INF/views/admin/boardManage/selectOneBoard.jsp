@@ -270,11 +270,11 @@ p {
 														<fmt:parseDate var="parsedDate" value="${co.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
 														<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
 														<p><c:if test="${co.comm_Status eq 'Y'}">
-																<span class='badge badge-success'>정상</span>
-															</c:if> <c:if test="${co.comm_Status eq 'B'}">
-																<span class='badge badge-danger'>블라인드</span>
+																<span class='badge badge-success' style="color:black;">정상</span>
+															</c:if> <c:if test="${co.comm_Status eq 'B' }">
+																<span class='badge badge-danger' style="color:white;">블라인드</span>
 															</c:if>  <c:if test="${co.comm_Status eq 'N'}">
-																<span class='badge badge-secondary'>삭제</span>
+																<span class='badge badge-secondary' style="color:white;">삭제</span>
 															</c:if></p>
 														<div class="info_fnc">
 																<input type="hidden" id="comm_No" name="comm_No" value="${co.comm_No }"/>
@@ -297,12 +297,12 @@ p {
 														<span class="date"> <i class="far fa-clock"></i>
 														<fmt:parseDate var="parsedDate" value="${co.comm_Date}" pattern="yyyy-MM-dd HH:mm:ss.S"/>
 														<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
-															<p style="float:right;"><c:if test="${co.comm_Status eq 'Y'}">
-																<span class='badge badge-success'>정상</span>
+															<p><c:if test="${co.comm_Status eq 'Y'}">
+																<span class='badge badge-success' style="color:black;">정상</span>
 															</c:if> <c:if test="${co.comm_Status eq 'B'}">
-																<span class='badge badge-danger'>블라인드</span>
+																<span class='badge badge-danger' style="color:white;">블라인드</span>
 															</c:if>  <c:if test="${co.comm_Status eq 'N'}">
-																<span class='badge badge-secondary'>삭제</span>
+																<span class='badge badge-secondary' style="color:white;">삭제</span>
 															</c:if></p>
 															<div class="info_fnc">
 																	<input type="hidden" id="comm_No" name="comm_No" value="${co.comm_No }"/>
