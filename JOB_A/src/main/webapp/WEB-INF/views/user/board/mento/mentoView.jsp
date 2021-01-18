@@ -14,15 +14,16 @@
 <style>
 #topbanner {
 	background:
-		url(${pageContext.request.contextPath}/resources/images/mento.jpg)
+		url(${pageContext.request.contextPath}/resources/images/back8.jpg)
 		no-repeat;
-	background-position: center center;
+	background-size: 100% 100%;
+	background-position: center;
+	background-size : cover;
 	margin-top: 10px;
 	height: 400px;
 	display: flex;
-	background-size : cover;
 	opacity : 0.75;
-	}
+}
 	
 	#topbanner-textarea{
 	opacity : 0.75;
@@ -356,7 +357,7 @@ form {
 									</div>
 								</c:if>
 									
-				<%-- 			<!-- 대댓글일때 -->
+							<%-- <!-- 대댓글일때 -->
 								<c:if test="${co.comm_Level ne 1}">
 								<c:if test="${sessionScope.member.gradeNo < 2}">
 									<div class="wrap-reply">

@@ -234,5 +234,9 @@ public class BoardNoticeController {
 		
 		return "admin/board/mento/mentoView";
 	}
+	
+	/*
+	 * @RequestMapping("/admin/mentoUpdateView.bo") public Str }
+	 */
 
 }

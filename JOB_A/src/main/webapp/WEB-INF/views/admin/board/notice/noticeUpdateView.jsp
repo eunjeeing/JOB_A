@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항 관리 | 공지 작성</title>
+<title>공지사항 관리 | 공지 수정</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-lite.css">
 <style>
 	.tab {
@@ -58,7 +58,7 @@
 	}
 	 */
 	 .note-frame{
-	 	color:white;
+	 	color:black;
 	 }
 </style>
 </head>
@@ -144,11 +144,11 @@
 											
 										<div class="basicInfo" style="margin-top:20px;">
 											<input type="hidden" name="board_no" value="${notice.board_no}" />
-											<h4 align="center"><input type="text" name="board_title" style="margin-left:7%; width:60%; background-color:black; color:white;"value="${notice.board_title}"/></h4>
+											<h4 align="center"><input type="text" name="board_title" style="margin-left:7%; width:60%; background-color:lightgrey; color:black;"value="${notice.board_title}"/></h4>
 											<!-- <input type="text" id="simpleInput" class="form-control form-control-lg"/> -->
 											<br />
-											<div style=" width:60%; margin:auto; background-color:black; color:white;">		
-												<textarea class="summernote" name="board_content" style="width:90%; background-color:black; color:white;">${notice.board_content}</textarea>
+											<div style=" width:60%; margin:auto; background-color:lightgrey; color:black;">		
+												<textarea class="summernote" name="board_content" style="width:90%; background-color:lightgrey; color:black;">${notice.board_content}</textarea>
 											</div>
 										</div>
 										<br>

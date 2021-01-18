@@ -319,10 +319,10 @@ form {
 							<div class="col-md-12">
 								<div class="card shadow">
 									<div class="card-body">
-										<div id="buttonArea">
+										<%-- <div id="buttonArea">
 											<button class="btn mb-2 btn-primary" onclick="goUpdate(${mento.board_no});">수정</button>&nbsp;
 											<button class="btn mb-2 btn-primary" onclick="deleteMento(${mento.board_no});">삭제</button>
-										</div>
+										</div> --%>
 											
 										<div class="basicInfo" style="margin-top:20px; margin-left:20px;">
 											<h2><!-- 제모오오오옥 -->${mento.board_title}</h2>
@@ -362,7 +362,7 @@ form {
 															<input type="hidden" name="comm_Ref" value="0" />
 															<input type="hidden" name="comm_Level" value="1" />
 															<textarea id="comm_Content" name="comm_Content" maxlength="500"
-																placeholder="댓글을 남겨주세요." style="height:300px; resize: none; width:95%; background-color : black; color:white;"></textarea>
+																placeholder="댓글을 남겨주세요." style="height:300px; resize: none; width:95%; background-color : lightgrey; color:black;"></textarea>
 														</form>
 														
 														<!-- 글자 수 -->
@@ -384,7 +384,7 @@ form {
 												<c:if test="${co.comm_Level eq 1}">
 												<div id="${co.comm_No }" class="wrap-comment comment-area">
 													<p class="name">${co.mem_Nick }<c:if test="${co.mem_No eq notice.mem_no }"><text style="color: #f56a6a; font-size: 12px; padding-left:1em;">작성자</text></c:if></p>
-													<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style=" height:300px;width:100%; overflow:auto; background-color: black; color:white;">${co.comm_Content }</textarea></p>
+													<p class="cmt-txt"><textarea id="comm_Con2" readonly="readonly" style=" height:300px;width:100%; overflow:auto; background-color: lightgrey; color:black;">${co.comm_Content }</textarea></p>
 													<div class="wrap-info">
 													
 														<span class="date"> <i class="far fa-clock"></i>

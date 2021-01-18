@@ -8,8 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>JOB_A | NOTICE</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/board.css" />
+<%-- <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/board.css" /> --%>
 <style>
 	#banner{
 		float : flex;
@@ -17,14 +17,14 @@
 	}
 	
 	#topbanner {
-		background-image: url(${pageContext.request.contextPath}/resources/images/notice.jpg);
-		background-size: 100% 100%;
+		background-image: url(${pageContext.request.contextPath}/resources/images/back.jpg);
+		background-size: cover;
+		background-position : center;
 		margin-top: 10px;
-		/* border: 1px solid black; */
 		height: 400px;
 		display: flex;
 		opacity : 0.8;
-		background-size: cover;
+		
 	}
 	
 	#topbanner-textarea {
@@ -32,9 +32,8 @@
 		height: 50%;
 		margin: auto;
 		padding: auto;
-		/* border : 1px solid black; */
 		display: flex;
-		background : black;
+		background : white;
 		opacity : 0.75;
 	}
 	
@@ -42,7 +41,7 @@
 		font-size: 40px;
 		font-weight: 500;
 		margin: auto;
-		color: white;
+		color: black;
 	}
 
 #title {
