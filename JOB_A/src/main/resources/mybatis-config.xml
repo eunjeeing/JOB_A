@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC
+"-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+
+	<typeAliases>
+		<typeAlias type="com.kh.joba.user.board.model.vo.Board1" alias="Board1" /> 	
+		<typeAlias type="com.kh.joba.user.board2.blahblah.model.vo.Board2" alias="Board" /> 
+		<typeAlias type="com.kh.joba.user.member.model.vo.Member" alias="Member" />
+		<typeAlias type="com.kh.joba.user.board.model.vo.Attachment1" alias="Attachment1" /> 
+		<typeAlias type="com.kh.joba.user.attachment.model.vo.Attachment" alias="Attachment"/>
+		<typeAlias type="com.kh.joba.user.board.model.vo.Comment1" alias="Comment1" /> 
+		<typeAlias type="com.kh.joba.user.comments2.model.vo.Comments2" alias="Comments2"/>
+		<typeAlias type="com.kh.joba.user.chat.model.vo.Chat" alias="Chat"/>
+		<typeAlias type="com.kh.joba.user.search.model.vo.Search" alias="Search"/>
+		<typeAlias type="com.kh.joba.user.category.model.vo.WishCategory" alias="WishCategory"/>
+		<typeAlias type="com.kh.joba.user.bookmark.model.vo.Bookmark" alias="Bookmark" /> 	
+		<typeAlias type="com.kh.joba.admin.management.model.vo.Admin" alias="Admin" />
+		<typeAlias type="com.kh.joba.admin.report.model.vo.Report" alias="Report"/>
+		<typeAlias type="com.kh.joba.common.typeHandler.IntegerTypeHandler" alias="intarrHandler"/>
+		<typeAlias type="com.kh.joba.admin.visitor.model.vo.VisitCount" alias="VisitCount" />
+		<typeAlias type="com.kh.joba.admin.index.model.vo.IndexVo" alias="IndexVo" />
+	</typeAliases>
+	
+	<typeHandlers>
+		<package name="com.kh.joba.common.typeHandler"/>
+	</typeHandlers>
+</configuration>

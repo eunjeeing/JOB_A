@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminMapper">
+
+	<resultMap id="Admin" type="Admin">
+		<id property="adminNo" column="MEM_NO"/>
+		<result property="gradeNo" column="GRADE_NO"/>
+		<result property="adminId" column="MEM_ID"/>
+		<result property="adminPw" column="MEM_PW"/>
+		<result property="adminName" column="MEM_NAME"/>
+		<result property="adminPhone" column="MEM_PHONE"/>
+		<result property="adminEmail" column="MEM_EMAIL"/>
+		<result property="adminNick" column="MEM_NICK"/>
+		<result property="enrollDate" column="MEM_DATE"/>
+	</resultMap>
+	
+	<select id="selectAdminList" resultMap="Admin">
+		SELECT * FROM MEMBER
+		WHERE GRADE_NO = 1 OR GRADE_NO = 5
+		ORDER BY MEM_NO DESC
+	</select>
+	
+	<select id="selectTotalAdmin" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER
+		WHERE GRADE_NO > 2
+	</select>
+	
+	<insert id="insertAdmin" parameterType="Admin">
+	 	INSERT INTO MEMBER
+	 	(MEM_NO, GRADE_NO, MEM_ID, MEM_PW, MEM_NAME, MEM_PHONE, MEM_EMAIL, MEM_NICK, MEM_DATE, MEM_STATE)
+		VALUES 
+		(MEMBER_SEQ.NEXTVAL, #{gradeNo}, #{adminId}, #{adminPw}, #{adminName}, #{adminPhone}, #{adminEmail}, #{adminName}, DEFAULT, 0) 
+	</insert> 
+	
+	<delete id="deleteAdmin" parameterType="_int">
+ 		DELETE FROM MEMBER WHERE
+		MEM_NO = #{adminNo} 
+	</delete>
+
+	<select id="selectAdmin" parameterType="_int" resultMap="Admin">
+		SELECT * FROM MEMBER
+		WHERE MEM_NO = #{adminNo}
+	</select>
+
+	<update id="updateAdmin" parameterType="Admin">
+	 	UPDATE MEMBER SET
+	 	MEM_PW = #{adminPw},
+		MEM_NICK = #{adminNick},
+		MEM_PHONE = #{adminPhone},
+		GRADE_NO =#{gradeNo}
+		WHERE MEM_ID = #{adminId} 
+	</update>
+	
+	<!-- 회원작성 게시글 조회 -->
+	<select id="selectBoardList" parameterType="_int" resultType="Board">
+		SELECT *
+		FROM BOARD B, MEMBER M, BOARDTYPE T
+		WHERE B.MEM_NO = #{adminNo} 
+		AND B.MEM_NO = M.MEM_NO 
+		AND B.TYPE_NO = T.TYPE_NO
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	
+	<!-- 댓글조회 -->
+	<select id="selectCommentList" parameterType="_int" resultType="Comments2">
+		SELECT *
+		FROM COMMENTS C, MEMBER M, BOARD B
+		WHERE C.MEM_NO = #{adminNo}
+		AND C.MEM_NO = M.MEM_NO 
+		AND B.BOARD_NO = C.BOARD_NO
+		ORDER BY COMM_DATE DESC, COMM_NO DESC
+	</select>
+	
+	<select id="selectReportBoardList" parameterType="_int" resultType="Board">
+		SELECT *
+		FROM BOARD B, MEMBER M, BOARDTYPE T
+		WHERE B.MEM_NO = #{adminNo} 
+		AND BOARD_REPORTNUM > 0 
+		AND B.MEM_NO = M.MEM_NO 
+		AND B.TYPE_NO = T.TYPE_NO
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	
+	<select id="selectReportCommentList" parameterType="_int" resultType="Comments2">
+		SELECT *
+		FROM COMMENTS C, MEMBER M, BOARD B
+		WHERE C.MEM_NO = #{adminNo} 
+		AND COMM_REPORTNUM > 0
+		AND C.MEM_NO = M.MEM_NO 
+		AND B.BOARD_NO = C.BOARD_NO
+		ORDER BY COMM_DATE DESC, COMM_NO DESC
+	</select>
+	
+	<select id="selectBoardDetail" parameterType="_int" resultType="Board">
+		SELECT *
+		FROM BOARD B, MEMBER M, BOARDTYPE T
+		WHERE B.BOARD_NO = #{boardNo} 
+		AND B.MEM_NO = M.MEM_NO 
+		AND B.TYPE_NO = T.TYPE_NO
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	
+	<select id="selectGradeList" parameterType="_int" resultType="Board">
+		SELECT *
+		FROM BOARD B, MEMBER M, BOARDTYPE T
+		WHERE B.TYPE_NO = 7 
+		AND BOARD_STATUS = 'Y' 
+		AND B.MEM_NO = M.MEM_NO 
+		AND B.TYPE_NO = T.TYPE_NO
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+</mapper>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indexMapper">
+	
+<!-- 랭킹 -->
+
+	<select id="selectAllCount" resultType="HashMap" parameterType="string">
+		SELECT  CW.CATEGORY_NAME, CW.CATEGORY_COUNT
+        FROM (SELECT C.CATEGORY_NAME, 
+                (SELECT COUNT(CATEGORY_NO) FROM WISH_CATEGORY W WHERE W.CATEGORY_NO = C.CATEGORY_NO ) CATEGORY_COUNT
+        FROM CATEGORY C, WISH_CATEGORY W
+        WHERE C.CATEGORY_NO = W.CATEGORY_NO) CW
+        GROUP BY CW.CATEGORY_NAME, CW.CATEGORY_COUNT
+	</select>
+	
+	<select id="selectCarouselList" resultType="HashMap" parameterType="string">
+		SELECT CL.BOARD_NO, CL.BOARD_TITLE, CL.BOARD_CONTENT, CL.BOARD_VIEW, CL.MEM_NICK, CL.TYPE_NAME, CL.TYPE_NO, CL.COMM_COUNT, CL.BOARD_DATE
+        FROM (SELECT B.BOARD_NO, B.BOARD_DATE, B.BOARD_TITLE, B.BOARD_CONTENT, B.BOARD_VIEW, T.*, M.MEM_NICK, (SELECT COUNT(*) FROM COMMENTS C WHERE C.BOARD_NO = B.BOARD_NO AND C.COMM_STATUS = 'Y' ) COMM_COUNT
+                        FROM BOARD B, MEMBER M, BOARDTYPE T  
+                        WHERE B.BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO AND B.TYPE_NO = T.TYPE_NO 
+                        ORDER BY BOARD_VIEW DESC) CL
+        <![CDATA[
+      	WHERE ROWNUM < 11
+      	]]>
+	</select>
+	
+	<select id="countTodayBoard" resultType="HashMap" parameterType="string">
+		SELECT COUNT(*) FROM BOARD
+		WHERE BOARD_STATUS = 'Y' AND SUBSTR(TO_CHAR(BOARD_DATE),1,9)=TO_DATE(SYSDATE,'yy/MM/dd')
+	</select>
+	
+	<select id="countBoard" resultType="HashMap" parameterType="string">
+		SELECT COUNT(*) FROM BOARD
+   		WHERE BOARD_STATUS = 'Y'
+	</select>
+	
+	<select id="countTodayMember" resultType="HashMap" parameterType="_int">
+		SELECT COUNT(*) FROM MEMBER
+   		WHERE MEM_STATE = 0 AND SUBSTR(TO_CHAR(MEM_DATE),1,9)=TO_DATE(SYSDATE,'yy/MM/dd')
+	</select>
+	
+	<select id="countTotalMember" resultType="HashMap" parameterType="_int">
+		SELECT COUNT(*) FROM MEMBER
+   		WHERE MEM_STATE = 0
+	</select>
+	
+	<select id="countReport" resultType="HashMap" parameterType="_int">
+		SELECT TO_CHAR(BOARD_DATE,'YYYYMMDD') BOARD_DATE, COUNT(*) BOARD_COUNT,
+			(SELECT COUNT(*) FROM REPORT R
+     		WHERE R.COMM_NO = 0 AND R.BOARD_NO != 0) REPORT_COUNT 
+		FROM BOARD B
+		GROUP BY TO_CHAR(BOARD_DATE, 'YYYYMMDD')
+	</select>
+	
+	<select id="recentBoard" resultType="HashMap" parameterType="string">
+		SELECT CL.BOARD_NO, CL.BOARD_TITLE, CL.BOARD_CONTENT, CL.BOARD_VIEW, CL.MEM_NICK, CL.TYPE_NAME, CL.TYPE_NO, CL.BOARD_DATE
+		FROM (SELECT B.BOARD_NO, B.BOARD_DATE, B.BOARD_TITLE, B.BOARD_CONTENT, B.BOARD_VIEW, T.*, M.MEM_NICK, (SELECT COUNT(*) FROM COMMENTS C WHERE C.BOARD_NO = B.BOARD_NO AND C.COMM_STATUS = 'Y' ) COMM_COUNT
+           		FROM BOARD B, MEMBER M, BOARDTYPE T  
+            	WHERE B.BOARD_STATUS='Y' AND M.MEM_NO = B.MEM_NO AND B.TYPE_NO = T.TYPE_NO 
+            	ORDER BY BOARD_DATE DESC) CL
+		<![CDATA[
+      	WHERE ROWNUM < 11
+      	]]>
+	</select>
+
+</mapper>

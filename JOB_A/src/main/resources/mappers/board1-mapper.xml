@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board1Mapper">
+	
+<!--  Notice  -->
+	<select id="selectNoticeList" resultType="Board1">
+		SELECT B.*, M.*, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT 
+		FROM BOARD B, MEMBER M 
+		WHERE B.TYPE_NO = 1 AND M.MEM_NO = B.MEM_NO AND B.BOARD_STATUS = 'Y'
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	<select id="selectNoticeTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 1 AND BOARD_STATUS = 'Y'
+	</select>
+	<select id="searchNoticeList" resultType="Board1" parameterType="string">
+		SELECT B.*, M.*, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
+		FROM BOARD B, MEMBER M
+		WHERE B.TYPE_NO = 1 AND M.MEM_NO = B.MEM_NO AND B.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	<select id="searchNoticeTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 1 AND BOARD.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+	</select>
+	<select id="selectOneNotice" parameterType="_int" resultType="Board1">
+		SELECT B.*, M.MEM_NICK, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT 
+		FROM BOARD B, MEMBER M WHERE B.TYPE_NO = 1 AND B.BOARD_NO = #{board_no} AND B.MEM_NO = M.MEM_NO 
+	</select>
+	<update id="updateViewCount" parameterType="_int">
+		UPDATE BOARD 
+		SET BOARD_VIEW = BOARD_VIEW + 1
+		WHERE BOARD_NO = #{board_no}
+	</update>
+	<update id="updateNotice" parameterType="Board1">
+		UPDATE BOARD
+		SET BOARD_TITLE = #{board_title}, BOARD_CONTENT = #{board_content}
+		WHERE BOARD_NO = #{board_no}
+	</update>
+	<update id="deleteNotice" parameterType="_int">
+		UPDATE BOARD
+		SET BOARD_STATUS = 'N'
+		WHERE BOARD_NO = #{board_no}
+	</update>
+	<insert id="insertNotice" parameterType="Board1">
+		INSERT INTO BOARD(BOARD_NO, TYPE_NO, MEM_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_DATE)
+		VALUES (BOARD_SEQ.NEXTVAL, 1, #{mem_no}, #{board_title}, #{board_content}, default)
+	</insert>
+	<select id="selectNoticeFromIndex" parameterType="string" resultType="string">
+		SELECT BOARD_NO FROM BOARD WHERE BOARD_TITLE LIKE '%' || #{keyword} || '%' AND BOARD_STATUS = 'Y'
+	</select>
+	
+	
+<!-- Mentoring -->
+	<select id="selectMentoList" resultType="Board1">
+		SELECT B.*, M.*, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
+		FROM BOARD B, MEMBER M
+		WHERE B.TYPE_NO = 8 AND M.MEM_NO = B.MEM_NO AND B.BOARD_STATUS = 'Y'
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	<select id="selectMentoTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 8 AND BOARD_STATUS = 'Y'
+	</select>
+	<select id="selectOneMento" parameterType="_int" resultType="Board1">
+		SELECT B.*, M.MEM_NICK, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
+		FROM BOARD B, MEMBER M
+		WHERE B.TYPE_NO = 8 AND B.BOARD_NO = #{board_no} AND B.MEM_NO = M.MEM_NO 
+	</select>
+	<select id="searchMentoList" resultType="Board1" parameterType="string">
+		SELECT B.*, M.*, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
+		FROM BOARD B, MEMBER M 
+		WHERE B.TYPE_NO = 8 AND M.MEM_NO = B.MEM_NO AND B.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	<select id="searchMentoTotalContents" resultType="_int" parameterType="string">
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 8 AND BOARD_STATUS = 'Y' AND BOARD_TITLE LIKE '%' || #{keyword} || '%'
+	</select>
+	<update id="updateMento" parameterType="Board1">
+		UPDATE BOARD
+		SET BOARD_TITLE = #{board_title}, BOARD_CONTENT = #{board_content}
+		WHERE BOARD_NO = #{board_no}
+	</update>
+	<update id="deleteMento">
+		UPDATE BOARD
+		SET BOARD_STATUS = 'N'
+		WHERE BOARD_NO = #{board_no}
+	</update>
+	<insert id="insertMento" parameterType="Board1">
+		INSERT INTO BOARD (BOARD_NO,TYPE_NO, MEM_NO, BOARD_TITLE, BOARD_CONTENT)
+		VALUES (BOARD_SEQ.NEXTVAL, #{type_no}, #{mem_no} ,#{board_title}, #{board_content})
+	</insert>
+	
+	
+	
+<!-- UntilTomorrow -->
+	<select id="selectTomorrowList" resultType="Board1">
+		<![CDATA[
+		SELECT B.*, M.MEM_NICK, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
+		FROM BOARD B, MEMBER M
+		WHERE B.TYPE_NO = 6 
+			AND M.MEM_NO = B.MEM_NO 
+			AND B.BOARD_STATUS = 'Y' 
+			AND (SYSDATE - B.BOARD_DATE) < 1
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+		]]>
+	</select>
+	<select id="selectTomorrowTotalContents" resultType="_int">
+	<![CDATA[
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 6 AND BOARD_STATUS = 'Y' AND (SYSDATE - BOARD_DATE) < 1
+	]]>
+	</select>
+	<select id="selectOneTomorrow" parameterType="_int" resultType="Board1">
+	<![CDATA[
+		SELECT B.*, M.MEM_NICK, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
+		FROM BOARD B, MEMBER M
+		WHERE B.TYPE_NO = 6 AND B.BOARD_NO = #{board_no} AND B.MEM_NO = M.MEM_NO AND 
+		(SYSDATE - B.BOARD_DATE) < 1
+	]]>
+	</select>
+	<select id="searchTomorrowList" resultType="Board1" parameterType="string">
+	<![CDATA[
+		SELECT B.*, M.MEM_NICK, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
+		FROM BOARD B, MEMBER M
+		WHERE B.TYPE_NO = 6 AND B.BOARD_STATUS = 'Y' AND M.MEM_NO = B.MEM_NO AND B.BOARD_TITLE LIKE '%' || #{keyword} || '%' AND (SYSDATE - B.BOARD_DATE) < 1
+	]]>
+	</select>
+	<select id="searchTomorrowTotalContents" resultType="_int" parameterType="string">
+	<![CDATA[
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 6 AND BOARD_STATUS = 'Y' AND BOARD_TITLE LIKE '%' || #{keyword} || '%' AND (SYSDATE - BOARD_DATE) < 1
+	]]>
+	</select>
+	<update id="updateTomorrow" parameterType="Board1">
+		UPDATE BOARD
+		SET BOARD_TITLE = #{board_title}, BOARD_CONTENT = #{board_content}
+		WHERE BOARD_NO = #{board_no}
+	</update>
+	<update id="deleteTomorrow">
+		UPDATE BOARD
+		SET BOARD_STATUS = 'N'
+		WHERE BOARD_NO = #{board_no}
+	</update>
+	<insert id="insertTomorrow" parameterType="Board1">
+		INSERT INTO BOARD (BOARD_NO,TYPE_NO, MEM_NO, BOARD_TITLE, BOARD_CONTENT)
+		VALUES (BOARD_SEQ.NEXTVAL, #{type_no}, #{mem_no} ,#{board_title}, #{board_content})
+	</insert>
+	<update id="updateTomorrowOutDate">
+		UPDATE BOARD
+		SET BOARD_STATUS = 'N'
+		WHERE (SYSDATE - BOARD_DATE) <![CDATA[>]]> 1 AND TYPE_NO = 6
+	</update>
+	
+	
+	
+<!-- Interview -->
+	<select id="selectInterviewList" resultType="Board1">
+		SELECT B.*, M.MEM_NICK, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
+		FROM BOARD B, MEMBER M
+		WHERE B.TYPE_NO = 9 AND M.MEM_NO = B.MEM_NO AND B.BOARD_STATUS = 'Y'
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	<select id="selectInterviewTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 9 AND BOARD_STATUS = 'Y'
+	</select>
+	<select id="selectOneInterview" parameterType="_int" resultType="Board1">
+		SELECT B.*, M.MEM_NICK, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
+		 FROM BOARD B, MEMBER M 
+		 WHERE TYPE_NO = 9 AND B.BOARD_NO = #{board_no} AND B.MEM_NO = M.MEM_NO 
+	</select>
+	<select id="selectAttachmentList" parameterType="_int" resultType="Attachment1">
+		SELECT * FROM ATTACHMENT WHERE BOARD_NO = #{board_no}
+	</select>
+	<update id="interviewUpdate" parameterType="Board1">
+		UPDATE BOARD
+		SET BOARD_TITLE = #{board_title}, BOARD_CONTENT = #{board_content}
+		WHERE BOARD_NO = #{board_no}
+	</update>
+	<update id="interviewDelete" parameterType="_int">
+		UPDATE BOARD
+		SET BOARD_STATUS = 'N'
+		WHERE BOARD_NO = #{board_no}
+	</update>
+	<insert id="interviewInsert" parameterType="Board1">
+		INSERT INTO BOARD (BOARD_NO,TYPE_NO, MEM_NO, BOARD_TITLE, BOARD_CONTENT)
+		VALUES (BOARD_SEQ.NEXTVAL, 9, #{mem_no} ,#{board_title}, #{board_content})
+	</insert>
+	<select id="searchInterviewList" parameterType="string" resultType="Board1">
+		SELECT B.*, M.MEM_NICK, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
+		FROM BOARD B, MEMBER M
+		WHERE B.TYPE_NO = 9 AND M.MEM_NO = B.MEM_NO AND B.BOARD_TITLE LIKE '%' || #{keyword} || '%' AND B.BOARD_STATUS = 'Y'
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	<select id="searchInterviewTotalContents" resultType="_int" >
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 9 AND BOARD_TITLE LIKE '%' || #{keyword} || '%' AND BOARD_STATUS = 'Y'
+	</select>
+	
+
+<!-- Acceptance -->
+	<select id="selectAcceptList" resultType="Board1">
+		SELECT B.*, M.MEM_NICK, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
+		FROM BOARD B, MEMBER M
+		WHERE B.TYPE_NO = 10 AND M.MEM_NO = B.MEM_NO AND B.BOARD_STATUS = 'Y'
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	<select id="selectAcceptTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 10 AND BOARD_STATUS = 'Y'
+	</select>
+	<select id="selectOneAccept" parameterType="_int" resultType="Board1">
+		SELECT B.*, M.MEM_NICK, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
+		FROM BOARD B, MEMBER M
+		WHERE B.TYPE_NO = 10 AND B.BOARD_NO = #{board_no} AND B.MEM_NO = M.MEM_NO 
+	</select>
+	<update id="acceptUpdate" parameterType="Board1">
+		UPDATE BOARD
+		SET BOARD_TITLE = #{board_title}, BOARD_CONTENT = #{board_content}
+		WHERE BOARD_NO = #{board_no}
+	</update>
+	<update id="acceptDelete" parameterType="_int">
+		UPDATE BOARD
+		SET BOARD_STATUS = 'N'
+		WHERE BOARD_NO = #{board_no}
+	</update>
+	<insert id="acceptInsert" parameterType="Board1">
+		INSERT INTO BOARD (BOARD_NO,TYPE_NO, MEM_NO, BOARD_TITLE, BOARD_CONTENT)
+		VALUES (BOARD_SEQ.NEXTVAL, 10, #{mem_no} ,#{board_title}, #{board_content})
+	</insert>
+	<select id="searchAcceptList" parameterType="string" resultType="Board1">
+		SELECT B.*, M.*, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO AND COMM_STATUS = 'Y') COMM_COUNT
+		FROM BOARD B, MEMBER M
+		WHERE B.TYPE_NO = 10 AND M.MEM_NO = B.MEM_NO AND B.BOARD_TITLE LIKE '%' || #{keyword} || '%' AND B.BOARD_STATUS = 'Y'
+		ORDER BY BOARD_DATE DESC, BOARD_NO DESC
+	</select>
+	<select id="searchAcceptTotatlContents" resultType="_int" >
+		SELECT COUNT(*) FROM BOARD WHERE TYPE_NO = 10 AND BOARD_TITLE LIKE '%' || #{keyword} || '%' AND BOARD_STATUS = 'Y'
+	</select>
+<!-- Attachment -->
+<!-- 
+	<select id="selectAttachment" parameterType="_int" resultType="Attachment1">
+		SELECT * FROM ATTACHMENT
+		WHERE BOARD_NO = #{board_no} 
+	</select> -->	
+	
+<!-- myScrap Mapper -->
+	<select id="selectMyScrapList" resultType="Board1">
+		SELECT b.*, bt.type_name, m.mem_nick
+		FROM scrap s
+		RIGHT OUTER JOIN board b ON s.board_no = b.board_no
+		RIGHT OUTER JOIN boardtype bt ON b.type_no = bt.type_no
+		RIGHT OUTER JOIN member m on b.mem_no = m.mem_no
+		WHERE s.mem_no = #{mem_no} and b.board_reportnum <![CDATA[ <]]> 4
+	</select>
+	<select id="selectMyScrapTotalContents" resultType="_int">
+		select count(*) 
+		from scrap s
+		right outer join board b on s.board_no = b.board_no
+		right outer join boardtype bt on b.type_no = bt.type_no
+		right outer join member m on b.mem_no = m.mem_no
+		where s.mem_no = #{mem_no} and b.board_reportnum <![CDATA[ <]]> 4
+</select><select id="sortMyScrapList" resultType="Board1">
+		SELECT b.*, bt.type_name, m.mem_nick
+		FROM scrap s
+		RIGHT OUTER JOIN board b ON s.board_no = b.board_no
+		RIGHT OUTER JOIN boardtype bt ON b.type_no = bt.type_no
+		right outer join member m on b.mem_no = m.mem_no
+		WHERE s.mem_no = #{mem_no} and b.board_reportnum <![CDATA[ <]]> 4 
+		<if test="type_no != 0">
+		and b.type_no = #{type_no}		
+		</if>
+	</select>
+	<select id="sortMyScrapTotalContents" resultType="_int">
+		SELECT count(*)
+		FROM scrap s
+		RIGHT OUTER JOIN board b ON s.board_no = b.board_no
+		RIGHT OUTER JOIN boardtype bt ON b.type_no = bt.type_no
+		right outer join member m on b.mem_no = m.mem_no
+		WHERE s.mem_no = #{mem_no} and b.board_reportnum <![CDATA[ <]]> 4 
+		<if test="type_no != 0">
+		and b.type_no = #{type_no}		
+		</if>	
+	</select>
+	<select id="searchScrapList" parameterType="Bookmark" resultType="Board1">
+		SELECT b.*, bt.type_name, m.mem_nick
+		FROM scrap s
+		RIGHT OUTER JOIN board b ON s.board_no = b.board_no
+		RIGHT OUTER JOIN boardtype bt ON b.type_no = bt.type_no
+		right outer join member m on b.mem_no = m.mem_no
+		WHERE s.mem_no = #{mem_no} and b.board_reportnum <![CDATA[ <]]> 4 and b.board_title like '%' || #{keyword} || '%'
+	</select>
+	<select id="searchScrapTotalContents" parameterType="Bookmark" resultType="_int">
+		SELECT count(*)
+		FROM scrap s
+		RIGHT OUTER JOIN board b ON s.board_no = b.board_no
+		RIGHT OUTER JOIN boardtype bt ON b.type_no = bt.type_no
+		right outer join member m on b.mem_no = m.mem_no
+		WHERE s.mem_no = #{mem_no} and b.board_reportnum <![CDATA[ <]]> 4 and b.board_title like '%' || #{keyword} || '%'
+	</select>
+	
+</mapper>

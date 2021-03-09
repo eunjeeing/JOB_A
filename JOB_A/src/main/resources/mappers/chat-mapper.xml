@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chatMapper">
+	
+	<resultMap type="Chat" id="Chat">
+		<id property="chatNo" column="CHAT_NO"/>
+		<result property="chatTitle" column="CHAT_TITLE"/>
+		<result property="chatDate" column="CHAT_DATE"/>
+		<result property="creatorId" column="CHAT_CREATOR"/>
+		
+	</resultMap>
+
+	<select id="selectChatList" resultMap="Chat">
+		SELECT * FROM CHAT
+		ORDER BY CHAT_NO DESC
+	</select>
+	
+	<select id="selectChatTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM CHAT
+	</select>
+	
+	<insert id="insertChat" parameterType="Chat">
+		INSERT INTO CHAT
+		VALUES (#{chatNo}, #{chatTitle}, #{creatorId})
+	</insert>
+	
+	<select id="selectChatSeq" resultType="_int">
+		SELECT
+		CHAT_SEQ.NEXTVAL FROM DUAL
+	</select>
+	
+	<select id="selectChat" resultType="map">
+		SELECT * FROM CHAT WHERE CHAT_NO = #{chatNo}
+	</select>
+	
+	<delete id="deleteChat" parameterType="_int">
+		DELETE FROM CHAT WHERE CHAT_NO = #{chatNo}
+	</delete>
+
+</mapper>

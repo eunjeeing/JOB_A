@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberMapper">
+		
+    <resultMap id="resultWishCategory" type="WishCategory">
+    	<id property="mem_No" column="MEM_NO"/>
+		<!-- <result property="mem_No" column="MEM_NO"/> -->
+		<result property="resultCategory" column="CATEGORY_NO"/>
+	</resultMap>
+	
+	<resultMap id="resultMember" type="Member">
+		<id property="memNo" column="MEM_NO"/>
+		<result property="gradeNo" column="GRADE_NO"/>
+		<result property="memId" column="MEM_ID"/>
+		<result property="memPw" column="MEM_PW"/>
+		<result property="memNick" column="MEM_NICK"/>
+		<result property="memEmail" column="MEM_EMAIL"/>
+		<result property="memBirth" column="MEM_BIRTH"/>
+		<result property="memArea" column="MEM_AREA"/>
+		<result property="memState" column="MEM_STATE"/>
+		<result property="memDate" column="MEM_DATE"/>
+		<result property="memName" column="MEM_NAME"/>
+		<result property="memPhone" column="MEM_PHONE"/>
+	</resultMap>
+
+	<insert id="insertMember" parameterType="Member" >
+	 	INSERT INTO MEMBER
+	 	(MEM_NO, GRADE_NO, MEM_ID, MEM_PW, MEM_NICK, MEM_EMAIL, MEM_BIRTH, MEM_AREA, MEM_STATE, MEM_DATE, MEM_NAME, MEM_PHONE)
+		VALUES 
+		(MEMBER_SEQ.NEXTVAL, 2, #{memId}, #{memPw}, #{memNick}, #{memEmail}, #{memBirth}, #{memArea}, 0, DEFAULT, DEFAULT, DEFAULT) 
+	</insert> 
+
+	<insert id="insertWishCategory" parameterType="WishCategory">
+		INSERT INTO WISH_CATEGORY
+		VALUES
+		(#{mem_No}, #{resultCategory})
+	</insert>
+	
+	<select id="loginMember" parameterType="string" resultMap="resultMember">
+		SELECT * FROM MEMBER
+		WHERE MEM_ID = #{memId}
+		<!-- PASSWORD는 지운다. 비밀번호는 계속 다르게 들어오기 때문에 이유가 없어짐 -->
+	</select>
+	
+	<select id="selectWishCategory" parameterType="int" resultMap="resultWishCategory">
+		SELECT MEM_NO, CATEGORY_NO
+		FROM WISH_CATEGORY
+		WHERE MEM_NO = #{memNo}
+	</select>
+
+	<update id="updateMember" parameterType="Member">
+	 	UPDATE MEMBER SET
+			MEM_NO = #{memNo},
+			GRADE_NO = #{gradeNo},
+			MEM_ID = #{memId},
+			MEM_PW = #{memPw},
+			MEM_NICK = #{memNick},
+			MEM_EMAIL = #{memEmail},
+			MEM_BIRTH = #{memBirth},
+			MEM_AREA = #{memArea},
+			MEM_STATE = #{memState},
+			MEM_DATE = DEFAULT,
+			MEM_NAME = DEFAULT,
+			MEM_PHONE = DEFAULT
+		WHERE MEM_NO = #{memNo} 
+	</update>
+
+
+	<delete id="deleteMember" parameterType="string">
+ 		DELETE FROM MEMBER WHERE
+		MEM_ID = #{ memId } 
+	</delete>
+	
+	<delete id="deleteWishCategory" parameterType="int">
+		DELETE FROM WISH_CATEGORY
+		WHERE
+		MEM_NO = #{ memNo } 
+	</delete>
+
+	<!-- 아이디 중복 검사 -->
+	<select id="checkIdDuplicate" parameterType="string" resultMap="resultMember"> 
+		SELECT * FROM MEMBER
+		WHERE MEM_ID = #{memId}
+	</select>
+	
+	<!-- 닉네임 중복 검사 -->
+	<select id="checkNicknameDuplicate" parameterType="string" resultMap="resultMember">
+		SELECT * FROM MEMBER
+		WHERE MEM_NICK = #{memNick}
+	</select>
+	<!-- jdbcType 참조 : https://mybatis.org/mybatis-3/apidocs/reference/org/apache/ibatis/type/JdbcType.html -->
+	
+	
+	
+	
+	<!--=========================================================================-->
+	<select id="selectMemberList" resultMap="resultMember">
+		SELECT * FROM MEMBER
+		WHERE GRADE_NO = 2 OR GRADE_NO = 3 OR GRADE_NO = 4
+		ORDER BY MEM_NO DESC
+	</select>
+	
+	<select id="selectMember" resultMap="resultMember">
+		SELECT * FROM MEMBER
+		WHERE MEM_NO = #{memNo}
+	</select>
+	
+	<update id="changeGrade" parameterType="Member">
+	 	UPDATE MEMBER SET
+		GRADE_NO = #{gradeNo}
+		WHERE MEM_NO = #{memNo} 
+	</update>
+	
+	<update id="changeStatus" parameterType="Member">
+	 	UPDATE MEMBER SET
+		MEM_STATE = #{memState}
+		WHERE MEM_NO = #{memNo}
+	</update>
+	
+	
+</mapper> 

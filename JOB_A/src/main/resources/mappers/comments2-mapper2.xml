@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="comments2Mapper">
+	<resultMap id="resultComments2" type="Comments2">
+	</resultMap>
+
+	<!-- 댓글 조회 -->
+	<select id="selectComment" resultType="Comments2">
+		SELECT C.*, M.GRADE_NO, (SELECT MEM_NICK FROM MEMBER WHERE MEM_NO = C.MEM_NO) MEM_NICK
+        FROM COMMENTS C, MEMBER M 
+        WHERE BOARD_NO = #{board_No} AND COMM_STATUS = 'Y' AND C.COMM_REPORTNUM <![CDATA[ < ]]> 4
+        	  AND C.MEM_NO = M.MEM_NO
+        START WITH COMM_LEVEL = 1
+        CONNECT BY PRIOR COMM_NO = COMM_REF
+	</select>
+	
+	<!-- 댓글 작성 -->
+	<insert id="insertComment" parameterType="Comments2">
+		INSERT INTO COMMENTS
+		VALUES(COMMENTS_SEQ.NEXTVAL, #{mem_No}, #{board_No}, #{comm_Content},
+		<if test="comm_Ref != 0">2,</if>
+		<if test="comm_Ref == 0">1,</if>
+		<if test="comm_Ref != 0">#{comm_Ref},</if>
+		<if test="comm_Ref == 0">NULL,</if>
+		 DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+	
+	<!-- 댓글 삭제 -->
+	<update id="deleteComment" parameterType="Comments2">
+		UPDATE COMMENTS SET COMM_STATUS = 'N', COMM_REPORTNUM = 0 WHERE COMM_NO = #{comm_No}
+	</update>
+	
+	<!-- 댓글 수정 -->
+	<update id="updateComment" parameterType="Comments2">
+		UPDATE COMMENTS SET COMM_CONTENT = #{comm_Content} WHERE COMM_NO = #{comm_No}
+	</update>
+	
+	
+<!-- 마이페이지 -->
+	<!-- 내가 쓴 댓글 조회 -->
+	<select id="selectMyComment" parameterType="_int" resultType="Comments2">
+		SELECT *
+		FROM COMMENTS C, MEMBER M, BOARD B
+		WHERE C.MEM_NO = #{mem_No} AND COMM_STATUS = 'Y' AND C.MEM_NO = M.MEM_NO 
+				AND B.BOARD_NO = C.BOARD_NO AND C.COMM_REPORTNUM <![CDATA[ < ]]> 4
+		ORDER BY COMM_DATE DESC, COMM_NO DESC
+	</select>
+	
+	<!-- 내가 쓴 댓글 수 -->
+	<select id="selectMyCommentTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM COMMENTS
+		WHERE MEM_NO = #{mem_No} AND COMM_STATUS = 'Y' AND COMM_REPORTNUM <![CDATA[ < ]]> 4
+	</select>
+	
+	<!-- 내가 쓴 댓글 선택 삭제 -->
+	<update id="deleteChkComment">
+		UPDATE COMMENTS SET COMM_STATUS = 'N'
+		WHERE COMM_NO = #{comm_No}
+	</update>
+	
+		
+</mapper>

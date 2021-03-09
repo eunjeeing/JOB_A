@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="commentM-Mapper">
+
+<!-- 댓글 관리 -->	
+	<select id="jobCommentList" resultType="Comments2">
+		SELECT * FROM COMMENTS, BOARD, MEMBER
+		WHERE TYPE_NO = 2 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD.BOARD_NO = COMMENTS.BOARD_NO
+		ORDER BY COMM_DATE DESC, COMM_NO DESC
+	</select>
+
+	<select id="blahCommentList" resultType="Comments2">
+		SELECT * FROM COMMENTS, BOARD, MEMBER
+		WHERE TYPE_NO = 4 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD.BOARD_NO = COMMENTS.BOARD_NO
+		ORDER BY COMM_DATE DESC, COMM_NO DESC
+	</select>
+
+	<select id="blindCommentList" resultType="Comments2">
+		SELECT * FROM COMMENTS, BOARD, MEMBER
+		WHERE TYPE_NO = 5 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD.BOARD_NO = COMMENTS.BOARD_NO
+		ORDER BY COMM_DATE DESC, COMM_NO DESC
+	</select>
+	
+	<select id="tomoCommentList" resultType="Comments2">
+		SELECT * FROM COMMENTS, BOARD, MEMBER
+		WHERE TYPE_NO = 6 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD.BOARD_NO = COMMENTS.BOARD_NO
+		ORDER BY COMM_DATE DESC, COMM_NO DESC
+	</select>
+	
+	<select id="qnaCommentList" resultType="Comments2">
+		SELECT * FROM COMMENTS, BOARD, MEMBER
+		WHERE TYPE_NO = 7 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD.BOARD_NO = COMMENTS.BOARD_NO
+		ORDER BY COMM_DATE DESC, COMM_NO DESC
+	</select>
+
+	<select id="acceptCommentList" resultType="Comments2">
+		SELECT * FROM COMMENTS, BOARD, MEMBER
+		WHERE TYPE_NO = 10 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD.BOARD_NO = COMMENTS.BOARD_NO
+		ORDER BY COMM_DATE DESC, COMM_NO DESC
+	</select>
+
+	<select id="interviewCommentList" resultType="Comments2">
+		SELECT * FROM COMMENTS, BOARD, MEMBER
+		WHERE TYPE_NO = 9 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD.BOARD_NO = COMMENTS.BOARD_NO
+		ORDER BY COMM_DATE DESC, COMM_NO DESC
+	</select>
+
+	<select id="mentoCommentList" resultType="Comments2">
+		SELECT * FROM COMMENTS, BOARD, MEMBER
+		WHERE TYPE_NO = 8 AND MEMBER.MEM_NO = BOARD.MEM_NO AND BOARD.BOARD_NO = COMMENTS.BOARD_NO
+		ORDER BY COMM_DATE DESC, COMM_NO DESC
+	</select>
+	
+	<!-- 블라인드 처리 -->
+	<update id="updateCommStatusB" parameterType="_int">
+		UPDATE COMMENTS
+		SET COMM_STATUS = 'B'
+		WHERE COMM_NO = #{comm_No}
+	</update>
+	
+	<!-- 활성화 처리 -->
+	<update id="updateCommStatusY" parameterType="_int">
+		UPDATE COMMENTS
+		SET COMM_STATUS = 'Y'
+		WHERE COMM_NO = #{comm_No}
+	</update>
+	
+<!-- 	
+	<select id="selectOneComment" parameterType="_int" resultType="Board">
+		SELECT B.*, M.MEM_NICK, C.*, (SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO = B.BOARD_NO) COMM_COUNT
+		FROM BOARD B, MEMBER M, BOARDTYPE T, COMMENTS C
+		WHERE B.TYPE_NO = T.TYPE_NO AND M.MEM_NO = B.MEM_NO 
+			  AND B.BOARD_NO = C.BOARD_NO AND C.COMM_NO = #{comm_No}
+	</select>
+	 -->
+</mapper>
