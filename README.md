@@ -6,11 +6,10 @@
 + 개발기간 : 2020.11.30 ~ 2021.1.18
 + 개발환경 
   - O/S : Windows 10
-  - 개발도구 : Spring Tool Suite 4
   - Server : Apache Tomcat 8.5
   - DB : Orarcle 11g
   - Framework/flatform : Spring Tool Suite 4
-  - Programming Language : JAVA, HTML, JavaScript
+  - Programming Language : JAVA, JavaScript
   - API : summernote
 
 + 목적 : 등급제를 도입한 취준생 커뮤니티 
@@ -40,11 +39,16 @@
   ![요구사항4](https://user-images.githubusercontent.com/73675222/110516385-da9aae80-814c-11eb-8e92-a839134f9df1.jpg)
   ![요구사항5](https://user-images.githubusercontent.com/73675222/110516395-de2e3580-814c-11eb-8ff3-dbe2e138ebe6.jpg)
   - 업무분석표
+
+  ![업무분석표3](https://user-images.githubusercontent.com/73675222/110523293-3cf7ad00-8155-11eb-9ae5-6b2792f6e637.jpg)
+  ![업무분석표1](https://user-images.githubusercontent.com/73675222/110523287-39642600-8155-11eb-854e-ef929a9bdd29.jpg)
+  ![업무분석표2](https://user-images.githubusercontent.com/73675222/110523289-3b2de980-8155-11eb-9147-28bd08af94a4.jpg)
+
   - UI 설계
       * [OVEN](https://ovenapp.io/view/5qDwbEak4wY17cPuCgoYkBD3x4G0jREf/)
   - 유스케이스 다이어그램
   - 테이블 정의서
-  - ERD
+  - ERD 다이어그램
   ![사본 -JOBA ERD DIAGRAM](https://user-images.githubusercontent.com/73675222/110462192-b53d7e80-8113-11eb-8313-b16a346c7efc.png)
   - 회의록
 
