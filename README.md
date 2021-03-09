@@ -47,6 +47,10 @@
   - UI 설계
       * [OVEN](https://ovenapp.io/view/5qDwbEak4wY17cPuCgoYkBD3x4G0jREf/)
   - 유스케이스 다이어그램
+  
+  ![KakaoTalk_20210310_043736502](https://user-images.githubusercontent.com/73675222/110527619-8ac2e400-815a-11eb-9617-a17a120ec0b1.jpg)
+  ![KakaoTalk_20210310_043736502_01](https://user-images.githubusercontent.com/73675222/110527633-8e566b00-815a-11eb-8e6f-fd6b263129d5.jpg)
+  
   - 테이블 정의서
   - ERD 다이어그램
   ![사본 -JOBA ERD DIAGRAM](https://user-images.githubusercontent.com/73675222/110462192-b53d7e80-8113-11eb-8313-b16a346c7efc.png)
