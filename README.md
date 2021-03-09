@@ -32,10 +32,16 @@
     * 게시글·댓글 관리
     * 신고 내역 관리
 + 산출물
-  - 요구사항 정의서 
+  - 요구사항 정의서
+
+  ![요구사항1](https://user-images.githubusercontent.com/73675222/110516336-cd7dbf80-814c-11eb-9990-df8fed9be02b.jpg)
+  ![요구사항2](https://user-images.githubusercontent.com/73675222/110516345-d078b000-814c-11eb-9ba0-e6f912573560.jpg)
+  ![요구사항3](https://user-images.githubusercontent.com/73675222/110516371-d79fbe00-814c-11eb-8b94-330311d239ab.jpg)
+  ![요구사항4](https://user-images.githubusercontent.com/73675222/110516385-da9aae80-814c-11eb-8e92-a839134f9df1.jpg)
+  ![요구사항5](https://user-images.githubusercontent.com/73675222/110516395-de2e3580-814c-11eb-8ff3-dbe2e138ebe6.jpg)
   - 업무분석표
   - UI 설계
-    [OVEN](https://ovenapp.io/view/5qDwbEak4wY17cPuCgoYkBD3x4G0jREf/)
+      * [OVEN](https://ovenapp.io/view/5qDwbEak4wY17cPuCgoYkBD3x4G0jREf/)
   - 유스케이스 다이어그램
   - 테이블 정의서
   - ERD
