@@ -54,7 +54,5 @@
   - 테이블 정의서
   - ERD 다이어그램
   ![사본 -JOBA ERD DIAGRAM](https://user-images.githubusercontent.com/73675222/110462192-b53d7e80-8113-11eb-8313-b16a346c7efc.png)
-  - 회의록
-
-
+  - [회의록](./minutes.md)
 
